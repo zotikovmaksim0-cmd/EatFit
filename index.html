@@ -33,6 +33,9 @@ input,textarea{width:100%;padding:10px;margin:5px 0 10px;box-sizing:border-box}
 .close-cart{position:absolute;right:15px;top:15px;font-size:24px;cursor:pointer;font-weight:bold}
 .toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);background:#111;color:#fff;padding:12px 20px;border-radius:10px;opacity:0;transition:.3s;z-index:2000}
 .toast.show{opacity:1}
+.success-modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:3000}
+.success-box{background:#fff;padding:25px;border-radius:16px;max-width:420px;text-align:center}
+.success-box h2{margin-top:0}
 .card{transition:.25s}
 .card:hover{transform:translateY(-4px)}
 
@@ -47,7 +50,19 @@ input,textarea{width:100%;padding:10px;margin:5px 0 10px;box-sizing:border-box}
 
 <div class="hero"><h2>Правильное питание с доставкой</h2></div>
 
-<div id="overlay" class="overlay" onclick="closeCart()"></div><div id="toast" class="toast">✓ Блюдо добавлено в корзину</div><div id="products" class="grid"></div>
+<div id="overlay" class="overlay" onclick="closeCart()"></div>
+<div id="toast" class="toast">✓ Блюдо добавлено в корзину</div>
+
+<div id="successModal" class="success-modal">
+<div class="success-box">
+<h2>Спасибо за заказ!</h2>
+<p>Ваш заказ успешно принят.</p>
+<p><b id="successOrderId"></b></p>
+<button class="btn" onclick="closeSuccess()">Закрыть</button>
+</div>
+</div>
+
+<div id="products" class="grid"></div>
 
 <div id="cartPanel" class="cart-panel">
 <h2>Корзина</h2><div class="close-cart" onclick="closeCart()">✕</div>
@@ -80,6 +95,25 @@ input,textarea{width:100%;padding:10px;margin:5px 0 10px;box-sizing:border-box}
 <script>
 let cart=JSON.parse(localStorage.getItem('cart')||'[]');
 let products=[];
+
+function generateOrderId(){
+ const now = new Date();
+
+ const y = now.getFullYear();
+ const m = String(now.getMonth()+1).padStart(2,'0');
+ const d = String(now.getDate()).padStart(2,'0');
+
+ let counter = parseInt(localStorage.getItem('orderCounter') || '4423');
+ counter++;
+ localStorage.setItem('orderCounter', counter);
+
+ return `EATFIT-W-${y}${m}${d}-${String(counter).padStart(6,'0')}`;
+}
+
+function closeSuccess(){
+ document.getElementById('successModal').style.display='none';
+}
+
 
 function saveCart(){
  localStorage.setItem('cart',JSON.stringify(cart));
@@ -186,68 +220,75 @@ function closeCart(){
  document.getElementById('overlay').classList.remove('show');
 }
 
-function checkout(){
+
+async function checkout(){
  const name=document.getElementById('name').value;
  const phone=document.getElementById('phone').value;
  const telegram=document.getElementById('telegram').value;
  const address=document.getElementById('address').value;
  const comment=document.getElementById('comment').value;
 
- if(cart.length===0){
-   alert('Корзина пустая');
-   return;
- }
-
+ if(cart.length===0){ alert('Корзина пустая'); return; }
  if(!name || !phone || !address){
    alert('Заполните имя, телефон и адрес доставки');
    return;
  }
 
  let items='';
- let totalPrice=0,totalCalories=0,totalProtein=0,totalFat=0,totalCarbs=0;
+ let totalPrice=0;
 
  cart.forEach(c=>{
    const p=products.find(x=>x.id===c.id);
    if(!p)return;
-
-   items += `${p.name} × ${c.qty}\n`;
+   items += `${p.name} × ${c.qty}
+`;
    totalPrice += p.price*c.qty;
-   totalCalories += p.calories*c.qty;
-   totalProtein += p.protein*c.qty;
-   totalFat += p.fat*c.qty;
-   totalCarbs += p.carbs*c.qty;
  });
 
- const orderText=`
-Новый заказ
+ const orderId = generateOrderId();
 
-Имя: ${name}
-Телефон: ${phone}
-Telegram: ${telegram}
+ try{
+   const response = await fetch('https://eatfit-bot.onrender.com/site-order',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        order_id:orderId,
+        name:name,
+        phone:phone,
+        address:address,
+        telegram:telegram,
+        comment:comment,
+        items:items,
+        total:totalPrice
+      })
+   });
 
-Адрес:
-${address}
+   const result = await response.json();
 
-Заказ:
-${items}
+   if(!result.success){
+      alert('Ошибка отправки заказа');
+      return;
+   }
 
-Б: ${totalProtein} г
-Ж: ${totalFat} г
-У: ${totalCarbs} г
+   document.getElementById('successOrderId').innerText = orderId;
+   document.getElementById('successModal').style.display='flex';
 
-Калории: ${totalCalories} ккал
+   cart=[];
+   saveCart();
 
-Сумма: ${totalPrice.toLocaleString()} VND
+   document.getElementById('name').value='';
+   document.getElementById('phone').value='';
+   document.getElementById('telegram').value='';
+   document.getElementById('address').value='';
+   document.getElementById('comment').value='';
 
-Комментарий:
-${comment}
-`;
+   closeCart();
 
- document.getElementById('orderPreview').style.display='block';
- document.getElementById('orderPreview').innerText=orderText;
-
- alert('Заказ сформирован. Проверьте данные ниже.');
+ }catch(e){
+   alert('Не удалось связаться с сервером');
+ }
 }
+
 
 fetch('data/products.json')
 .then(r=>r.json())
