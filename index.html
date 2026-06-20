@@ -126,6 +126,34 @@ margin:15px 0;
 <option value="lowcal">🔥 До 400 ккал</option>
 </select>
 </div>
+
+<div style="max-width:900px;margin:30px auto;background:#fff;padding:25px;border-radius:20px;box-shadow:0 8px 24px rgba(0,0,0,.08)">
+<h2>📊 Калькулятор КБЖУ</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px">
+<select id="kbjuGender">
+<option value="male">👨 Мужчина</option>
+<option value="female">👩 Женщина</option>
+</select>
+<input id="kbjuAge" type="number" placeholder="Возраст">
+<input id="kbjuHeight" type="number" placeholder="Рост (см)">
+<input id="kbjuWeight" type="number" placeholder="Вес (кг)">
+<select id="kbjuGoal">
+<option value="loss">🔥 Похудение</option>
+<option value="maintain">⚖️ Поддержание</option>
+<option value="gain">💪 Набор массы</option>
+</select>
+<select id="kbjuActivity">
+<option value="1.2">Низкая активность</option>
+<option value="1.55">Средняя активность</option>
+<option value="1.75">Высокая активность</option>
+</select>
+</div>
+<div style="margin-top:15px">
+<button class="btn" onclick="calcKBJU()">Рассчитать КБЖУ</button>
+</div>
+<div id="kbjuResult" style="margin-top:15px;font-size:18px;font-weight:bold"></div>
+</div>
+
 <div id="products" class="grid"></div>
 
 
@@ -396,6 +424,39 @@ fetch('data/products.json')
 renderProducts();
 renderCart();
 });
+
+function calcKBJU(){
+ const gender=document.getElementById('kbjuGender').value;
+ const age=parseFloat(document.getElementById('kbjuAge').value||0);
+ const height=parseFloat(document.getElementById('kbjuHeight').value||0);
+ const weight=parseFloat(document.getElementById('kbjuWeight').value||0);
+ const goal=document.getElementById('kbjuGoal').value;
+ const activity=parseFloat(document.getElementById('kbjuActivity').value);
+
+ if(!age||!height||!weight){alert('Заполните все поля');return;}
+
+ let bmr=10*weight+6.25*height-5*age+(gender==='male'?5:-161);
+ let calories=bmr*activity;
+
+ if(goal==='loss') calories*=0.8;
+ if(goal==='gain') calories*=1.15;
+
+ const protein=Math.round(weight*2);
+ const fat=Math.round(weight*0.8);
+ const carbs=Math.round((calories-protein*4-fat*9)/4);
+
+ localStorage.setItem('kbju_target',JSON.stringify({
+   calories:Math.round(calories),
+   protein,fat,carbs
+ }));
+
+ document.getElementById('kbjuResult').innerHTML=`
+ 🔥 Калории: ${Math.round(calories)} ккал<br>
+ 🥩 Белки: ${protein} г<br>
+ 🥑 Жиры: ${fat} г<br>
+ 🍚 Углеводы: ${carbs} г`;
+}
+
 </script>
 </body>
 </html>
