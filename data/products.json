@@ -1,4 +1,30 @@
 [
+   {
+    "id": "meal-001",
+    "name": "Куриная грудка с рисом",
+    "description": "Запеченная куриная грудка и жасминовый рис.",
+    "price": 85000,
+    "protein": 42,
+    "fat": 5,
+    "carbs": 48,
+    "calories": 405,
+    "categories": ["meals", "fitness"],
+    "ingredientTags": ["chicken", "rice"],
+    "images": ["meal-001-1.jpg"]
+  },
+  
+  {
+    "id": "meal-002",
+    "name": "Куриная грудка с бататом",
+    "description": "Куриная грудка и батат сувид.",
+    "price": 105000,
+    "protein": 42,
+    "fat": 2,
+    "carbs": 38,
+    "calories": 305,
+    "categories": ["meals", "fitness"],
+    "ingredientTags": ["chicken", "rice"],
+    "images": ["meal-002-1.jpg"]
   {
     "id": "protein-001",
     "name": "Куриное филе сливочно-чесночное",
@@ -14,9 +40,7 @@
     "ingredientTags": [
       "protein"
     ],
-    "images": [
-      "protein-001.jpg"
-    ]
+    "images": ["meal-003-1.jpg"]
   },
   {
     "id": "protein-002",
@@ -33,9 +57,7 @@
     "ingredientTags": [
       "protein"
     ],
-    "images": [
-      "protein-002.jpg"
-    ]
+    "images": ["meal-004-1.jpg"]
   },
   {
     "id": "protein-003",
@@ -52,9 +74,7 @@
     "ingredientTags": [
       "protein"
     ],
-    "images": [
-      "protein-003.jpg"
-    ]
+    "images": ["meal-005-1.jpg"]
   },
   {
     "id": "protein-004",
@@ -71,9 +91,7 @@
     "ingredientTags": [
       "protein"
     ],
-    "images": [
-      "protein-004.jpg"
-    ]
+    "images": ["meal-006-1.jpg"]
   },
   {
     "id": "protein-005",
@@ -90,9 +108,7 @@
     "ingredientTags": [
       "protein"
     ],
-    "images": [
-      "protein-005.jpg"
-    ]
+    "images": ["meal-007-1.jpg"]
   },
   {
     "id": "protein-006",
@@ -109,9 +125,7 @@
     "ingredientTags": [
       "protein"
     ],
-    "images": [
-      "protein-006.jpg"
-    ]
+    "images": ["meal-008-1.jpg"]
   },
   {
     "id": "protein-007",
@@ -128,9 +142,7 @@
     "ingredientTags": [
       "protein"
     ],
-    "images": [
-      "protein-007.jpg"
-    ]
+    "images": ["meal-009-1.jpg"]
   },
   {
     "id": "protein-008",
@@ -147,9 +159,7 @@
     "ingredientTags": [
       "protein"
     ],
-    "images": [
-      "protein-008.jpg"
-    ]
+    "images": ["meal-010-1.jpg"]
   },
   {
     "id": "protein-009",
@@ -166,9 +176,7 @@
     "ingredientTags": [
       "protein"
     ],
-    "images": [
-      "protein-009.jpg"
-    ]
+    "images": ["meal-011-1.jpg"]
   },
   {
     "id": "protein-010",
@@ -185,9 +193,7 @@
     "ingredientTags": [
       "protein"
     ],
-    "images": [
-      "protein-010.jpg"
-    ]
+    "images": ["meal-012-1.jpg"]
   },
   {
     "id": "protein-011",
@@ -204,9 +210,7 @@
     "ingredientTags": [
       "protein"
     ],
-    "images": [
-      "protein-011.jpg"
-    ]
+    "images": ["meal-013-1.jpg"]
   },
   {
     "id": "protein-012",
@@ -223,9 +227,7 @@
     "ingredientTags": [
       "protein"
     ],
-    "images": [
-      "protein-012.jpg"
-    ]
+    "images": ["meal-014-1.jpg"]
   },
   {
     "id": "carb-001",
@@ -242,9 +244,7 @@
     "ingredientTags": [
       "carbs"
     ],
-    "images": [
-      "carb-001.jpg"
-    ]
+    "images": ["meal-015-1.jpg"]
   },
   {
     "id": "carb-002",
@@ -261,9 +261,7 @@
     "ingredientTags": [
       "carbs"
     ],
-    "images": [
-      "carb-002.jpg"
-    ]
+    "images": ["meal-016-1.jpg"]
   },
   {
     "id": "carb-003",
@@ -280,9 +278,7 @@
     "ingredientTags": [
       "carbs"
     ],
-    "images": [
-      "carb-003.jpg"
-    ]
+    "images": ["meal-017-1.jpg"]
   },
   {
     "id": "carb-004",
@@ -299,9 +295,7 @@
     "ingredientTags": [
       "carbs"
     ],
-    "images": [
-      "carb-004.jpg"
-    ]
+    "images": ["meal-018-1.jpg"]
   },
   {
     "id": "carb-005",
@@ -318,9 +312,7 @@
     "ingredientTags": [
       "carbs"
     ],
-    "images": [
-      "carb-005.jpg"
-    ]
+    "images": ["meal-019-1.jpg"]
   },
   {
     "id": "carb-006",
@@ -337,9 +329,7 @@
     "ingredientTags": [
       "carbs"
     ],
-    "images": [
-      "carb-006.jpg"
-    ]
+    "images": ["meal-020-1.jpg"]
   },
   {
     "id": "carb-007",
@@ -356,9 +346,7 @@
     "ingredientTags": [
       "carbs"
     ],
-    "images": [
-      "carb-007.jpg"
-    ]
+    "images": ["meal-021-1.jpg"]
   },
   {
     "id": "carb-008",
@@ -375,9 +363,7 @@
     "ingredientTags": [
       "carbs"
     ],
-    "images": [
-      "carb-008.jpg"
-    ]
+    "images": ["meal-022-1.jpg"]
   },
   {
     "id": "carb-009",
@@ -394,9 +380,7 @@
     "ingredientTags": [
       "carbs"
     ],
-    "images": [
-      "carb-009.jpg"
-    ]
+    "images": ["meal-023-1.jpg"]
   },
   {
     "id": "fiber-001",
@@ -413,9 +397,7 @@
     "ingredientTags": [
       "vegetables"
     ],
-    "images": [
-      "fiber-001.jpg"
-    ]
+    "images": ["meal-024-1.jpg"]
   },
   {
     "id": "fiber-002",
@@ -432,9 +414,7 @@
     "ingredientTags": [
       "vegetables"
     ],
-    "images": [
-      "fiber-002.jpg"
-    ]
+    "images": ["meal-025-1.jpg"]
   },
   {
     "id": "fiber-003",
@@ -451,9 +431,7 @@
     "ingredientTags": [
       "vegetables"
     ],
-    "images": [
-      "fiber-003.jpg"
-    ]
+    "images": ["meal-026-1.jpg"]
   },
   {
     "id": "fiber-004",
@@ -470,9 +448,7 @@
     "ingredientTags": [
       "vegetables"
     ],
-    "images": [
-      "fiber-004.jpg"
-    ]
+    "images": ["meal-027-1.jpg"]
   },
   {
     "id": "fiber-005",
@@ -489,9 +465,7 @@
     "ingredientTags": [
       "vegetables"
     ],
-    "images": [
-      "fiber-005.jpg"
-    ]
+    "images": ["meal-028-1.jpg"]
   },
   {
     "id": "fiber-006",
@@ -508,9 +482,7 @@
     "ingredientTags": [
       "vegetables"
     ],
-    "images": [
-      "fiber-006.jpg"
-    ]
+    "images": ["meal-029-1.jpg"]
   },
   {
     "id": "fiber-007",
@@ -527,9 +499,7 @@
     "ingredientTags": [
       "vegetables"
     ],
-    "images": [
-      "fiber-007.jpg"
-    ]
+    "images": ["meal-030-1.jpg"]
   },
   {
     "id": "fiber-008",
@@ -546,8 +516,6 @@
     "ingredientTags": [
       "vegetables"
     ],
-    "images": [
-      "fiber-008.jpg"
-    ]
+    "images": ["meal-031-1.jpg"]
   }
 ]
