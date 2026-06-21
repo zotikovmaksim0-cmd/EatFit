@@ -244,35 +244,37 @@ margin-top:6px;
 }
 
 
+
 .meal-content-grid{
-display:flex;
-justify-content:space-between;
-align-items:flex-start;
-gap:20px;
+display:grid;
+grid-template-columns: 320px 1fr 120px;
+gap:18px;
+align-items:start;
 padding-right:70px;
 }
 
 .meal-info{
-flex:1;
 font-size:16px;
-line-height:1.6;
+line-height:1.8;
 white-space:normal;
-word-break:normal;
-overflow-wrap:normal;
+word-break:keep-all;
+overflow-wrap:break-word;
+min-width:260px;
 }
 
 .meal-info br{
 display:block;
-margin-bottom:6px;
+margin-bottom:8px;
 }
 
 .meal-macros{
-flex:0 0 120px;
+width:120px;
 text-align:right;
 font-size:14px;
 font-weight:600;
 white-space:nowrap;
 }
+
 
 .meal-card{
 overflow:hidden;
