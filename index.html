@@ -695,7 +695,7 @@ planHtml += `<div class="meal-card">
 <div class="meal-time-line">🕒 ${times[i]||''}</div>
 </div>
 </div>
-<div class="meal-arrow" id="arrow${i}">▼</div>
+<div class="meal-arrow" id="arrow${i}">▲</div>
 </div>
 <div class="meal-body" id="meal${i}">
 <div style="display:flex;gap:12px;width:100%">
@@ -754,9 +754,16 @@ function toggleMeal(id,arrowId){
  const el=document.getElementById(id);
  const arrow=document.getElementById(arrowId);
  if(!el) return;
- const hidden = el.style.display==='none';
- el.style.display = hidden ? 'block' : 'none';
- if(arrow) arrow.textContent = hidden ? '▼' : '▶';
+
+ const isOpen = el.style.display !== 'none';
+
+ if(isOpen){
+   el.style.display='none';
+   if(arrow) arrow.textContent='▼';
+ }else{
+   el.style.display='block';
+   if(arrow) arrow.textContent='▲';
+ }
 }
 
 function openKBJU(){document.getElementById('kbjuModal').classList.add('show');}
