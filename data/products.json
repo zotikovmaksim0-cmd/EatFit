@@ -1,29 +1,553 @@
 [
   {
-    "id": "meal-001",
-    "name": "Куриная грудка с рисом",
-    "description": "Запеченная куриная грудка и жасминовый рис.",
-    "price": 85000,
-    "protein": 42,
-    "fat": 5,
-    "carbs": 48,
-    "calories": 405,
-    "categories": ["meals", "fitness"],
-    "ingredientTags": ["chicken", "rice"],
-    "images": ["meal-001-1.jpg"]
+    "id": "protein-001",
+    "name": "Куриное филе сливочно-чесночное",
+    "description": "Су-вид куриное филе с йогуртом и чесноком.",
+    "price": 99000,
+    "protein": 41,
+    "fat": 4,
+    "carbs": 3,
+    "calories": 230,
+    "categories": [
+      "protein"
+    ],
+    "ingredientTags": [
+      "protein"
+    ],
+    "images": [
+      "protein-001.jpg"
+    ]
   },
-  
   {
-    "id": "meal-002",
-    "name": "Куриная грудка с бататом",
-    "description": "Куриная грудка и батат сувид.",
-    "price": 105000,
-    "protein": 42,
+    "id": "protein-002",
+    "name": "Куриное филе томаты-базилик",
+    "description": "Куриное филе с томатами и базиликом.",
+    "price": 99000,
+    "protein": 40,
+    "fat": 3,
+    "carbs": 4,
+    "calories": 220,
+    "categories": [
+      "protein"
+    ],
+    "ingredientTags": [
+      "protein"
+    ],
+    "images": [
+      "protein-002.jpg"
+    ]
+  },
+  {
+    "id": "protein-003",
+    "name": "Куриное филе чимичурри",
+    "description": "Куриное филе с соусом чимичурри.",
+    "price": 99000,
+    "protein": 40,
+    "fat": 5,
+    "carbs": 2,
+    "calories": 235,
+    "categories": [
+      "protein"
+    ],
+    "ingredientTags": [
+      "protein"
+    ],
+    "images": [
+      "protein-003.jpg"
+    ]
+  },
+  {
+    "id": "protein-004",
+    "name": "Куриное филе терияки лайт",
+    "description": "Куриное филе в легком соусе терияки.",
+    "price": 99000,
+    "protein": 40,
+    "fat": 3,
+    "carbs": 6,
+    "calories": 240,
+    "categories": [
+      "protein"
+    ],
+    "ingredientTags": [
+      "protein"
+    ],
+    "images": [
+      "protein-004.jpg"
+    ]
+  },
+  {
+    "id": "protein-005",
+    "name": "Куриное филе карри-кокос",
+    "description": "Куриное филе с карри и кокосом.",
+    "price": 99000,
+    "protein": 40,
+    "fat": 5,
+    "carbs": 4,
+    "calories": 245,
+    "categories": [
+      "protein"
+    ],
+    "ingredientTags": [
+      "protein"
+    ],
+    "images": [
+      "protein-005.jpg"
+    ]
+  },
+  {
+    "id": "protein-006",
+    "name": "Котлеты из тилапии",
+    "description": "Нежные котлеты из тилапии.",
+    "price": 99000,
+    "protein": 34,
     "fat": 2,
-    "carbs": 38,
-    "calories": 305,
-    "categories": ["meals", "fitness"],
-    "ingredientTags": ["chicken", "rice"],
-    "images": ["meal-001-2.jpg"]
+    "carbs": 1,
+    "calories": 160,
+    "categories": [
+      "protein"
+    ],
+    "ingredientTags": [
+      "protein"
+    ],
+    "images": [
+      "protein-006.jpg"
+    ]
+  },
+  {
+    "id": "protein-007",
+    "name": "Креветки чеснок-лайм",
+    "description": "Креветки с чесноком и лаймом.",
+    "price": 99000,
+    "protein": 38,
+    "fat": 1,
+    "carbs": 2,
+    "calories": 165,
+    "categories": [
+      "protein"
+    ],
+    "ingredientTags": [
+      "protein"
+    ],
+    "images": [
+      "protein-007.jpg"
+    ]
+  },
+  {
+    "id": "protein-008",
+    "name": "Лосось лимонный",
+    "description": "Лосось с лимоном и укропом.",
+    "price": 99000,
+    "protein": 36,
+    "fat": 23,
+    "carbs": 0,
+    "calories": 370,
+    "categories": [
+      "protein"
+    ],
+    "ingredientTags": [
+      "protein"
+    ],
+    "images": [
+      "protein-008.jpg"
+    ]
+  },
+  {
+    "id": "protein-009",
+    "name": "Говядина терияки лайт",
+    "description": "Постная говядина терияки.",
+    "price": 99000,
+    "protein": 37,
+    "fat": 13,
+    "carbs": 4,
+    "calories": 290,
+    "categories": [
+      "protein"
+    ],
+    "ingredientTags": [
+      "protein"
+    ],
+    "images": [
+      "protein-009.jpg"
+    ]
+  },
+  {
+    "id": "protein-010",
+    "name": "Омлет высокий протеиновый",
+    "description": "Воздушный протеиновый омлет.",
+    "price": 99000,
+    "protein": 25,
+    "fat": 10,
+    "carbs": 2,
+    "calories": 195,
+    "categories": [
+      "protein"
+    ],
+    "ingredientTags": [
+      "protein"
+    ],
+    "images": [
+      "protein-010.jpg"
+    ]
+  },
+  {
+    "id": "protein-011",
+    "name": "Омлет шпинат-сыр",
+    "description": "Омлет со шпинатом и сыром.",
+    "price": 99000,
+    "protein": 28,
+    "fat": 12,
+    "carbs": 3,
+    "calories": 245,
+    "categories": [
+      "protein"
+    ],
+    "ingredientTags": [
+      "protein"
+    ],
+    "images": [
+      "protein-011.jpg"
+    ]
+  },
+  {
+    "id": "protein-012",
+    "name": "Тунец в травяном маринаде",
+    "description": "Тунец с травами и лимоном.",
+    "price": 99000,
+    "protein": 43,
+    "fat": 2,
+    "carbs": 0,
+    "calories": 195,
+    "categories": [
+      "protein"
+    ],
+    "ingredientTags": [
+      "protein"
+    ],
+    "images": [
+      "protein-012.jpg"
+    ]
+  },
+  {
+    "id": "carb-001",
+    "name": "Рис басмати",
+    "description": "Источник сложных углеводов.",
+    "price": 59000,
+    "protein": 5,
+    "fat": 1,
+    "carbs": 55,
+    "calories": 250,
+    "categories": [
+      "carbs"
+    ],
+    "ingredientTags": [
+      "carbs"
+    ],
+    "images": [
+      "carb-001.jpg"
+    ]
+  },
+  {
+    "id": "carb-002",
+    "name": "Рис бурый",
+    "description": "Источник сложных углеводов.",
+    "price": 59000,
+    "protein": 5,
+    "fat": 2,
+    "carbs": 51,
+    "calories": 245,
+    "categories": [
+      "carbs"
+    ],
+    "ingredientTags": [
+      "carbs"
+    ],
+    "images": [
+      "carb-002.jpg"
+    ]
+  },
+  {
+    "id": "carb-003",
+    "name": "Рисовая каша на кокосовом молоке",
+    "description": "Источник сложных углеводов.",
+    "price": 59000,
+    "protein": 6,
+    "fat": 11,
+    "carbs": 58,
+    "calories": 360,
+    "categories": [
+      "carbs"
+    ],
+    "ingredientTags": [
+      "carbs"
+    ],
+    "images": [
+      "carb-003.jpg"
+    ]
+  },
+  {
+    "id": "carb-004",
+    "name": "Киноа",
+    "description": "Источник сложных углеводов.",
+    "price": 59000,
+    "protein": 10,
+    "fat": 4,
+    "carbs": 45,
+    "calories": 260,
+    "categories": [
+      "carbs"
+    ],
+    "ingredientTags": [
+      "carbs"
+    ],
+    "images": [
+      "carb-004.jpg"
+    ]
+  },
+  {
+    "id": "carb-005",
+    "name": "Батат",
+    "description": "Источник сложных углеводов.",
+    "price": 59000,
+    "protein": 4,
+    "fat": 0,
+    "carbs": 50,
+    "calories": 215,
+    "categories": [
+      "carbs"
+    ],
+    "ingredientTags": [
+      "carbs"
+    ],
+    "images": [
+      "carb-005.jpg"
+    ]
+  },
+  {
+    "id": "carb-006",
+    "name": "Картофель",
+    "description": "Источник сложных углеводов.",
+    "price": 59000,
+    "protein": 5,
+    "fat": 0,
+    "carbs": 42,
+    "calories": 190,
+    "categories": [
+      "carbs"
+    ],
+    "ingredientTags": [
+      "carbs"
+    ],
+    "images": [
+      "carb-006.jpg"
+    ]
+  },
+  {
+    "id": "carb-007",
+    "name": "Булгур",
+    "description": "Источник сложных углеводов.",
+    "price": 59000,
+    "protein": 8,
+    "fat": 1,
+    "carbs": 52,
+    "calories": 240,
+    "categories": [
+      "carbs"
+    ],
+    "ingredientTags": [
+      "carbs"
+    ],
+    "images": [
+      "carb-007.jpg"
+    ]
+  },
+  {
+    "id": "carb-008",
+    "name": "Овсянка на миндальном молоке",
+    "description": "Источник сложных углеводов.",
+    "price": 59000,
+    "protein": 9,
+    "fat": 7,
+    "carbs": 57,
+    "calories": 330,
+    "categories": [
+      "carbs"
+    ],
+    "ingredientTags": [
+      "carbs"
+    ],
+    "images": [
+      "carb-008.jpg"
+    ]
+  },
+  {
+    "id": "carb-009",
+    "name": "Овсянка на низкожирном молоке",
+    "description": "Источник сложных углеводов.",
+    "price": 59000,
+    "protein": 14,
+    "fat": 6,
+    "carbs": 58,
+    "calories": 350,
+    "categories": [
+      "carbs"
+    ],
+    "ingredientTags": [
+      "carbs"
+    ],
+    "images": [
+      "carb-009.jpg"
+    ]
+  },
+  {
+    "id": "fiber-001",
+    "name": "Брокколи",
+    "description": "Овощной гарнир.",
+    "price": 39000,
+    "protein": 3,
+    "fat": 0,
+    "carbs": 6,
+    "calories": 35,
+    "categories": [
+      "fiber"
+    ],
+    "ingredientTags": [
+      "vegetables"
+    ],
+    "images": [
+      "fiber-001.jpg"
+    ]
+  },
+  {
+    "id": "fiber-002",
+    "name": "Морковь",
+    "description": "Овощной гарнир.",
+    "price": 39000,
+    "protein": 1,
+    "fat": 0,
+    "carbs": 8,
+    "calories": 40,
+    "categories": [
+      "fiber"
+    ],
+    "ingredientTags": [
+      "vegetables"
+    ],
+    "images": [
+      "fiber-002.jpg"
+    ]
+  },
+  {
+    "id": "fiber-003",
+    "name": "Цветная капуста",
+    "description": "Овощной гарнир.",
+    "price": 39000,
+    "protein": 2,
+    "fat": 0,
+    "carbs": 5,
+    "calories": 28,
+    "categories": [
+      "fiber"
+    ],
+    "ingredientTags": [
+      "vegetables"
+    ],
+    "images": [
+      "fiber-003.jpg"
+    ]
+  },
+  {
+    "id": "fiber-004",
+    "name": "Спаржа",
+    "description": "Овощной гарнир.",
+    "price": 39000,
+    "protein": 2,
+    "fat": 0,
+    "carbs": 3,
+    "calories": 22,
+    "categories": [
+      "fiber"
+    ],
+    "ingredientTags": [
+      "vegetables"
+    ],
+    "images": [
+      "fiber-004.jpg"
+    ]
+  },
+  {
+    "id": "fiber-005",
+    "name": "Цукини",
+    "description": "Овощной гарнир.",
+    "price": 39000,
+    "protein": 1,
+    "fat": 0,
+    "carbs": 3,
+    "calories": 20,
+    "categories": [
+      "fiber"
+    ],
+    "ingredientTags": [
+      "vegetables"
+    ],
+    "images": [
+      "fiber-005.jpg"
+    ]
+  },
+  {
+    "id": "fiber-006",
+    "name": "Стручковая фасоль",
+    "description": "Овощной гарнир.",
+    "price": 39000,
+    "protein": 2,
+    "fat": 0,
+    "carbs": 7,
+    "calories": 31,
+    "categories": [
+      "fiber"
+    ],
+    "ingredientTags": [
+      "vegetables"
+    ],
+    "images": [
+      "fiber-006.jpg"
+    ]
+  },
+  {
+    "id": "fiber-007",
+    "name": "Свёкла",
+    "description": "Овощной гарнир.",
+    "price": 39000,
+    "protein": 2,
+    "fat": 0,
+    "carbs": 9,
+    "calories": 43,
+    "categories": [
+      "fiber"
+    ],
+    "ingredientTags": [
+      "vegetables"
+    ],
+    "images": [
+      "fiber-007.jpg"
+    ]
+  },
+  {
+    "id": "fiber-008",
+    "name": "Овощной микс",
+    "description": "Овощной гарнир.",
+    "price": 39000,
+    "protein": 2,
+    "fat": 0,
+    "carbs": 6,
+    "calories": 32,
+    "categories": [
+      "fiber"
+    ],
+    "ingredientTags": [
+      "vegetables"
+    ],
+    "images": [
+      "fiber-008.jpg"
+    ]
   }
 ]
