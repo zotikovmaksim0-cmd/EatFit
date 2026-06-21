@@ -249,7 +249,7 @@ margin-top:6px;
 
 .meal-content-grid{
 display:grid;
-grid-template-columns: 1.8fr 140px;
+grid-template-columns:260px 1fr 140px;
 gap:20px;
 align-items:start;
 }
@@ -785,14 +785,14 @@ planHtml += `<div class="meal-card">
 <div class="meal-arrow" id="arrow${i}">⌃</div>
 </div>
 <div class="meal-body" id="meal${i}">
-<div class="meal-content-grid">
+<div class="meal-content-grid" style="grid-template-columns:260px 1fr 140px;">
 <div></div>
-<div class="meal-info">
-✓ ${pr.name}<br>
-✓ ${cb.name}<br>
-✓ ${fb.name}
+<div class="meal-info" style="min-width:0;width:100%;font-size:17px;line-height:2;">
+<div>✓ ${pr.name}</div>
+<div>✓ ${cb.name}</div>
+<div>✓ ${fb.name}</div>
 </div>
-<div class="meal-macros">
+<div class="meal-macros" style="text-align:left;">
 <b>${(pr.calories||0)+(cb.calories||0)+(fb.calories||0)} ккал</b><br>
 Б: ${(pr.protein||0)+(cb.protein||0)+(fb.protein||0)} г<br>
 Ж: ${(pr.fat||0)+(cb.fat||0)+(fb.fat||0)} г<br>
