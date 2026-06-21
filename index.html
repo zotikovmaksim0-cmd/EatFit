@@ -191,6 +191,17 @@ margin:15px 0;
 Сумма: <span id="totalPrice">0</span> VND
 </div>
 
+<div id="kbjuProgress" class="total" style="display:none">
+<h3>🎯 Ваша цель</h3>
+<div id="kbjuTarget"></div>
+<hr>
+<h3>📈 Выполнено</h3>
+<div id="kbjuDone"></div>
+<hr>
+<h3>⏳ Осталось</h3>
+<div id="kbjuLeft"></div>
+</div>
+
 <h3>Оформление заказа</h3>
 <input id="name" placeholder="Имя">
 <input id="phone" placeholder="Телефон">
@@ -269,6 +280,34 @@ function removeItem(id){
  saveCart();
 }
 
+
+function updateKBJUProgress(totalCalories,totalProtein,totalFat,totalCarbs){
+ const target=JSON.parse(localStorage.getItem('kbju_target')||'null');
+ const box=document.getElementById('kbjuProgress');
+ if(!target || !box) return;
+
+ box.style.display='block';
+
+ document.getElementById('kbjuTarget').innerHTML=`
+ 🔥 ${target.calories} ккал<br>
+ 🥩 ${target.protein} г<br>
+ 🥑 ${target.fat} г<br>
+ 🍚 ${target.carbs} г`;
+
+ document.getElementById('kbjuDone').innerHTML=`
+ 🔥 ${totalCalories}/${target.calories}<br>
+ 🥩 ${totalProtein}/${target.protein} г<br>
+ 🥑 ${totalFat}/${target.fat} г<br>
+ 🍚 ${totalCarbs}/${target.carbs} г`;
+
+ document.getElementById('kbjuLeft').innerHTML=`
+ 🔥 ${Math.max(0,target.calories-totalCalories)} ккал<br>
+ 🥩 ${Math.max(0,target.protein-totalProtein)} г<br>
+ 🥑 ${Math.max(0,target.fat-totalFat)} г<br>
+ 🍚 ${Math.max(0,target.carbs-totalCarbs)} г`;
+}
+
+
 function renderCart(){
  updateCounter();
 
@@ -321,6 +360,7 @@ function renderCart(){
  document.getElementById('totalFat').textContent=totalFat;
  document.getElementById('totalCarbs').textContent=totalCarbs;
  document.getElementById('totalQty').textContent=totalQty;
+updateKBJUProgress(totalCalories,totalProtein,totalFat,totalCarbs);
 }
 
 function toggleCart(){
@@ -474,7 +514,13 @@ function calcKBJU(){
    protein,fat,carbs
  }));
 
- document.getElementById('kbjuResult').innerHTML=`
+ updateKBJUProgress(
+parseInt(document.getElementById('totalCalories').textContent||0),
+parseInt(document.getElementById('totalProtein').textContent||0),
+parseInt(document.getElementById('totalFat').textContent||0),
+parseInt(document.getElementById('totalCarbs').textContent||0)
+);
+document.getElementById('kbjuResult').innerHTML=`
  🔥 Калории: ${Math.round(calories)} ккал<br>
  🥩 Белки: ${protein} г<br>
  🥑 Жиры: ${fat} г<br>
