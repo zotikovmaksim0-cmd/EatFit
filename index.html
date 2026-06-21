@@ -114,6 +114,48 @@ margin:15px 0;
 .goal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;text-align:center}
 .goal-stat b{display:block;font-size:28px}
 
+
+.day-summary{background:#f8fff2;border:2px solid #6BCB2D;border-radius:16px;padding:15px;margin-top:15px}
+.day-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center}
+.day-grid b{display:block;font-size:22px}
+
+
+.meal-card{
+ background:#fff;
+ border:1px solid #dfe8d7;
+ border-radius:18px;
+ padding:14px;
+ margin:12px 0;
+ display:flex;
+ gap:12px;
+ align-items:flex-start;
+}
+.meal-photo{
+ width:90px;
+ height:90px;
+ border-radius:14px;
+ object-fit:cover;
+ background:#f3f3f3;
+}
+.meal-info{flex:1}
+.meal-macros{
+ min-width:120px;
+ text-align:right;
+ font-size:14px;
+}
+.accuracy-circle{
+ width:90px;
+ height:90px;
+ border:5px solid #6BCB2D;
+ border-radius:50%;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-weight:bold;
+ font-size:22px;
+ margin-left:auto;
+}
+
 </style>
 
 </head>
@@ -196,13 +238,16 @@ margin:15px 0;
 <button class="clear-btn" onclick="clearCart()">Очистить корзину</button>
 <div id="cartItems"></div>
 
-<div class="accuracy-card">
-Товаров: <span id="totalQty">0</span><br>
-Белки: <span id="totalProtein">0</span> г<br>
-Жиры: <span id="totalFat">0</span> г<br>
-Углеводы: <span id="totalCarbs">0</span> г<br>
-Калории: <span id="totalCalories">0</span> ккал<br>
-Сумма: <span id="totalPrice">0</span> VND
+<div id="daySummary" class="day-summary">
+<div style='display:flex;align-items:center;gap:15px'><h3 style='margin:0'>📊 Итого за день</h3><div class='accuracy-circle' id='accuracyCircle'>98%</div></div>
+<div class="day-grid">
+<div><b id="totalCalories">0</b>ккал</div>
+<div><b id="totalProtein">0</b>Б</div>
+<div><b id="totalFat">0</b>Ж</div>
+<div><b id="totalCarbs">0</b>У</div>
+</div>
+<div style="margin-top:10px">Сумма: <span id="totalPrice">0</span> VND</div>
+<span id="totalQty" style="display:none">0</span>
 </div>
 
 <div id="kbjuProgress" class="goal-card" style="display:none">
@@ -576,9 +621,20 @@ function autoBuildMealPlan(){
 
    planHtml += `<div class="meal-card">
 <div class="meal-title">🥗 Прием пищи ${i+1}</div>
+<div style="display:flex;gap:12px">
+<img class="meal-photo" src="${pr.image || ''}" alt="meal">
+<div class="meal-info">
 ✓ ${pr.name}<br>
 ✓ ${cb.name}<br>
 ✓ ${fb.name}
+</div>
+<div class="meal-macros">
+<b>${(pr.calories||0)+(cb.calories||0)+(fb.calories||0)} ккал</b><br>
+Б: ${(pr.protein||0)+(cb.protein||0)+(fb.protein||0)} г<br>
+Ж: ${(pr.fat||0)+(cb.fat||0)+(fb.fat||0)} г<br>
+У: ${(pr.carbs||0)+(cb.carbs||0)+(fb.carbs||0)} г
+</div>
+</div>
 </div>`;
  }
 
