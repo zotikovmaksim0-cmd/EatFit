@@ -93,6 +93,13 @@ border-radius:10px;
 margin:15px 0;
 }
 
+
+.kbju-open{display:block;margin:25px auto}
+.kbju-modal{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;z-index:5000}
+.kbju-modal.show{display:flex}
+.kbju-box{background:#fff;width:min(750px,95vw);max-height:90vh;overflow:auto;padding:25px;border-radius:20px}
+.kbju-tip{font-size:13px;color:#666;margin:6px 0}
+
 </style>
 
 </head>
@@ -127,32 +134,45 @@ margin:15px 0;
 </select>
 </div>
 
-<div style="max-width:900px;margin:30px auto;background:#fff;padding:25px;border-radius:20px;box-shadow:0 8px 24px rgba(0,0,0,.08)">
-<h2>📊 Калькулятор КБЖУ</h2>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px">
-<select id="kbjuGender">
-<option value="male">👨 Мужчина</option>
-<option value="female">👩 Женщина</option>
-</select>
-<input id="kbjuAge" type="number" placeholder="Возраст">
-<input id="kbjuHeight" type="number" placeholder="Рост (см)">
-<input id="kbjuWeight" type="number" placeholder="Вес (кг)">
-<select id="kbjuGoal">
-<option value="loss">🔥 Похудение</option>
-<option value="maintain">⚖️ Поддержание</option>
-<option value="gain">💪 Набор массы</option>
-</select>
-<select id="kbjuActivity">
-<option value="1.2">Низкая активность</option>
-<option value="1.55">Средняя активность</option>
-<option value="1.75">Высокая активность</option>
-</select>
+
+<button class="btn kbju-open" onclick="openKBJU()">📊 Рассчитать КБЖУ</button>
+
+<div id="kbjuModal" class="kbju-modal">
+ <div class="kbju-box">
+  <h2>📊 Калькулятор КБЖУ</h2>
+
+  <select id="kbjuGender">
+   <option value="male">👨 Мужчина</option>
+   <option value="female">👩 Женщина</option>
+  </select>
+
+  <input id="kbjuAge" type="number" placeholder="Возраст">
+  <input id="kbjuHeight" type="number" placeholder="Рост (см)">
+  <input id="kbjuWeight" type="number" placeholder="Вес (кг)">
+
+  <select id="kbjuGoal">
+   <option value="loss">🔥 Похудение — дефицит ~20%</option>
+   <option value="maintain">⚖️ Поддержание веса</option>
+   <option value="gain">💪 Набор массы — профицит ~15%</option>
+  </select>
+
+  <select id="kbjuActivity">
+   <option value="1.2">🚶 Низкая активность</option>
+   <option value="1.55">🏃 Средняя активность</option>
+   <option value="1.75">🔥 Высокая активность</option>
+  </select>
+
+  <div class="kbju-tip">🚶 До 5000 шагов в день, сидячая работа, без тренировок</div>
+  <div class="kbju-tip">🏃 5000–10000 шагов в день, 2–4 тренировки в неделю</div>
+  <div class="kbju-tip">🔥 Более 10000 шагов, 5+ тренировок или физическая работа</div>
+
+  <button class="btn" onclick="calcKBJU()">Рассчитать КБЖУ</button>
+  <button class="btn" onclick="closeKBJU()">Закрыть</button>
+
+  <div id="kbjuResult" style="margin-top:15px;font-size:18px;font-weight:bold"></div>
+ </div>
 </div>
-<div style="margin-top:15px">
-<button class="btn" onclick="calcKBJU()">Рассчитать КБЖУ</button>
-</div>
-<div id="kbjuResult" style="margin-top:15px;font-size:18px;font-weight:bold"></div>
-</div>
+
 
 <div id="products" class="grid"></div>
 
@@ -424,6 +444,10 @@ fetch('data/products.json')
 renderProducts();
 renderCart();
 });
+
+
+function openKBJU(){document.getElementById('kbjuModal').classList.add('show');}
+function closeKBJU(){document.getElementById('kbjuModal').classList.remove('show');}
 
 function calcKBJU(){
  const gender=document.getElementById('kbjuGender').value;
