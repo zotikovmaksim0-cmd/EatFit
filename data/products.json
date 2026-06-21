@@ -25,6 +25,7 @@
     "categories": ["meals", "fitness"],
     "ingredientTags": ["chicken", "rice"],
     "images": ["meal-002-1.jpg"]
+  },
   {
     "id": "protein-001",
     "name": "Куриное филе сливочно-чесночное",
