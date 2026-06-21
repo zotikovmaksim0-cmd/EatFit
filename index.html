@@ -147,7 +147,7 @@ margin:15px 0;
  justify-content:center;
  font-weight:bold;
  font-size:22px;
- margin-left:auto;
+ margin-left:auto; position:relative; right:0; top:0;
 }
 
 
@@ -194,11 +194,15 @@ margin-top:15px;
 
 
 .meal-header{
-display:grid;
-grid-template-columns:1fr 42px;
-align-items:start;
+display:flex;
+align-items:flex-start;
 width:100%;
-column-gap:12px;
+}
+.meal-left{
+flex:1;
+display:flex;
+align-items:flex-start;
+gap:12px;
 }
 .meal-left{
 display:flex;
@@ -218,7 +222,7 @@ font-size:18px;
 font-weight:bold;
 cursor:pointer;
 flex-shrink:0;
-margin-left:auto;
+margin-left:auto; position:relative; right:0; top:0;
 color:#4c9a2a;
 transition:.2s;
 }
