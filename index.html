@@ -246,16 +246,28 @@ margin-top:6px;
 
 .meal-content-grid{
 display:grid;
-grid-template-columns: 1fr 130px;
-gap:20px;
+grid-template-columns: minmax(0,1fr) 140px;
+gap:24px;
 align-items:start;
 padding-right:70px;
 }
 
 .meal-info{
+min-width:0;
+max-width:none;
+}
+
+.meal-info br{
+display:block;
+margin-bottom:8px;
+content:"";
+}
+
+.meal-info{
 font-size:16px;
 line-height:1.45;
-word-break:break-word;
+word-break:normal;
+overflow-wrap:break-word;
 }
 
 .meal-macros{
@@ -883,3 +895,4 @@ document.getElementById('kbjuResult').innerHTML=`
 </script>
 </body>
 </html>
+<!-- layout refined -->
