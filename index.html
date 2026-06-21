@@ -243,6 +243,52 @@ font-size:15px;
 margin-top:6px;
 }
 
+
+.meal-content-grid{
+display:grid;
+grid-template-columns: 1fr 130px;
+gap:20px;
+align-items:start;
+padding-right:70px;
+}
+
+.meal-info{
+font-size:16px;
+line-height:1.45;
+word-break:break-word;
+}
+
+.meal-macros{
+width:130px;
+min-width:130px;
+text-align:right;
+font-size:14px;
+font-weight:600;
+white-space:nowrap;
+}
+
+.meal-card{
+overflow:hidden;
+}
+
+.meal-arrow{
+right:18px !important;
+top:18px !important;
+}
+
+@media(max-width:768px){
+.meal-content-grid{
+grid-template-columns:1fr;
+padding-right:0;
+}
+.meal-macros{
+width:100%;
+min-width:100%;
+text-align:left;
+margin-top:10px;
+}
+}
+
 </style>
 
 </head>
@@ -725,7 +771,7 @@ planHtml += `<div class="meal-card">
 <div class="meal-arrow" id="arrow${i}">⌃</div>
 </div>
 <div class="meal-body" id="meal${i}">
-<div style="display:flex;gap:12px;width:100%">
+<div class="meal-content-grid">
 <div class="meal-info">
 ✓ ${pr.name}<br>
 ✓ ${cb.name}<br>
