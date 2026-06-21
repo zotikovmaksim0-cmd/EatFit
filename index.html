@@ -107,6 +107,13 @@ margin:15px 0;
 .meal-title{font-weight:bold;font-size:18px;margin-bottom:8px}
 .accuracy-card{background:#f8fff2;border:2px solid #6BCB2D;border-radius:16px;padding:15px;margin-top:15px}
 
+
+.progress-row{margin:8px 0}
+.progress-bar{height:10px;background:#e5e5e5;border-radius:20px;overflow:hidden;margin-top:4px}
+.progress-fill{height:100%;background:#6BCB2D}
+.goal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;text-align:center}
+.goal-stat b{display:block;font-size:28px}
+
 </style>
 
 </head>
@@ -301,6 +308,7 @@ function removeItem(id){
 }
 
 
+
 function updateKBJUProgress(totalCalories,totalProtein,totalFat,totalCarbs){
  const target=JSON.parse(localStorage.getItem('kbju_target')||'null');
  const box=document.getElementById('kbjuProgress');
@@ -308,17 +316,28 @@ function updateKBJUProgress(totalCalories,totalProtein,totalFat,totalCarbs){
 
  box.style.display='block';
 
+ const calPct=Math.min(100,Math.round(totalCalories/target.calories*100)||0);
+ const proPct=Math.min(100,Math.round(totalProtein/target.protein*100)||0);
+ const fatPct=Math.min(100,Math.round(totalFat/target.fat*100)||0);
+ const carbPct=Math.min(100,Math.round(totalCarbs/target.carbs*100)||0);
+
  document.getElementById('kbjuTarget').innerHTML=`
- 🔥 ${target.calories} ккал<br>
- 🥩 ${target.protein} г<br>
- 🥑 ${target.fat} г<br>
- 🍚 ${target.carbs} г`;
+ <div class="goal-grid">
+   <div class="goal-stat">🔥<b>${target.calories}</b>ккал</div>
+   <div class="goal-stat">🥩<b>${target.protein}</b>белки</div>
+   <div class="goal-stat">🥑<b>${target.fat}</b>жиры</div>
+   <div class="goal-stat">🍚<b>${target.carbs}</b>углеводы</div>
+ </div>`;
 
  document.getElementById('kbjuDone').innerHTML=`
- 🔥 ${totalCalories}/${target.calories}<br>
- 🥩 ${totalProtein}/${target.protein} г<br>
- 🥑 ${totalFat}/${target.fat} г<br>
- 🍚 ${totalCarbs}/${target.carbs} г`;
+ <div class="progress-row">🔥 ${totalCalories}/${target.calories} (${calPct}%)
+ <div class="progress-bar"><div class="progress-fill" style="width:${calPct}%"></div></div></div>
+ <div class="progress-row">🥩 ${totalProtein}/${target.protein} (${proPct}%)
+ <div class="progress-bar"><div class="progress-fill" style="width:${proPct}%"></div></div></div>
+ <div class="progress-row">🥑 ${totalFat}/${target.fat} (${fatPct}%)
+ <div class="progress-bar"><div class="progress-fill" style="width:${fatPct}%"></div></div></div>
+ <div class="progress-row">🍚 ${totalCarbs}/${target.carbs} (${carbPct}%)
+ <div class="progress-bar"><div class="progress-fill" style="width:${carbPct}%"></div></div></div>`;
 
  document.getElementById('kbjuLeft').innerHTML=`
  🔥 ${Math.max(0,target.calories-totalCalories)} ккал<br>
@@ -326,6 +345,7 @@ function updateKBJUProgress(totalCalories,totalProtein,totalFat,totalCarbs){
  🥑 ${Math.max(0,target.fat-totalFat)} г<br>
  🍚 ${Math.max(0,target.carbs-totalCarbs)} г`;
 }
+
 
 
 function renderCart(){
