@@ -194,10 +194,11 @@ margin-top:15px;
 
 
 .meal-header{
-display:flex;
-align-items:flex-start;
-justify-content:space-between;
+display:grid;
+grid-template-columns:1fr 42px;
+align-items:start;
 width:100%;
+column-gap:12px;
 }
 .meal-left{
 display:flex;
@@ -205,10 +206,24 @@ align-items:flex-start;
 gap:12px;
 }
 .meal-arrow{
-font-size:26px;
+width:42px;
+height:42px;
+border-radius:50%;
+background:#f3f7ef;
+border:1px solid #d9e8cb;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:18px;
 font-weight:bold;
 cursor:pointer;
-padding:0 8px;
+flex-shrink:0;
+margin-left:auto;
+color:#4c9a2a;
+transition:.2s;
+}
+.meal-arrow:hover{
+background:#eaf6dd;
 }
 .meal-time-line{
 color:#666;
@@ -695,7 +710,7 @@ planHtml += `<div class="meal-card">
 <div class="meal-time-line">🕒 ${times[i]||''}</div>
 </div>
 </div>
-<div class="meal-arrow" id="arrow${i}">▲</div>
+<div class="meal-arrow" id="arrow${i}">⌃</div>
 </div>
 <div class="meal-body" id="meal${i}">
 <div style="display:flex;gap:12px;width:100%">
@@ -759,10 +774,10 @@ function toggleMeal(id,arrowId){
 
  if(isOpen){
    el.style.display='none';
-   if(arrow) arrow.textContent='▼';
+   if(arrow) arrow.textContent='⌄';
  }else{
    el.style.display='block';
-   if(arrow) arrow.textContent='▲';
+   if(arrow) arrow.textContent='⌃';
  }
 }
 
