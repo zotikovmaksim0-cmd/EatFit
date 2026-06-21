@@ -156,6 +156,48 @@ margin:15px 0;
  margin-left:auto;
 }
 
+
+.meal-number{
+width:36px;height:36px;border-radius:50%;
+background:#6BCB2D;color:#fff;font-weight:bold;
+display:flex;align-items:center;justify-content:center;
+flex-shrink:0;
+}
+.meal-header{
+display:flex;align-items:center;gap:10px;cursor:pointer;
+}
+.meal-time{color:#666;font-size:14px;margin-left:auto}
+.meal-body{display:block;margin-top:10px}
+
+
+.planner-top-card{
+background:#f8fff2;
+border:2px solid #cfe8b8;
+border-radius:18px;
+padding:18px;
+margin:15px 0;
+}
+.planner-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+}
+.planner-stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
+text-align:center;
+padding-bottom:15px;
+border-bottom:1px solid #ddd;
+}
+.planner-progress{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:15px;
+margin-top:15px;
+}
+
 </style>
 
 </head>
@@ -250,13 +292,21 @@ margin:15px 0;
 <span id="totalQty" style="display:none">0</span>
 </div>
 
-<div id="kbjuProgress" class="goal-card" style="display:none">
-<h3>🎯 Персональный план питания</h3>
-<div id="kbjuTarget"></div>
-<div style="margin:10px 0;border-top:1px solid #ddd"></div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-<div><b>📈 Выполнено</b><div id="kbjuDone"></div></div>
-<div><b>⏳ Осталось</b><div id="kbjuLeft"></div></div>
+<div id="kbjuProgress" class="planner-top-card" style="display:none">
+<div class="planner-header">
+<h3 style="margin:0">🎯 Ваша цель</h3>
+<div style="color:#4c9a2a;font-weight:bold">✏️ Редактировать</div>
+</div>
+<div id="kbjuTarget" class="planner-stats"></div>
+<div class="planner-progress">
+<div>
+<b>📈 Выполнено</b>
+<div id="kbjuDone"></div>
+</div>
+<div>
+<b>⏳ Осталось</b>
+<div id="kbjuLeft"></div>
+</div>
 </div>
 </div>
 
@@ -367,12 +417,10 @@ function updateKBJUProgress(totalCalories,totalProtein,totalFat,totalCarbs){
  const carbPct=Math.min(100,Math.round(totalCarbs/target.carbs*100)||0);
 
  document.getElementById('kbjuTarget').innerHTML=`
- <div class="goal-grid">
-   <div class="goal-stat">🔥<b>${target.calories}</b>ккал</div>
-   <div class="goal-stat">🥩<b>${target.protein}</b>белки</div>
-   <div class="goal-stat">🥑<b>${target.fat}</b>жиры</div>
-   <div class="goal-stat">🍚<b>${target.carbs}</b>углеводы</div>
- </div>`;
+<div><div>Калории</div><b>${target.calories}</b></div>
+<div><div>Белки</div><b>${target.protein} г</b></div>
+<div><div>Жиры</div><b>${target.fat} г</b></div>
+<div><div>Углеводы</div><b>${target.carbs} г</b></div>`;
 
  document.getElementById('kbjuDone').innerHTML=`
  <div class="progress-row">🔥 ${totalCalories}/${target.calories} (${calPct}%)
@@ -619,8 +667,14 @@ function autoBuildMealPlan(){
       else cart.push({id:item.id,qty:1});
    });
 
-   planHtml += `<div class="meal-card">
-<div class="meal-title">🥗 Прием пищи ${i+1}</div>
+   const times=['07:00–09:00','10:30–12:00','14:30–16:30','17:30–19:00','20:00–21:30','22:00–23:00'];
+planHtml += `<div class="meal-card">
+<div class="meal-header" onclick="toggleMeal('meal${i}')">
+<div class="meal-number">${i+1}</div>
+<div class="meal-title">Прием пищи ${i+1}</div>
+<div class="meal-time">${times[i]||''} ▼</div>
+</div>
+<div class="meal-body" id="meal${i}">
 <div style="display:flex;gap:12px">
 <img class="meal-photo" src="${pr.image || ''}" alt="meal">
 <div class="meal-info">
@@ -633,6 +687,7 @@ function autoBuildMealPlan(){
 Б: ${(pr.protein||0)+(cb.protein||0)+(fb.protein||0)} г<br>
 Ж: ${(pr.fat||0)+(cb.fat||0)+(fb.fat||0)} г<br>
 У: ${(pr.carbs||0)+(cb.carbs||0)+(fb.carbs||0)} г
+</div>
 </div>
 </div>
 </div>`;
@@ -668,9 +723,16 @@ function autoBuildMealPlan(){
    <b>Точность: ${Math.max(0,acc)}%</b>
  </div>`;
 
- document.getElementById('autoPlanResult').innerHTML=planHtml;
+ document.getElementById('autoPlanResult').innerHTML=planHtml; document.getElementById('accuracyCircle').textContent=Math.max(0,acc)+'%';
 }
 
+
+
+function toggleMeal(id){
+ const el=document.getElementById(id);
+ if(!el) return;
+ el.style.display = el.style.display==='none' ? 'block' : 'none';
+}
 
 function openKBJU(){document.getElementById('kbjuModal').classList.add('show');}
 function closeKBJU(){document.getElementById('kbjuModal').classList.remove('show');}
