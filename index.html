@@ -202,19 +202,6 @@ margin:15px 0;
 <div id="kbjuLeft"></div>
 </div>
 
-
-<div id="mealSelector" class="total">
-<h3>🍽 Количество приемов пищи</h3>
-<div style="display:flex;gap:8px;flex-wrap:wrap">
-<button class="btn" onclick="setMealsCount(3)">3</button>
-<button class="btn" onclick="setMealsCount(4)">4</button>
-<button class="btn" onclick="setMealsCount(5)">5</button>
-<button class="btn" onclick="setMealsCount(6)">6</button>
-</div>
-<div id="mealsSelected" style="margin-top:10px;font-weight:bold"></div>
-<div id="mealPlanPreview" style="margin-top:10px"></div>
-</div>
-
 <h3>Оформление заказа</h3>
 <input id="name" placeholder="Имя">
 <input id="phone" placeholder="Телефон">
@@ -500,23 +487,71 @@ renderCart();
 
 
 
-function setMealsCount(count){
- localStorage.setItem('mealsCount',count);
+function autoBuildMealPlan(){
+ const mealsCount=parseInt(localStorage.getItem('mealsCount')||'0');
+ const target=JSON.parse(localStorage.getItem('kbju_target')||'null');
 
- document.getElementById('mealsSelected').innerHTML =
- '✓ Выбрано: '+count+' приемов пищи';
+ if(!mealsCount){ alert('Сначала выберите количество приемов пищи'); return; }
+ if(!target){ alert('Сначала рассчитайте КБЖУ'); return; }
 
- let html='';
- for(let i=1;i<=count;i++){
-   html += '<div style="padding:8px;margin:6px 0;background:#f5f5f5;border-radius:8px">🥗 Прием пищи '+i+'</div>';
+ const proteins=products.filter(p=>p.categories && p.categories.includes('protein'));
+ const carbs=products.filter(p=>p.categories && p.categories.includes('carbs'));
+ const fibers=products.filter(p=>p.categories && p.categories.includes('fiber'));
+
+ cart=[];
+ let planHtml='<h3>🍽 Ваш рацион</h3>';
+
+ for(let i=0;i<mealsCount;i++){
+   const pr=proteins[i % proteins.length];
+   const cb=carbs[i % carbs.length];
+   const fb=fibers[i % fibers.length];
+
+   [pr,cb,fb].forEach(item=>{
+      const ex=cart.find(x=>x.id===item.id);
+      if(ex) ex.qty++;
+      else cart.push({id:item.id,qty:1});
+   });
+
+   planHtml += `<div style="padding:10px;margin:8px 0;background:#f5f5f5;border-radius:8px">
+   <b>🥗 Прием пищи ${i+1}</b><br>
+   ✓ ${pr.name}<br>
+   ✓ ${cb.name}<br>
+   ✓ ${fb.name}
+   </div>`;
  }
- document.getElementById('mealPlanPreview').innerHTML = html;
-}
 
-window.addEventListener('load',()=>{
- const count=localStorage.getItem('mealsCount');
- if(count) setMealsCount(parseInt(count));
-});
+ saveCart();
+
+ let kcal=0,prot=0,fat=0,carb=0;
+ cart.forEach(c=>{
+   const p=products.find(x=>x.id===c.id);
+   if(!p) return;
+   kcal+=p.calories*c.qty;
+   prot+=p.protein*c.qty;
+   fat+=p.fat*c.qty;
+   carb+=p.carbs*c.qty;
+ });
+
+ const acc=Math.round(
+   100 - (
+     Math.abs(target.calories-kcal)/target.calories*25 +
+     Math.abs(target.protein-prot)/target.protein*25 +
+     Math.abs(target.fat-fat)/Math.max(1,target.fat)*25 +
+     Math.abs(target.carbs-carb)/Math.max(1,target.carbs)*25
+   )
+ );
+
+ planHtml += `<div class="total">
+   <h3>🎯 Точность рациона</h3>
+   🔥 ${kcal} / ${target.calories} ккал<br>
+   🥩 ${prot} / ${target.protein} г<br>
+   🥑 ${fat} / ${target.fat} г<br>
+   🍚 ${carb} / ${target.carbs} г<br><br>
+   <b>Точность: ${Math.max(0,acc)}%</b>
+ </div>`;
+
+ document.getElementById('autoPlanResult').innerHTML=planHtml;
+}
 
 
 function openKBJU(){document.getElementById('kbjuModal').classList.add('show');}
