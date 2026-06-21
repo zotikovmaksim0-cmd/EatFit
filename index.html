@@ -100,6 +100,13 @@ margin:15px 0;
 .kbju-box{background:#fff;width:min(750px,95vw);max-height:90vh;overflow:auto;padding:25px;border-radius:20px}
 .kbju-tip{font-size:13px;color:#666;margin:6px 0}
 
+
+.goal-card{background:#f8fff2;border:1px solid #d8efc5;border-radius:16px;padding:15px;margin:15px 0}
+.meal-buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}
+.meal-card{background:#fff;border:1px solid #e5e5e5;border-radius:14px;padding:12px;margin:10px 0}
+.meal-title{font-weight:bold;font-size:18px;margin-bottom:8px}
+.accuracy-card{background:#f8fff2;border:2px solid #6BCB2D;border-radius:16px;padding:15px;margin-top:15px}
+
 </style>
 
 </head>
@@ -182,7 +189,7 @@ margin:15px 0;
 <button class="clear-btn" onclick="clearCart()">Очистить корзину</button>
 <div id="cartItems"></div>
 
-<div class="total">
+<div class="accuracy-card">
 Товаров: <span id="totalQty">0</span><br>
 Белки: <span id="totalProtein">0</span> г<br>
 Жиры: <span id="totalFat">0</span> г<br>
@@ -191,7 +198,7 @@ margin:15px 0;
 Сумма: <span id="totalPrice">0</span> VND
 </div>
 
-<div id="kbjuProgress" class="total" style="display:none">
+<div id="kbjuProgress" class="goal-card" style="display:none">
 <h3>🎯 Ваша цель</h3>
 <div id="kbjuTarget"></div>
 <hr>
@@ -206,7 +213,7 @@ margin:15px 0;
 <div id="mealSelector" class="total">
 <h3>🍽 Количество приемов пищи</h3>
 
-<div style="display:flex;gap:8px;flex-wrap:wrap">
+<div class="meal-buttons">
 <button class="btn" onclick="setMealsCount(3)">3</button>
 <button class="btn" onclick="setMealsCount(4)">4</button>
 <button class="btn" onclick="setMealsCount(5)">5</button>
@@ -535,7 +542,7 @@ function autoBuildMealPlan(){
  const fibers=products.filter(p=>p.categories && p.categories.includes('fiber'));
 
  cart=[];
- let planHtml=`<h3>🍽 Рацион на ${mealsCount} приемов пищи</h3>`;
+ let planHtml=`<h3>🍽 Ваш рацион на ${mealsCount} приемов пищи</h3>`;
 
  for(let i=0;i<mealsCount;i++){
    const pr=proteins[i % proteins.length];
@@ -548,12 +555,12 @@ function autoBuildMealPlan(){
       else cart.push({id:item.id,qty:1});
    });
 
-   planHtml += `<div style="padding:10px;margin:8px 0;background:#f5f5f5;border-radius:8px">
-   <b>🥗 Прием пищи ${i+1}</b><br>
-   ✓ ${pr.name}<br>
-   ✓ ${cb.name}<br>
-   ✓ ${fb.name}
-   </div>`;
+   planHtml += `<div class="meal-card">
+<div class="meal-title">🥗 Прием пищи ${i+1}</div>
+✓ ${pr.name}<br>
+✓ ${cb.name}<br>
+✓ ${fb.name}
+</div>`;
  }
 
  saveCart();
