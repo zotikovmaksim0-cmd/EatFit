@@ -202,6 +202,28 @@ margin:15px 0;
 <div id="kbjuLeft"></div>
 </div>
 
+
+<div id="mealSelector" class="total">
+<h3>🍽 Количество приемов пищи</h3>
+
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<button class="btn" onclick="setMealsCount(3)">3</button>
+<button class="btn" onclick="setMealsCount(4)">4</button>
+<button class="btn" onclick="setMealsCount(5)">5</button>
+<button class="btn" onclick="setMealsCount(6)">6</button>
+</div>
+
+<div id="mealsSelected" style="margin-top:10px;font-weight:bold"></div>
+
+<div id="mealPlanPreview" style="margin-top:10px"></div>
+
+<div style="margin-top:12px">
+<button class="btn" onclick="autoBuildMealPlan()">🍽 Подобрать рацион автоматически</button>
+</div>
+
+<div id="autoPlanResult" style="margin-top:10px"></div>
+</div>
+
 <h3>Оформление заказа</h3>
 <input id="name" placeholder="Имя">
 <input id="phone" placeholder="Телефон">
@@ -485,6 +507,26 @@ renderProducts();
 renderCart();
 });
 
+
+
+
+function setMealsCount(count){
+ localStorage.setItem('mealsCount',count);
+
+ document.getElementById('mealsSelected').innerHTML =
+ '✓ Выбрано: '+count+' приемов пищи';
+
+ let preview='';
+ for(let i=1;i<=count;i++){
+   preview += '<div style="padding:8px;margin:6px 0;background:#f5f5f5;border-radius:8px">🥗 Прием пищи '+i+'</div>';
+ }
+ document.getElementById('mealPlanPreview').innerHTML = preview;
+}
+
+window.addEventListener('load',()=>{
+ const count = localStorage.getItem('mealsCount');
+ if(count) setMealsCount(parseInt(count));
+});
 
 
 function autoBuildMealPlan(){
