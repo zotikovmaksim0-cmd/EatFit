@@ -130,13 +130,7 @@ margin:15px 0;
  gap:12px;
  align-items:flex-start;
 }
-.meal-photo{
- width:90px;
- height:90px;
- border-radius:14px;
- object-fit:cover;
- background:#f3f3f3;
-}
+
 .meal-info{flex:1}
 .meal-macros{
  min-width:120px;
@@ -196,6 +190,30 @@ display:grid;
 grid-template-columns:2fr 1fr;
 gap:15px;
 margin-top:15px;
+}
+
+
+.meal-header{
+display:flex;
+align-items:flex-start;
+justify-content:space-between;
+width:100%;
+}
+.meal-left{
+display:flex;
+align-items:flex-start;
+gap:12px;
+}
+.meal-arrow{
+font-size:26px;
+font-weight:bold;
+cursor:pointer;
+padding:0 8px;
+}
+.meal-time-line{
+color:#666;
+font-size:15px;
+margin-top:6px;
 }
 
 </style>
@@ -669,14 +687,18 @@ function autoBuildMealPlan(){
 
    const times=['07:00–09:00','10:30–12:00','14:30–16:30','17:30–19:00','20:00–21:30','22:00–23:00'];
 planHtml += `<div class="meal-card">
-<div class="meal-header" onclick="toggleMeal('meal${i}')">
+<div class="meal-header" onclick="toggleMeal('meal${i}','arrow${i}')">
+<div class="meal-left">
 <div class="meal-number">${i+1}</div>
+<div>
 <div class="meal-title">Прием пищи ${i+1}</div>
-<div class="meal-time">${times[i]||''} ▼</div>
+<div class="meal-time-line">🕒 ${times[i]||''}</div>
+</div>
+</div>
+<div class="meal-arrow" id="arrow${i}">▼</div>
 </div>
 <div class="meal-body" id="meal${i}">
-<div style="display:flex;gap:12px">
-<img class="meal-photo" src="${pr.image || ''}" alt="meal">
+<div style="display:flex;gap:12px;width:100%">
 <div class="meal-info">
 ✓ ${pr.name}<br>
 ✓ ${cb.name}<br>
@@ -728,10 +750,13 @@ planHtml += `<div class="meal-card">
 
 
 
-function toggleMeal(id){
+function toggleMeal(id,arrowId){
  const el=document.getElementById(id);
+ const arrow=document.getElementById(arrowId);
  if(!el) return;
- el.style.display = el.style.display==='none' ? 'block' : 'none';
+ const hidden = el.style.display==='none';
+ el.style.display = hidden ? 'block' : 'none';
+ if(arrow) arrow.textContent = hidden ? '▼' : '▶';
 }
 
 function openKBJU(){document.getElementById('kbjuModal').classList.add('show');}
