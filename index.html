@@ -185,7 +185,7 @@ margin:15px 0;
 
 
 <div id="cartPanel" class="cart-panel">
-<h2>Корзина</h2><div class="close-cart" onclick="closeCart()">✕</div>
+<h2>🥗 EatFit Planner</h2><div class="close-cart" onclick="closeCart()">✕</div>
 <button class="clear-btn" onclick="clearCart()">Очистить корзину</button>
 <div id="cartItems"></div>
 
@@ -199,14 +199,13 @@ margin:15px 0;
 </div>
 
 <div id="kbjuProgress" class="goal-card" style="display:none">
-<h3>🎯 Ваша цель</h3>
+<h3>🎯 Персональный план питания</h3>
 <div id="kbjuTarget"></div>
-<hr>
-<h3>📈 Выполнено</h3>
-<div id="kbjuDone"></div>
-<hr>
-<h3>⏳ Осталось</h3>
-<div id="kbjuLeft"></div>
+<div style="margin:10px 0;border-top:1px solid #ddd"></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+<div><b>📈 Выполнено</b><div id="kbjuDone"></div></div>
+<div><b>⏳ Осталось</b><div id="kbjuLeft"></div></div>
+</div>
 </div>
 
 
