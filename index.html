@@ -356,6 +356,66 @@ margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;borde
 .food-price{color:#2f7d1f;font-weight:bold;margin-top:4px}
 .food-option.disabled{opacity:1;pointer-events:auto}
 
+/* Cart and generated meal plan */
+:root{--green:#63bd2b;--green-dark:#317d20;--green-soft:#f2faed;--ink:#182117;--muted:#71806d;--line:#e4ebdf}
+.cart-panel{
+ width:min(780px,100%);right:0;padding:0 28px 110px;transform:translateX(100%);transition:transform .3s ease;
+ background:#f7f9f5;color:var(--ink);box-shadow:-18px 0 48px rgba(25,45,20,.16)
+}
+.cart-panel.open{right:0;transform:translateX(0)}
+.cart-header{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:14px;margin:0 -28px 22px;padding:22px 28px 18px;background:rgba(247,249,245,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.cart-heading{margin:0;font-size:25px;letter-spacing:-.4px}
+.cart-subtitle{margin:4px 0 0;color:var(--muted);font-size:14px}
+.cart-header-actions{display:flex;align-items:center;gap:8px;margin-left:auto}
+.clear-btn,.close-cart{display:grid;place-items:center;height:40px;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;margin:0;cursor:pointer}
+.clear-btn{padding:0 13px;font-size:13px}
+.close-cart{width:40px;float:none;font-size:20px}
+.cart-item{display:grid;grid-template-columns:76px minmax(0,1fr) auto;gap:15px;align-items:center;margin:0 0 10px;padding:12px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 5px 18px rgba(31,55,24,.045)}
+.cart-item img{width:76px;height:76px;min-width:0;border-radius:13px}
+.cart-item-info{min-width:0}
+.cart-item-name{display:block;margin-bottom:7px;font-size:16px;line-height:1.25}
+.cart-item-meta{display:flex;flex-wrap:wrap;gap:5px;color:var(--muted);font-size:12px}
+.cart-item-meta span{padding:4px 7px;background:#f4f7f2;border-radius:7px}
+.cart-item-side{text-align:right;white-space:nowrap}
+.cart-item-price{font-weight:700;font-size:14px}
+.qty{display:flex;align-items:center;justify-content:flex-end;gap:5px;margin-top:10px}
+.qty button{display:grid;place-items:center;width:28px;height:28px;margin:0;padding:0;border:1px solid var(--line);background:#fff;border-radius:8px;color:var(--ink);cursor:pointer}
+.qty .remove-item{margin-left:3px;color:#b0443d;background:#fff5f4;border-color:#f2d8d5}
+.empty-cart{text-align:center;padding:36px 18px;color:var(--muted);background:#fff;border:1px dashed #cedac7;border-radius:18px}
+.day-summary{margin:18px 0;padding:20px;background:linear-gradient(145deg,#f3fbed,#fff);border:1px solid #cae4b9;border-radius:22px}
+.summary-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}
+.summary-head h3{margin:0;font-size:18px}
+.accuracy-circle{width:66px;height:66px;flex:0 0 66px;border-width:4px;font-size:17px;margin:0;right:auto;top:auto;background:#fff}
+.day-grid,.planner-stats{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.day-grid>div,.planner-stats>div{padding:10px 5px;background:#fff;border-radius:12px;color:var(--muted);font-size:12px}
+.day-grid b,.planner-stats b{font-size:19px;color:var(--ink)}
+.summary-price{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:14px;border-top:1px solid #dcebd4;color:var(--muted)}
+.summary-price b{color:var(--ink);font-size:17px}
+.planner-top-card,.total{border:1px solid var(--line);border-radius:20px;background:#fff;padding:18px}
+.planner-header{gap:14px}.planner-edit{color:var(--green-dark);font-weight:700;font-size:13px;white-space:nowrap}
+.planner-progress{grid-template-columns:minmax(0,1.6fr) minmax(130px,1fr)}
+.meal-buttons{gap:10px}.meal-buttons .btn{border-radius:11px}
+#autoPlanResult>h3{margin:24px 0 12px}
+.meal-card{padding:18px;margin:10px 0;border:1px solid var(--line);border-radius:20px;box-shadow:0 5px 18px rgba(31,55,24,.035)}
+.meal-plan-row{display:grid;grid-template-columns:145px minmax(0,1fr) 112px;gap:18px;align-items:start}
+.meal-left{gap:10px;min-width:0}.meal-number{width:38px;height:38px;flex:0 0 38px}
+.meal-title{font-size:15px;white-space:normal;line-height:1.25}.meal-time-line{font-size:12px;white-space:nowrap}
+.meal-info{font-size:14px;line-height:1.35}.meal-info div{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px solid #edf1ea}
+.replace-btn{flex:0 0 auto;margin:0;padding:4px 7px}.replace-all-btn{width:100%;margin-top:10px}
+.meal-macros{width:auto;min-width:0;text-align:right;font-size:14px;line-height:1.7;justify-self:stretch;padding:10px;background:var(--green-soft);border-radius:12px}
+.checkout-section{margin-top:24px;padding:20px;background:#fff;border:1px solid var(--line);border-radius:20px}
+.checkout-section h3{margin-top:0}
+.checkout-bar{position:fixed;right:0;bottom:0;width:min(780px,100%);padding:14px 28px 18px;background:rgba(255,255,255,.96);border-top:1px solid var(--line);backdrop-filter:blur(12px);z-index:15}
+.checkout-btn{width:100%;min-height:48px;font-size:16px;box-shadow:0 8px 18px rgba(99,189,43,.24)}
+@media(max-width:650px){
+ .cart-panel{padding:0 14px 100px}.cart-header{margin:0 -14px 16px;padding:16px 14px}.cart-heading{font-size:21px}.cart-subtitle{display:none}.clear-btn{width:40px;padding:0;font-size:0}.clear-btn::before{content:'🗑';font-size:15px}
+ .cart-item{grid-template-columns:64px minmax(0,1fr);gap:11px}.cart-item img{width:64px;height:64px}.cart-item-side{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;text-align:left;padding-top:9px;border-top:1px solid #edf1ea}.qty{margin:0}
+ .day-summary{padding:15px}.day-grid,.planner-stats{gap:5px}.day-grid>div,.planner-stats>div{padding:8px 2px}.day-grid b,.planner-stats b{font-size:16px}
+ .planner-progress{grid-template-columns:1fr}.meal-buttons{grid-template-columns:repeat(2,1fr)}
+ .meal-plan-row{grid-template-columns:1fr;gap:13px}.meal-left{align-items:center}.meal-macros{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;text-align:center;line-height:1.35}.meal-macros b{display:block}.meal-info div{align-items:flex-start}
+ .checkout-section{padding:15px}.checkout-bar{padding:11px 14px 14px}
+}
+
 </style>
 
 </head>
@@ -434,26 +494,28 @@ margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;borde
 
 
 <div id="cartPanel" class="cart-panel">
-<h2>🥗 EatFit Planner</h2><div class="close-cart" onclick="closeCart()">✕</div>
-<button class="clear-btn" onclick="clearCart()">Очистить корзину</button>
+<div class="cart-header">
+<div><h2 class="cart-heading">Ваш рацион</h2><p class="cart-subtitle">Сбалансированный план питания на день</p></div>
+<div class="cart-header-actions"><button class="clear-btn" onclick="clearCart()">Очистить</button><button class="close-cart" onclick="closeCart()" aria-label="Закрыть">×</button></div>
+</div>
 <div id="cartItems"></div>
 
 <div id="daySummary" class="day-summary">
-<div style='display:flex;align-items:center;gap:15px'><h3 style='margin:0'>📊 Итого за день</h3><div class='accuracy-circle' id='accuracyCircle'>98%</div></div>
+<div class="summary-head"><div><h3>Итого за день</h3><div class="cart-subtitle">Ваш прогресс по цели КБЖУ</div></div><div class='accuracy-circle' id='accuracyCircle'>98%</div></div>
 <div class="day-grid">
 <div><b id="totalCalories">0</b>ккал</div>
 <div><b id="totalProtein">0</b>Б</div>
 <div><b id="totalFat">0</b>Ж</div>
 <div><b id="totalCarbs">0</b>У</div>
 </div>
-<div style="margin-top:10px">Сумма: <span id="totalPrice">0</span> VND</div>
+<div class="summary-price"><span>Стоимость рациона</span><b><span id="totalPrice">0</span> VND</b></div>
 <span id="totalQty" style="display:none">0</span>
 </div>
 
 <div id="kbjuProgress" class="planner-top-card" style="display:none">
 <div class="planner-header">
 <h3 style="margin:0">🎯 Ваша цель</h3>
-<div style="color:#4c9a2a;font-weight:bold">✏️ Редактировать</div>
+<div class="planner-edit">✏️ Редактировать</div>
 </div>
 <div id="kbjuTarget" class="planner-stats"></div>
 <div class="planner-progress">
@@ -482,6 +544,7 @@ margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;borde
 <div id="autoPlanResult" style="margin-top:15px"></div>
 </div>
 
+<div class="checkout-section">
 <h3>Оформление заказа</h3>
 <input id="name" placeholder="Имя">
 <input id="phone" placeholder="Телефон">
@@ -489,6 +552,7 @@ margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;borde
 <input id="address" placeholder="Адрес доставки">
 <textarea id="comment" placeholder="Комментарий"></textarea>
 <div id="orderPreview" style="display:none;background:#eef;padding:10px;border-radius:8px;margin-bottom:10px"></div>
+</div>
 <div class="checkout-bar">
 <button class="checkout-btn" onclick="checkout()">
 Оформить заказ
@@ -630,16 +694,17 @@ function renderCart(){
    box.innerHTML+=`
    <div class="cart-item">
       <img src="assets/${p.images[0]}" alt="">
-      <div>
-      <b>${p.name}</b><br>
-      Б:${p.protein} Ж:${p.fat} У:${p.carbs}<br>
-      ${p.calories} ккал<br>
-      ${p.price.toLocaleString()} VND
+      <div class="cart-item-info">
+      <b class="cart-item-name">${p.name}</b>
+      <div class="cart-item-meta"><span>${p.calories} ккал</span><span>Б ${p.protein}</span><span>Ж ${p.fat}</span><span>У ${p.carbs}</span></div>
+      </div>
+      <div class="cart-item-side">
+      <div class="cart-item-price">${p.price.toLocaleString()} VND</div>
       <div class="qty">
-        <button onclick="changeQty('${c.id}',-1)">-</button>
-        ${c.qty}
-        <button onclick="changeQty('${c.id}',1)">+</button>
-        <button onclick="removeItem('${c.id}')">Удалить</button>
+        <button onclick="changeQty('${c.id}',-1)" aria-label="Уменьшить">−</button>
+        <b>${c.qty}</b>
+        <button onclick="changeQty('${c.id}',1)" aria-label="Увеличить">+</button>
+        <button class="remove-item" onclick="removeItem('${c.id}')" aria-label="Удалить">×</button>
       </div>
       </div>
    </div>`;
