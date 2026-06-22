@@ -305,6 +305,31 @@ margin-top:10px;
 }
 }
 
+
+.meal-card{
+background:#fff;
+border:1px solid #e5e5e5;
+border-radius:24px;
+padding:22px;
+margin:16px 0;
+position:relative;
+overflow:hidden;
+}
+.meal-header,.meal-body{all:unset}
+.meal-plan-row{
+display:grid;
+grid-template-columns:180px 1fr 120px;
+gap:24px;
+align-items:start;
+}
+.meal-left{display:flex;gap:14px}
+.meal-number{width:42px;height:42px;border-radius:50%;background:#6BCB2D;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+.meal-title{font-size:18px;font-weight:700}
+.meal-time-line{font-size:14px;color:#777;margin-top:6px}
+.meal-info{font-size:16px;line-height:2}
+.meal-info div{margin:0}
+.meal-macros{text-align:left;font-size:16px;font-weight:700;white-space:nowrap}
+
 </style>
 
 </head>
@@ -776,7 +801,7 @@ function autoBuildMealPlan(){
 
    const times=['07:00–09:00','10:30–12:00','14:30–16:30','17:30–19:00','20:00–21:30','22:00–23:00'];
 planHtml += `<div class="meal-card">
-<div class="meal-header" onclick="toggleMeal('meal${i}','arrow${i}')">
+<div class="meal-plan-row">
 <div class="meal-left">
 <div class="meal-number">${i+1}</div>
 <div>
@@ -784,21 +809,18 @@ planHtml += `<div class="meal-card">
 <div class="meal-time-line">🕒 ${times[i]||''}</div>
 </div>
 </div>
-<div class="meal-arrow" id="arrow${i}">⌃</div>
-</div>
-<div class="meal-body" id="meal${i}">
-<div class="meal-content-grid" style="grid-template-columns:1fr 140px;">
-<div class="meal-info" style="min-width:0;width:100%;font-size:17px;line-height:2;">
+
+<div class="meal-info">
 <div>✓ ${pr.name}</div>
 <div>✓ ${cb.name}</div>
 <div>✓ ${fb.name}</div>
 </div>
-<div class="meal-macros" style="text-align:left;">
+
+<div class="meal-macros">
 <b>${(pr.calories||0)+(cb.calories||0)+(fb.calories||0)} ккал</b><br>
 Б: ${(pr.protein||0)+(cb.protein||0)+(fb.protein||0)} г<br>
 Ж: ${(pr.fat||0)+(cb.fat||0)+(fb.fat||0)} г<br>
 У: ${(pr.carbs||0)+(cb.carbs||0)+(fb.carbs||0)} г
-</div>
 </div>
 </div>
 </div>`;
