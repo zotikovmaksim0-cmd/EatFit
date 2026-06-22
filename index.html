@@ -338,6 +338,15 @@ border-radius:8px;padding:4px 8px;cursor:pointer;color:#2f7d1f;font-size:12px
 .replace-all-btn{
 margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;border-radius:10px;cursor:pointer
 }
+
+.food-modal{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;z-index:9999}
+.food-modal.show{display:flex}
+.food-modal-box{background:#fff;width:min(900px,95vw);max-height:85vh;overflow:auto;border-radius:20px;padding:20px}
+.food-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:15px}
+.food-option{border:1px solid #ddd;border-radius:16px;padding:12px;cursor:pointer}
+.food-option:hover{border-color:#6BCB2D;transform:translateY(-2px)}
+.food-option img{width:100%;height:140px;object-fit:cover;border-radius:10px}
+
 </style>
 
 </head>
@@ -784,14 +793,32 @@ window.addEventListener('load',()=>{
 
 
 let mealPlanData=[];
+let currentMealIndex=null;
+let currentType=null;
+
 
 function replaceMealItem(mealIndex,type){
+ currentMealIndex=mealIndex;
+ currentType=type;
  const pool=products.filter(p=>p.categories && p.categories.includes(type));
- if(!pool.length) return;
- const names=pool.map((p,i)=>`${i+1}. ${p.name}`).join('\n');
- const choice=parseInt(prompt('Выберите номер:\n\n'+names));
- if(!choice || !pool[choice-1]) return;
- mealPlanData[mealIndex][type]=pool[choice-1];
+ const grid=document.getElementById('foodModalGrid');
+ document.getElementById('foodModalTitle').innerText='Выберите блюдо';
+ grid.innerHTML='';
+ pool.forEach(item=>{
+   grid.innerHTML += `<div class="food-option" onclick="selectFood('${item.id}')">
+   <img src="assets/${item.images[0]}">
+   <b>${item.name}</b><br>
+   ${item.calories} ккал<br>
+   Б:${item.protein} Ж:${item.fat} У:${item.carbs}
+   </div>`;
+ });
+ document.getElementById('foodModal').classList.add('show');
+}
+function selectFood(id){
+ const item=products.find(x=>x.id===id);
+ if(!item) return;
+ mealPlanData[currentMealIndex][currentType]=item;
+ document.getElementById('foodModal').classList.remove('show');
  autoBuildMealPlan(true);
 }
 
@@ -851,7 +878,7 @@ planHtml += `<div class="meal-card">
 <div>✓ ${pr.name} <button class="replace-btn" onclick="replaceMealItem(${i},'protein')">Заменить</button></div>
 <div>✓ ${cb.name} <button class="replace-btn" onclick="replaceMealItem(${i},'carbs')">Заменить</button></div>
 <div>✓ ${fb.name} <button class="replace-btn" onclick="replaceMealItem(${i},'fiber')">Заменить</button></div>
-<button class="replace-all-btn" onclick="replaceWholeMeal(${i})">🔄 Заменить весь прием пищи</button>
+<button class="replace-all-btn" onclick="replaceWholeMeal(${i})">🎲 Новый вариант</button>
 </div>
 
 <div class="meal-macros">
@@ -957,6 +984,14 @@ document.getElementById('kbjuResult').innerHTML=`
 }
 
 </script>
+
+<div id="foodModal" class="food-modal">
+<div class="food-modal-box">
+<h2 id="foodModalTitle">Выберите блюдо</h2>
+<div id="foodModalGrid" class="food-grid"></div>
+</div>
+</div>
+
 </body>
 </html>
 <!-- layout refined -->
