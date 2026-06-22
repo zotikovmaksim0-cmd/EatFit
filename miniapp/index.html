@@ -398,6 +398,18 @@ margin-top:12px;
 }
 
 
+
+@media(max-width:768px){
+.meal-card{padding:14px !important;margin:10px 0 !important;}
+.meal-plan-row{gap:8px !important;}
+.meal-info div{display:flex;justify-content:space-between;align-items:center;gap:8px;}
+.meal-macros{font-size:20px;font-weight:700;}
+.meal-collapsible{display:none;}
+.meal-collapsible.open{display:block;}
+.meal-summary{display:flex;justify-content:space-between;align-items:center;background:#f8fff2;border-radius:12px;padding:10px;margin-top:8px;}
+.meal-toggle{cursor:pointer;font-size:20px;font-weight:bold;}
+}
+
 </style>
 
 </head>
@@ -931,26 +943,28 @@ const fb=mealPlanData[i].fiber;
 
    const times=['07:00–09:00','10:30–12:00','14:30–16:30','17:30–19:00','20:00–21:30','22:00–23:00'];
 planHtml += `<div class="meal-card">
-<div class="meal-plan-row">
-<div class="meal-left">
-<div class="meal-number">${i+1}</div>
+<div class="meal-summary">
 <div>
-<div class="meal-title">Прием пищи ${i+1}</div>
-<div class="meal-time-line">🕒 ${times[i]||''}</div>
+<b>🍽 Прием пищи ${i+1}</b><br>
+🕒 ${times[i]||''}
+</div>
+<div>
+<b>${(pr.calories||0)+(cb.calories||0)+(fb.calories||0)} ккал</b>
+<span class="meal-toggle" onclick="toggleMeal('meal_${i}', this)">⌄</span>
 </div>
 </div>
 
+<div id="meal_${i}" class="meal-collapsible">
 <div class="meal-info">
-<div>✓ ${pr.name} <button class="replace-btn" onclick="replaceMealItem(${i},'protein')">Заменить</button></div>
-<div>✓ ${cb.name} <button class="replace-btn" onclick="replaceMealItem(${i},'carbs')">Заменить</button></div>
-<div>✓ ${fb.name} <button class="replace-btn" onclick="replaceMealItem(${i},'fiber')">Заменить</button></div>
+<div><span>✓ ${pr.name}</span><button class="replace-btn" onclick="replaceMealItem(${i},'protein')">Заменить</button></div>
+<div><span>✓ ${cb.name}</span><button class="replace-btn" onclick="replaceMealItem(${i},'carbs')">Заменить</button></div>
+<div><span>✓ ${fb.name}</span><button class="replace-btn" onclick="replaceMealItem(${i},'fiber')">Заменить</button></div>
 <button class="replace-all-btn" onclick="replaceWholeMeal(${i})">🎲 Новый вариант</button>
 </div>
 
 <div class="meal-macros">
-<b>${(pr.calories||0)+(cb.calories||0)+(fb.calories||0)} ккал</b><br>
-Б: ${(pr.protein||0)+(cb.protein||0)+(fb.protein||0)} г<br>
-Ж: ${(pr.fat||0)+(cb.fat||0)+(fb.fat||0)} г<br>
+Б: ${(pr.protein||0)+(cb.protein||0)+(fb.protein||0)} г •
+Ж: ${(pr.fat||0)+(cb.fat||0)+(fb.fat||0)} г •
 У: ${(pr.carbs||0)+(cb.carbs||0)+(fb.carbs||0)} г
 </div>
 </div>
@@ -992,20 +1006,11 @@ planHtml += `<div class="meal-card">
 
 
 
-function toggleMeal(id,arrowId){
- const el=document.getElementById(id);
- const arrow=document.getElementById(arrowId);
- if(!el) return;
-
- const isOpen = el.style.display !== 'none';
-
- if(isOpen){
-   el.style.display='none';
-   if(arrow) arrow.textContent='⌄';
- }else{
-   el.style.display='block';
-   if(arrow) arrow.textContent='⌃';
- }
+function toggleMeal(id,el){
+ const block=document.getElementById(id);
+ if(!block) return;
+ block.classList.toggle('open');
+ el.textContent = block.classList.contains('open') ? '⌃' : '⌄';
 }
 
 function openKBJU(){document.getElementById('kbjuModal').classList.add('show');}
