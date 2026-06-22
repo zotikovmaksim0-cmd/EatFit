@@ -347,6 +347,15 @@ margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;borde
 .food-option:hover{border-color:#6BCB2D;transform:translateY(-2px)}
 .food-option img{width:100%;height:140px;object-fit:cover;border-radius:10px}
 
+
+.food-modal-box{position:relative;animation:modalPop .25s ease}
+@keyframes modalPop{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.modal-close{position:absolute;right:15px;top:10px;font-size:28px;cursor:pointer;border:none;background:none}
+.food-search{width:100%;margin:10px 0 15px}
+.food-option.selected{border:2px solid #6BCB2D;background:#f8fff2}
+.food-price{color:#2f7d1f;font-weight:bold;margin-top:4px}
+.food-option.disabled{opacity:1;pointer-events:auto}
+
 </style>
 
 </head>
@@ -797,6 +806,17 @@ let currentMealIndex=null;
 let currentType=null;
 
 
+
+function closeFoodModal(){
+ document.getElementById('foodModal').classList.remove('show');
+}
+function filterFoodOptions(){
+ const q=document.getElementById('foodSearch').value.toLowerCase();
+ document.querySelectorAll('.food-option').forEach(el=>{
+   el.style.display=el.dataset.name.includes(q)?'block':'none';
+ });
+}
+
 function replaceMealItem(mealIndex,type){
  currentMealIndex=mealIndex;
  currentType=type;
@@ -804,12 +824,16 @@ function replaceMealItem(mealIndex,type){
  const grid=document.getElementById('foodModalGrid');
  document.getElementById('foodModalTitle').innerText='Выберите блюдо';
  grid.innerHTML='';
+ const currentId=mealPlanData[mealIndex][type]?.id;
  pool.forEach(item=>{
-   grid.innerHTML += `<div class="food-option" onclick="selectFood('${item.id}')">
+   const selected=item.id===currentId;
+   grid.innerHTML += `<div class="food-option ${selected?'selected':''}" data-name="${item.name.toLowerCase()}" onclick="selectFood('${item.id}')">
    <img src="assets/${item.images[0]}">
    <b>${item.name}</b><br>
    ${item.calories} ккал<br>
    Б:${item.protein} Ж:${item.fat} У:${item.carbs}
+   <div class="food-price">${Number(item.price||0).toLocaleString()} VND</div>
+   ${selected?'<div style="color:#6BCB2D;font-weight:bold">✓ Выбрано сейчас</div>':''}
    </div>`;
  });
  document.getElementById('foodModal').classList.add('show');
@@ -987,8 +1011,7 @@ document.getElementById('kbjuResult').innerHTML=`
 
 <div id="foodModal" class="food-modal">
 <div class="food-modal-box">
-<h2 id="foodModalTitle">Выберите блюдо</h2>
-<div id="foodModalGrid" class="food-grid"></div>
+<button class="modal-close" onclick="closeFoodModal()">×</button><h2 id="foodModalTitle">Выберите блюдо</h2><input id="foodSearch" class="food-search" placeholder="🔍 Поиск блюда..." onkeyup="filterFoodOptions()"><div id="foodModalGrid" class="food-grid"></div>
 </div>
 </div>
 
