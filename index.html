@@ -330,6 +330,14 @@ align-items:start;
 .meal-info div{margin:0}
 .meal-macros{text-align:left;font-size:16px;font-weight:700;white-space:nowrap;width:150px;min-width:150px;justify-self:end}
 
+
+.replace-btn{
+margin-left:8px;background:#eef7e8;border:1px solid #6BCB2D;
+border-radius:8px;padding:4px 8px;cursor:pointer;color:#2f7d1f;font-size:12px
+}
+.replace-all-btn{
+margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;border-radius:10px;cursor:pointer
+}
 </style>
 
 </head>
@@ -774,7 +782,28 @@ window.addEventListener('load',()=>{
 
 
 
-function autoBuildMealPlan(){
+
+let mealPlanData=[];
+
+function replaceMealItem(mealIndex,type){
+ const pool=products.filter(p=>p.categories && p.categories.includes(type));
+ if(!pool.length) return;
+ const names=pool.map((p,i)=>`${i+1}. ${p.name}`).join('\n');
+ const choice=parseInt(prompt('Выберите номер:\n\n'+names));
+ if(!choice || !pool[choice-1]) return;
+ mealPlanData[mealIndex][type]=pool[choice-1];
+ autoBuildMealPlan(true);
+}
+
+function replaceWholeMeal(mealIndex){
+ ['protein','carbs','fiber'].forEach(t=>{
+   const pool=products.filter(p=>p.categories && p.categories.includes(t));
+   if(pool.length) mealPlanData[mealIndex][t]=pool[Math.floor(Math.random()*pool.length)];
+ });
+ autoBuildMealPlan(true);
+}
+
+function autoBuildMealPlan(rebuild=false){
  const mealsCount=parseInt(localStorage.getItem('mealsCount')||'0');
  const target=JSON.parse(localStorage.getItem('kbju_target')||'null');
 
@@ -786,12 +815,20 @@ function autoBuildMealPlan(){
  const fibers=products.filter(p=>p.categories && p.categories.includes('fiber'));
 
  cart=[];
+ if(!rebuild || !mealPlanData.length) mealPlanData=[];
  let planHtml=`<h3>🍽 Ваш рацион на ${mealsCount} приемов пищи</h3>`;
 
  for(let i=0;i<mealsCount;i++){
-   const pr=proteins[i % proteins.length];
-   const cb=carbs[i % carbs.length];
-   const fb=fibers[i % fibers.length];
+   if(!mealPlanData[i]){
+ mealPlanData[i]={
+  protein: proteins[i % proteins.length],
+  carbs: carbs[i % carbs.length],
+  fiber: fibers[i % fibers.length]
+ };
+}
+const pr=mealPlanData[i].protein;
+const cb=mealPlanData[i].carbs;
+const fb=mealPlanData[i].fiber;
 
    [pr,cb,fb].forEach(item=>{
       const ex=cart.find(x=>x.id===item.id);
@@ -811,9 +848,10 @@ planHtml += `<div class="meal-card">
 </div>
 
 <div class="meal-info">
-<div>✓ ${pr.name}</div>
-<div>✓ ${cb.name}</div>
-<div>✓ ${fb.name}</div>
+<div>✓ ${pr.name} <button class="replace-btn" onclick="replaceMealItem(${i},'protein')">Заменить</button></div>
+<div>✓ ${cb.name} <button class="replace-btn" onclick="replaceMealItem(${i},'carbs')">Заменить</button></div>
+<div>✓ ${fb.name} <button class="replace-btn" onclick="replaceMealItem(${i},'fiber')">Заменить</button></div>
+<button class="replace-all-btn" onclick="replaceWholeMeal(${i})">🔄 Заменить весь прием пищи</button>
 </div>
 
 <div class="meal-macros">
