@@ -418,6 +418,56 @@ margin-top:12px;
     </style>
     
 
+
+<style>
+@media(max-width:768px){
+header h1{font-size:24px!important}
+header div{font-size:13px!important}
+.cart-btn{bottom:85px!important}
+
+.main-actions{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+padding:12px;
+max-width:700px;
+margin:0 auto;
+}
+.action-card{
+background:#fff;
+border-radius:16px;
+padding:18px;
+text-align:center;
+font-weight:700;
+box-shadow:0 4px 12px rgba(0,0,0,.08);
+cursor:pointer;
+}
+#products.grid{
+grid-template-columns:1fr!important;
+padding:10px!important;
+}
+.card{
+padding:10px!important;
+}
+.card img{
+height:140px!important;
+}
+.bottom-nav{
+position:fixed;
+left:0;right:0;bottom:0;
+background:#fff;
+display:flex;
+justify-content:space-around;
+padding:10px 0;
+box-shadow:0 -2px 10px rgba(0,0,0,.1);
+z-index:9997;
+}
+.bottom-nav button{
+background:none;border:none;font-size:12px;font-weight:700;
+}
+body{padding-bottom:70px;}
+}
+</style>
 </head>
 <body>
 <header><h1>🥗 EatFit Vietnam</h1><div style='color:#fff'>Healthy Food Delivery</div></header>
@@ -426,10 +476,15 @@ margin-top:12px;
 🛒 <span id="count">0</span>
 </div>
 
-<div class="hero"><h2>EatFit Vietnam</h2><p>Свежая и полезная еда с доставкой каждый день</p></div>
+
 
 <div id="overlay" class="overlay" onclick="closeCart()"></div>
 <div id="toast" class="toast">✓ Блюдо добавлено в корзину</div>
+<div class="main-actions">
+<div class="action-card" onclick="openKBJU()">📊<br>КБЖУ</div>
+<div class="action-card" onclick="toggleFoodMenu()">🍽<br>Меню</div>
+</div>
+
 
 <div id="successModal" class="success-modal">
 <div class="success-box">
@@ -1162,7 +1217,15 @@ document.addEventListener('DOMContentLoaded', function(){
  }
 });
 </script>
+
+<div class="bottom-nav">
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})">🏠<br>Главная</button>
+<button onclick="toggleFoodMenu()">🍽<br>Меню</button>
+<button onclick="toggleCart()">🛒<br>Корзина</button>
+<button onclick="document.getElementById('mealSelector').scrollIntoView({behavior:'smooth'})">📋<br>Рацион</button>
+</div>
 </body>
+
 
 </html>
 <!-- layout refined -->
