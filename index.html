@@ -398,13 +398,16 @@ margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;borde
 .planner-progress{grid-template-columns:minmax(0,1.6fr) minmax(130px,1fr)}
 .meal-buttons{gap:10px}.meal-buttons .btn{border-radius:11px}
 #autoPlanResult>h3{margin:24px 0 12px}
-.meal-card{padding:18px;margin:10px 0;border:1px solid var(--line);border-radius:20px;box-shadow:0 5px 18px rgba(31,55,24,.035)}
-.meal-plan-row{display:grid;grid-template-columns:150px minmax(0,1fr) 130px;gap:18px;align-items:start}
+.meal-card{display:block;width:100%;padding:18px;margin:10px 0;border:1px solid var(--line);border-radius:20px;box-shadow:0 5px 18px rgba(31,55,24,.035)}
+.meal-plan-row{display:grid;width:100%;grid-template-columns:150px minmax(320px,1fr) 150px;gap:18px;align-items:start}
 .meal-left{gap:10px;min-width:0}.meal-number{width:38px;height:38px;flex:0 0 38px}
 .meal-title{font-size:15px;white-space:normal;line-height:1.25}.meal-time-line{font-size:12px;white-space:nowrap}
-.meal-info{width:100%;min-width:0;font-size:14px;line-height:1.35}.meal-info div{display:grid;grid-template-columns:minmax(0,1fr) 80px;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid #edf1ea}
-.replace-btn{width:80px;margin:0;padding:4px 5px}.replace-all-btn{display:block;width:100%;margin:10px 0 0}
-.meal-macros{width:100%;min-width:0;text-align:right;font-size:14px;line-height:1.7;justify-self:stretch;padding:10px;background:var(--green-soft);border-radius:12px}
+.meal-info{width:100%;min-width:0;font-size:14px;line-height:1.35}
+.meal-info .meal-choice{display:grid;grid-template-columns:minmax(0,1fr) 92px;align-items:center;gap:12px;min-height:37px;margin:0;padding:6px 0;border-bottom:1px solid #edf1ea}
+.meal-info .meal-choice-name{min-width:0;overflow-wrap:anywhere}
+.replace-btn{width:92px;min-width:92px;margin:0;padding:6px 5px;background:#fff;border:1px solid var(--green);border-radius:9px;color:var(--green-dark);font-weight:700;cursor:pointer}
+.replace-all-btn{display:block;width:100%;margin:12px 0 0;padding:10px 12px;background:var(--green);color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer}
+.meal-macros{width:150px;min-width:150px;text-align:right;font-size:14px;line-height:1.7;justify-self:end;padding:12px;background:var(--green-soft);border-radius:12px}
 .checkout-section{margin-top:24px;padding:20px;background:#fff;border:1px solid var(--line);border-radius:20px}
 .checkout-section h3{margin-top:0}
 .checkout-bar{position:relative;right:auto;bottom:auto;width:100%;padding:14px 28px 18px;background:rgba(255,255,255,.96);border-top:1px solid var(--line);backdrop-filter:blur(12px);z-index:15}
@@ -414,7 +417,7 @@ margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;borde
  .cart-item{grid-template-columns:64px minmax(0,1fr);gap:11px}.cart-item img{width:64px;height:64px}.cart-item-side{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;text-align:left;padding-top:9px;border-top:1px solid #edf1ea}.qty{margin:0}
  .day-summary{padding:15px}.day-grid,.planner-stats{gap:5px}.day-grid>div,.planner-stats>div{padding:8px 2px}.day-grid b,.planner-stats b{font-size:16px}
  .planner-progress{grid-template-columns:1fr}.meal-buttons{grid-template-columns:repeat(2,1fr)}
- .meal-plan-row{grid-template-columns:1fr;gap:13px}.meal-left{align-items:center}.meal-macros{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;text-align:center;line-height:1.35}.meal-macros b{display:block}.meal-info div{align-items:start}
+ .meal-plan-row{grid-template-columns:1fr;gap:13px}.meal-left{align-items:center}.meal-info .meal-choice{grid-template-columns:minmax(0,1fr) 92px;align-items:start}.meal-macros{display:grid;width:100%;min-width:0;grid-template-columns:repeat(4,1fr);gap:4px;text-align:center;line-height:1.35;justify-self:stretch}.meal-macros b{display:block}
  .checkout-section{padding:15px}.checkout-bar{padding:11px 14px 14px}
 }
 
@@ -968,9 +971,9 @@ planHtml += `<div class="meal-card">
 </div>
 
 <div class="meal-info">
-<div>✓ ${pr.name} <button class="replace-btn" onclick="replaceMealItem(${i},'protein')">Заменить</button></div>
-<div>✓ ${cb.name} <button class="replace-btn" onclick="replaceMealItem(${i},'carbs')">Заменить</button></div>
-<div>✓ ${fb.name} <button class="replace-btn" onclick="replaceMealItem(${i},'fiber')">Заменить</button></div>
+<div class="meal-choice"><span class="meal-choice-name">✓ ${pr.name}</span><button class="replace-btn" onclick="replaceMealItem(${i},'protein')">Заменить</button></div>
+<div class="meal-choice"><span class="meal-choice-name">✓ ${cb.name}</span><button class="replace-btn" onclick="replaceMealItem(${i},'carbs')">Заменить</button></div>
+<div class="meal-choice"><span class="meal-choice-name">✓ ${fb.name}</span><button class="replace-btn" onclick="replaceMealItem(${i},'fiber')">Заменить</button></div>
 <button class="replace-all-btn" onclick="replaceWholeMeal(${i})">🎲 Новый вариант</button>
 </div>
 
