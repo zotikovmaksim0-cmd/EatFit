@@ -391,6 +391,12 @@ margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;borde
 .day-grid,.planner-stats{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
 .day-grid>div,.planner-stats>div{padding:10px 5px;background:#fff;border-radius:12px;color:var(--muted);font-size:12px}
 .day-grid b,.planner-stats b{font-size:19px;color:var(--ink)}
+.day-target{display:block;margin-top:3px;color:var(--muted);font-size:11px}
+.goal-progress{display:none;margin-top:14px;padding-top:14px;border-top:1px solid #dcebd4}
+.goal-progress-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.goal-progress-row{min-width:0}
+.goal-progress-top{display:flex;justify-content:space-between;gap:10px;margin-bottom:6px;color:var(--muted);font-size:12px}
+.goal-progress-top b{color:var(--ink);font-size:13px}
 .summary-price{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:14px;border-top:1px solid #dcebd4;color:var(--muted)}
 .summary-price b{color:var(--ink);font-size:17px}
 .planner-top-card,.total{border:1px solid var(--line);border-radius:20px;background:#fff;padding:18px}
@@ -415,7 +421,7 @@ margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;borde
 @media(max-width:650px){
  .cart-panel{padding:0}.cart-header{margin:0;padding:16px 14px}.cart-scroll{padding:16px 14px 22px}.cart-heading{font-size:21px}.cart-subtitle{display:none}.clear-btn{width:40px;padding:0;font-size:0}.clear-btn::before{content:'🗑';font-size:15px}
  .cart-item{grid-template-columns:64px minmax(0,1fr);gap:11px}.cart-item img{width:64px;height:64px}.cart-item-side{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;text-align:left;padding-top:9px;border-top:1px solid #edf1ea}.qty{margin:0}
- .day-summary{padding:15px}.day-grid,.planner-stats{gap:5px}.day-grid>div,.planner-stats>div{padding:8px 2px}.day-grid b,.planner-stats b{font-size:16px}
+ .day-summary{padding:15px}.day-grid,.planner-stats{gap:5px}.day-grid>div,.planner-stats>div{padding:8px 2px}.day-grid b,.planner-stats b{font-size:16px}.goal-progress-grid{grid-template-columns:1fr}
  .planner-progress{grid-template-columns:1fr}.meal-buttons{grid-template-columns:repeat(2,1fr)}
  .meal-plan-row{grid-template-columns:1fr;gap:13px}.meal-left{align-items:center}.meal-info .meal-choice{grid-template-columns:minmax(0,1fr) 92px;align-items:start}.meal-macros{display:grid;width:100%;min-width:0;grid-template-columns:repeat(4,1fr);gap:4px;text-align:center;line-height:1.35;justify-self:stretch}.meal-macros b{display:block}
  .checkout-section{padding:15px}.checkout-bar{padding:11px 14px 14px}
@@ -507,33 +513,16 @@ margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;borde
 <div id="cartItems"></div>
 
 <div id="daySummary" class="day-summary">
-<div class="summary-head"><div><h3>Итого за день</h3><div class="cart-subtitle">Ваш прогресс по цели КБЖУ</div></div><div class='accuracy-circle' id='accuracyCircle'>98%</div></div>
+<div class="summary-head"><div><h3>Цель на день</h3><div class="cart-subtitle">Что уже в рационе и сколько осталось до КБЖУ</div></div><div class='accuracy-circle' id='accuracyCircle'>0%</div></div>
 <div class="day-grid">
-<div><b id="totalCalories">0</b>ккал</div>
-<div><b id="totalProtein">0</b>Б</div>
-<div><b id="totalFat">0</b>Ж</div>
-<div><b id="totalCarbs">0</b>У</div>
+<div><b id="totalCalories">0</b>ккал<span class="day-target" id="targetCalories">цель не задана</span></div>
+<div><b id="totalProtein">0</b>Б<span class="day-target" id="targetProtein">цель не задана</span></div>
+<div><b id="totalFat">0</b>Ж<span class="day-target" id="targetFat">цель не задана</span></div>
+<div><b id="totalCarbs">0</b>У<span class="day-target" id="targetCarbs">цель не задана</span></div>
 </div>
+<div id="kbjuProgress" class="goal-progress"></div>
 <div class="summary-price"><span>Стоимость рациона</span><b><span id="totalPrice">0</span> VND</b></div>
 <span id="totalQty" style="display:none">0</span>
-</div>
-
-<div id="kbjuProgress" class="planner-top-card" style="display:none">
-<div class="planner-header">
-<h3 style="margin:0">🎯 Ваша цель</h3>
-<div class="planner-edit">✏️ Редактировать</div>
-</div>
-<div id="kbjuTarget" class="planner-stats"></div>
-<div class="planner-progress">
-<div>
-<b>📈 Выполнено</b>
-<div id="kbjuDone"></div>
-</div>
-<div>
-<b>⏳ Осталось</b>
-<div id="kbjuLeft"></div>
-</div>
-</div>
 </div>
 
 
@@ -636,36 +625,49 @@ function removeItem(id){
 function updateKBJUProgress(totalCalories,totalProtein,totalFat,totalCarbs){
  const target=JSON.parse(localStorage.getItem('kbju_target')||'null');
  const box=document.getElementById('kbjuProgress');
- if(!target || !box) return;
-
- box.style.display='block';
+ if(!box) return;
+ if(!target){
+   box.style.display='none';
+   document.getElementById('accuracyCircle').textContent='0%';
+   ['targetCalories','targetProtein','targetFat','targetCarbs'].forEach(id=>{
+     const el=document.getElementById(id);
+     if(el) el.textContent='цель не задана';
+   });
+   return;
+ }
 
  const calPct=Math.min(100,Math.round(totalCalories/target.calories*100)||0);
  const proPct=Math.min(100,Math.round(totalProtein/target.protein*100)||0);
  const fatPct=Math.min(100,Math.round(totalFat/target.fat*100)||0);
  const carbPct=Math.min(100,Math.round(totalCarbs/target.carbs*100)||0);
+ const totalPct=Math.round((calPct+proPct+fatPct+carbPct)/4);
 
- document.getElementById('kbjuTarget').innerHTML=`
-<div><div>Калории</div><b>${target.calories}</b></div>
-<div><div>Белки</div><b>${target.protein} г</b></div>
-<div><div>Жиры</div><b>${target.fat} г</b></div>
-<div><div>Углеводы</div><b>${target.carbs} г</b></div>`;
+ document.getElementById('accuracyCircle').textContent=totalPct+'%';
+ document.getElementById('targetCalories').textContent=`из ${target.calories} ккал`;
+ document.getElementById('targetProtein').textContent=`из ${target.protein} г`;
+ document.getElementById('targetFat').textContent=`из ${target.fat} г`;
+ document.getElementById('targetCarbs').textContent=`из ${target.carbs} г`;
 
- document.getElementById('kbjuDone').innerHTML=`
- <div class="progress-row">🔥 ${totalCalories}/${target.calories} (${calPct}%)
- <div class="progress-bar"><div class="progress-fill" style="width:${calPct}%"></div></div></div>
- <div class="progress-row">🥩 ${totalProtein}/${target.protein} (${proPct}%)
- <div class="progress-bar"><div class="progress-fill" style="width:${proPct}%"></div></div></div>
- <div class="progress-row">🥑 ${totalFat}/${target.fat} (${fatPct}%)
- <div class="progress-bar"><div class="progress-fill" style="width:${fatPct}%"></div></div></div>
- <div class="progress-row">🍚 ${totalCarbs}/${target.carbs} (${carbPct}%)
- <div class="progress-bar"><div class="progress-fill" style="width:${carbPct}%"></div></div></div>`;
-
- document.getElementById('kbjuLeft').innerHTML=`
- 🔥 ${Math.max(0,target.calories-totalCalories)} ккал<br>
- 🥩 ${Math.max(0,target.protein-totalProtein)} г<br>
- 🥑 ${Math.max(0,target.fat-totalFat)} г<br>
- 🍚 ${Math.max(0,target.carbs-totalCarbs)} г`;
+ box.style.display='block';
+ box.innerHTML=`
+ <div class="goal-progress-grid">
+  <div class="goal-progress-row">
+   <div class="goal-progress-top"><span>Калории</span><b>${Math.max(0,target.calories-totalCalories)} ккал осталось</b></div>
+   <div class="progress-bar"><div class="progress-fill" style="width:${calPct}%"></div></div>
+  </div>
+  <div class="goal-progress-row">
+   <div class="goal-progress-top"><span>Белки</span><b>${Math.max(0,target.protein-totalProtein)} г осталось</b></div>
+   <div class="progress-bar"><div class="progress-fill" style="width:${proPct}%"></div></div>
+  </div>
+  <div class="goal-progress-row">
+   <div class="goal-progress-top"><span>Жиры</span><b>${Math.max(0,target.fat-totalFat)} г осталось</b></div>
+   <div class="progress-bar"><div class="progress-fill" style="width:${fatPct}%"></div></div>
+  </div>
+  <div class="goal-progress-row">
+   <div class="goal-progress-top"><span>Углеводы</span><b>${Math.max(0,target.carbs-totalCarbs)} г осталось</b></div>
+   <div class="progress-bar"><div class="progress-fill" style="width:${carbPct}%"></div></div>
+  </div>
+ </div>`;
 }
 
 
@@ -1007,15 +1009,6 @@ planHtml += `<div class="meal-card">
      Math.abs(target.carbs-carb)/Math.max(1,target.carbs)*25
    )
  );
-
- planHtml += `<div class="total">
-   <h3>🎯 Точность рациона</h3>
-   🔥 ${kcal} / ${target.calories} ккал<br>
-   🥩 ${prot} / ${target.protein} г<br>
-   🥑 ${fat} / ${target.fat} г<br>
-   🍚 ${carb} / ${target.carbs} г<br><br>
-   <b>Точность: ${Math.max(0,acc)}%</b>
- </div>`;
 
  document.getElementById('autoPlanResult').innerHTML=planHtml; document.getElementById('accuracyCircle').textContent=Math.max(0,acc)+'%';
 }
