@@ -359,11 +359,13 @@ margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;borde
 /* Cart and generated meal plan */
 :root{--green:#63bd2b;--green-dark:#317d20;--green-soft:#f2faed;--ink:#182117;--muted:#71806d;--line:#e4ebdf}
 .cart-panel{
- width:min(780px,100%);right:0;padding:0 28px 110px;transform:translateX(100%);transition:transform .3s ease;
+ width:min(780px,100%);right:0;padding:0;transform:translateX(100%);transition:transform .3s ease;
+ display:grid;grid-template-rows:auto minmax(0,1fr) auto;overflow:hidden;
  background:#f7f9f5;color:var(--ink);box-shadow:-18px 0 48px rgba(25,45,20,.16)
 }
 .cart-panel.open{right:0;transform:translateX(0)}
-.cart-header{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:14px;margin:0 -28px 22px;padding:22px 28px 18px;background:rgba(247,249,245,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.cart-header{position:relative;z-index:10;display:flex;align-items:center;gap:14px;margin:0;padding:22px 28px 18px;background:rgba(247,249,245,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.cart-scroll{min-height:0;overflow-y:auto;padding:22px 28px 28px;scrollbar-gutter:stable}
 .cart-heading{margin:0;font-size:25px;letter-spacing:-.4px}
 .cart-subtitle{margin:4px 0 0;color:var(--muted);font-size:14px}
 .cart-header-actions{display:flex;align-items:center;gap:8px;margin-left:auto}
@@ -397,22 +399,22 @@ margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;borde
 .meal-buttons{gap:10px}.meal-buttons .btn{border-radius:11px}
 #autoPlanResult>h3{margin:24px 0 12px}
 .meal-card{padding:18px;margin:10px 0;border:1px solid var(--line);border-radius:20px;box-shadow:0 5px 18px rgba(31,55,24,.035)}
-.meal-plan-row{display:grid;grid-template-columns:145px minmax(0,1fr) 112px;gap:18px;align-items:start}
+.meal-plan-row{display:grid;grid-template-columns:150px minmax(0,1fr) 130px;gap:18px;align-items:start}
 .meal-left{gap:10px;min-width:0}.meal-number{width:38px;height:38px;flex:0 0 38px}
 .meal-title{font-size:15px;white-space:normal;line-height:1.25}.meal-time-line{font-size:12px;white-space:nowrap}
-.meal-info{font-size:14px;line-height:1.35}.meal-info div{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px solid #edf1ea}
-.replace-btn{flex:0 0 auto;margin:0;padding:4px 7px}.replace-all-btn{width:100%;margin-top:10px}
-.meal-macros{width:auto;min-width:0;text-align:right;font-size:14px;line-height:1.7;justify-self:stretch;padding:10px;background:var(--green-soft);border-radius:12px}
+.meal-info{width:100%;min-width:0;font-size:14px;line-height:1.35}.meal-info div{display:grid;grid-template-columns:minmax(0,1fr) 80px;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid #edf1ea}
+.replace-btn{width:80px;margin:0;padding:4px 5px}.replace-all-btn{display:block;width:100%;margin:10px 0 0}
+.meal-macros{width:100%;min-width:0;text-align:right;font-size:14px;line-height:1.7;justify-self:stretch;padding:10px;background:var(--green-soft);border-radius:12px}
 .checkout-section{margin-top:24px;padding:20px;background:#fff;border:1px solid var(--line);border-radius:20px}
 .checkout-section h3{margin-top:0}
-.checkout-bar{position:fixed;right:0;bottom:0;width:min(780px,100%);padding:14px 28px 18px;background:rgba(255,255,255,.96);border-top:1px solid var(--line);backdrop-filter:blur(12px);z-index:15}
+.checkout-bar{position:relative;right:auto;bottom:auto;width:100%;padding:14px 28px 18px;background:rgba(255,255,255,.96);border-top:1px solid var(--line);backdrop-filter:blur(12px);z-index:15}
 .checkout-btn{width:100%;min-height:48px;font-size:16px;box-shadow:0 8px 18px rgba(99,189,43,.24)}
 @media(max-width:650px){
- .cart-panel{padding:0 14px 100px}.cart-header{margin:0 -14px 16px;padding:16px 14px}.cart-heading{font-size:21px}.cart-subtitle{display:none}.clear-btn{width:40px;padding:0;font-size:0}.clear-btn::before{content:'🗑';font-size:15px}
+ .cart-panel{padding:0}.cart-header{margin:0;padding:16px 14px}.cart-scroll{padding:16px 14px 22px}.cart-heading{font-size:21px}.cart-subtitle{display:none}.clear-btn{width:40px;padding:0;font-size:0}.clear-btn::before{content:'🗑';font-size:15px}
  .cart-item{grid-template-columns:64px minmax(0,1fr);gap:11px}.cart-item img{width:64px;height:64px}.cart-item-side{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;text-align:left;padding-top:9px;border-top:1px solid #edf1ea}.qty{margin:0}
  .day-summary{padding:15px}.day-grid,.planner-stats{gap:5px}.day-grid>div,.planner-stats>div{padding:8px 2px}.day-grid b,.planner-stats b{font-size:16px}
  .planner-progress{grid-template-columns:1fr}.meal-buttons{grid-template-columns:repeat(2,1fr)}
- .meal-plan-row{grid-template-columns:1fr;gap:13px}.meal-left{align-items:center}.meal-macros{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;text-align:center;line-height:1.35}.meal-macros b{display:block}.meal-info div{align-items:flex-start}
+ .meal-plan-row{grid-template-columns:1fr;gap:13px}.meal-left{align-items:center}.meal-macros{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;text-align:center;line-height:1.35}.meal-macros b{display:block}.meal-info div{align-items:start}
  .checkout-section{padding:15px}.checkout-bar{padding:11px 14px 14px}
 }
 
@@ -498,6 +500,7 @@ margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;borde
 <div><h2 class="cart-heading">Ваш рацион</h2><p class="cart-subtitle">Сбалансированный план питания на день</p></div>
 <div class="cart-header-actions"><button class="clear-btn" onclick="clearCart()">Очистить</button><button class="close-cart" onclick="closeCart()" aria-label="Закрыть">×</button></div>
 </div>
+<div class="cart-scroll">
 <div id="cartItems"></div>
 
 <div id="daySummary" class="day-summary">
@@ -552,6 +555,7 @@ margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;borde
 <input id="address" placeholder="Адрес доставки">
 <textarea id="comment" placeholder="Комментарий"></textarea>
 <div id="orderPreview" style="display:none;background:#eef;padding:10px;border-radius:8px;margin-bottom:10px"></div>
+</div>
 </div>
 <div class="checkout-bar">
 <button class="checkout-btn" onclick="checkout()">
