@@ -410,21 +410,14 @@ margin-top:12px;
 .meal-toggle{cursor:pointer;font-size:20px;font-weight:bold;}
 }
 
-</style>
 
+    @media(max-width:768px){
+      .hero,.hero-section,.banner,.main-banner{display:none!important;}
+      header{padding:8px 12px!important;min-height:auto!important;}
+    }
+    </style>
+    
 
-<style>
-.hero{display:none!important;}
-header{padding:10px 15px!important;}
-header h1{font-size:28px!important;}
-.catalog-toggle{display:block;margin:15px auto;background:#6BCB2D;color:#fff;border:none;padding:14px 22px;border-radius:14px;font-weight:700}
-.catalog-drawer{display:none;padding:15px;background:#fff;border-radius:18px;margin:15px;box-shadow:0 4px 15px rgba(0,0,0,.08)}
-.catalog-drawer.open{display:block}
-@media(max-width:768px){
-.grid{display:none}
-.grid.catalog-open{display:grid}
-}
-</style>
 </head>
 <body>
 <header><h1>🥗 EatFit Vietnam</h1><div style='color:#fff'>Healthy Food Delivery</div></header>
@@ -448,15 +441,15 @@ header h1{font-size:28px!important;}
 </div>
 
 
-<button class="catalog-toggle" onclick="toggleCatalog()">🍽 Открыть меню</button>
-<div id="catalogDrawer" class="catalog-drawer">
-<div style="max-width:1400px;margin:0;padding:0;display:flex;gap:10px;flex-wrap:wrap">
+<div style="max-width:1400px;margin:20px auto;padding:0 24px;display:flex;gap:10px;flex-wrap:wrap">
 <input id="searchInput" placeholder="🔍 Поиск блюда..." onkeyup="renderProducts()" style="max-width:350px">
 <select id="proteinFilter" onchange="renderProducts()" style="padding:12px;border-radius:10px">
 <option value="">Все блюда</option>
 <option value="high">🥩 Высокобелковые</option>
 <option value="lowcal">🔥 До 400 ккал</option>
-</select></div></div>
+</select>
+</div>
+
 
 <button class="btn kbju-open" onclick="openKBJU()">📊 Рассчитать КБЖУ</button>
 
@@ -1104,12 +1097,72 @@ try{
 </script>
 
 
-<script>
-function toggleCatalog(){
-document.getElementById('catalogDrawer').classList.toggle('open');
-document.getElementById('products').classList.toggle('catalog-open');
+<style>
+.mobile-menu-btn{
+ display:block;
+ width:90%;
+ margin:12px auto;
+ padding:14px;
+ border:none;
+ border-radius:14px;
+ background:#6BCB2D;
+ color:#fff;
+ font-weight:700;
 }
+.mobile-drawer{
+ position:fixed;
+ left:0;right:0;bottom:0;
+ height:80vh;
+ background:#fff;
+ z-index:9999;
+ border-radius:20px 20px 0 0;
+ padding:15px;
+ overflow:auto;
+ display:none;
+ box-shadow:0 -4px 20px rgba(0,0,0,.2);
+}
+.mobile-drawer.open{display:block;}
+.mobile-backdrop{
+ position:fixed;inset:0;
+ background:rgba(0,0,0,.4);
+ z-index:9998;
+ display:none;
+}
+.mobile-backdrop.open{display:block;}
+</style>
+
+<div class="mobile-backdrop" id="menuBackdrop" onclick="toggleFoodMenu()"></div>
+<div class="mobile-drawer" id="foodDrawer">
+<h3>🍽 Меню блюд</h3>
+<p>Используйте поиск и фильтры внутри меню.</p>
+</div>
+
+<script>
+function toggleFoodMenu(){
+ document.getElementById('foodDrawer').classList.toggle('open');
+ document.getElementById('menuBackdrop').classList.toggle('open');
+}
+document.addEventListener('DOMContentLoaded', function(){
+ const search=document.querySelector('input[type="search"], input[placeholder*="Поиск"]');
+ const select=document.querySelector('select');
+ const products=document.getElementById('products') || document.querySelector('.products-grid');
+
+ if(search && select){
+   const btn=document.createElement('button');
+   btn.className='mobile-menu-btn';
+   btn.innerHTML='🍽 Открыть меню';
+   btn.onclick=toggleFoodMenu;
+
+   const target=search.parentElement;
+   target.parentNode.insertBefore(btn,target);
+
+   const drawer=document.getElementById('foodDrawer');
+   drawer.appendChild(search.parentElement);
+   if(products) drawer.appendChild(products);
+ }
+});
 </script>
 </body>
+
 </html>
 <!-- layout refined -->
