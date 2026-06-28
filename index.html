@@ -953,25 +953,86 @@ function selectFood(id){
  if(!item) return;
  mealPlanData[currentMealIndex][currentType]=item;
  document.getElementById('foodModal').classList.remove('show');
+ rebalanceMealPlan(currentMealIndex,currentType,false);
  autoBuildMealPlan(true);
 }
 
-function replaceWholeMeal(mealIndex){
+function buildMealCombos(proteins,carbs,fibers){
+ const combos=[];
+ const carbOptions=[{item:null,qty:0}];
+ carbs.forEach(item=>{
+   [1,2,3,4].forEach(qty=>carbOptions.push({item,qty}));
+ });
+
+ proteins.forEach(protein=>{
+   [null,...proteins].forEach(extraProtein=>{
+     if(extraProtein && extraProtein.id===protein.id) return;
+     carbOptions.forEach(carbOption=>{
+       fibers.forEach(fiber=>{
+         const meal={
+           protein,
+           proteinQty:1,
+           extraProtein,
+           extraProteinQty:1,
+           carbs:carbOption.item,
+           carbsQty:carbOption.qty||1,
+           fiber,
+           fiberQty:1
+         };
+         combos.push({meal,total:mealTotals(meal)});
+       });
+     });
+   });
+ });
+
+ return combos;
+}
+
+function totalMealPlanExcept(skipIndex){
+ return mealPlanData.reduce((total,meal,index)=>{
+   if(index===skipIndex) return total;
+   return addTotals(total,mealTotals(meal));
+ },{calories:0,protein:0,fat:0,carbs:0});
+}
+
+function comboMatchesLock(meal,lockedType,lockedItem){
+ if(!lockedType || !lockedItem) return true;
+ if(lockedType==='extraProtein') return meal.extraProtein && meal.extraProtein.id===lockedItem.id;
+ return meal[lockedType] && meal[lockedType].id===lockedItem.id;
+}
+
+function rebalanceMealPlan(mealIndex,lockedType=null,forceDifferent=false){
+ const target=JSON.parse(localStorage.getItem('kbju_target')||'null');
+ if(!target || !mealPlanData.length || mealIndex==null) return;
+
  const proteins=products.filter(p=>p.categories && p.categories.includes('protein'));
  const carbs=products.filter(p=>p.categories && p.categories.includes('carbs'));
  const fibers=products.filter(p=>p.categories && p.categories.includes('fiber'));
- const primaryProtein=proteins[Math.floor(Math.random()*proteins.length)];
- const extraPool=proteins.filter(p=>p.id!==primaryProtein.id);
- mealPlanData[mealIndex]={
-   protein:primaryProtein,
-   proteinQty:1,
-   extraProtein:Math.random()>.55 && extraPool.length ? extraPool[Math.floor(Math.random()*extraPool.length)] : null,
-   extraProteinQty:1,
-   carbs:Math.random()>.35 ? carbs[Math.floor(Math.random()*carbs.length)] : null,
-   carbsQty:Math.ceil(Math.random()*2),
-   fiber:fibers[Math.floor(Math.random()*fibers.length)],
-   fiberQty:1
- };
+
+ const fixedTotal=totalMealPlanExcept(mealIndex);
+ const combos=buildMealCombos(proteins,carbs,fibers);
+ const currentMeal=mealPlanData[mealIndex];
+ const currentSignature=mealSignature(currentMeal);
+ const lockedItem=lockedType ? currentMeal[lockedType] : null;
+ let best=null;
+
+ combos.forEach(combo=>{
+   if(forceDifferent && mealSignature(combo.meal)===currentSignature) return;
+   if(!comboMatchesLock(combo.meal,lockedType,lockedItem)) return;
+   const total=addTotals(fixedTotal,combo.total);
+   const score=planScore(total,target);
+   if(!best || score<best.score) best={meal:combo.meal,score};
+ });
+
+ if(best) mealPlanData[mealIndex]=best.meal;
+}
+
+function mealSignature(meal){
+ return mealItems(meal).map(row=>`${row.type}:${row.item.id}:${row.qty}`).join('|');
+}
+
+function replaceWholeMeal(mealIndex){
+ rebalanceMealPlan(mealIndex,null,true);
  autoBuildMealPlan(true);
 }
 
@@ -1017,31 +1078,7 @@ function planScore(total,target){
 }
 
 function buildBalancedMealPlan(mealsCount,target,proteins,carbs,fibers){
- const combos=[];
- const carbOptions=[{item:null,qty:0}];
- carbs.forEach(item=>{
-   [1,2,3,4].forEach(qty=>carbOptions.push({item,qty}));
- });
- proteins.forEach(protein=>{
-   [null,...proteins].forEach(extraProtein=>{
-     if(extraProtein && extraProtein.id===protein.id) return;
-     carbOptions.forEach(carbOption=>{
-       fibers.forEach(fiber=>{
-         const meal={
-           protein,
-           proteinQty:1,
-           extraProtein,
-           extraProteinQty:1,
-           carbs:carbOption.item,
-           carbsQty:carbOption.qty||1,
-           fiber,
-           fiberQty:1
-         };
-         combos.push({meal,total:mealTotals(meal)});
-       });
-     });
-   });
- });
+ const combos=buildMealCombos(proteins,carbs,fibers);
 
  if(!combos.length) return [];
 
