@@ -636,11 +636,19 @@ function updateKBJUProgress(totalCalories,totalProtein,totalFat,totalCarbs){
    return;
  }
 
- const calPct=Math.min(100,Math.round(totalCalories/target.calories*100)||0);
- const proPct=Math.min(100,Math.round(totalProtein/target.protein*100)||0);
- const fatPct=Math.min(100,Math.round(totalFat/target.fat*100)||0);
- const carbPct=Math.min(100,Math.round(totalCarbs/target.carbs*100)||0);
- const totalPct=Math.round((calPct+proPct+fatPct+carbPct)/4);
+ const calRawPct=Math.round(totalCalories/target.calories*100)||0;
+ const proRawPct=Math.round(totalProtein/target.protein*100)||0;
+ const fatRawPct=Math.round(totalFat/target.fat*100)||0;
+ const carbRawPct=Math.round(totalCarbs/target.carbs*100)||0;
+ const calPct=Math.min(100,calRawPct);
+ const proPct=Math.min(100,proRawPct);
+ const fatPct=Math.min(100,fatRawPct);
+ const carbPct=Math.min(100,carbRawPct);
+ const totalPct=Math.round((calRawPct+proRawPct+fatRawPct+carbRawPct)/4);
+ const leftText=(targetValue,totalValue,unit)=>{
+   const diff=targetValue-totalValue;
+   return diff>=0 ? `${diff} ${unit} осталось` : `+${Math.abs(diff)} ${unit} выше цели`;
+ };
 
  document.getElementById('accuracyCircle').textContent=totalPct+'%';
  document.getElementById('targetCalories').textContent=`из ${target.calories} ккал`;
@@ -652,19 +660,19 @@ function updateKBJUProgress(totalCalories,totalProtein,totalFat,totalCarbs){
  box.innerHTML=`
  <div class="goal-progress-grid">
   <div class="goal-progress-row">
-   <div class="goal-progress-top"><span>Калории</span><b>${Math.max(0,target.calories-totalCalories)} ккал осталось</b></div>
+   <div class="goal-progress-top"><span>Калории</span><b>${leftText(target.calories,totalCalories,'ккал')}</b></div>
    <div class="progress-bar"><div class="progress-fill" style="width:${calPct}%"></div></div>
   </div>
   <div class="goal-progress-row">
-   <div class="goal-progress-top"><span>Белки</span><b>${Math.max(0,target.protein-totalProtein)} г осталось</b></div>
+   <div class="goal-progress-top"><span>Белки</span><b>${leftText(target.protein,totalProtein,'г')}</b></div>
    <div class="progress-bar"><div class="progress-fill" style="width:${proPct}%"></div></div>
   </div>
   <div class="goal-progress-row">
-   <div class="goal-progress-top"><span>Жиры</span><b>${Math.max(0,target.fat-totalFat)} г осталось</b></div>
+   <div class="goal-progress-top"><span>Жиры</span><b>${leftText(target.fat,totalFat,'г')}</b></div>
    <div class="progress-bar"><div class="progress-fill" style="width:${fatPct}%"></div></div>
   </div>
   <div class="goal-progress-row">
-   <div class="goal-progress-top"><span>Углеводы</span><b>${Math.max(0,target.carbs-totalCarbs)} г осталось</b></div>
+   <div class="goal-progress-top"><span>Углеводы</span><b>${leftText(target.carbs,totalCarbs,'г')}</b></div>
    <div class="progress-bar"><div class="progress-fill" style="width:${carbPct}%"></div></div>
   </div>
  </div>`;
@@ -894,7 +902,8 @@ function filterFoodOptions(){
 function replaceMealItem(mealIndex,type){
  currentMealIndex=mealIndex;
  currentType=type;
- const pool=products.filter(p=>p.categories && p.categories.includes(type));
+ const category=type==='extraProtein' ? 'protein' : type;
+ const pool=products.filter(p=>p.categories && p.categories.includes(category));
  const grid=document.getElementById('foodModalGrid');
  document.getElementById('foodModalTitle').innerText='Выберите блюдо';
  grid.innerHTML='';
@@ -921,11 +930,116 @@ function selectFood(id){
 }
 
 function replaceWholeMeal(mealIndex){
- ['protein','carbs','fiber'].forEach(t=>{
-   const pool=products.filter(p=>p.categories && p.categories.includes(t));
-   if(pool.length) mealPlanData[mealIndex][t]=pool[Math.floor(Math.random()*pool.length)];
- });
+ const proteins=products.filter(p=>p.categories && p.categories.includes('protein'));
+ const carbs=products.filter(p=>p.categories && p.categories.includes('carbs'));
+ const fibers=products.filter(p=>p.categories && p.categories.includes('fiber'));
+ const primaryProtein=proteins[Math.floor(Math.random()*proteins.length)];
+ const extraPool=proteins.filter(p=>p.id!==primaryProtein.id);
+ mealPlanData[mealIndex]={
+   protein:primaryProtein,
+   extraProtein:Math.random()>.55 && extraPool.length ? extraPool[Math.floor(Math.random()*extraPool.length)] : null,
+   carbs:Math.random()>.35 ? carbs[Math.floor(Math.random()*carbs.length)] : null,
+   fiber:Math.random()>.25 ? fibers[Math.floor(Math.random()*fibers.length)] : null
+ };
  autoBuildMealPlan(true);
+}
+
+function mealItems(meal){
+ return [
+   {type:'protein',label:'',item:meal.protein},
+   {type:'extraProtein',label:'доп. белок',item:meal.extraProtein},
+   {type:'carbs',label:'',item:meal.carbs},
+   {type:'fiber',label:'',item:meal.fiber}
+ ].filter(row=>row.item);
+}
+
+function mealTotals(meal){
+ return mealItems(meal).reduce((sum,row)=>({
+   calories:sum.calories+(row.item.calories||0),
+   protein:sum.protein+(row.item.protein||0),
+   fat:sum.fat+(row.item.fat||0),
+   carbs:sum.carbs+(row.item.carbs||0)
+ }),{calories:0,protein:0,fat:0,carbs:0});
+}
+
+function addTotals(a,b){
+ return {
+   calories:a.calories+b.calories,
+   protein:a.protein+b.protein,
+   fat:a.fat+b.fat,
+   carbs:a.carbs+b.carbs
+ };
+}
+
+function planScore(total,target){
+ const keys=['calories','protein','fat','carbs'];
+ return keys.reduce((score,key)=>{
+   const ratio=total[key]/Math.max(1,target[key]);
+   const distance=Math.abs(1-ratio);
+   const outside=ratio<0.95 ? 0.95-ratio : ratio>1.05 ? ratio-1.05 : 0;
+   return score + distance + outside*4;
+ },0);
+}
+
+function buildBalancedMealPlan(mealsCount,target,proteins,carbs,fibers){
+ const combos=[];
+ proteins.forEach(protein=>{
+   [null,...proteins].forEach(extraProtein=>{
+     if(extraProtein && extraProtein.id===protein.id) return;
+     [null,...carbs].forEach(carb=>{
+       [null,...fibers].forEach(fiber=>{
+         const meal={protein,extraProtein,carbs:carb,fiber};
+         combos.push({meal,total:mealTotals(meal)});
+       });
+     });
+   });
+ });
+
+ if(!combos.length) return [];
+
+ const beamLimit=90;
+ const comboLimit=900;
+ let states=[{meals:[],total:{calories:0,protein:0,fat:0,carbs:0},ids:new Set()}];
+
+ for(let step=0;step<mealsCount;step++){
+   const stepTarget={
+     calories:target.calories*(step+1)/mealsCount,
+     protein:target.protein*(step+1)/mealsCount,
+     fat:target.fat*(step+1)/mealsCount,
+     carbs:target.carbs*(step+1)/mealsCount
+   };
+   const next=[];
+   const mealTarget={
+     calories:target.calories/mealsCount,
+     protein:target.protein/mealsCount,
+     fat:target.fat/mealsCount,
+     carbs:target.carbs/mealsCount
+   };
+   const candidateCombos=[...combos]
+     .sort((a,b)=>planScore(a.total,mealTarget)-planScore(b.total,mealTarget))
+     .slice(0,comboLimit);
+
+   states.forEach(state=>{
+     candidateCombos.forEach(combo=>{
+       const total=addTotals(state.total,combo.total);
+       const ids=new Set(state.ids);
+       mealItems(combo.meal).forEach(row=>ids.add(row.item.id));
+       const varietyPenalty=(state.ids.size+mealItems(combo.meal).length-ids.size)*0.012;
+       next.push({
+         meals:[...state.meals,combo.meal],
+         total,
+         ids,
+         score:planScore(total,stepTarget)+varietyPenalty
+       });
+     });
+   });
+
+   next.sort((a,b)=>a.score-b.score);
+   states=next.slice(0,beamLimit);
+ }
+
+ states.sort((a,b)=>planScore(a.total,target)-planScore(b.total,target));
+ return states[0]?.meals || [];
 }
 
 function autoBuildMealPlan(rebuild=false){
@@ -940,7 +1054,7 @@ function autoBuildMealPlan(rebuild=false){
  const fibers=products.filter(p=>p.categories && p.categories.includes('fiber'));
 
  cart=[];
- if(!rebuild || !mealPlanData.length) mealPlanData=[];
+ if(!rebuild || mealPlanData.length!==mealsCount) mealPlanData=buildBalancedMealPlan(mealsCount,target,proteins,carbs,fibers);
  let planHtml=`<h3>🍽 Ваш рацион на ${mealsCount} приемов пищи</h3>`;
 
  for(let i=0;i<mealsCount;i++){
@@ -952,10 +1066,14 @@ function autoBuildMealPlan(rebuild=false){
  };
 }
 const pr=mealPlanData[i].protein;
+const ep=mealPlanData[i].extraProtein;
 const cb=mealPlanData[i].carbs;
 const fb=mealPlanData[i].fiber;
+const totals=mealTotals(mealPlanData[i]);
+const choicesHtml=mealItems(mealPlanData[i]).map(row=>`
+<div class="meal-choice"><span class="meal-choice-name">✓ ${row.label ? row.label+': ' : ''}${row.item.name}</span><button class="replace-btn" onclick="replaceMealItem(${i},'${row.type}')">Заменить</button></div>`).join('');
 
-   [pr,cb,fb].forEach(item=>{
+   [pr,ep,cb,fb].filter(Boolean).forEach(item=>{
       const ex=cart.find(x=>x.id===item.id);
       if(ex) ex.qty++;
       else cart.push({id:item.id,qty:1});
@@ -973,17 +1091,15 @@ planHtml += `<div class="meal-card">
 </div>
 
 <div class="meal-info">
-<div class="meal-choice"><span class="meal-choice-name">✓ ${pr.name}</span><button class="replace-btn" onclick="replaceMealItem(${i},'protein')">Заменить</button></div>
-<div class="meal-choice"><span class="meal-choice-name">✓ ${cb.name}</span><button class="replace-btn" onclick="replaceMealItem(${i},'carbs')">Заменить</button></div>
-<div class="meal-choice"><span class="meal-choice-name">✓ ${fb.name}</span><button class="replace-btn" onclick="replaceMealItem(${i},'fiber')">Заменить</button></div>
+${choicesHtml}
 <button class="replace-all-btn" onclick="replaceWholeMeal(${i})">🎲 Новый вариант</button>
 </div>
 
 <div class="meal-macros">
-<b>${(pr.calories||0)+(cb.calories||0)+(fb.calories||0)} ккал</b><br>
-Б: ${(pr.protein||0)+(cb.protein||0)+(fb.protein||0)} г<br>
-Ж: ${(pr.fat||0)+(cb.fat||0)+(fb.fat||0)} г<br>
-У: ${(pr.carbs||0)+(cb.carbs||0)+(fb.carbs||0)} г
+<b>${totals.calories} ккал</b><br>
+Б: ${totals.protein} г<br>
+Ж: ${totals.fat} г<br>
+У: ${totals.carbs} г
 </div>
 </div>
 </div>`;
@@ -1001,16 +1117,8 @@ planHtml += `<div class="meal-card">
    carb+=p.carbs*c.qty;
  });
 
- const acc=Math.round(
-   100 - (
-     Math.abs(target.calories-kcal)/target.calories*25 +
-     Math.abs(target.protein-prot)/target.protein*25 +
-     Math.abs(target.fat-fat)/Math.max(1,target.fat)*25 +
-     Math.abs(target.carbs-carb)/Math.max(1,target.carbs)*25
-   )
- );
-
- document.getElementById('autoPlanResult').innerHTML=planHtml; document.getElementById('accuracyCircle').textContent=Math.max(0,acc)+'%';
+ document.getElementById('autoPlanResult').innerHTML=planHtml;
+ updateKBJUProgress(kcal,prot,fat,carb);
 }
 
 
