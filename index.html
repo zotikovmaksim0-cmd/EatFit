@@ -356,6 +356,54 @@ margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;borde
 .food-price{color:#2f7d1f;font-weight:bold;margin-top:4px}
 .food-option.disabled{opacity:1;pointer-events:auto}
 
+/* Premium storefront */
+body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
+.site-header{position:sticky;top:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:16px 32px;background:rgba(18,24,17,.94);backdrop-filter:blur(16px);box-shadow:0 14px 40px rgba(12,18,10,.18)}
+.brand{display:flex;align-items:center;gap:12px;color:#fff}
+.brand-mark{display:grid;place-items:center;width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#7ed946,#3c971e);box-shadow:0 10px 28px rgba(99,189,43,.28)}
+.brand-title{font-size:20px;font-weight:800;letter-spacing:-.4px}
+.brand-subtitle{font-size:12px;color:#b8c8b2;margin-top:2px}
+.header-note{color:#dfeadb;font-size:13px}
+.hero{position:relative;overflow:hidden;background:radial-gradient(circle at 16% 20%,rgba(126,217,70,.28),transparent 28%),linear-gradient(135deg,#11180f 0%,#1f3f18 52%,#72ca33 100%);padding:86px 28px 96px;text-align:left}
+.hero::after{content:'';position:absolute;right:-90px;top:-120px;width:420px;height:420px;border-radius:50%;background:rgba(255,255,255,.12)}
+.hero-inner{position:relative;z-index:1;max-width:1180px;margin:auto;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,.9fr);gap:32px;align-items:center}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;margin-bottom:18px;padding:8px 12px;border:1px solid rgba(255,255,255,.2);border-radius:999px;background:rgba(255,255,255,.1);color:#e9f6e5;font-size:13px}
+.hero h2{max-width:720px;font-size:56px;line-height:1.02;letter-spacing:-1.8px;margin:0 0 18px;color:#fff}
+.hero p{max-width:620px;font-size:19px;line-height:1.55;color:#dfebdc}
+.hero-card{background:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.5);border-radius:28px;padding:24px;box-shadow:0 24px 70px rgba(10,20,8,.24)}
+.hero-card h3{margin:0 0 14px;font-size:20px}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.hero-stat{padding:13px 10px;border-radius:16px;background:#f2faed;text-align:center;color:var(--muted)}
+.hero-stat b{display:block;color:var(--ink);font-size:20px}
+.catalog-shell{max-width:1400px;margin:-42px auto 18px;padding:0 24px;position:relative;z-index:2}
+.catalog-tools{display:grid;grid-template-columns:minmax(240px,420px) 1fr;gap:16px;align-items:center;background:rgba(255,255,255,.92);border:1px solid rgba(228,235,223,.9);border-radius:26px;padding:16px;box-shadow:0 18px 48px rgba(29,45,22,.1);backdrop-filter:blur(18px)}
+.search-wrap{position:relative}
+.search-wrap input{height:50px;margin:0;padding:0 16px 0 44px;border:1px solid var(--line);border-radius:16px;background:#fbfcfa;font-size:15px}
+.search-wrap::before{content:'⌕';position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:24px;line-height:1}
+.filter-tabs{display:flex;gap:9px;flex-wrap:wrap;justify-content:flex-end}
+.filter-chip{height:42px;padding:0 15px;border:1px solid var(--line);border-radius:999px;background:#fff;color:#41513d;font-weight:700;cursor:pointer;transition:.2s}
+.filter-chip:hover,.filter-chip.active{background:var(--green);border-color:var(--green);color:#fff;box-shadow:0 10px 22px rgba(99,189,43,.22)}
+.catalog-heading{max-width:1400px;margin:26px auto 0;padding:0 24px;display:flex;align-items:end;justify-content:space-between;gap:18px}
+.catalog-heading h2{margin:0;font-size:32px;letter-spacing:-.8px;color:#172015}
+.catalog-heading p{margin:6px 0 0;color:#667461}
+.grid{grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:26px;padding:24px}
+.card{display:flex;flex-direction:column;min-height:100%;padding:12px;border:1px solid rgba(228,235,223,.9);border-radius:28px;background:rgba(255,255,255,.96);box-shadow:0 16px 44px rgba(24,36,18,.08);transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.card:hover{transform:translateY(-7px);box-shadow:0 26px 60px rgba(24,36,18,.14);border-color:#cfe5c3}
+.card-media{position:relative;overflow:hidden;border-radius:22px;background:#eef3eb}
+.card img{height:230px;border-radius:0;transition:transform .35s ease}
+.card:hover img{transform:scale(1.04)}
+.category-pill{position:absolute;left:12px;top:12px;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.92);color:#25451b;font-size:12px;font-weight:800;box-shadow:0 8px 22px rgba(0,0,0,.09)}
+.card-body{display:flex;flex-direction:column;gap:12px;flex:1;padding:16px 4px 4px}
+.card h3{margin:0;font-size:20px;line-height:1.2;letter-spacing:-.35px;color:#172015}
+.card-desc{margin:0;color:#657260;font-size:14px;line-height:1.45;min-height:40px}
+.macro-row{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.macro-pill{padding:8px 4px;border-radius:12px;background:#f5f7f2;text-align:center;color:#71806d;font-size:11px}
+.macro-pill b{display:block;color:#172015;font-size:14px}
+.card-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:4px}
+.price{font-size:18px;font-weight:900;color:#172015;white-space:nowrap}
+.card .btn{min-width:118px;border-radius:14px;box-shadow:0 10px 20px rgba(99,189,43,.18)}
+.empty-products{grid-column:1/-1;padding:40px;background:#fff;border:1px dashed #cdddc6;border-radius:24px;text-align:center;color:var(--muted)}
+
 /* Cart and generated meal plan */
 :root{--green:#63bd2b;--green-dark:#317d20;--green-soft:#f2faed;--ink:#182117;--muted:#71806d;--line:#e4ebdf}
 .cart-panel{
@@ -425,6 +473,10 @@ margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;borde
 .plan-actions{position:sticky;bottom:-28px;margin:18px -28px -28px;padding:14px 28px 18px;background:rgba(247,249,245,.96);border-top:1px solid var(--line);backdrop-filter:blur(12px);z-index:12}
 .add-plan-btn{width:100%;min-height:48px;font-size:16px}
 @media(max-width:650px){
+ .site-header{padding:12px 16px}.header-note{display:none}.brand-title{font-size:17px}.brand-mark{width:38px;height:38px}
+ .hero{padding:58px 18px 74px}.hero-inner{grid-template-columns:1fr}.hero h2{font-size:36px}.hero p{font-size:16px}.hero-card{padding:18px;border-radius:22px}
+ .catalog-shell{margin:-34px auto 10px;padding:0 14px}.catalog-tools{grid-template-columns:1fr;border-radius:20px}.filter-tabs{justify-content:flex-start}.filter-chip{height:39px;padding:0 12px;font-size:13px}
+ .catalog-heading{padding:0 16px;margin-top:20px}.catalog-heading h2{font-size:26px}.catalog-heading p{font-size:14px}.grid{padding:16px;gap:18px}.card{border-radius:22px}.card img{height:210px}
  .cart-panel{padding:0}.cart-header{margin:0;padding:16px 14px}.cart-scroll{padding:16px 14px 22px}.cart-heading{font-size:21px}.cart-subtitle{display:none}.clear-btn{width:40px;padding:0;font-size:0}.clear-btn::before{content:'🗑';font-size:15px}
  .cart-item{grid-template-columns:64px minmax(0,1fr);gap:11px}.cart-item img{width:64px;height:64px}.cart-item-side{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;text-align:left;padding-top:9px;border-top:1px solid #edf1ea}.qty{margin:0}
  .day-summary{padding:15px}.day-grid,.planner-stats{gap:5px}.day-grid>div,.planner-stats>div{padding:8px 2px}.day-grid b,.planner-stats b{font-size:16px}.goal-progress-grid{grid-template-columns:1fr}
@@ -437,13 +489,36 @@ margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;borde
 
 </head>
 <body>
-<header><h1>🥗 EatFit Vietnam</h1><div style='color:#fff'>Healthy Food Delivery</div></header>
+<header class="site-header">
+<div class="brand">
+<div class="brand-mark">🥗</div>
+<div><div class="brand-title">EatFit Vietnam</div><div class="brand-subtitle">Good food · Fit life</div></div>
+</div>
+<div class="header-note">Рационы под КБЖУ и доставка свежей еды</div>
+</header>
 
 <div class="cart-btn" onclick="toggleCart()">
 🛒 <span id="count">0</span>
 </div>
 
-<div class="hero"><h2>EatFit Vietnam</h2><p>Свежая и полезная еда с доставкой каждый день</p></div>
+<div class="hero">
+<div class="hero-inner">
+<div>
+<div class="hero-eyebrow">🌿 Сбалансированное питание во Вьетнаме</div>
+<h2>Еда, которая выглядит красиво и попадает в ваши КБЖУ</h2>
+<p>Выбирайте блюда вручную или соберите рацион на день под калории, белки, жиры и углеводы. Без хаоса в корзине, с понятным составом и аккуратной доставкой.</p>
+</div>
+<div class="hero-card">
+<h3>Что можно собрать</h3>
+<p style="margin:0;color:#657260;line-height:1.5">Белки, гарниры, овощи и готовые блюда для удобного дневного рациона.</p>
+<div class="hero-stats">
+<div class="hero-stat"><b>4</b>категории</div>
+<div class="hero-stat"><b>КБЖУ</b>подбор</div>
+<div class="hero-stat"><b>VND</b>цены</div>
+</div>
+</div>
+</div>
+</div>
 
 <div id="overlay" class="overlay" onclick="closePanels()"></div>
 <div id="toast" class="toast">✓ Блюдо добавлено в корзину</div>
@@ -458,13 +533,21 @@ margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;borde
 </div>
 
 
-<div style="max-width:1400px;margin:20px auto;padding:0 24px;display:flex;gap:10px;flex-wrap:wrap">
-<input id="searchInput" placeholder="🔍 Поиск блюда..." onkeyup="renderProducts()" style="max-width:350px">
-<select id="proteinFilter" onchange="renderProducts()" style="padding:12px;border-radius:10px">
-<option value="">Все блюда</option>
-<option value="high">🥩 Высокобелковые</option>
-<option value="lowcal">🔥 До 400 ккал</option>
-</select>
+<div class="catalog-shell">
+<div class="catalog-tools">
+<div class="search-wrap"><input id="searchInput" placeholder="Поиск блюда..." onkeyup="renderProducts()"></div>
+<div class="filter-tabs">
+<button class="filter-chip active" data-category="" onclick="setProductCategory('',this)">Все</button>
+<button class="filter-chip" data-category="protein" onclick="setProductCategory('protein',this)">Белки</button>
+<button class="filter-chip" data-category="carbs" onclick="setProductCategory('carbs',this)">Углеводы</button>
+<button class="filter-chip" data-category="fiber" onclick="setProductCategory('fiber',this)">Овощи</button>
+<button class="filter-chip" data-category="meals" onclick="setProductCategory('meals',this)">Готовые блюда</button>
+</div>
+</div>
+</div>
+
+<div class="catalog-heading">
+<div><h2>Каталог EatFit</h2><p>Фильтруйте продукты по роли в рационе и добавляйте только то, что подходит вам.</p></div>
 </div>
 
 
@@ -847,41 +930,66 @@ fetch('data/products.json')
 .then(r=>r.json())
 .then(data=>{
  products=data;
+ let activeProductCategory='';
 
- function renderProducts(){
+ function productCategoryInfo(p){
+   if(p.categories && p.categories.includes('protein')) return {label:'Белок',icon:'🥩'};
+   if(p.categories && p.categories.includes('carbs')) return {label:'Углеводы',icon:'🍚'};
+   if(p.categories && p.categories.includes('fiber')) return {label:'Овощи',icon:'🥦'};
+   if(p.categories && p.categories.includes('meals')) return {label:'Готовое блюдо',icon:'🍽'};
+   return {label:'Блюдо',icon:'🥗'};
+ }
+
+ window.setProductCategory=function(category,btn){
+   activeProductCategory=category;
+   document.querySelectorAll('.filter-chip').forEach(el=>el.classList.remove('active'));
+   if(btn) btn.classList.add('active');
+   window.renderProducts();
+ };
+
+ window.renderProducts=function renderProducts(){
  const box=document.getElementById('products');
  const search=(document.getElementById('searchInput')?.value||'').toLowerCase();
- const filter=(document.getElementById('proteinFilter')?.value||'');
 
  box.innerHTML='';
 
- products
+ const visible=products
  .filter(p=>p.name.toLowerCase().includes(search))
- .filter(p=>{
-   if(filter==='high') return p.protein>=30;
-   if(filter==='lowcal') return p.calories<=400;
-   return true;
- })
- .forEach(p=>{
+ .filter(p=>!activeProductCategory || (p.categories && p.categories.includes(activeProductCategory)));
 
- let badges='';
- if(p.protein>=30) badges+='<div style="color:#2e7d32;font-weight:bold">🥩 High Protein</div>';
- if(p.calories<=400) badges+='<div style="color:#ff6f00;font-weight:bold">🔥 Low Calorie</div>';
+ if(!visible.length){
+   box.innerHTML='<div class="empty-products">Ничего не найдено. Попробуйте изменить поиск или выбрать другую категорию.</div>';
+   return;
+ }
+
+ visible.forEach(p=>{
+ const category=productCategoryInfo(p);
 
  box.innerHTML+=`
  <div class="card">
-   <img src="assets/${p.images[0]}">
-   ${badges}
-   <h3>${p.name}</h3>
-   <p>${p.description}</p>
-   <p><b>${p.price.toLocaleString()} VND</b></p>
-   <p>${p.calories} ккал | Б:${p.protein} Ж:${p.fat} У:${p.carbs}</p>
-   <button class="btn" onclick="add('${p.id}')">В корзину</button>
+   <div class="card-media">
+    <img src="assets/${p.images[0]}" alt="${p.name}" onerror="this.onerror=null;this.src='assets/logo.jpg'">
+    <div class="category-pill">${category.icon} ${category.label}</div>
+   </div>
+   <div class="card-body">
+    <h3>${p.name}</h3>
+    <p class="card-desc">${p.description||'Сбалансированный компонент для вашего рациона.'}</p>
+    <div class="macro-row">
+     <div class="macro-pill"><b>${p.calories}</b>ккал</div>
+     <div class="macro-pill"><b>${p.protein}</b>Б</div>
+     <div class="macro-pill"><b>${p.fat}</b>Ж</div>
+     <div class="macro-pill"><b>${p.carbs}</b>У</div>
+    </div>
+    <div class="card-footer">
+     <div class="price">${p.price.toLocaleString()} VND</div>
+     <button class="btn" onclick="add('${p.id}')">В корзину</button>
+    </div>
+   </div>
  </div>`;
  });
 }
 
-renderProducts();
+window.renderProducts();
 renderCart();
 });
 
