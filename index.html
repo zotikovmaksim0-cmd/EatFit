@@ -364,6 +364,7 @@ margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;borde
  background:#f7f9f5;color:var(--ink);box-shadow:-18px 0 48px rgba(25,45,20,.16)
 }
 .cart-panel.open{right:0;transform:translateX(0)}
+.planner-panel{width:min(860px,100%)}
 .cart-header{position:relative;z-index:10;display:flex;align-items:center;gap:14px;margin:0;padding:22px 28px 18px;background:rgba(247,249,245,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
 .cart-scroll{min-height:0;overflow-y:auto;padding:22px 28px 28px;scrollbar-gutter:stable}
 .cart-heading{margin:0;font-size:25px;letter-spacing:-.4px}
@@ -399,6 +400,8 @@ margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;borde
 .goal-progress-top b{color:var(--ink);font-size:13px}
 .summary-price{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:14px;border-top:1px solid #dcebd4;color:var(--muted)}
 .summary-price b{color:var(--ink);font-size:17px}
+.cart-total-line{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding:14px;background:#fff;border:1px solid var(--line);border-radius:16px;color:var(--muted)}
+.cart-total-line b{color:var(--ink);font-size:18px}
 .planner-top-card,.total{border:1px solid var(--line);border-radius:20px;background:#fff;padding:18px}
 .planner-header{gap:14px}.planner-edit{color:var(--green-dark);font-weight:700;font-size:13px;white-space:nowrap}
 .planner-progress{grid-template-columns:minmax(0,1.6fr) minmax(130px,1fr)}
@@ -418,13 +421,16 @@ margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;borde
 .checkout-section h3{margin-top:0}
 .checkout-bar{position:relative;right:auto;bottom:auto;width:100%;padding:14px 28px 18px;background:rgba(255,255,255,.96);border-top:1px solid var(--line);backdrop-filter:blur(12px);z-index:15}
 .checkout-btn{width:100%;min-height:48px;font-size:16px;box-shadow:0 8px 18px rgba(99,189,43,.24)}
+.planner-open{display:block;margin:0 auto 25px}
+.plan-actions{position:sticky;bottom:-28px;margin:18px -28px -28px;padding:14px 28px 18px;background:rgba(247,249,245,.96);border-top:1px solid var(--line);backdrop-filter:blur(12px);z-index:12}
+.add-plan-btn{width:100%;min-height:48px;font-size:16px}
 @media(max-width:650px){
  .cart-panel{padding:0}.cart-header{margin:0;padding:16px 14px}.cart-scroll{padding:16px 14px 22px}.cart-heading{font-size:21px}.cart-subtitle{display:none}.clear-btn{width:40px;padding:0;font-size:0}.clear-btn::before{content:'🗑';font-size:15px}
  .cart-item{grid-template-columns:64px minmax(0,1fr);gap:11px}.cart-item img{width:64px;height:64px}.cart-item-side{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;text-align:left;padding-top:9px;border-top:1px solid #edf1ea}.qty{margin:0}
  .day-summary{padding:15px}.day-grid,.planner-stats{gap:5px}.day-grid>div,.planner-stats>div{padding:8px 2px}.day-grid b,.planner-stats b{font-size:16px}.goal-progress-grid{grid-template-columns:1fr}
  .planner-progress{grid-template-columns:1fr}.meal-buttons{grid-template-columns:repeat(2,1fr)}
  .meal-plan-row{grid-template-columns:1fr;gap:13px}.meal-left{align-items:center}.meal-info .meal-choice{grid-template-columns:minmax(0,1fr) 92px;align-items:start}.meal-macros{display:grid;width:100%;min-width:0;grid-template-columns:repeat(4,1fr);gap:4px;text-align:center;line-height:1.35;justify-self:stretch}.meal-macros b{display:block}
- .checkout-section{padding:15px}.checkout-bar{padding:11px 14px 14px}
+ .checkout-section{padding:15px}.checkout-bar{padding:11px 14px 14px}.plan-actions{bottom:-22px;margin:16px -14px -22px;padding:12px 14px 14px}
 }
 
 </style>
@@ -439,7 +445,7 @@ margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;borde
 
 <div class="hero"><h2>EatFit Vietnam</h2><p>Свежая и полезная еда с доставкой каждый день</p></div>
 
-<div id="overlay" class="overlay" onclick="closeCart()"></div>
+<div id="overlay" class="overlay" onclick="closePanels()"></div>
 <div id="toast" class="toast">✓ Блюдо добавлено в корзину</div>
 
 <div id="successModal" class="success-modal">
@@ -463,6 +469,7 @@ margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;borde
 
 
 <button class="btn kbju-open" onclick="openKBJU()">📊 Рассчитать КБЖУ</button>
+<button class="btn planner-open" onclick="openPlanner()">🥗 Подобрать рацион</button>
 
 <div id="kbjuModal" class="kbju-modal">
  <div class="kbju-box">
@@ -503,15 +510,12 @@ margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;borde
 
 <div id="products" class="grid"></div>
 
-
-<div id="cartPanel" class="cart-panel">
+<div id="plannerPanel" class="cart-panel planner-panel">
 <div class="cart-header">
-<div><h2 class="cart-heading">Ваш рацион</h2><p class="cart-subtitle">Сбалансированный план питания на день</p></div>
-<div class="cart-header-actions"><button class="clear-btn" onclick="clearCart()">Очистить</button><button class="close-cart" onclick="closeCart()" aria-label="Закрыть">×</button></div>
+<div><h2 class="cart-heading">Подбор рациона</h2><p class="cart-subtitle">Соберите день под свои КБЖУ, а потом решите, добавлять ли его в корзину</p></div>
+<div class="cart-header-actions"><button class="close-cart" onclick="closePlanner()" aria-label="Закрыть">×</button></div>
 </div>
 <div class="cart-scroll">
-<div id="cartItems"></div>
-
 <div id="daySummary" class="day-summary">
 <div class="summary-head"><div><h3>Цель на день</h3><div class="cart-subtitle">Что уже в рационе и сколько осталось до КБЖУ</div></div><div class='accuracy-circle' id='accuracyCircle'>0%</div></div>
 <div class="day-grid">
@@ -521,10 +525,8 @@ margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;borde
 <div><b id="totalCarbs">0</b>У<span class="day-target" id="targetCarbs">цель не задана</span></div>
 </div>
 <div id="kbjuProgress" class="goal-progress"></div>
-<div class="summary-price"><span>Стоимость рациона</span><b><span id="totalPrice">0</span> VND</b></div>
-<span id="totalQty" style="display:none">0</span>
+<div class="summary-price"><span>Стоимость подобранного рациона</span><b><span id="totalPrice">0</span> VND</b></div>
 </div>
-
 
 <div id="mealSelector" class="total">
 <h3>🍽 Количество приемов пищи</h3>
@@ -538,6 +540,19 @@ margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;borde
 
 <div id="autoPlanResult" style="margin-top:15px"></div>
 </div>
+</div>
+</div>
+
+
+<div id="cartPanel" class="cart-panel">
+<div class="cart-header">
+<div><h2 class="cart-heading">Корзина</h2><p class="cart-subtitle">Блюда, которые вы решили заказать</p></div>
+<div class="cart-header-actions"><button class="clear-btn" onclick="clearCart()">Очистить</button><button class="close-cart" onclick="closeCart()" aria-label="Закрыть">×</button></div>
+</div>
+<div class="cart-scroll">
+<div id="cartItems"></div>
+<div class="cart-total-line"><span>Итого в корзине</span><b><span id="cartTotalPrice">0</span> VND</b></div>
+<span id="totalQty" style="display:none">0</span>
 
 <div class="checkout-section">
 <h3>Оформление заказа</h3>
@@ -687,10 +702,6 @@ function renderCart(){
  box.innerHTML='';
 
  let totalPrice=0;
- let totalCalories=0;
- let totalProtein=0;
- let totalFat=0;
- let totalCarbs=0;
  let totalQty=0;
 
  if(cart.length===0){
@@ -702,10 +713,6 @@ function renderCart(){
    if(!p)return;
 
    totalPrice+=p.price*c.qty;
-   totalCalories+=p.calories*c.qty;
-   totalProtein+=p.protein*c.qty;
-   totalFat+=p.fat*c.qty;
-   totalCarbs+=p.carbs*c.qty;
    totalQty+=c.qty;
 
    box.innerHTML+=`
@@ -727,23 +734,43 @@ function renderCart(){
    </div>`;
  });
 
- document.getElementById('totalPrice').textContent=totalPrice.toLocaleString();
- document.getElementById('totalCalories').textContent=totalCalories;
- document.getElementById('totalProtein').textContent=totalProtein;
- document.getElementById('totalFat').textContent=totalFat;
- document.getElementById('totalCarbs').textContent=totalCarbs;
+ document.getElementById('cartTotalPrice').textContent=totalPrice.toLocaleString();
  document.getElementById('totalQty').textContent=totalQty;
-updateKBJUProgress(totalCalories,totalProtein,totalFat,totalCarbs);
+}
+
+function closePanels(){
+ closeCart();
+ closePlanner();
 }
 
 function toggleCart(){
- document.getElementById('cartPanel').classList.toggle('open');
- document.getElementById('overlay').classList.toggle('show');
+ const panel=document.getElementById('cartPanel');
+ const willOpen=!panel.classList.contains('open');
+ closePlanner();
+ panel.classList.toggle('open',willOpen);
+ document.getElementById('overlay').classList.toggle('show',willOpen);
 }
 
 function closeCart(){
  document.getElementById('cartPanel').classList.remove('open');
- document.getElementById('overlay').classList.remove('show');
+ if(!document.getElementById('plannerPanel').classList.contains('open')){
+   document.getElementById('overlay').classList.remove('show');
+ }
+}
+
+function openPlanner(){
+ closeCart();
+ document.getElementById('plannerPanel').classList.add('open');
+ document.getElementById('overlay').classList.add('show');
+ const count=localStorage.getItem('mealsCount');
+ if(count && products.length) autoBuildMealPlan(false);
+}
+
+function closePlanner(){
+ document.getElementById('plannerPanel').classList.remove('open');
+ if(!document.getElementById('cartPanel').classList.contains('open')){
+   document.getElementById('overlay').classList.remove('show');
+ }
 }
 
 
@@ -942,7 +969,7 @@ function replaceWholeMeal(mealIndex){
    extraProteinQty:1,
    carbs:Math.random()>.35 ? carbs[Math.floor(Math.random()*carbs.length)] : null,
    carbsQty:Math.ceil(Math.random()*2),
-   fiber:Math.random()>.25 ? fibers[Math.floor(Math.random()*fibers.length)] : null,
+   fiber:fibers[Math.floor(Math.random()*fibers.length)],
    fiberQty:1
  };
  autoBuildMealPlan(true);
@@ -999,7 +1026,7 @@ function buildBalancedMealPlan(mealsCount,target,proteins,carbs,fibers){
    [null,...proteins].forEach(extraProtein=>{
      if(extraProtein && extraProtein.id===protein.id) return;
      carbOptions.forEach(carbOption=>{
-       [null,...fibers].forEach(fiber=>{
+       fibers.forEach(fiber=>{
          const meal={
            protein,
            proteinQty:1,
@@ -1074,7 +1101,6 @@ function autoBuildMealPlan(rebuild=false){
  const carbs=products.filter(p=>p.categories && p.categories.includes('carbs'));
  const fibers=products.filter(p=>p.categories && p.categories.includes('fiber'));
 
- cart=[];
  if(!rebuild || mealPlanData.length!==mealsCount) mealPlanData=buildBalancedMealPlan(mealsCount,target,proteins,carbs,fibers);
  let planHtml=`<h3>🍽 Ваш рацион на ${mealsCount} приемов пищи</h3>`;
 
@@ -1082,8 +1108,11 @@ function autoBuildMealPlan(rebuild=false){
    if(!mealPlanData[i]){
  mealPlanData[i]={
   protein: proteins[i % proteins.length],
+  proteinQty:1,
   carbs: carbs[i % carbs.length],
-  fiber: fibers[i % fibers.length]
+  carbsQty:1,
+  fiber: fibers[i % fibers.length],
+  fiberQty:1
  };
 }
 const pr=mealPlanData[i].protein;
@@ -1093,12 +1122,6 @@ const fb=mealPlanData[i].fiber;
 const totals=mealTotals(mealPlanData[i]);
 const choicesHtml=mealItems(mealPlanData[i]).map(row=>`
 <div class="meal-choice"><span class="meal-choice-name">✓ ${row.label ? row.label+': ' : ''}${row.item.name}${row.qty>1 ? ' ×'+row.qty : ''}</span><button class="replace-btn" onclick="replaceMealItem(${i},'${row.type}')">Заменить</button></div>`).join('');
-
-   mealItems(mealPlanData[i]).forEach(row=>{
-      const ex=cart.find(x=>x.id===row.item.id);
-      if(ex) ex.qty+=row.qty;
-      else cart.push({id:row.item.id,qty:row.qty});
-   });
 
    const times=['07:00–09:00','10:30–12:00','14:30–16:30','17:30–19:00','20:00–21:30','22:00–23:00'];
 planHtml += `<div class="meal-card">
@@ -1126,20 +1149,52 @@ ${choicesHtml}
 </div>`;
  }
 
- saveCart();
-
  let kcal=0,prot=0,fat=0,carb=0;
- cart.forEach(c=>{
-   const p=products.find(x=>x.id===c.id);
-   if(!p) return;
-   kcal+=p.calories*c.qty;
-   prot+=p.protein*c.qty;
-   fat+=p.fat*c.qty;
-   carb+=p.carbs*c.qty;
+ let planPrice=0;
+ mealPlanData.forEach(meal=>{
+   mealItems(meal).forEach(row=>{
+     kcal+=(row.item.calories||0)*row.qty;
+     prot+=(row.item.protein||0)*row.qty;
+     fat+=(row.item.fat||0)*row.qty;
+     carb+=(row.item.carbs||0)*row.qty;
+     planPrice+=(row.item.price||0)*row.qty;
+   });
  });
 
+ planHtml += `<div class="plan-actions"><button class="btn add-plan-btn" onclick="addMealPlanToCart()">Добавить рацион в корзину</button></div>`;
  document.getElementById('autoPlanResult').innerHTML=planHtml;
+ document.getElementById('totalPrice').textContent=planPrice.toLocaleString();
+ document.getElementById('totalCalories').textContent=kcal;
+ document.getElementById('totalProtein').textContent=prot;
+ document.getElementById('totalFat').textContent=fat;
+ document.getElementById('totalCarbs').textContent=carb;
  updateKBJUProgress(kcal,prot,fat,carb);
+}
+
+function addMealPlanToCart(){
+ if(!mealPlanData.length){
+   alert('Сначала подберите рацион');
+   return;
+ }
+
+ mealPlanData.forEach(meal=>{
+   mealItems(meal).forEach(row=>{
+     const ex=cart.find(x=>x.id===row.item.id);
+     if(ex) ex.qty+=row.qty;
+     else cart.push({id:row.item.id,qty:row.qty});
+   });
+ });
+
+ saveCart();
+ const toast=document.getElementById('toast');
+ toast.textContent='✓ Рацион добавлен в корзину';
+ toast.classList.add('show');
+ setTimeout(()=>{
+   toast.classList.remove('show');
+   toast.textContent='✓ Блюдо добавлено в корзину';
+ },2200);
+ closePlanner();
+ toggleCart();
 }
 
 
@@ -1187,6 +1242,7 @@ function calcKBJU(){
    calories:Math.round(calories),
    protein,fat,carbs
  }));
+ mealPlanData=[];
 
  updateKBJUProgress(
 parseInt(document.getElementById('totalCalories').textContent||0),
@@ -1194,6 +1250,9 @@ parseInt(document.getElementById('totalProtein').textContent||0),
 parseInt(document.getElementById('totalFat').textContent||0),
 parseInt(document.getElementById('totalCarbs').textContent||0)
 );
+ if(document.getElementById('plannerPanel').classList.contains('open') && localStorage.getItem('mealsCount')){
+   autoBuildMealPlan(false);
+ }
 document.getElementById('kbjuResult').innerHTML=`
  🔥 Калории: ${Math.round(calories)} ккал<br>
  🥩 Белки: ${protein} г<br>
