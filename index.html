@@ -937,28 +937,36 @@ function replaceWholeMeal(mealIndex){
  const extraPool=proteins.filter(p=>p.id!==primaryProtein.id);
  mealPlanData[mealIndex]={
    protein:primaryProtein,
+   proteinQty:1,
    extraProtein:Math.random()>.55 && extraPool.length ? extraPool[Math.floor(Math.random()*extraPool.length)] : null,
+   extraProteinQty:1,
    carbs:Math.random()>.35 ? carbs[Math.floor(Math.random()*carbs.length)] : null,
-   fiber:Math.random()>.25 ? fibers[Math.floor(Math.random()*fibers.length)] : null
+   carbsQty:Math.ceil(Math.random()*2),
+   fiber:Math.random()>.25 ? fibers[Math.floor(Math.random()*fibers.length)] : null,
+   fiberQty:1
  };
  autoBuildMealPlan(true);
 }
 
+function portionQty(meal,type){
+ return Math.max(1,parseInt(meal[type+'Qty']||1));
+}
+
 function mealItems(meal){
  return [
-   {type:'protein',label:'',item:meal.protein},
-   {type:'extraProtein',label:'доп. белок',item:meal.extraProtein},
-   {type:'carbs',label:'',item:meal.carbs},
-   {type:'fiber',label:'',item:meal.fiber}
+   {type:'protein',label:'',item:meal.protein,qty:portionQty(meal,'protein')},
+   {type:'extraProtein',label:'доп. белок',item:meal.extraProtein,qty:portionQty(meal,'extraProtein')},
+   {type:'carbs',label:'',item:meal.carbs,qty:portionQty(meal,'carbs')},
+   {type:'fiber',label:'',item:meal.fiber,qty:portionQty(meal,'fiber')}
  ].filter(row=>row.item);
 }
 
 function mealTotals(meal){
  return mealItems(meal).reduce((sum,row)=>({
-   calories:sum.calories+(row.item.calories||0),
-   protein:sum.protein+(row.item.protein||0),
-   fat:sum.fat+(row.item.fat||0),
-   carbs:sum.carbs+(row.item.carbs||0)
+   calories:sum.calories+(row.item.calories||0)*row.qty,
+   protein:sum.protein+(row.item.protein||0)*row.qty,
+   fat:sum.fat+(row.item.fat||0)*row.qty,
+   carbs:sum.carbs+(row.item.carbs||0)*row.qty
  }),{calories:0,protein:0,fat:0,carbs:0});
 }
 
@@ -983,12 +991,25 @@ function planScore(total,target){
 
 function buildBalancedMealPlan(mealsCount,target,proteins,carbs,fibers){
  const combos=[];
+ const carbOptions=[{item:null,qty:0}];
+ carbs.forEach(item=>{
+   [1,2,3,4].forEach(qty=>carbOptions.push({item,qty}));
+ });
  proteins.forEach(protein=>{
    [null,...proteins].forEach(extraProtein=>{
      if(extraProtein && extraProtein.id===protein.id) return;
-     [null,...carbs].forEach(carb=>{
+     carbOptions.forEach(carbOption=>{
        [null,...fibers].forEach(fiber=>{
-         const meal={protein,extraProtein,carbs:carb,fiber};
+         const meal={
+           protein,
+           proteinQty:1,
+           extraProtein,
+           extraProteinQty:1,
+           carbs:carbOption.item,
+           carbsQty:carbOption.qty||1,
+           fiber,
+           fiberQty:1
+         };
          combos.push({meal,total:mealTotals(meal)});
        });
      });
@@ -1071,12 +1092,12 @@ const cb=mealPlanData[i].carbs;
 const fb=mealPlanData[i].fiber;
 const totals=mealTotals(mealPlanData[i]);
 const choicesHtml=mealItems(mealPlanData[i]).map(row=>`
-<div class="meal-choice"><span class="meal-choice-name">✓ ${row.label ? row.label+': ' : ''}${row.item.name}</span><button class="replace-btn" onclick="replaceMealItem(${i},'${row.type}')">Заменить</button></div>`).join('');
+<div class="meal-choice"><span class="meal-choice-name">✓ ${row.label ? row.label+': ' : ''}${row.item.name}${row.qty>1 ? ' ×'+row.qty : ''}</span><button class="replace-btn" onclick="replaceMealItem(${i},'${row.type}')">Заменить</button></div>`).join('');
 
-   [pr,ep,cb,fb].filter(Boolean).forEach(item=>{
-      const ex=cart.find(x=>x.id===item.id);
-      if(ex) ex.qty++;
-      else cart.push({id:item.id,qty:1});
+   mealItems(mealPlanData[i]).forEach(row=>{
+      const ex=cart.find(x=>x.id===row.item.id);
+      if(ex) ex.qty+=row.qty;
+      else cart.push({id:row.item.id,qty:row.qty});
    });
 
    const times=['07:00–09:00','10:30–12:00','14:30–16:30','17:30–19:00','20:00–21:30','22:00–23:00'];
