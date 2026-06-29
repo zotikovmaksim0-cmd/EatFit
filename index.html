@@ -363,7 +363,11 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .brand-mark{display:grid;place-items:center;width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#7ed946,#3c971e);box-shadow:0 10px 28px rgba(99,189,43,.28)}
 .brand-title{font-size:20px;font-weight:800;letter-spacing:-.4px}
 .brand-subtitle{font-size:12px;color:#b8c8b2;margin-top:2px}
-.header-note{color:#dfeadb;font-size:13px}
+.site-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.action-btn{height:46px;padding:0 16px;border:1px solid rgba(255,255,255,.14);border-radius:999px;background:rgba(255,255,255,.08);color:#edf8ea;font-weight:800;cursor:pointer;transition:.2s;box-shadow:0 10px 26px rgba(0,0,0,.12)}
+.action-btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.25)}
+.action-btn.primary{background:linear-gradient(135deg,#77d83d,#49aa22);border-color:transparent;color:#fff;box-shadow:0 12px 28px rgba(99,189,43,.28)}
+.cart-btn{position:static;display:flex;align-items:center;gap:8px;height:48px;padding:0 16px;background:#fff;color:#172015;border-radius:18px;font-weight:900;z-index:auto;box-shadow:0 14px 34px rgba(0,0,0,.16);cursor:pointer}
 .hero{position:relative;overflow:hidden;background:radial-gradient(circle at 16% 20%,rgba(126,217,70,.28),transparent 28%),linear-gradient(135deg,#11180f 0%,#1f3f18 52%,#72ca33 100%);padding:86px 28px 96px;text-align:left}
 .hero::after{content:'';position:absolute;right:-90px;top:-120px;width:420px;height:420px;border-radius:50%;background:rgba(255,255,255,.12)}
 .hero-inner{position:relative;z-index:1;max-width:1180px;margin:auto;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,.9fr);gap:32px;align-items:center}
@@ -375,6 +379,9 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
 .hero-stat{padding:13px 10px;border-radius:16px;background:#f2faed;text-align:center;color:var(--muted)}
 .hero-stat b{display:block;color:var(--ink);font-size:20px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.hero-cta{height:50px;padding:0 18px;border:none;border-radius:16px;background:#fff;color:#172015;font-weight:900;cursor:pointer;box-shadow:0 18px 36px rgba(0,0,0,.18)}
+.hero-cta.green{background:linear-gradient(135deg,#75d83a,#47a91f);color:#fff}
 .catalog-shell{max-width:1400px;margin:-42px auto 18px;padding:0 24px;position:relative;z-index:2}
 .catalog-tools{display:grid;grid-template-columns:minmax(240px,420px) 1fr;gap:16px;align-items:center;background:rgba(255,255,255,.92);border:1px solid rgba(228,235,223,.9);border-radius:26px;padding:16px;box-shadow:0 18px 48px rgba(29,45,22,.1);backdrop-filter:blur(18px)}
 .search-wrap{position:relative}
@@ -403,6 +410,15 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .price{font-size:18px;font-weight:900;color:#172015;white-space:nowrap}
 .card .btn{min-width:118px;border-radius:14px;box-shadow:0 10px 20px rgba(99,189,43,.18)}
 .empty-products{grid-column:1/-1;padding:40px;background:#fff;border:1px dashed #cdddc6;border-radius:24px;text-align:center;color:var(--muted)}
+.faq-section{max-width:1180px;margin:22px auto 56px;padding:0 24px}
+.faq-card{background:#fff;border:1px solid rgba(228,235,223,.95);border-radius:30px;padding:28px;box-shadow:0 18px 48px rgba(24,36,18,.08)}
+.faq-head{display:flex;justify-content:space-between;gap:18px;align-items:end;margin-bottom:18px}
+.faq-head h2{margin:0;font-size:32px;letter-spacing:-.8px}
+.faq-head p{margin:6px 0 0;color:#667461}
+.faq-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.faq-item{padding:18px;border:1px solid var(--line);border-radius:20px;background:#fbfcfa}
+.faq-item b{display:block;margin-bottom:8px;color:#172015}
+.faq-item p{margin:0;color:#667461;line-height:1.45;font-size:14px}
 
 /* Cart and generated meal plan */
 :root{--green:#63bd2b;--green-dark:#317d20;--green-soft:#f2faed;--ink:#182117;--muted:#71806d;--line:#e4ebdf}
@@ -473,7 +489,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .plan-actions{position:sticky;bottom:-28px;margin:18px -28px -28px;padding:14px 28px 18px;background:rgba(247,249,245,.96);border-top:1px solid var(--line);backdrop-filter:blur(12px);z-index:12}
 .add-plan-btn{width:100%;min-height:48px;font-size:16px}
 @media(max-width:650px){
- .site-header{padding:12px 16px}.header-note{display:none}.brand-title{font-size:17px}.brand-mark{width:38px;height:38px}
+ .site-header{padding:12px 16px;align-items:flex-start}.site-actions{gap:7px}.action-btn{height:38px;padding:0 10px;font-size:12px}.cart-btn{height:40px;padding:0 12px;border-radius:14px}.brand-title{font-size:17px}.brand-mark{width:38px;height:38px}
  .hero{padding:58px 18px 74px}.hero-inner{grid-template-columns:1fr}.hero h2{font-size:36px}.hero p{font-size:16px}.hero-card{padding:18px;border-radius:22px}
  .catalog-shell{margin:-34px auto 10px;padding:0 14px}.catalog-tools{grid-template-columns:1fr;border-radius:20px}.filter-tabs{justify-content:flex-start}.filter-chip{height:39px;padding:0 12px;font-size:13px}
  .catalog-heading{padding:0 16px;margin-top:20px}.catalog-heading h2{font-size:26px}.catalog-heading p{font-size:14px}.grid{padding:16px;gap:18px}.card{border-radius:22px}.card img{height:210px}
@@ -483,6 +499,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
  .planner-progress{grid-template-columns:1fr}.meal-buttons{grid-template-columns:repeat(2,1fr)}
  .meal-plan-row{grid-template-columns:1fr;gap:13px}.meal-left{align-items:center}.meal-info .meal-choice{grid-template-columns:minmax(0,1fr) 92px;align-items:start}.meal-macros{display:grid;width:100%;min-width:0;grid-template-columns:repeat(4,1fr);gap:4px;text-align:center;line-height:1.35;justify-self:stretch}.meal-macros b{display:block}
  .checkout-section{padding:15px}.checkout-bar{padding:11px 14px 14px}.plan-actions{bottom:-22px;margin:16px -14px -22px;padding:12px 14px 14px}
+ .faq-section{padding:0 16px}.faq-card{padding:20px;border-radius:24px}.faq-head{display:block}.faq-head h2{font-size:26px}.faq-grid{grid-template-columns:1fr}
 }
 
 </style>
@@ -494,12 +511,13 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <div class="brand-mark">🥗</div>
 <div><div class="brand-title">EatFit Vietnam</div><div class="brand-subtitle">Good food · Fit life</div></div>
 </div>
-<div class="header-note">Рационы под КБЖУ и доставка свежей еды</div>
-</header>
-
-<div class="cart-btn" onclick="toggleCart()">
-🛒 <span id="count">0</span>
+<div class="site-actions">
+<button class="action-btn" onclick="openKBJU()">📊 КБЖУ</button>
+<button class="action-btn primary" onclick="openPlanner()">🥗 Подобрать рацион</button>
+<button class="action-btn" onclick="scrollFAQ()">FAQ</button>
+<div class="cart-btn" onclick="toggleCart()">🛒 <span id="count">0</span></div>
 </div>
+</header>
 
 <div class="hero">
 <div class="hero-inner">
@@ -507,12 +525,16 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <div class="hero-eyebrow">🌿 Сбалансированное питание во Вьетнаме</div>
 <h2>Еда, которая выглядит красиво и попадает в ваши КБЖУ</h2>
 <p>Выбирайте блюда вручную или соберите рацион на день под калории, белки, жиры и углеводы. Без хаоса в корзине, с понятным составом и аккуратной доставкой.</p>
+<div class="hero-actions">
+<button class="hero-cta green" onclick="openPlanner()">Подобрать рацион</button>
+<button class="hero-cta" onclick="openKBJU()">Рассчитать КБЖУ</button>
+</div>
 </div>
 <div class="hero-card">
 <h3>Что можно собрать</h3>
-<p style="margin:0;color:#657260;line-height:1.5">Белки, гарниры, овощи и готовые блюда для удобного дневного рациона.</p>
+<p style="margin:0;color:#657260;line-height:1.5">Белки, гарниры и овощи для удобного дневного рациона.</p>
 <div class="hero-stats">
-<div class="hero-stat"><b>4</b>категории</div>
+<div class="hero-stat"><b>3</b>категории</div>
 <div class="hero-stat"><b>КБЖУ</b>подбор</div>
 <div class="hero-stat"><b>VND</b>цены</div>
 </div>
@@ -541,7 +563,6 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <button class="filter-chip" data-category="protein" onclick="setProductCategory('protein',this)">Белки</button>
 <button class="filter-chip" data-category="carbs" onclick="setProductCategory('carbs',this)">Углеводы</button>
 <button class="filter-chip" data-category="fiber" onclick="setProductCategory('fiber',this)">Овощи</button>
-<button class="filter-chip" data-category="meals" onclick="setProductCategory('meals',this)">Готовые блюда</button>
 </div>
 </div>
 </div>
@@ -549,10 +570,6 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <div class="catalog-heading">
 <div><h2>Каталог EatFit</h2><p>Фильтруйте продукты по роли в рационе и добавляйте только то, что подходит вам.</p></div>
 </div>
-
-
-<button class="btn kbju-open" onclick="openKBJU()">📊 Рассчитать КБЖУ</button>
-<button class="btn planner-open" onclick="openPlanner()">🥗 Подобрать рацион</button>
 
 <div id="kbjuModal" class="kbju-modal">
  <div class="kbju-box">
@@ -592,6 +609,26 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 
 
 <div id="products" class="grid"></div>
+
+<section id="faq" class="faq-section">
+<div class="faq-card">
+<div class="faq-head">
+<div><h2>Частые вопросы</h2><p>Коротко о доставке, рационе и заказе.</p></div>
+</div>
+<div class="faq-grid">
+<div class="faq-item"><b>Как работает подбор рациона под КБЖУ?</b><p>Вы рассчитываете цель, выбираете количество приёмов пищи, а сайт собирает рацион максимально близко к дневной норме.</p></div>
+<div class="faq-item"><b>Рацион сразу попадает в корзину?</b><p>Нет. Сначала вы смотрите предложенный рацион и только потом нажимаете «Добавить рацион в корзину».</p></div>
+<div class="faq-item"><b>Можно заменить блюдо в рационе?</b><p>Да. Можно заменить отдельный компонент или весь приём пищи, при этом система старается сохранить баланс КБЖУ.</p></div>
+<div class="faq-item"><b>Овощи обязательно входят в рацион?</b><p>Да, в каждом приёме пищи есть овощи, чтобы рацион был более сбалансированным и давал клетчатку.</p></div>
+<div class="faq-item"><b>Можно заказать отдельные блюда без подбора?</b><p>Да. Просто выберите нужные позиции в каталоге и добавьте их в корзину.</p></div>
+<div class="faq-item"><b>Как узнать итоговую стоимость?</b><p>Стоимость показывается отдельно в подборе рациона и в корзине перед оформлением заказа.</p></div>
+<div class="faq-item"><b>Куда доставляете?</b><p>Адрес доставки указывается при оформлении заказа. После отправки заказа менеджер сможет подтвердить детали.</p></div>
+<div class="faq-item"><b>Можно оставить комментарий к заказу?</b><p>Да, в форме оформления есть поле для комментария: время, пожелания или уточнения по доставке.</p></div>
+<div class="faq-item"><b>Что делать, если я не знаю свои КБЖУ?</b><p>Нажмите «КБЖУ» и заполните калькулятор. После расчёта можно сразу перейти к подбору рациона.</p></div>
+<div class="faq-item"><b>Можно изменить количество порций?</b><p>Да, в корзине можно увеличить или уменьшить количество каждого блюда перед оформлением.</p></div>
+</div>
+</div>
+</section>
 
 <div id="plannerPanel" class="cart-panel planner-panel">
 <div class="cart-header">
@@ -674,6 +711,10 @@ function generateOrderId(){
 
 function closeSuccess(){
  document.getElementById('successModal').style.display='none';
+}
+
+function scrollFAQ(){
+ document.getElementById('faq')?.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 
@@ -936,7 +977,6 @@ fetch('data/products.json')
    if(p.categories && p.categories.includes('protein')) return {label:'Белок',icon:'🥩'};
    if(p.categories && p.categories.includes('carbs')) return {label:'Углеводы',icon:'🍚'};
    if(p.categories && p.categories.includes('fiber')) return {label:'Овощи',icon:'🥦'};
-   if(p.categories && p.categories.includes('meals')) return {label:'Готовое блюдо',icon:'🍽'};
    return {label:'Блюдо',icon:'🥗'};
  }
 
