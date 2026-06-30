@@ -357,10 +357,6 @@ align-items:start;
 margin-left:8px;background:#eef7e8;border:1px solid #6BCB2D;
 border-radius:8px;padding:4px 8px;cursor:pointer;color:#2f7d1f;font-size:12px
 }
-.replace-all-btn{
-margin-top:10px;background:#6BCB2D;color:#fff;border:none;padding:8px 12px;border-radius:10px;cursor:pointer
-}
-
 .food-modal{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;z-index:9999}
 .food-modal.show{display:flex}
 .food-modal-box{background:#fff;width:min(900px,95vw);max-height:85vh;overflow:auto;border-radius:20px;padding:20px}
@@ -386,25 +382,22 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .brand-title{font-size:20px;font-weight:800;letter-spacing:-.4px}
 .brand-subtitle{font-size:12px;color:#b8c8b2;margin-top:2px}
 .site-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end;padding:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:24px}
-.action-btn,.cart-btn{position:static;display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:46px;padding:0 16px;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:rgba(255,255,255,.08);color:#edf8ea;font-weight:850;letter-spacing:-.15px;cursor:pointer;transition:.2s;box-shadow:none;white-space:nowrap}
+.action-btn,.cart-btn{position:static;display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:46px;padding:0 20px;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:rgba(255,255,255,.08);color:#edf8ea;font-weight:850;letter-spacing:-.15px;cursor:pointer;transition:.2s;box-shadow:none;white-space:nowrap}
 .action-btn:hover,.cart-btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.22)}
 .action-btn.primary{background:linear-gradient(135deg,#78d83d,#48a820);border-color:transparent;color:#fff;box-shadow:0 12px 28px rgba(99,189,43,.22)}
-.action-icon{display:grid;place-items:center;width:26px;height:26px;border-radius:9px;background:rgba(255,255,255,.12);font-size:13px;font-weight:900}
-.action-btn.primary .action-icon{background:rgba(255,255,255,.18)}
 .cart-btn{background:#fff;color:#172015;border-color:transparent;box-shadow:0 12px 26px rgba(0,0,0,.16)}
-.cart-btn .action-icon{background:#f2f7ef;color:#4aa820}
-.hero{position:relative;overflow:hidden;background:radial-gradient(circle at 16% 20%,rgba(126,217,70,.28),transparent 28%),linear-gradient(135deg,#11180f 0%,#1f3f18 52%,#72ca33 100%);padding:86px 28px 96px;text-align:left}
+.hero{position:relative;overflow:hidden;background:radial-gradient(circle at 16% 20%,rgba(126,217,70,.28),transparent 28%),linear-gradient(135deg,#11180f 0%,#1f3f18 52%,#72ca33 100%);padding:56px 28px 74px;text-align:left}
 .hero::after{content:'';position:absolute;right:-90px;top:-120px;width:420px;height:420px;border-radius:50%;background:rgba(255,255,255,.12)}
-.hero-inner{position:relative;z-index:1;max-width:1180px;margin:auto;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,.9fr);gap:32px;align-items:center}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;margin-bottom:18px;padding:8px 12px;border:1px solid rgba(255,255,255,.2);border-radius:999px;background:rgba(255,255,255,.1);color:#e9f6e5;font-size:13px}
-.hero h2{max-width:720px;font-size:56px;line-height:1.02;letter-spacing:-1.8px;margin:0 0 18px;color:#fff}
-.hero p{max-width:620px;font-size:19px;line-height:1.55;color:#dfebdc}
-.hero-card{background:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.5);border-radius:28px;padding:24px;box-shadow:0 24px 70px rgba(10,20,8,.24)}
-.hero-card h3{margin:0 0 14px;font-size:20px}
-.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
-.hero-stat{padding:13px 10px;border-radius:16px;background:#f2faed;text-align:center;color:var(--muted)}
-.hero-stat b{display:block;color:var(--ink);font-size:20px}
-.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.hero-inner{position:relative;z-index:1;max-width:1180px;margin:auto;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(280px,.82fr);gap:26px;align-items:center}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;margin-bottom:14px;padding:7px 11px;border:1px solid rgba(255,255,255,.2);border-radius:999px;background:rgba(255,255,255,.1);color:#e9f6e5;font-size:13px}
+.hero h2{max-width:720px;font-size:48px;line-height:1.03;letter-spacing:-1.6px;margin:0 0 14px;color:#fff}
+.hero p{max-width:620px;font-size:17px;line-height:1.5;color:#dfebdc}
+.hero-card{background:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.5);border-radius:24px;padding:20px;box-shadow:0 20px 54px rgba(10,20,8,.2)}
+.hero-card h3{margin:0 0 10px;font-size:19px}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}
+.hero-stat{padding:10px 8px;border-radius:14px;background:#f2faed;text-align:center;color:var(--muted)}
+.hero-stat b{display:block;color:var(--ink);font-size:18px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
 .hero-cta{height:50px;padding:0 18px;border:none;border-radius:16px;background:#fff;color:#172015;font-weight:900;cursor:pointer;box-shadow:0 18px 36px rgba(0,0,0,.18)}
 .hero-cta.green{background:linear-gradient(135deg,#75d83a,#47a91f);color:#fff}
 .catalog-shell{max-width:1400px;margin:-42px auto 18px;padding:0 24px;position:relative;z-index:2}
@@ -435,6 +428,15 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .price{font-size:18px;font-weight:900;color:#172015;white-space:nowrap}
 .card .btn{min-width:118px;border-radius:14px;box-shadow:0 10px 20px rgba(99,189,43,.18)}
 .empty-products{grid-column:1/-1;padding:40px;background:#fff;border:1px dashed #cdddc6;border-radius:24px;text-align:center;color:var(--muted)}
+.kbju-saved-card{max-width:1400px;margin:18px auto 0;padding:0 24px;display:none}
+.kbju-saved-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px 20px;border:1px solid #cfe7c2;border-radius:24px;background:linear-gradient(135deg,#f4fbef,#fff);box-shadow:0 14px 38px rgba(31,55,24,.08)}
+.kbju-saved-title{font-weight:900;font-size:18px;color:#172015}
+.kbju-saved-sub{margin-top:4px;color:#667461;font-size:14px}
+.kbju-saved-stats{display:flex;gap:8px;flex-wrap:wrap}
+.kbju-saved-pill{padding:9px 11px;border-radius:13px;background:#fff;color:#667461;font-size:12px;border:1px solid var(--line)}
+.kbju-saved-pill b{display:block;color:#172015;font-size:16px}
+.kbju-saved-actions{display:flex;gap:10px;flex-wrap:wrap}
+.kbju-saved-actions .btn{border-radius:14px}
 .faq-section{max-width:1180px;margin:22px auto 56px;padding:0 24px}
 .faq-card{background:#fff;border:1px solid rgba(228,235,223,.95);border-radius:30px;padding:28px;box-shadow:0 18px 48px rgba(24,36,18,.08)}
 .faq-head{display:flex;justify-content:space-between;gap:18px;align-items:end;margin-bottom:18px}
@@ -504,7 +506,6 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .meal-info .meal-choice{display:grid;grid-template-columns:minmax(0,1fr) 92px;align-items:center;gap:12px;min-height:37px;margin:0;padding:6px 0;border-bottom:1px solid #edf1ea}
 .meal-info .meal-choice-name{min-width:0;overflow-wrap:anywhere}
 .replace-btn{width:92px;min-width:92px;margin:0;padding:6px 5px;background:#fff;border:1px solid var(--green);border-radius:9px;color:var(--green-dark);font-weight:700;cursor:pointer}
-.replace-all-btn{display:block;width:100%;margin:12px 0 0;padding:10px 12px;background:var(--green);color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer}
 .meal-macros{width:150px;min-width:150px;text-align:right;font-size:14px;line-height:1.7;justify-self:end;padding:12px;background:var(--green-soft);border-radius:12px}
 .checkout-section{margin-top:24px;padding:20px;background:#fff;border:1px solid var(--line);border-radius:20px}
 .checkout-section h3{margin-top:0}
@@ -514,9 +515,9 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .plan-actions{position:sticky;bottom:-28px;margin:18px -28px -28px;padding:14px 28px 18px;background:rgba(247,249,245,.96);border-top:1px solid var(--line);backdrop-filter:blur(12px);z-index:12}
 .add-plan-btn{width:100%;min-height:48px;font-size:16px}
 @media(max-width:650px){
- .site-header{padding:12px 16px;align-items:flex-start;flex-direction:column}.site-actions{width:100%;gap:6px;border-radius:18px}.action-btn,.cart-btn{min-height:38px;padding:0 10px;font-size:12px;border-radius:13px}.action-icon{width:22px;height:22px;border-radius:7px;font-size:11px}.brand-title{font-size:17px}.brand-mark{width:38px;height:38px}
+ .site-header{padding:12px 16px;align-items:flex-start;flex-direction:column}.site-actions{width:100%;gap:6px;border-radius:18px}.action-btn,.cart-btn{min-height:38px;padding:0 10px;font-size:12px;border-radius:13px}.brand-title{font-size:17px}.brand-mark{width:38px;height:38px}
  .kbju-modal{padding:12px}.kbju-modal-head{padding:22px 18px 16px}.kbju-modal-head h2{font-size:24px}.kbju-form{padding:18px}.kbju-grid,.kbju-tips{grid-template-columns:1fr}.kbju-wide,.kbju-two{grid-column:auto}.kbju-actions{display:grid}.kbju-primary,.kbju-secondary{width:100%}
- .hero{padding:58px 18px 74px}.hero-inner{grid-template-columns:1fr}.hero h2{font-size:36px}.hero p{font-size:16px}.hero-card{padding:18px;border-radius:22px}
+ .hero{padding:42px 18px 58px}.hero-inner{grid-template-columns:1fr}.hero h2{font-size:34px}.hero p{font-size:15px}.hero-card{padding:16px;border-radius:20px}.kbju-saved-card{padding:0 16px}.kbju-saved-inner{display:block}.kbju-saved-stats,.kbju-saved-actions{margin-top:12px}
  .catalog-shell{margin:-34px auto 10px;padding:0 14px}.catalog-tools{grid-template-columns:1fr;border-radius:20px}.filter-tabs{justify-content:flex-start}.filter-chip{height:39px;padding:0 12px;font-size:13px}
  .catalog-heading{padding:0 16px;margin-top:20px}.catalog-heading h2{font-size:26px}.catalog-heading p{font-size:14px}.grid{padding:16px;gap:18px}.card{border-radius:22px}.card img{height:210px}
  .cart-panel{padding:0}.cart-header{margin:0;padding:16px 14px}.cart-scroll{padding:16px 14px 22px}.cart-heading{font-size:21px}.cart-subtitle{display:none}.clear-btn{width:40px;padding:0;font-size:0}.clear-btn::before{content:'🗑';font-size:15px}
@@ -538,10 +539,10 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <div><div class="brand-title">EatFit Vietnam</div><div class="brand-subtitle">Good food · Fit life</div></div>
 </div>
 <div class="site-actions">
-<button class="action-btn" onclick="openKBJU()"><span class="action-icon">К</span><span>Рассчитать КБЖУ</span></button>
-<button class="action-btn primary" onclick="openPlanner()"><span class="action-icon">R</span><span>Подобрать рацион</span></button>
-<button class="action-btn" onclick="scrollFAQ()"><span class="action-icon">?</span><span>FAQ</span></button>
-<button class="cart-btn" onclick="toggleCart()"><span class="action-icon">C</span><span>Корзина</span><b id="count">0</b></button>
+<button class="action-btn" onclick="openKBJU()">Рассчитать КБЖУ</button>
+<button class="action-btn primary" onclick="openPlanner()">Подобрать рацион</button>
+<button class="action-btn" onclick="scrollFAQ()">FAQ</button>
+<button class="cart-btn" onclick="toggleCart()">Корзина <b id="count">0</b></button>
 </div>
 </header>
 
@@ -564,6 +565,25 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <div class="hero-stat"><b>КБЖУ</b>подбор</div>
 <div class="hero-stat"><b>VND</b>цены</div>
 </div>
+</div>
+</div>
+</div>
+
+<div id="savedKbjuCard" class="kbju-saved-card">
+<div class="kbju-saved-inner">
+<div>
+<div class="kbju-saved-title">Ваша цель КБЖУ сохранена</div>
+<div class="kbju-saved-sub">Теперь можно автоматически подобрать рацион под эти значения.</div>
+</div>
+<div class="kbju-saved-stats">
+<div class="kbju-saved-pill"><b id="savedCalories">0</b>ккал</div>
+<div class="kbju-saved-pill"><b id="savedProtein">0 г</b>белки</div>
+<div class="kbju-saved-pill"><b id="savedFat">0 г</b>жиры</div>
+<div class="kbju-saved-pill"><b id="savedCarbs">0 г</b>углеводы</div>
+</div>
+<div class="kbju-saved-actions">
+<button class="btn" onclick="openPlanner()">Подобрать рацион</button>
+<button class="kbju-secondary" onclick="openKBJU()">Пересчитать</button>
 </div>
 </div>
 </div>
@@ -777,6 +797,21 @@ function showToast(message,duration=2600){
    toast.classList.remove('show');
    toast.textContent='✓ Блюдо добавлено в корзину';
  },duration);
+}
+
+function renderSavedKBJU(){
+ const target=JSON.parse(localStorage.getItem('kbju_target')||'null');
+ const card=document.getElementById('savedKbjuCard');
+ if(!card) return;
+ if(!target){
+   card.style.display='none';
+   return;
+ }
+ card.style.display='block';
+ document.getElementById('savedCalories').textContent=target.calories;
+ document.getElementById('savedProtein').textContent=target.protein+' г';
+ document.getElementById('savedFat').textContent=target.fat+' г';
+ document.getElementById('savedCarbs').textContent=target.carbs+' г';
 }
 
 
@@ -1091,6 +1126,7 @@ fetch('data/products.json')
 
 window.renderProducts();
 renderCart();
+renderSavedKBJU();
 });
 
 
@@ -1239,11 +1275,6 @@ function mealSignature(meal){
  return mealItems(meal).map(row=>`${row.type}:${row.item.id}:${row.qty}`).join('|');
 }
 
-function replaceWholeMeal(mealIndex){
- rebalanceMealPlan(mealIndex,null,true);
- autoBuildMealPlan(true);
-}
-
 function portionQty(meal,type){
  return Math.max(1,parseInt(meal[type+'Qty']||1));
 }
@@ -1381,7 +1412,6 @@ planHtml += `<div class="meal-card">
 
 <div class="meal-info">
 ${choicesHtml}
-<button class="replace-all-btn" onclick="replaceWholeMeal(${i})">🎲 Новый вариант</button>
 </div>
 
 <div class="meal-macros">
@@ -1482,6 +1512,7 @@ function calcKBJU(){
    protein,fat,carbs
  }));
  mealPlanData=[];
+ renderSavedKBJU();
 
  updateKBJUProgress(
 parseInt(document.getElementById('totalCalories').textContent||0),
