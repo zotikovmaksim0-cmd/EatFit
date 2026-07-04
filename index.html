@@ -1082,6 +1082,9 @@ fetch('data/products.json')
 .then(r=>r.json())
 .then(data=>{
  products=data;
+ const availableIds=new Set(products.map(item=>item.id));
+ cart=cart.filter(item=>availableIds.has(item.id));
+ localStorage.setItem('cart',JSON.stringify(cart));
  let activeProductCategory='';
 
  function productCategoryInfo(p){
@@ -1280,6 +1283,7 @@ function rebalanceMealPlan(mealIndex,lockedType=null,forceDifferent=false){
  const proteins=products.filter(p=>p.categories && p.categories.includes('protein'));
  const carbs=products.filter(p=>p.categories && p.categories.includes('carbs'));
  const fibers=products.filter(p=>p.categories && p.categories.includes('fiber'));
+ const requiredGroup=proteinPlanSequence(mealPlanData.length)[mealIndex];
 
  const fixedTotal=totalMealPlanExcept(mealIndex);
  const combos=buildMealCombos(proteins,carbs,fibers);
@@ -1291,10 +1295,12 @@ function rebalanceMealPlan(mealIndex,lockedType=null,forceDifferent=false){
  combos.forEach(combo=>{
    if(forceDifferent && mealSignature(combo.meal)===currentSignature) return;
    if(!comboMatchesLock(combo.meal,lockedType,lockedItem)) return;
+   if(!lockedType && requiredGroup && !comboMatchesProteinSlot(combo.meal,requiredGroup)) return;
+   if(lockedType && lockedType!=='protein' && requiredGroup && !comboMatchesProteinSlot(combo.meal,requiredGroup)) return;
    const total=addTotals(fixedTotal,combo.total);
    const candidateMeals=[...mealPlanData];
    candidateMeals[mealIndex]=combo.meal;
-   const score=planScore(total,target)+proteinDiversityPenalty(candidateMeals);
+   const score=planScore(total,target)+proteinPlanPenalty(candidateMeals);
    if(!best || score<best.score) best={meal:combo.meal,score};
  });
 
@@ -1337,6 +1343,19 @@ function proteinGroup(item){
  return item.id||'other';
 }
 
+function proteinPlanSequence(mealsCount){
+ const base=['egg','chicken','fish','beef'];
+ if(mealsCount<=3) return base.slice(0,mealsCount);
+ if(mealsCount===4) return base;
+ if(mealsCount===5) return ['egg','chicken','fish','beef','chicken'];
+ return ['egg','chicken','fish','beef','chicken','fish'].slice(0,mealsCount);
+}
+
+function comboMatchesProteinSlot(meal,requiredGroup){
+ if(proteinGroup(meal.protein)!==requiredGroup) return false;
+ return !meal.extraProtein || proteinGroup(meal.extraProtein)===requiredGroup;
+}
+
 function mealProteinGroups(meal){
  return mealItems(meal)
    .filter(row=>row.type==='protein' || row.type==='extraProtein')
@@ -1351,6 +1370,17 @@ function proteinDiversityPenalty(meals){
  const minimumPenalty=Math.max(0,3-present)*1.8;
  const repeatPenalty=Math.max(0,meals.length-groups.size)*0.08;
  return minimumPenalty+repeatPenalty;
+}
+
+function proteinPlanPenalty(meals){
+ const sequence=proteinPlanSequence(meals.length);
+ return meals.reduce((penalty,meal,index)=>{
+   const required=sequence[index];
+   if(!required) return penalty;
+   if(proteinGroup(meal.protein)!==required) penalty+=8;
+   if(meal.extraProtein && proteinGroup(meal.extraProtein)!==required) penalty+=2;
+   return penalty;
+ },0)+proteinDiversityPenalty(meals)*0.2;
 }
 
 function addTotals(a,b){
@@ -1374,6 +1404,7 @@ function planScore(total,target){
 
 function buildBalancedMealPlan(mealsCount,target,proteins,carbs,fibers){
  const combos=buildMealCombos(proteins,carbs,fibers);
+ const proteinSequence=proteinPlanSequence(mealsCount);
 
  if(!combos.length) return [];
 
@@ -1396,6 +1427,7 @@ function buildBalancedMealPlan(mealsCount,target,proteins,carbs,fibers){
      carbs:target.carbs/mealsCount
    };
    const candidateCombos=[...combos]
+     .filter(combo=>comboMatchesProteinSlot(combo.meal,proteinSequence[step]))
      .sort((a,b)=>planScore(a.total,mealTarget)-planScore(b.total,mealTarget))
      .slice(0,comboLimit);
 
@@ -1410,7 +1442,7 @@ function buildBalancedMealPlan(mealsCount,target,proteins,carbs,fibers){
          meals,
          total,
          ids,
-         score:planScore(total,stepTarget)+varietyPenalty+proteinDiversityPenalty(meals)*0.22
+         score:planScore(total,stepTarget)+varietyPenalty+proteinPlanPenalty(meals)*0.22
        });
      });
    });
@@ -1420,8 +1452,8 @@ function buildBalancedMealPlan(mealsCount,target,proteins,carbs,fibers){
  }
 
  states.sort((a,b)=>
-   (planScore(a.total,target)+proteinDiversityPenalty(a.meals))-
-   (planScore(b.total,target)+proteinDiversityPenalty(b.meals))
+   (planScore(a.total,target)+proteinPlanPenalty(a.meals))-
+   (planScore(b.total,target)+proteinPlanPenalty(b.meals))
  );
  return states[0]?.meals || [];
 }
