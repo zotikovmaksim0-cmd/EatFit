@@ -1205,7 +1205,8 @@ function replaceMealItem(mealIndex,type){
  currentMealIndex=mealIndex;
  currentType=type;
  const category=type==='extraProtein' ? 'protein' : type;
- const pool=products.filter(p=>p.categories && p.categories.includes(category));
+ let pool=products.filter(p=>p.categories && p.categories.includes(category));
+ if(category==='carbs') pool=carbPlanPool(pool,mealIndex,mealPlanData.length);
  const grid=document.getElementById('foodModalGrid');
  document.getElementById('foodModalTitle').innerText='Выберите блюдо';
  grid.innerHTML='';
@@ -1263,6 +1264,39 @@ function buildMealCombos(proteins,carbs,fibers){
  return combos;
 }
 
+function carbGroup(item){
+ if(!item) return '';
+ const name=(item.name||'').toLowerCase();
+ if(name.includes('молок')) return 'milkPorridge';
+ if(name.includes('батат')) return 'batat';
+ if(name.includes('рис')) return 'grain';
+ return 'grain';
+}
+
+function carbPlanPool(carbs,mealIndex,mealsCount){
+ if(!carbs.length) return carbs;
+ const isFirst=mealIndex===0;
+ const isLast=mealIndex===mealsCount-1;
+ if(isFirst){
+   const breakfast=carbs.filter(item=>carbGroup(item)==='milkPorridge');
+   return breakfast.length ? breakfast : carbs;
+ }
+ const regular=carbs.filter(item=>carbGroup(item)==='grain');
+ if(isLast){
+   const lastOptions=carbs.filter(item=>carbGroup(item)==='grain' || carbGroup(item)==='batat');
+   return lastOptions.length ? lastOptions : carbs;
+ }
+ return regular.length ? regular : carbs.filter(item=>carbGroup(item)!=='milkPorridge');
+}
+
+function comboMatchesCarbSlot(meal,mealIndex,mealsCount){
+ if(!meal.carbs) return false;
+ const group=carbGroup(meal.carbs);
+ if(mealIndex===0) return group==='milkPorridge';
+ if(mealIndex===mealsCount-1) return group==='grain' || group==='batat';
+ return group==='grain';
+}
+
 function totalMealPlanExcept(skipIndex){
  return mealPlanData.reduce((total,meal,index)=>{
    if(index===skipIndex) return total;
@@ -1284,9 +1318,10 @@ function rebalanceMealPlan(mealIndex,lockedType=null,forceDifferent=false){
  const carbs=products.filter(p=>p.categories && p.categories.includes('carbs'));
  const fibers=products.filter(p=>p.categories && p.categories.includes('fiber'));
  const requiredGroup=proteinPlanSequence(mealPlanData.length)[mealIndex];
+ const allowedCarbs=carbPlanPool(carbs,mealIndex,mealPlanData.length);
 
  const fixedTotal=totalMealPlanExcept(mealIndex);
- const combos=buildMealCombos(proteins,carbs,fibers);
+ const combos=buildMealCombos(proteins,allowedCarbs,fibers);
  const currentMeal=mealPlanData[mealIndex];
  const currentSignature=mealSignature(currentMeal);
  const lockedItem=lockedType ? currentMeal[lockedType] : null;
@@ -1297,6 +1332,7 @@ function rebalanceMealPlan(mealIndex,lockedType=null,forceDifferent=false){
    if(!comboMatchesLock(combo.meal,lockedType,lockedItem)) return;
    if(!lockedType && requiredGroup && !comboMatchesProteinSlot(combo.meal,requiredGroup)) return;
    if(lockedType && lockedType!=='protein' && requiredGroup && !comboMatchesProteinSlot(combo.meal,requiredGroup)) return;
+   if(lockedType!=='carbs' && !comboMatchesCarbSlot(combo.meal,mealIndex,mealPlanData.length)) return;
    const total=addTotals(fixedTotal,combo.total);
    const candidateMeals=[...mealPlanData];
    candidateMeals[mealIndex]=combo.meal;
@@ -1398,15 +1434,16 @@ function planScore(total,target){
    const ratio=total[key]/Math.max(1,target[key]);
    const distance=Math.abs(1-ratio);
    const outside=ratio<0.95 ? 0.95-ratio : ratio>1.05 ? ratio-1.05 : 0;
-   return score + distance + outside*4;
+   const weight=key==='fat' ? 0.45 : 1;
+   const outsideWeight=key==='fat' && ratio<0.95 ? 1.2 : 4;
+   return score + distance*weight + outside*outsideWeight*weight;
  },0);
 }
 
 function buildBalancedMealPlan(mealsCount,target,proteins,carbs,fibers){
- const combos=buildMealCombos(proteins,carbs,fibers);
  const proteinSequence=proteinPlanSequence(mealsCount);
 
- if(!combos.length) return [];
+ if(!proteins.length || !carbs.length || !fibers.length) return [];
 
  const beamLimit=90;
  const comboLimit=900;
@@ -1426,8 +1463,10 @@ function buildBalancedMealPlan(mealsCount,target,proteins,carbs,fibers){
      fat:target.fat/mealsCount,
      carbs:target.carbs/mealsCount
    };
-   const candidateCombos=[...combos]
+   const stepCarbs=carbPlanPool(carbs,step,mealsCount);
+   const candidateCombos=buildMealCombos(proteins,stepCarbs,fibers)
      .filter(combo=>comboMatchesProteinSlot(combo.meal,proteinSequence[step]))
+     .filter(combo=>comboMatchesCarbSlot(combo.meal,step,mealsCount))
      .sort((a,b)=>planScore(a.total,mealTarget)-planScore(b.total,mealTarget))
      .slice(0,comboLimit);
 
