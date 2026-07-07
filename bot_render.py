@@ -861,11 +861,15 @@ async def site_order(request):
 
         print("SITE ORDER RECEIVED")
         print(data)
+        customer_name = " ".join(
+            part for part in [data.get("name", ""), data.get("surname", "")]
+            if part
+        )
 
         text_order = (
             f"🔔 Новый заказ с сайта\n\n"
             f"№ {data.get('order_id','')}\n\n"
-            f"👤 {data.get('name','')}\n\n"
+            f"👤 {customer_name}\n\n"
             f"📞 {data.get('phone','')}\n\n"
             f"{contact_line}"
             f"🏠 {data.get('address','')}\n\n"
