@@ -21,7 +21,7 @@ header h1{margin:0;color:#6BCB2D}
 .cart-panel{position:fixed;top:0;right:-760px;width:760px;height:100vh;background:#fff;transition:.3s;padding:20px 20px 180px;overflow:auto;z-index:1201}
 .cart-panel.open{right:0}
 .checkout-bar{position:fixed;bottom:0;width:660px;background:#fff;padding:15px;border-top:1px solid #ddd}
-input,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin-bottom:10px}
+input,textarea,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin-bottom:10px}
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;z-index:1200;pointer-events:none}
 .overlay.show{opacity:1;visibility:visible;pointer-events:auto}
 .success-modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center}
@@ -524,6 +524,11 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .meal-macros{width:150px;min-width:150px;text-align:right;font-size:14px;line-height:1.7;justify-self:end;padding:12px;background:var(--green-soft);border-radius:12px}
 .checkout-section{margin-top:24px;padding:20px;background:#fff;border:1px solid var(--line);border-radius:20px}
 .checkout-section h3{margin-top:0}
+.checkout-label{display:block;margin:0 0 7px;color:var(--muted);font-size:13px;font-weight:800}
+.checkout-section select{height:46px;background:#fff;color:var(--ink);outline:none}
+.checkout-section select:focus,.checkout-section input:focus,.checkout-section textarea:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(99,189,43,.12)}
+.map-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px}
+.map-row .btn{height:46px;white-space:nowrap;border-radius:10px}
 .checkout-bar{position:relative;right:auto;bottom:auto;width:100%;padding:14px 28px 18px;background:rgba(255,255,255,.96);border-top:1px solid var(--line);backdrop-filter:blur(12px);z-index:15}
 .checkout-btn{width:100%;min-height:48px;font-size:16px;box-shadow:0 8px 18px rgba(99,189,43,.24)}
 .planner-open{display:block;margin:0 auto 25px}
@@ -540,7 +545,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
  .day-summary{padding:15px}.day-grid,.planner-stats{gap:5px}.day-grid>div,.planner-stats>div{padding:8px 2px}.day-grid b,.planner-stats b{font-size:16px}.goal-progress-grid{grid-template-columns:1fr}
  .planner-progress{grid-template-columns:1fr}.meal-buttons{grid-template-columns:repeat(2,1fr)}
  .meal-plan-row{grid-template-columns:1fr;gap:13px}.meal-left{align-items:center}.meal-info .meal-choice{grid-template-columns:minmax(0,1fr) 92px;align-items:start}.meal-macros{display:grid;width:100%;min-width:0;grid-template-columns:repeat(4,1fr);gap:4px;text-align:center;line-height:1.35;justify-self:stretch}.meal-macros b{display:block}
- .checkout-section{padding:15px}.checkout-bar{padding:11px 14px 14px}.plan-actions{bottom:-22px;margin:16px -14px -22px;padding:12px 14px 14px}
+ .checkout-section{padding:15px}.map-row{grid-template-columns:1fr}.checkout-bar{padding:11px 14px 14px}.plan-actions{bottom:-22px;margin:16px -14px -22px;padding:12px 14px 14px}
  .faq-section{padding:0 16px}.faq-card{padding:20px;border-radius:24px}.faq-head{display:block}.faq-head h2{font-size:26px}.faq-grid{grid-template-columns:1fr}
 }
 
@@ -763,10 +768,10 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <div id="daySummary" class="day-summary">
 <div class="summary-head"><div><h3>Цель на день</h3><div class="cart-subtitle">Что уже в рационе и сколько осталось до КБЖУ</div></div><div class='accuracy-circle' id='accuracyCircle'>0%</div></div>
 <div class="day-grid">
-<div><b id="totalCalories">0</b>ккал<span class="day-target" id="targetCalories">цель не задана</span></div>
-<div><b id="totalProtein">0</b>Б<span class="day-target" id="targetProtein">цель не задана</span></div>
-<div><b id="totalFat">0</b>Ж<span class="day-target" id="targetFat">цель не задана</span></div>
-<div><b id="totalCarbs">0</b>У<span class="day-target" id="targetCarbs">цель не задана</span></div>
+<div><b id="totalCalories">0</b><span id="totalCaloriesUnit">ккал</span><span class="day-target" id="targetCalories">цель не задана</span></div>
+<div><b id="totalProtein">0</b><span id="totalProteinUnit">Б</span><span class="day-target" id="targetProtein">цель не задана</span></div>
+<div><b id="totalFat">0</b><span id="totalFatUnit">Ж</span><span class="day-target" id="targetFat">цель не задана</span></div>
+<div><b id="totalCarbs">0</b><span id="totalCarbsUnit">У</span><span class="day-target" id="targetCarbs">цель не задана</span></div>
 </div>
 <div id="kbjuProgress" class="goal-progress"></div>
 <div class="summary-price"><span>Стоимость подобранного рациона</span><b><span id="totalPrice">0</span> VND</b></div>
@@ -800,10 +805,21 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 
 <div class="checkout-section">
 <h3>Оформление заказа</h3>
-<input id="name" placeholder="Имя">
-<input id="phone" placeholder="Телефон">
-<input id="telegram" placeholder="Telegram (@username)">
-<input id="address" placeholder="Адрес доставки">
+<input id="name" placeholder="Имя" required>
+<input id="phone" placeholder="Телефон" required>
+<label class="checkout-label" for="contactMethod">Удобный способ связи</label>
+<select id="contactMethod" onchange="updateContactPlaceholder()" required>
+<option value="zalo">Zalo</option>
+<option value="whatsapp">WhatsApp</option>
+<option value="telegram">Telegram</option>
+</select>
+<input id="contactValue" placeholder="Номер телефона для Zalo" required>
+<input id="address" placeholder="Адрес доставки" required>
+<label class="checkout-label" for="deliveryMap">Точка доставки на карте</label>
+<div class="map-row">
+<input id="deliveryMap" placeholder="Ссылка на точку в Google Maps" required>
+<button type="button" class="btn" onclick="openDeliveryMap()">Открыть карты</button>
+</div>
 <textarea id="comment" placeholder="Комментарий"></textarea>
 <div id="orderPreview" style="display:none;background:#eef;padding:10px;border-radius:8px;margin-bottom:10px"></div>
 </div>
@@ -838,10 +854,10 @@ const I18N={
   agePh:'Например, 28',heightPh:'Например, 175',weightPh:'Например, 70',tipLowTitle:'Низкая',tipLow:'До 5000 шагов в день, сидячая работа, без тренировок.',tipMidTitle:'Средняя',tipMid:'5000–10000 шагов в день, 2–4 тренировки в неделю.',tipHighTitle:'Высокая',tipHigh:'Более 10000 шагов, 5+ тренировок или физическая работа.',calcSave:'Рассчитать и сохранить цель',close:'Закрыть',
   faqTitle:'Частые вопросы',faqSub:'Коротко о доставке, рационе и заказе.',
   plannerTitle:'Подбор рациона',plannerSub:'Соберите день под свои КБЖУ, а потом решите, добавлять ли его в корзину',dayGoal:'Цель на день',dayGoalSub:'Что уже в рационе и сколько осталось до КБЖУ',noGoal:'цель не задана',selectedPlanPrice:'Стоимость подобранного рациона',mealCount:'🍽 Количество приемов пищи',yourPlan:'🍽 Ваш рацион на {count} приемов пищи',meal:'Прием пищи',replace:'Заменить',addPlan:'Добавить рацион в корзину',
-  cartTitle:'Корзина',cartSub:'Блюда, которые вы решили заказать',clear:'Очистить',emptyCart:'Корзина пуста<br>Добавьте блюда из каталога',cartTotal:'Итого в корзине',checkoutTitle:'Оформление заказа',namePh:'Имя',phonePh:'Телефон',telegramPh:'Telegram (@username)',addressPh:'Адрес доставки',commentPh:'Комментарий',checkout:'Оформить заказ',
+  cartTitle:'Корзина',cartSub:'Блюда, которые вы решили заказать',clear:'Очистить',emptyCart:'Корзина пуста<br>Добавьте блюда из каталога',cartTotal:'Итого в корзине',checkoutTitle:'Оформление заказа',namePh:'Имя',phonePh:'Телефон',contactMethodLabel:'Удобный способ связи',contactZaloPh:'Номер телефона для Zalo',contactWhatsappPh:'Номер телефона WhatsApp',contactTelegramPh:'Telegram (@username)',addressPh:'Адрес доставки',mapLabel:'Точка доставки на карте',mapPh:'Ссылка на точку в Google Maps',openMap:'Открыть карты',commentPh:'Комментарий',checkout:'Оформить заказ',
   successTitle:'Спасибо за заказ!',successText:'Ваш заказ успешно принят.',
   left:'{value} {unit} осталось',above:'+{value} {unit} выше цели',from:'из {value} {unit}',dishSelect:'Выберите блюдо',foodSearch:'🔍 Поиск блюда...',selectedNow:'✓ Выбрано сейчас',
-  alertEmptyCart:'Корзина пустая',alertCheckout:'Заполните имя, телефон и адрес доставки',alertOrderError:'Ошибка отправки заказа',alertServer:'Не удалось связаться с сервером',alertMeals:'Сначала выберите количество приемов пищи',alertKbju:'Сначала рассчитайте КБЖУ',alertPlan:'Сначала подберите рацион',fillKbju:'Заполните возраст, рост и вес, чтобы рассчитать КБЖУ',
+  alertEmptyCart:'Корзина пустая',alertCheckout:'Заполните все поля заказа, кроме комментария',alertOrderError:'Ошибка отправки заказа',alertServer:'Не удалось связаться с сервером',alertMeals:'Сначала выберите количество приемов пищи',alertKbju:'Сначала рассчитайте КБЖУ',alertPlan:'Сначала подберите рацион',fillKbju:'Заполните возраст, рост и вес, чтобы рассчитать КБЖУ',
   toastDish:'✓ Блюдо добавлено в корзину',toastPlan:'✓ Рацион добавлен в корзину',goalSaved:'Цель сохранена: {calories} ккал · Б {protein} г · Ж {fat} г · У {carbs} г',kbjuDone:'КБЖУ рассчитаны: {calories} ккал · Б {protein} г · Ж {fat} г · У {carbs} г',
   faq:[
    ['Как работает подбор рациона под КБЖУ?','Вы рассчитываете цель, выбираете количество приёмов пищи, а сайт собирает рацион максимально близко к дневной норме.'],
@@ -887,10 +903,10 @@ const I18N={
   agePh:'For example, 28',heightPh:'For example, 175',weightPh:'For example, 70',tipLowTitle:'Low',tipLow:'Up to 5,000 steps a day, desk work, no training.',tipMidTitle:'Medium',tipMid:'5,000–10,000 steps a day, 2–4 workouts per week.',tipHighTitle:'High',tipHigh:'Over 10,000 steps, 5+ workouts or physical work.',calcSave:'Calculate and save goal',close:'Close',
   faqTitle:'Frequently asked questions',faqSub:'Short answers about delivery, meal plans and orders.',
   plannerTitle:'Meal plan builder',plannerSub:'Build a day around your macros, then decide whether to add it to cart',dayGoal:'Daily goal',dayGoalSub:'What is already in the plan and what remains',noGoal:'goal not set',selectedPlanPrice:'Selected meal plan price',mealCount:'🍽 Number of meals',yourPlan:'🍽 Your plan for {count} meals',meal:'Meal',replace:'Replace',addPlan:'Add plan to cart',
-  cartTitle:'Cart',cartSub:'Dishes you decided to order',clear:'Clear',emptyCart:'Cart is empty<br>Add dishes from the catalog',cartTotal:'Cart total',checkoutTitle:'Checkout',namePh:'Name',phonePh:'Phone',telegramPh:'Telegram (@username)',addressPh:'Delivery address',commentPh:'Comment',checkout:'Place order',
+  cartTitle:'Cart',cartSub:'Dishes you decided to order',clear:'Clear',emptyCart:'Cart is empty<br>Add dishes from the catalog',cartTotal:'Cart total',checkoutTitle:'Checkout',namePh:'Name',phonePh:'Phone',contactMethodLabel:'Preferred contact method',contactZaloPh:'Phone number for Zalo',contactWhatsappPh:'WhatsApp phone number',contactTelegramPh:'Telegram (@username)',addressPh:'Delivery address',mapLabel:'Delivery point on map',mapPh:'Google Maps point link',openMap:'Open maps',commentPh:'Comment',checkout:'Place order',
   successTitle:'Thank you for your order!',successText:'Your order has been received.',
   left:'{value} {unit} left',above:'+{value} {unit} over goal',from:'of {value} {unit}',dishSelect:'Choose a dish',foodSearch:'🔍 Search dish...',selectedNow:'✓ Selected now',
-  alertEmptyCart:'Cart is empty',alertCheckout:'Fill in name, phone and delivery address',alertOrderError:'Order sending error',alertServer:'Could not connect to the server',alertMeals:'First choose the number of meals',alertKbju:'First calculate your macros',alertPlan:'First build a meal plan',fillKbju:'Fill in age, height and weight to calculate macros',
+  alertEmptyCart:'Cart is empty',alertCheckout:'Fill in every checkout field except comment',alertOrderError:'Order sending error',alertServer:'Could not connect to the server',alertMeals:'First choose the number of meals',alertKbju:'First calculate your macros',alertPlan:'First build a meal plan',fillKbju:'Fill in age, height and weight to calculate macros',
   toastDish:'✓ Dish added to cart',toastPlan:'✓ Meal plan added to cart',goalSaved:'Goal saved: {calories} kcal · P {protein} g · F {fat} g · C {carbs} g',kbjuDone:'Macros calculated: {calories} kcal · P {protein} g · F {fat} g · C {carbs} g',
   faq:[
    ['How does macro-based meal planning work?','You calculate your goal, choose the number of meals, and the site builds a daily plan close to your target.'],
@@ -923,51 +939,51 @@ const I18N={
  },
  vi:{
   brandSubtitle:'Good food · Fit life',
-  navCalc:'Tính chỉ số dinh dưỡng',navPlanner:'Chọn thực đơn',navContacts:'Liên hệ',navFaq:'FAQ',navCart:'Giỏ hàng',
-  heroEyebrow:'🌿 Dinh dưỡng cân bằng tại Việt Nam',heroTitle:'Món ăn đẹp mắt và phù hợp với chỉ số dinh dưỡng của bạn',heroText:'Chọn món thủ công hoặc tạo thực đơn theo calo, protein, chất béo và carb. Giỏ hàng gọn gàng, thành phần rõ ràng và giao hàng chỉn chu.',
-  heroBuild:'Bạn có thể chọn gì',heroBuildText:'Protein, món tinh bột và rau cho thực đơn hằng ngày tiện lợi.',categories:'nhóm món',kbjuPick:'theo chỉ số',prices:'giá VND',
-  savedTitle:'Mục tiêu dinh dưỡng đã được lưu',savedSub:'Bây giờ bạn có thể tự động tạo thực đơn theo các chỉ số này.',calories:'kcal',protein:'protein',fat:'chất béo',carbs:'carb',proteinShort:'P',fatShort:'F',carbsShort:'C',
-  recalc:'Tính lại',searchPlaceholder:'Tìm món...',all:'Tất cả',proteins:'Protein',carbsFilter:'Carb',fiber:'Rau',
-  priceAny:'Mọi mức giá',priceUnder:'Dưới 50.000 VND',priceMid:'50.000–100.000 VND',priceOver:'Từ 100.000 VND',sortDefault:'Mặc định',sortAsc:'Rẻ trước',sortDesc:'Đắt trước',
-  catalogTitle:'Danh mục EatFit',catalogSub:'Lọc sản phẩm theo vai trò trong thực đơn và chỉ thêm món phù hợp với bạn.',
-  addToCart:'Thêm vào giỏ',emptyProducts:'Không tìm thấy. Hãy đổi từ khóa hoặc danh mục.',balancedComponent:'Thành phần cân bằng cho thực đơn của bạn.',
-  contactTitle:'Cách liên hệ',contactSub:'Nhắn cho chúng tôi qua ứng dụng bạn thích: hỗ trợ chỉ số dinh dưỡng, thực đơn và giao hàng.',contactWhatsapp:'Chat nhanh qua số +84 392 459 260',contactTelegram:'Có thể thay bằng link chat doanh nghiệp hoặc nhóm',contactZalo:'Hiện là link theo số điện thoại, sau này có thể thay bằng Zalo OA',contactSmall:'Với Telegram và Zalo nên dùng link công khai cố định. Sau khi tạo xong, hãy gửi link để tôi đặt đúng địa chỉ.',
-  calcTitle:'Tính chỉ số dinh dưỡng',calcSub:'Nhập thông tin cơ bản, EatFit sẽ tính mục tiêu hằng ngày của bạn: calo, protein, chất béo và carb.',yourData:'Thông tin của bạn',gender:'Giới tính',male:'Nam',female:'Nữ',age:'Tuổi',height:'Chiều cao, cm',weight:'Cân nặng, kg',goal:'Mục tiêu',goalLoss:'Giảm cân — thâm hụt khoảng 20%',goalMaintain:'Duy trì cân nặng',goalGain:'Tăng cơ — dư khoảng 15%',activity:'Mức vận động',activityLow:'Ít vận động',activityMid:'Vận động trung bình',activityHigh:'Vận động cao',
-  agePh:'Ví dụ: 28',heightPh:'Ví dụ: 175',weightPh:'Ví dụ: 70',tipLowTitle:'Thấp',tipLow:'Dưới 5.000 bước/ngày, làm việc văn phòng, không tập luyện.',tipMidTitle:'Trung bình',tipMid:'5.000–10.000 bước/ngày, tập 2–4 buổi/tuần.',tipHighTitle:'Cao',tipHigh:'Trên 10.000 bước, tập 5+ buổi hoặc lao động thể chất.',calcSave:'Tính và lưu mục tiêu',close:'Đóng',
-  faqTitle:'Câu hỏi thường gặp',faqSub:'Tóm tắt về giao hàng, thực đơn và đặt món.',
-  plannerTitle:'Chọn thực đơn',plannerSub:'Tạo thực đơn theo chỉ số dinh dưỡng của bạn, sau đó quyết định có thêm vào giỏ hay không',dayGoal:'Mục tiêu trong ngày',dayGoalSub:'Những gì đã có trong thực đơn và phần còn lại để đạt mục tiêu',noGoal:'chưa có mục tiêu',selectedPlanPrice:'Giá thực đơn đã chọn',mealCount:'🍽 Số bữa ăn',yourPlan:'🍽 Thực đơn {count} bữa của bạn',meal:'Bữa ăn',replace:'Đổi món',addPlan:'Thêm thực đơn vào giỏ',
-  cartTitle:'Giỏ hàng',cartSub:'Những món bạn đã chọn đặt',clear:'Xóa',emptyCart:'Giỏ hàng trống<br>Thêm món từ danh mục',cartTotal:'Tổng giỏ hàng',checkoutTitle:'Đặt hàng',namePh:'Tên',phonePh:'Số điện thoại',telegramPh:'Telegram (@username)',addressPh:'Địa chỉ giao hàng',commentPh:'Ghi chú',checkout:'Đặt hàng',
+  navCalc:'Tính macro',navPlanner:'Lên thực đơn',navContacts:'Liên hệ',navFaq:'FAQ',navCart:'Giỏ hàng',
+  heroEyebrow:'🌿 Bữa ăn cân bằng tại Việt Nam',heroTitle:'Món ăn đẹp mắt, đúng macro của bạn',heroText:'Tự chọn từng món hoặc để EatFit gợi ý thực đơn trong ngày theo calo, đạm, chất béo và tinh bột. Giỏ hàng rõ ràng, thành phần minh bạch, giao hàng gọn gàng.',
+  heroBuild:'Có thể chọn gì?',heroBuildText:'Món đạm, tinh bột và rau cho thực đơn hằng ngày tiện lợi.',categories:'nhóm món',kbjuPick:'theo macro',prices:'giá VND',
+  savedTitle:'Đã lưu mục tiêu macro',savedSub:'Bạn có thể để EatFit tự động gợi ý thực đơn theo mục tiêu này.',calories:'kcal',protein:'đạm',fat:'chất béo',carbs:'tinh bột',proteinShort:'Đ',fatShort:'B',carbsShort:'T',
+  recalc:'Tính lại',searchPlaceholder:'Tìm món...',all:'Tất cả',proteins:'Món đạm',carbsFilter:'Tinh bột',fiber:'Rau',
+  priceAny:'Tất cả mức giá',priceUnder:'Dưới 50.000 VND',priceMid:'50.000–100.000 VND',priceOver:'Từ 100.000 VND',sortDefault:'Mặc định',sortAsc:'Giá thấp trước',sortDesc:'Giá cao trước',
+  catalogTitle:'Thực đơn EatFit',catalogSub:'Lọc món theo vai trò trong bữa ăn và chỉ thêm những món phù hợp với bạn.',
+  addToCart:'Thêm vào giỏ',emptyProducts:'Không tìm thấy món phù hợp. Hãy đổi từ khóa hoặc chọn nhóm món khác.',balancedComponent:'Một phần ăn cân bằng cho thực đơn của bạn.',
+  contactTitle:'Liên hệ',contactSub:'Nhắn cho EatFit qua kênh bạn tiện dùng: chúng tôi sẽ hỗ trợ về macro, thực đơn và giao hàng.',contactWhatsapp:'Chat nhanh qua số +84 392 459 260',contactTelegram:'Có thể thay bằng link chat doanh nghiệp hoặc nhóm',contactZalo:'Hiện dùng link theo số điện thoại, sau này có thể đổi sang Zalo OA',contactSmall:'Với Telegram và Zalo, nên dùng link công khai cố định. Khi có link chính thức, hãy gửi để chúng tôi cập nhật đúng địa chỉ.',
+  calcTitle:'Tính macro',calcSub:'Nhập thông tin cơ bản, EatFit sẽ tính mục tiêu hằng ngày của bạn: calo, đạm, chất béo và tinh bột.',yourData:'Thông tin của bạn',gender:'Giới tính',male:'Nam',female:'Nữ',age:'Tuổi',height:'Chiều cao, cm',weight:'Cân nặng, kg',goal:'Mục tiêu',goalLoss:'Giảm cân — thâm hụt khoảng 20%',goalMaintain:'Giữ cân',goalGain:'Tăng cơ — dư năng lượng khoảng 15%',activity:'Mức vận động',activityLow:'Ít vận động',activityMid:'Vận động vừa',activityHigh:'Vận động nhiều',
+  agePh:'Ví dụ: 28',heightPh:'Ví dụ: 175',weightPh:'Ví dụ: 70',tipLowTitle:'Thấp',tipLow:'Dưới 5.000 bước/ngày, làm việc văn phòng, không tập luyện.',tipMidTitle:'Vừa',tipMid:'5.000–10.000 bước/ngày, tập 2–4 buổi/tuần.',tipHighTitle:'Cao',tipHigh:'Trên 10.000 bước/ngày, tập 5+ buổi/tuần hoặc làm việc thể lực.',calcSave:'Tính và lưu mục tiêu',close:'Đóng',
+  faqTitle:'Câu hỏi thường gặp',faqSub:'Thông tin ngắn gọn về giao hàng, thực đơn và đặt món.',
+  plannerTitle:'Lên thực đơn',plannerSub:'Tạo thực đơn theo macro của bạn, xem trước rồi quyết định có thêm vào giỏ hàng hay không',dayGoal:'Mục tiêu trong ngày',dayGoalSub:'Phần đã chọn trong thực đơn và phần còn thiếu so với mục tiêu',noGoal:'chưa đặt mục tiêu',selectedPlanPrice:'Giá thực đơn đã chọn',mealCount:'🍽 Số bữa',yourPlan:'🍽 Thực đơn {count} bữa của bạn',meal:'Bữa',replace:'Đổi món',addPlan:'Thêm thực đơn vào giỏ',
+  cartTitle:'Giỏ hàng',cartSub:'Các món bạn đã chọn',clear:'Xóa giỏ',emptyCart:'Giỏ hàng đang trống<br>Hãy thêm món từ thực đơn',cartTotal:'Tổng tiền',checkoutTitle:'Thông tin đặt hàng',namePh:'Họ tên',phonePh:'Số điện thoại',contactMethodLabel:'Kênh liên hệ thuận tiện',contactZaloPh:'Số điện thoại dùng Zalo',contactWhatsappPh:'Số điện thoại WhatsApp',contactTelegramPh:'Telegram (@username)',addressPh:'Địa chỉ giao hàng',mapLabel:'Điểm giao hàng trên bản đồ',mapPh:'Link vị trí trên Google Maps',openMap:'Mở bản đồ',commentPh:'Ghi chú',checkout:'Gửi đơn hàng',
   successTitle:'Cảm ơn bạn đã đặt hàng!',successText:'Đơn hàng của bạn đã được nhận.',
-  left:'còn {value} {unit}',above:'+{value} {unit} vượt mục tiêu',from:'trên {value} {unit}',dishSelect:'Chọn món',foodSearch:'🔍 Tìm món...',selectedNow:'✓ Đang chọn',
-  alertEmptyCart:'Giỏ hàng trống',alertCheckout:'Vui lòng nhập tên, điện thoại và địa chỉ giao hàng',alertOrderError:'Lỗi gửi đơn hàng',alertServer:'Không thể kết nối máy chủ',alertMeals:'Trước tiên hãy chọn số bữa ăn',alertKbju:'Trước tiên hãy tính chỉ số dinh dưỡng',alertPlan:'Trước tiên hãy tạo thực đơn',fillKbju:'Nhập tuổi, chiều cao và cân nặng để tính chỉ số dinh dưỡng',
-  toastDish:'✓ Đã thêm món vào giỏ',toastPlan:'✓ Đã thêm thực đơn vào giỏ',goalSaved:'Đã lưu mục tiêu: {calories} kcal · P {protein} g · F {fat} g · C {carbs} g',kbjuDone:'Đã tính chỉ số dinh dưỡng: {calories} kcal · P {protein} g · F {fat} g · C {carbs} g',
+  left:'còn {value} {unit}',above:'+{value} {unit} vượt mục tiêu',from:'trong tổng {value} {unit}',dishSelect:'Chọn món',foodSearch:'🔍 Tìm món...',selectedNow:'✓ Đang chọn',
+  alertEmptyCart:'Giỏ hàng đang trống',alertCheckout:'Vui lòng điền tất cả thông tin đặt hàng, trừ ghi chú',alertOrderError:'Không gửi được đơn hàng',alertServer:'Không thể kết nối với máy chủ',alertMeals:'Vui lòng chọn số bữa trước',alertKbju:'Vui lòng tính macro trước',alertPlan:'Vui lòng tạo thực đơn trước',fillKbju:'Nhập tuổi, chiều cao và cân nặng để tính macro',
+  toastDish:'✓ Đã thêm món vào giỏ',toastPlan:'✓ Đã thêm thực đơn vào giỏ',goalSaved:'Đã lưu mục tiêu: {calories} kcal · Đ {protein} g · B {fat} g · T {carbs} g',kbjuDone:'Đã tính macro: {calories} kcal · Đ {protein} g · B {fat} g · T {carbs} g',
   faq:[
-   ['Chọn thực đơn theo chỉ số dinh dưỡng hoạt động như thế nào?','Bạn tính mục tiêu, chọn số bữa ăn, sau đó website tạo thực đơn gần với chỉ số hằng ngày.'],
-   ['Thực đơn có tự vào giỏ hàng không?','Không. Bạn xem thực đơn trước, sau đó mới nhấn “Thêm thực đơn vào giỏ”.'],
-   ['Có thể đổi món trong thực đơn không?','Có. Bạn có thể đổi từng thành phần, hệ thống sẽ cố giữ cân bằng dinh dưỡng.'],
-   ['Rau có bắt buộc trong thực đơn không?','Có, mỗi bữa đều có rau để thực đơn cân bằng hơn và có chất xơ.'],
-   ['Có thể đặt món riêng không cần chọn thực đơn không?','Có. Chọn món trong danh mục và thêm vào giỏ hàng.'],
-   ['Xem tổng giá ở đâu?','Giá hiển thị trong phần chọn thực đơn và trong giỏ hàng trước khi đặt.'],
-   ['Giao hàng ở đâu?','Bạn nhập địa chỉ khi đặt hàng. Quản lý sẽ xác nhận chi tiết sau khi gửi đơn.'],
-   ['Có thể để lại ghi chú không?','Có, form đặt hàng có ô ghi chú về thời gian, mong muốn hoặc giao hàng.'],
-   ['Nếu tôi chưa biết chỉ số dinh dưỡng thì sao?','Nhấn “Tính chỉ số dinh dưỡng” và điền thông tin vào máy tính. Sau đó có thể chuyển sang chọn thực đơn.'],
-   ['Có thể đổi số lượng khẩu phần không?','Có, trong giỏ hàng bạn có thể tăng hoặc giảm số lượng trước khi đặt.']
+   ['Lên thực đơn theo macro hoạt động như thế nào?','Bạn tính mục tiêu, chọn số bữa, sau đó website sẽ gợi ý thực đơn trong ngày gần với mục tiêu của bạn.'],
+   ['Thực đơn có tự thêm vào giỏ hàng không?','Không. Bạn xem thực đơn gợi ý trước, sau đó mới nhấn “Thêm thực đơn vào giỏ”.'],
+   ['Có thể đổi món trong thực đơn không?','Có. Bạn có thể đổi từng món, hệ thống sẽ cố giữ cân bằng macro.'],
+   ['Mỗi bữa có rau không?','Có, mỗi bữa đều có rau để thực đơn cân bằng hơn và bổ sung chất xơ.'],
+   ['Có thể đặt món lẻ mà không cần lên thực đơn không?','Có. Bạn chỉ cần chọn món trong thực đơn và thêm vào giỏ hàng.'],
+   ['Xem tổng tiền ở đâu?','Tổng tiền hiển thị trong phần thực đơn gợi ý và trong giỏ hàng trước khi gửi đơn.'],
+   ['EatFit giao hàng ở đâu?','Bạn nhập địa chỉ khi đặt hàng. Nhân viên sẽ xác nhận chi tiết sau khi nhận đơn.'],
+   ['Có thể để lại ghi chú không?','Có, form đặt hàng có ô ghi chú về thời gian, yêu cầu riêng hoặc thông tin giao hàng.'],
+   ['Nếu tôi chưa biết macro của mình thì sao?','Nhấn “Tính macro” và điền thông tin vào máy tính. Sau đó bạn có thể chuyển sang lên thực đơn.'],
+   ['Có thể đổi số lượng phần ăn không?','Có, trong giỏ hàng bạn có thể tăng hoặc giảm số lượng từng món trước khi gửi đơn.']
   ],
   products:{
-   'protein-001':['Ức gà sốt kem tỏi','Ức gà mềm với sốt kem tỏi nhẹ.'],
-   'protein-004':['Ức gà teriyaki light','Ức gà với sốt teriyaki nhẹ.'],
-   'protein-005':['Ức gà cà ri dừa light','Ức gà với vị cà ri nhẹ và hương dừa.'],
-   'protein-007':['Tôm tỏi chanh','Tôm với tỏi và chanh.'],
-   'protein-009':['Bò teriyaki light','Thịt bò nạc với sốt teriyaki nhẹ.'],
-   'protein-011':['Trứng ốp la rau bina phô mai','Trứng với rau bina và phô mai.'],
-   'carb-001':['Cơm jasmine','Gạo jasmine thơm cho thực đơn cân bằng.'],
-   'carb-002':['Gạo lứt','Nguồn carb phức hợp.'],
-   'carb-003':['Cháo gạo sữa dừa','Nguồn carb no lâu với vị dừa nhẹ.'],
-   'carb-005':['Khoai lang','Khoai lang là nguồn carb phức hợp.'],
-   'carb-008':['Yến mạch sữa hạnh nhân','Yến mạch với sữa hạnh nhân cho bữa sáng nhẹ nhàng.'],
-   'fiber-001':['Bông cải xanh','Món rau và nguồn chất xơ.'],
-   'fiber-005':['Bí ngòi','Món rau nhẹ và nguồn chất xơ.'],
-   'fiber-008':['Rau mix (bông cải + cà rốt + súp lơ)','Hỗn hợp bông cải xanh, cà rốt và súp lơ.']
+   'protein-001':['Ức gà sốt kem tỏi','Ức gà mềm với sốt kem tỏi thanh nhẹ.'],
+   'protein-004':['Ức gà sốt teriyaki nhẹ','Ức gà với sốt teriyaki vị nhẹ, dễ ăn.'],
+   'protein-005':['Ức gà cà ri dừa nhẹ','Ức gà với cà ri dịu và hương dừa.'],
+   'protein-007':['Tôm tỏi chanh xanh','Tôm áp chảo với tỏi và chanh xanh.'],
+   'protein-009':['Bò sốt teriyaki nhẹ','Thịt bò nạc với sốt teriyaki vị nhẹ.'],
+   'protein-011':['Trứng cuộn rau bina phô mai','Trứng cuộn với rau bina và phô mai.'],
+   'carb-001':['Cơm gạo Jasmine','Gạo Jasmine thơm, phù hợp cho thực đơn cân bằng.'],
+   'carb-002':['Cơm gạo lứt','Nguồn tinh bột phức hợp, no lâu.'],
+   'carb-003':['Cháo gạo sữa dừa','Nguồn tinh bột no lâu với vị dừa dịu.'],
+   'carb-005':['Khoai lang','Khoai lang là nguồn tinh bột phức hợp.'],
+   'carb-008':['Yến mạch sữa hạnh nhân','Yến mạch nấu với sữa hạnh nhân cho bữa sáng nhẹ.'],
+   'fiber-001':['Bông cải xanh','Món rau ăn kèm, giàu chất xơ.'],
+   'fiber-005':['Bí ngòi','Món rau ăn kèm nhẹ, bổ sung chất xơ.'],
+   'fiber-008':['Rau củ hỗn hợp (bông cải xanh + cà rốt + súp lơ trắng)','Hỗn hợp bông cải xanh, cà rốt và súp lơ trắng.']
   }
  }
 };
@@ -994,6 +1010,24 @@ function setPlaceholder(id,value){
 function setOption(selectId,value,label){
  const option=document.querySelector(`#${selectId} option[value="${value}"]`);
  if(option) option.textContent=label;
+}
+
+function updateContactPlaceholder(){
+ const method=document.getElementById('contactMethod')?.value || 'zalo';
+ const field=document.getElementById('contactValue');
+ if(!field) return;
+ const placeholders={
+  zalo:t('contactZaloPh'),
+  whatsapp:t('contactWhatsappPh'),
+  telegram:t('contactTelegramPh')
+ };
+ field.placeholder=placeholders[method] || t('contactZaloPh');
+}
+
+function openDeliveryMap(){
+ const address=document.getElementById('address')?.value.trim();
+ const query=encodeURIComponent(address || 'Vietnam');
+ window.open(`https://www.google.com/maps/search/?api=1&query=${query}`,'_blank','noopener');
 }
 
 function renderFAQ(){
@@ -1096,6 +1130,13 @@ function applyLanguage(){
    const summaryPrice=document.querySelector('.summary-price span');
    if(summaryPrice) summaryPrice.textContent=t('selectedPlanPrice');
    setText('#mealSelector h3',t('mealCount'));
+   setText('#totalCaloriesUnit',t('calories'));
+   setText('#totalProteinUnit',t('proteinShort'));
+   setText('#totalFatUnit',t('fatShort'));
+   setText('#totalCarbsUnit',t('carbsShort'));
+   if(!localStorage.getItem('kbju_target')){
+    ['targetCalories','targetProtein','targetFat','targetCarbs'].forEach(id=>setText('#'+id,t('noGoal')));
+   }
  }
 
  setText('#cartPanel .cart-heading',t('cartTitle'));
@@ -1107,8 +1148,13 @@ function applyLanguage(){
  setText('.checkout-section h3',t('checkoutTitle'));
  setPlaceholder('name',t('namePh'));
  setPlaceholder('phone',t('phonePh'));
- setPlaceholder('telegram',t('telegramPh'));
+ setText('label[for="contactMethod"]',t('contactMethodLabel'));
+ updateContactPlaceholder();
  setPlaceholder('address',t('addressPh'));
+ setText('label[for="deliveryMap"]',t('mapLabel'));
+ setPlaceholder('deliveryMap',t('mapPh'));
+ const mapBtn=document.querySelector('.map-row .btn');
+ if(mapBtn) mapBtn.textContent=t('openMap');
  setPlaceholder('comment',t('commentPh'));
  const checkoutBtn=document.querySelector('.checkout-btn');
  if(checkoutBtn) checkoutBtn.textContent=t('checkout');
@@ -1391,12 +1437,14 @@ function closePlanner(){
 async function checkout(){
  const name=document.getElementById('name').value;
  const phone=document.getElementById('phone').value;
- const telegram=document.getElementById('telegram').value;
+ const contactMethod=document.getElementById('contactMethod').value;
+ const contactValue=document.getElementById('contactValue').value;
  const address=document.getElementById('address').value;
+ const deliveryMap=document.getElementById('deliveryMap').value;
  const comment=document.getElementById('comment').value;
 
  if(cart.length===0){ alert(t('alertEmptyCart')); return; }
- if(!name || !phone || !address){
+ if(!name.trim() || !phone.trim() || !contactMethod || !contactValue.trim() || !address.trim() || !deliveryMap.trim()){
    alert(t('alertCheckout'));
    return;
  }
@@ -1423,7 +1471,11 @@ async function checkout(){
         name:name,
         phone:phone,
         address:address,
-        telegram:telegram,
+        maps:deliveryMap,
+        delivery_map:deliveryMap,
+        contact_method:contactMethod,
+        contact_value:contactValue,
+        telegram:contactMethod==='telegram' ? contactValue : '',
         comment:comment,
         items:items,
         total:totalPrice
@@ -1445,8 +1497,11 @@ async function checkout(){
 
    document.getElementById('name').value='';
    document.getElementById('phone').value='';
-   document.getElementById('telegram').value='';
+   document.getElementById('contactMethod').value='zalo';
+   document.getElementById('contactValue').value='';
+   updateContactPlaceholder();
    document.getElementById('address').value='';
+   document.getElementById('deliveryMap').value='';
    document.getElementById('comment').value='';
 
    closeCart();

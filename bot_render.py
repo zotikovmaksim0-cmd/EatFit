@@ -843,6 +843,21 @@ async def site_order(request):
 
     try:
         data = await request.json()
+        contact_labels = {
+            "zalo": "Zalo",
+            "whatsapp": "WhatsApp",
+            "telegram": "Telegram",
+        }
+        contact_method = data.get("contact_method", "")
+        contact_value = data.get("contact_value", "") or data.get("telegram", "")
+        contact_label = contact_labels.get(contact_method, contact_method)
+        contact_line = (
+            f"\n💬 Удобная связь: {contact_label} — {contact_value}\n"
+            if contact_label or contact_value
+            else ""
+        )
+        map_value = data.get("delivery_map", "") or data.get("maps", "")
+        map_line = f"\n📍 Точка на карте: {map_value}\n" if map_value else ""
 
         print("SITE ORDER RECEIVED")
         print(data)
@@ -852,7 +867,9 @@ async def site_order(request):
             f"№ {data.get('order_id','')}\n\n"
             f"👤 {data.get('name','')}\n\n"
             f"📞 {data.get('phone','')}\n\n"
+            f"{contact_line}"
             f"🏠 {data.get('address','')}\n\n"
+            f"{map_line}"
             f"🛒 Заказ:\n\n"
             f"{data.get('items','')}\n\n"
             f"💰 Итого: {data.get('total','')} VND"
