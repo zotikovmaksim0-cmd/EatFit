@@ -386,6 +386,8 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .action-btn:hover,.cart-btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.22)}
 .action-btn.primary{background:linear-gradient(135deg,#78d83d,#48a820);border-color:transparent;color:#fff;box-shadow:0 12px 28px rgba(99,189,43,.22)}
 .cart-btn{background:#fff;color:#172015;border-color:transparent;box-shadow:0 12px 26px rgba(0,0,0,.16)}
+.language-switch select{height:46px;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:rgba(255,255,255,.08);color:#edf8ea;font-weight:900;padding:0 10px;outline:none;cursor:pointer}
+.language-switch select option{color:#172015;background:#fff}
 .contact-modal{position:fixed;inset:0;z-index:5200;display:none;align-items:center;justify-content:center;padding:22px;background:rgba(8,13,7,.68);backdrop-filter:blur(10px)}
 .contact-modal.show{display:flex}
 .contact-box{width:min(520px,94vw);background:linear-gradient(145deg,#fff,#f7fbf3);border:1px solid rgba(228,235,223,.95);border-radius:30px;padding:26px;box-shadow:0 30px 90px rgba(8,18,6,.32)}
@@ -532,7 +534,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .plan-actions{position:sticky;bottom:-28px;margin:18px -28px -28px;padding:14px 28px 18px;background:rgba(247,249,245,.96);border-top:1px solid var(--line);backdrop-filter:blur(12px);z-index:12}
 .add-plan-btn{width:100%;min-height:48px;font-size:16px}
 @media(max-width:650px){
- .site-header{padding:12px 16px;align-items:flex-start;flex-direction:column}.site-actions{width:100%;gap:6px;border-radius:18px}.action-btn,.cart-btn{min-height:38px;padding:0 10px;font-size:12px;border-radius:13px}.brand-title{font-size:17px}.brand-mark{width:38px;height:38px}.contact-box{padding:20px;border-radius:24px}.contact-head h2{font-size:23px}
+ .site-header{padding:12px 16px;align-items:flex-start;flex-direction:column}.site-actions{width:100%;gap:6px;border-radius:18px}.action-btn,.cart-btn{min-height:38px;padding:0 10px;font-size:12px;border-radius:13px}.language-switch select{height:38px;font-size:12px;border-radius:13px}.brand-title{font-size:17px}.brand-mark{width:38px;height:38px}.contact-box{padding:20px;border-radius:24px}.contact-head h2{font-size:23px}
  .kbju-modal{padding:12px}.kbju-modal-head{padding:22px 18px 16px}.kbju-modal-head h2{font-size:24px}.kbju-form{padding:18px}.kbju-grid,.kbju-tips{grid-template-columns:1fr}.kbju-wide,.kbju-two{grid-column:auto}.kbju-actions{display:grid}.kbju-primary,.kbju-secondary{width:100%}
  .hero{padding:42px 18px 58px}.hero-inner{grid-template-columns:1fr}.hero h2{font-size:34px}.hero p{font-size:15px}.hero-card{padding:16px;border-radius:20px}.kbju-saved-card{padding:0 16px}.kbju-saved-inner{display:block}.kbju-saved-stats,.kbju-saved-actions{margin-top:12px}
  .catalog-shell{margin:16px auto 10px;padding:0 14px}.catalog-tools{grid-template-columns:1fr;border-radius:20px}.filter-tabs,.price-tools{justify-content:flex-start}.filter-chip{height:39px;padding:0 12px;font-size:13px}.price-tools select{width:100%}
@@ -561,6 +563,11 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <button class="action-btn" onclick="openContacts()">Способы связи</button>
 <button class="action-btn" onclick="scrollFAQ()">FAQ</button>
 <button class="cart-btn" onclick="toggleCart()">Корзина <b id="count">0</b></button>
+<div class="language-switch"><select id="languageSelect" onchange="setLanguage(this.value)" aria-label="Language">
+<option value="ru">RU</option>
+<option value="en">EN</option>
+<option value="vi">VI</option>
+</select></div>
 </div>
 </header>
 
@@ -824,6 +831,326 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <script>
 let cart=JSON.parse(localStorage.getItem('cart')||'[]');
 let products=[];
+let currentLang=localStorage.getItem('eatfit_lang')||'ru';
+
+const I18N={
+ ru:{
+  brandSubtitle:'Good food · Fit life',
+  navCalc:'Рассчитать КБЖУ',navPlanner:'Подобрать рацион',navContacts:'Способы связи',navFaq:'FAQ',navCart:'Корзина',
+  heroEyebrow:'🌿 Сбалансированное питание во Вьетнаме',
+  heroTitle:'Еда, которая выглядит красиво и попадает в ваши КБЖУ',
+  heroText:'Выбирайте блюда вручную или соберите рацион на день под калории, белки, жиры и углеводы. Без хаоса в корзине, с понятным составом и аккуратной доставкой.',
+  heroBuild:'Что можно собрать',heroBuildText:'Белки, гарниры и овощи для удобного дневного рациона.',categories:'категории',kbjuPick:'подбор',prices:'цены',
+  savedTitle:'Ваша цель КБЖУ сохранена',savedSub:'Теперь можно автоматически подобрать рацион под эти значения.',calories:'ккал',protein:'белки',fat:'жиры',carbs:'углеводы',proteinShort:'Б',fatShort:'Ж',carbsShort:'У',
+  recalc:'Пересчитать',searchPlaceholder:'Поиск блюда...',all:'Все',proteins:'Белки',carbsFilter:'Углеводы',fiber:'Овощи',
+  priceAny:'Любая цена',priceUnder:'До 50 000 VND',priceMid:'50 000–100 000 VND',priceOver:'От 100 000 VND',sortDefault:'По умолчанию',sortAsc:'Сначала дешевле',sortDesc:'Сначала дороже',
+  catalogTitle:'Каталог EatFit',catalogSub:'Фильтруйте продукты по роли в рационе и добавляйте только то, что подходит вам.',
+  addToCart:'В корзину',emptyProducts:'Ничего не найдено. Попробуйте изменить поиск или выбрать другую категорию.',balancedComponent:'Сбалансированный компонент для вашего рациона.',
+  contactTitle:'Способы связи',contactSub:'Напишите нам в удобный мессенджер: поможем с КБЖУ, рационом и доставкой.',contactWhatsapp:'Быстрый чат по номеру +84 392 459 260',contactTelegram:'Можно заменить на ссылку бизнес-чата или группы',contactZalo:'Ссылка по номеру, позже можно заменить на Zalo OA',contactSmall:'Для Telegram и Zalo лучше использовать постоянные публичные ссылки. После создания пришлите их, и я поставлю точные адреса вместо временных.',
+  calcTitle:'Рассчитать КБЖУ',calcSub:'Укажите базовые данные, а EatFit рассчитает дневную цель по калориям, белкам, жирам и углеводам для подбора рациона.',yourData:'Ваши данные',gender:'Пол',male:'Мужчина',female:'Женщина',age:'Возраст',height:'Рост, см',weight:'Вес, кг',goal:'Цель',goalLoss:'Похудение — дефицит около 20%',goalMaintain:'Поддержание веса',goalGain:'Набор массы — профицит около 15%',activity:'Активность',activityLow:'Низкая активность',activityMid:'Средняя активность',activityHigh:'Высокая активность',
+  agePh:'Например, 28',heightPh:'Например, 175',weightPh:'Например, 70',tipLowTitle:'Низкая',tipLow:'До 5000 шагов в день, сидячая работа, без тренировок.',tipMidTitle:'Средняя',tipMid:'5000–10000 шагов в день, 2–4 тренировки в неделю.',tipHighTitle:'Высокая',tipHigh:'Более 10000 шагов, 5+ тренировок или физическая работа.',calcSave:'Рассчитать и сохранить цель',close:'Закрыть',
+  faqTitle:'Частые вопросы',faqSub:'Коротко о доставке, рационе и заказе.',
+  plannerTitle:'Подбор рациона',plannerSub:'Соберите день под свои КБЖУ, а потом решите, добавлять ли его в корзину',dayGoal:'Цель на день',dayGoalSub:'Что уже в рационе и сколько осталось до КБЖУ',noGoal:'цель не задана',selectedPlanPrice:'Стоимость подобранного рациона',mealCount:'🍽 Количество приемов пищи',yourPlan:'🍽 Ваш рацион на {count} приемов пищи',meal:'Прием пищи',replace:'Заменить',addPlan:'Добавить рацион в корзину',
+  cartTitle:'Корзина',cartSub:'Блюда, которые вы решили заказать',clear:'Очистить',emptyCart:'Корзина пуста<br>Добавьте блюда из каталога',cartTotal:'Итого в корзине',checkoutTitle:'Оформление заказа',namePh:'Имя',phonePh:'Телефон',telegramPh:'Telegram (@username)',addressPh:'Адрес доставки',commentPh:'Комментарий',checkout:'Оформить заказ',
+  successTitle:'Спасибо за заказ!',successText:'Ваш заказ успешно принят.',
+  left:'{value} {unit} осталось',above:'+{value} {unit} выше цели',from:'из {value} {unit}',dishSelect:'Выберите блюдо',foodSearch:'🔍 Поиск блюда...',selectedNow:'✓ Выбрано сейчас',
+  alertEmptyCart:'Корзина пустая',alertCheckout:'Заполните имя, телефон и адрес доставки',alertOrderError:'Ошибка отправки заказа',alertServer:'Не удалось связаться с сервером',alertMeals:'Сначала выберите количество приемов пищи',alertKbju:'Сначала рассчитайте КБЖУ',alertPlan:'Сначала подберите рацион',fillKbju:'Заполните возраст, рост и вес, чтобы рассчитать КБЖУ',
+  toastDish:'✓ Блюдо добавлено в корзину',toastPlan:'✓ Рацион добавлен в корзину',goalSaved:'Цель сохранена: {calories} ккал · Б {protein} г · Ж {fat} г · У {carbs} г',kbjuDone:'КБЖУ рассчитаны: {calories} ккал · Б {protein} г · Ж {fat} г · У {carbs} г',
+  faq:[
+   ['Как работает подбор рациона под КБЖУ?','Вы рассчитываете цель, выбираете количество приёмов пищи, а сайт собирает рацион максимально близко к дневной норме.'],
+   ['Рацион сразу попадает в корзину?','Нет. Сначала вы смотрите предложенный рацион и только потом нажимаете «Добавить рацион в корзину».'],
+   ['Можно заменить блюдо в рационе?','Да. Можно заменить отдельный компонент, при этом система старается сохранить баланс КБЖУ.'],
+   ['Овощи обязательно входят в рацион?','Да, в каждом приёме пищи есть овощи, чтобы рацион был более сбалансированным и давал клетчатку.'],
+   ['Можно заказать отдельные блюда без подбора?','Да. Просто выберите нужные позиции в каталоге и добавьте их в корзину.'],
+   ['Как узнать итоговую стоимость?','Стоимость показывается отдельно в подборе рациона и в корзине перед оформлением заказа.'],
+   ['Куда доставляете?','Адрес доставки указывается при оформлении заказа. После отправки заказа менеджер сможет подтвердить детали.'],
+   ['Можно оставить комментарий к заказу?','Да, в форме оформления есть поле для комментария: время, пожелания или уточнения по доставке.'],
+   ['Что делать, если я не знаю свои КБЖУ?','Нажмите «Рассчитать КБЖУ» и заполните калькулятор. После расчёта можно сразу перейти к подбору рациона.'],
+   ['Можно изменить количество порций?','Да, в корзине можно увеличить или уменьшить количество каждого блюда перед оформлением.']
+  ],
+  products:{
+   'protein-001':['Куриное филе сливочно-чесночное','Нежное куриное филе в легком сливочно-чесночном соусе.'],
+   'protein-004':['Куриное филе терияки лайт','Куриное филе в легком соусе терияки.'],
+   'protein-005':['Куриное филе карри-кокос лайт','Куриное филе с мягким карри и кокосовым акцентом.'],
+   'protein-007':['Креветки чеснок-лайм','Креветки с чесноком и лаймом.'],
+   'protein-009':['Говядина терияки лайт','Постная говядина в легком соусе терияки.'],
+   'protein-011':['Омлет шпинат-сыр','Омлет со шпинатом и сыром.'],
+   'carb-001':['Рис жасмин','Ароматный рис жасмин для сбалансированного рациона.'],
+   'carb-002':['Рис бурый','Источник сложных углеводов.'],
+   'carb-003':['Рисовая каша на кокосовом молоке','Сытный источник углеводов с мягким кокосовым вкусом.'],
+   'carb-005':['Батат','Сладкий картофель как источник сложных углеводов.'],
+   'carb-008':['Овсянка на миндальном молоке','Овсянка на миндальном молоке для мягкого завтрака.'],
+   'fiber-001':['Брокколи','Овощной гарнир и источник клетчатки.'],
+   'fiber-005':['Цукини','Легкий овощной гарнир и источник клетчатки.'],
+   'fiber-008':['Овощной микс (брокколи + морковь + цветная)','Смесь брокколи, моркови и цветной капусты.']
+  }
+ },
+ en:{
+  brandSubtitle:'Good food · Fit life',
+  navCalc:'Calculate macros',navPlanner:'Build a meal plan',navContacts:'Contact options',navFaq:'FAQ',navCart:'Cart',
+  heroEyebrow:'🌿 Balanced nutrition in Vietnam',heroTitle:'Food that looks beautiful and fits your macros',heroText:'Choose dishes manually or build a day plan around calories, protein, fats and carbs. No cart chaos, clear ingredients and neat delivery.',
+  heroBuild:'What you can build',heroBuildText:'Proteins, sides and vegetables for a convenient daily plan.',categories:'categories',kbjuPick:'macro plan',prices:'prices',
+  savedTitle:'Your macro goal is saved',savedSub:'Now you can automatically build a plan around these values.',calories:'kcal',protein:'protein',fat:'fats',carbs:'carbs',proteinShort:'P',fatShort:'F',carbsShort:'C',
+  recalc:'Recalculate',searchPlaceholder:'Search dish...',all:'All',proteins:'Protein',carbsFilter:'Carbs',fiber:'Vegetables',
+  priceAny:'Any price',priceUnder:'Under 50,000 VND',priceMid:'50,000–100,000 VND',priceOver:'From 100,000 VND',sortDefault:'Default',sortAsc:'Cheapest first',sortDesc:'Most expensive first',
+  catalogTitle:'EatFit Catalog',catalogSub:'Filter products by their role in your plan and add only what works for you.',
+  addToCart:'Add to cart',emptyProducts:'Nothing found. Try changing the search or category.',balancedComponent:'A balanced component for your meal plan.',
+  contactTitle:'Contact options',contactSub:'Message us in your preferred messenger: we will help with macros, meal plans and delivery.',contactWhatsapp:'Quick chat at +84 392 459 260',contactTelegram:'Can be replaced with a business chat or group link',contactZalo:'Phone link now, later it can be replaced with Zalo OA',contactSmall:'For Telegram and Zalo it is better to use permanent public links. Send them after creation and I will place the exact addresses here.',
+  calcTitle:'Calculate macros',calcSub:'Enter your basic data and EatFit will calculate your daily calories, protein, fats and carbs for meal planning.',yourData:'Your data',gender:'Gender',male:'Male',female:'Female',age:'Age',height:'Height, cm',weight:'Weight, kg',goal:'Goal',goalLoss:'Weight loss — about 20% deficit',goalMaintain:'Maintain weight',goalGain:'Muscle gain — about 15% surplus',activity:'Activity',activityLow:'Low activity',activityMid:'Medium activity',activityHigh:'High activity',
+  agePh:'For example, 28',heightPh:'For example, 175',weightPh:'For example, 70',tipLowTitle:'Low',tipLow:'Up to 5,000 steps a day, desk work, no training.',tipMidTitle:'Medium',tipMid:'5,000–10,000 steps a day, 2–4 workouts per week.',tipHighTitle:'High',tipHigh:'Over 10,000 steps, 5+ workouts or physical work.',calcSave:'Calculate and save goal',close:'Close',
+  faqTitle:'Frequently asked questions',faqSub:'Short answers about delivery, meal plans and orders.',
+  plannerTitle:'Meal plan builder',plannerSub:'Build a day around your macros, then decide whether to add it to cart',dayGoal:'Daily goal',dayGoalSub:'What is already in the plan and what remains',noGoal:'goal not set',selectedPlanPrice:'Selected plan price',mealCount:'🍽 Number of meals',yourPlan:'🍽 Your plan for {count} meals',meal:'Meal',replace:'Replace',addPlan:'Add plan to cart',
+  cartTitle:'Cart',cartSub:'Dishes you decided to order',clear:'Clear',emptyCart:'Cart is empty<br>Add dishes from the catalog',cartTotal:'Cart total',checkoutTitle:'Checkout',namePh:'Name',phonePh:'Phone',telegramPh:'Telegram (@username)',addressPh:'Delivery address',commentPh:'Comment',checkout:'Place order',
+  successTitle:'Thank you for your order!',successText:'Your order has been received.',
+  left:'{value} {unit} left',above:'+{value} {unit} over goal',from:'of {value} {unit}',dishSelect:'Choose a dish',foodSearch:'🔍 Search dish...',selectedNow:'✓ Selected now',
+  alertEmptyCart:'Cart is empty',alertCheckout:'Fill in name, phone and delivery address',alertOrderError:'Order sending error',alertServer:'Could not connect to the server',alertMeals:'First choose the number of meals',alertKbju:'First calculate your macros',alertPlan:'First build a meal plan',fillKbju:'Fill in age, height and weight to calculate macros',
+  toastDish:'✓ Dish added to cart',toastPlan:'✓ Meal plan added to cart',goalSaved:'Goal saved: {calories} kcal · P {protein} g · F {fat} g · C {carbs} g',kbjuDone:'Macros calculated: {calories} kcal · P {protein} g · F {fat} g · C {carbs} g',
+  faq:[
+   ['How does macro-based meal planning work?','You calculate your goal, choose the number of meals, and the site builds a daily plan close to your target.'],
+   ['Does the plan go straight to the cart?','No. First you review the suggested plan, then click “Add plan to cart”.'],
+   ['Can I replace a dish in the plan?','Yes. You can replace an individual component while the system tries to keep the macro balance.'],
+   ['Are vegetables included in every plan?','Yes, every meal includes vegetables for a more balanced plan and fiber.'],
+   ['Can I order separate dishes without planning?','Yes. Choose any catalog items and add them to the cart.'],
+   ['Where can I see the final price?','The price is shown in the meal plan and in the cart before checkout.'],
+   ['Where do you deliver?','Enter your address at checkout. A manager can confirm the details after you send the order.'],
+   ['Can I leave a comment?','Yes, there is a comment field for time, preferences or delivery details.'],
+   ['What if I do not know my macros?','Click “Calculate macros” and fill in the calculator. Then you can go straight to meal planning.'],
+   ['Can I change portions?','Yes, you can increase or decrease quantities in the cart before checkout.']
+  ],
+  products:{
+   'protein-001':['Creamy garlic chicken fillet','Tender chicken fillet in a light creamy garlic sauce.'],
+   'protein-004':['Light teriyaki chicken fillet','Chicken fillet in a light teriyaki sauce.'],
+   'protein-005':['Light curry-coconut chicken fillet','Chicken fillet with mild curry and coconut notes.'],
+   'protein-007':['Garlic-lime shrimp','Shrimp with garlic and lime.'],
+   'protein-009':['Light teriyaki beef','Lean beef in a light teriyaki sauce.'],
+   'protein-011':['Spinach-cheese omelet','Omelet with spinach and cheese.'],
+   'carb-001':['Jasmine rice','Aromatic jasmine rice for a balanced plan.'],
+   'carb-002':['Brown rice','A source of complex carbohydrates.'],
+   'carb-003':['Rice porridge with coconut milk','A filling carb source with a soft coconut taste.'],
+   'carb-005':['Sweet potato','Sweet potato as a complex carb source.'],
+   'carb-008':['Oatmeal with almond milk','Oatmeal with almond milk for a gentle breakfast.'],
+   'fiber-001':['Broccoli','Vegetable side and fiber source.'],
+   'fiber-005':['Zucchini','Light vegetable side and fiber source.'],
+   'fiber-008':['Vegetable mix (broccoli + carrot + cauliflower)','A mix of broccoli, carrot and cauliflower.']
+  }
+ },
+ vi:{
+  brandSubtitle:'Good food · Fit life',
+  navCalc:'Tính macro',navPlanner:'Chọn thực đơn',navContacts:'Liên hệ',navFaq:'FAQ',navCart:'Giỏ hàng',
+  heroEyebrow:'🌿 Dinh dưỡng cân bằng tại Việt Nam',heroTitle:'Món ăn đẹp mắt và phù hợp với macro của bạn',heroText:'Chọn món thủ công hoặc tạo thực đơn theo calo, protein, chất béo và carb. Giỏ hàng gọn gàng, thành phần rõ ràng và giao hàng chỉn chu.',
+  heroBuild:'Bạn có thể chọn gì',heroBuildText:'Protein, món tinh bột và rau cho thực đơn hằng ngày tiện lợi.',categories:'nhóm món',kbjuPick:'chọn macro',prices:'giá VND',
+  savedTitle:'Mục tiêu macro đã được lưu',savedSub:'Bây giờ bạn có thể tự động tạo thực đơn theo các chỉ số này.',calories:'kcal',protein:'protein',fat:'chất béo',carbs:'carb',proteinShort:'P',fatShort:'F',carbsShort:'C',
+  recalc:'Tính lại',searchPlaceholder:'Tìm món...',all:'Tất cả',proteins:'Protein',carbsFilter:'Carb',fiber:'Rau',
+  priceAny:'Mọi mức giá',priceUnder:'Dưới 50.000 VND',priceMid:'50.000–100.000 VND',priceOver:'Từ 100.000 VND',sortDefault:'Mặc định',sortAsc:'Rẻ trước',sortDesc:'Đắt trước',
+  catalogTitle:'Danh mục EatFit',catalogSub:'Lọc sản phẩm theo vai trò trong thực đơn và chỉ thêm món phù hợp với bạn.',
+  addToCart:'Thêm vào giỏ',emptyProducts:'Không tìm thấy. Hãy đổi từ khóa hoặc danh mục.',balancedComponent:'Thành phần cân bằng cho thực đơn của bạn.',
+  contactTitle:'Cách liên hệ',contactSub:'Nhắn cho chúng tôi qua ứng dụng bạn thích: hỗ trợ macro, thực đơn và giao hàng.',contactWhatsapp:'Chat nhanh qua số +84 392 459 260',contactTelegram:'Có thể thay bằng link chat doanh nghiệp hoặc nhóm',contactZalo:'Hiện là link theo số điện thoại, sau này có thể thay bằng Zalo OA',contactSmall:'Với Telegram và Zalo nên dùng link công khai cố định. Sau khi tạo xong, hãy gửi link để tôi đặt đúng địa chỉ.',
+  calcTitle:'Tính macro',calcSub:'Nhập thông tin cơ bản, EatFit sẽ tính calo, protein, chất béo và carb mỗi ngày để chọn thực đơn.',yourData:'Thông tin của bạn',gender:'Giới tính',male:'Nam',female:'Nữ',age:'Tuổi',height:'Chiều cao, cm',weight:'Cân nặng, kg',goal:'Mục tiêu',goalLoss:'Giảm cân — thâm hụt khoảng 20%',goalMaintain:'Duy trì cân nặng',goalGain:'Tăng cơ — dư khoảng 15%',activity:'Mức vận động',activityLow:'Ít vận động',activityMid:'Vận động trung bình',activityHigh:'Vận động cao',
+  agePh:'Ví dụ: 28',heightPh:'Ví dụ: 175',weightPh:'Ví dụ: 70',tipLowTitle:'Thấp',tipLow:'Dưới 5.000 bước/ngày, làm việc văn phòng, không tập luyện.',tipMidTitle:'Trung bình',tipMid:'5.000–10.000 bước/ngày, tập 2–4 buổi/tuần.',tipHighTitle:'Cao',tipHigh:'Trên 10.000 bước, tập 5+ buổi hoặc lao động thể chất.',calcSave:'Tính và lưu mục tiêu',close:'Đóng',
+  faqTitle:'Câu hỏi thường gặp',faqSub:'Tóm tắt về giao hàng, thực đơn và đặt món.',
+  plannerTitle:'Chọn thực đơn',plannerSub:'Tạo một ngày ăn theo macro, sau đó quyết định có thêm vào giỏ hay không',dayGoal:'Mục tiêu trong ngày',dayGoalSub:'Những gì đã có trong thực đơn và phần còn lại',noGoal:'chưa có mục tiêu',selectedPlanPrice:'Giá thực đơn đã chọn',mealCount:'🍽 Số bữa ăn',yourPlan:'🍽 Thực đơn {count} bữa của bạn',meal:'Bữa ăn',replace:'Đổi món',addPlan:'Thêm thực đơn vào giỏ',
+  cartTitle:'Giỏ hàng',cartSub:'Những món bạn đã chọn đặt',clear:'Xóa',emptyCart:'Giỏ hàng trống<br>Thêm món từ danh mục',cartTotal:'Tổng giỏ hàng',checkoutTitle:'Đặt hàng',namePh:'Tên',phonePh:'Số điện thoại',telegramPh:'Telegram (@username)',addressPh:'Địa chỉ giao hàng',commentPh:'Ghi chú',checkout:'Đặt hàng',
+  successTitle:'Cảm ơn bạn đã đặt hàng!',successText:'Đơn hàng của bạn đã được nhận.',
+  left:'còn {value} {unit}',above:'+{value} {unit} vượt mục tiêu',from:'trên {value} {unit}',dishSelect:'Chọn món',foodSearch:'🔍 Tìm món...',selectedNow:'✓ Đang chọn',
+  alertEmptyCart:'Giỏ hàng trống',alertCheckout:'Vui lòng nhập tên, điện thoại và địa chỉ giao hàng',alertOrderError:'Lỗi gửi đơn hàng',alertServer:'Không thể kết nối máy chủ',alertMeals:'Trước tiên hãy chọn số bữa ăn',alertKbju:'Trước tiên hãy tính macro',alertPlan:'Trước tiên hãy tạo thực đơn',fillKbju:'Nhập tuổi, chiều cao và cân nặng để tính macro',
+  toastDish:'✓ Đã thêm món vào giỏ',toastPlan:'✓ Đã thêm thực đơn vào giỏ',goalSaved:'Đã lưu mục tiêu: {calories} kcal · P {protein} g · F {fat} g · C {carbs} g',kbjuDone:'Đã tính macro: {calories} kcal · P {protein} g · F {fat} g · C {carbs} g',
+  faq:[
+   ['Chọn thực đơn theo macro hoạt động như thế nào?','Bạn tính mục tiêu, chọn số bữa ăn, sau đó website tạo thực đơn gần với chỉ số hằng ngày.'],
+   ['Thực đơn có tự vào giỏ hàng không?','Không. Bạn xem thực đơn trước, sau đó mới nhấn “Thêm thực đơn vào giỏ”.'],
+   ['Có thể đổi món trong thực đơn không?','Có. Bạn có thể đổi từng thành phần, hệ thống sẽ cố giữ cân bằng macro.'],
+   ['Rau có bắt buộc trong thực đơn không?','Có, mỗi bữa đều có rau để thực đơn cân bằng hơn và có chất xơ.'],
+   ['Có thể đặt món riêng không cần chọn thực đơn không?','Có. Chọn món trong danh mục và thêm vào giỏ hàng.'],
+   ['Xem tổng giá ở đâu?','Giá hiển thị trong phần chọn thực đơn và trong giỏ hàng trước khi đặt.'],
+   ['Giao hàng ở đâu?','Bạn nhập địa chỉ khi đặt hàng. Quản lý sẽ xác nhận chi tiết sau khi gửi đơn.'],
+   ['Có thể để lại ghi chú không?','Có, form đặt hàng có ô ghi chú về thời gian, mong muốn hoặc giao hàng.'],
+   ['Nếu tôi chưa biết macro thì sao?','Nhấn “Tính macro” và điền máy tính. Sau đó có thể chuyển sang chọn thực đơn.'],
+   ['Có thể đổi số lượng khẩu phần không?','Có, trong giỏ hàng bạn có thể tăng hoặc giảm số lượng trước khi đặt.']
+  ],
+  products:{
+   'protein-001':['Ức gà sốt kem tỏi','Ức gà mềm với sốt kem tỏi nhẹ.'],
+   'protein-004':['Ức gà teriyaki light','Ức gà với sốt teriyaki nhẹ.'],
+   'protein-005':['Ức gà cà ri dừa light','Ức gà với vị cà ri nhẹ và hương dừa.'],
+   'protein-007':['Tôm tỏi chanh','Tôm với tỏi và chanh.'],
+   'protein-009':['Bò teriyaki light','Thịt bò nạc với sốt teriyaki nhẹ.'],
+   'protein-011':['Trứng ốp la rau bina phô mai','Trứng với rau bina và phô mai.'],
+   'carb-001':['Cơm jasmine','Gạo jasmine thơm cho thực đơn cân bằng.'],
+   'carb-002':['Gạo lứt','Nguồn carb phức hợp.'],
+   'carb-003':['Cháo gạo sữa dừa','Nguồn carb no lâu với vị dừa nhẹ.'],
+   'carb-005':['Khoai lang','Khoai lang là nguồn carb phức hợp.'],
+   'carb-008':['Yến mạch sữa hạnh nhân','Yến mạch với sữa hạnh nhân cho bữa sáng nhẹ nhàng.'],
+   'fiber-001':['Bông cải xanh','Món rau và nguồn chất xơ.'],
+   'fiber-005':['Bí ngòi','Món rau nhẹ và nguồn chất xơ.'],
+   'fiber-008':['Rau mix (bông cải + cà rốt + súp lơ)','Hỗn hợp bông cải xanh, cà rốt và súp lơ.']
+  }
+ }
+};
+
+function t(key,vars={}){
+ const text=(I18N[currentLang]&&I18N[currentLang][key]) || I18N.ru[key] || key;
+ return typeof text==='string' ? text.replace(/\{(\w+)\}/g,(_,name)=>vars[name] ?? '') : text;
+}
+
+function productName(p){return (I18N[currentLang]?.products?.[p.id]?.[0]) || p.name;}
+function productDesc(p){return (I18N[currentLang]?.products?.[p.id]?.[1]) || p.description || t('balancedComponent');}
+function gramUnit(){return currentLang==='ru' ? 'г' : 'g';}
+
+function setText(selector,value){
+ const el=document.querySelector(selector);
+ if(el) el.textContent=value;
+}
+
+function setPlaceholder(id,value){
+ const el=document.getElementById(id);
+ if(el) el.placeholder=value;
+}
+
+function setOption(selectId,value,label){
+ const option=document.querySelector(`#${selectId} option[value="${value}"]`);
+ if(option) option.textContent=label;
+}
+
+function renderFAQ(){
+ const grid=document.querySelector('.faq-grid');
+ if(!grid) return;
+ grid.innerHTML=t('faq').map(item=>`<div class="faq-item"><b>${item[0]}</b><p>${item[1]}</p></div>`).join('');
+}
+
+function applyLanguage(){
+ document.documentElement.lang=currentLang;
+ const langSelect=document.getElementById('languageSelect');
+ if(langSelect) langSelect.value=currentLang;
+
+ setText('.brand-subtitle',t('brandSubtitle'));
+ const actions=document.querySelectorAll('.site-actions button');
+ if(actions[0]) actions[0].textContent=t('navCalc');
+ if(actions[1]) actions[1].textContent=t('navPlanner');
+ if(actions[2]) actions[2].textContent=t('navContacts');
+ if(actions[3]) actions[3].textContent=t('navFaq');
+ if(actions[4]) actions[4].innerHTML=`${t('navCart')} <b id="count">${cart.reduce((a,b)=>a+b.qty,0)}</b>`;
+
+ setText('.hero-eyebrow',t('heroEyebrow'));
+ setText('.hero h2',t('heroTitle'));
+ setText('.hero p',t('heroText'));
+ const heroBtns=document.querySelectorAll('.hero-cta');
+ if(heroBtns[0]) heroBtns[0].textContent=t('navPlanner');
+ if(heroBtns[1]) heroBtns[1].textContent=t('navCalc');
+ setText('.hero-card h3',t('heroBuild'));
+ const heroCardText=document.querySelector('.hero-card p');
+ if(heroCardText) heroCardText.textContent=t('heroBuildText');
+ const heroStats=document.querySelectorAll('.hero-stat');
+ if(heroStats[0]) heroStats[0].lastChild.textContent=t('categories');
+ if(heroStats[1]) heroStats[1].lastChild.textContent=t('kbjuPick');
+ if(heroStats[2]) heroStats[2].lastChild.textContent=t('prices');
+
+ setText('.kbju-saved-title',t('savedTitle'));
+ setText('.kbju-saved-sub',t('savedSub'));
+ const savedLabels=document.querySelectorAll('.kbju-saved-pill');
+ if(savedLabels[0]) savedLabels[0].lastChild.textContent=t('calories');
+ if(savedLabels[1]) savedLabels[1].lastChild.textContent=t('protein');
+ if(savedLabels[2]) savedLabels[2].lastChild.textContent=t('fat');
+ if(savedLabels[3]) savedLabels[3].lastChild.textContent=t('carbs');
+ const savedActions=document.querySelectorAll('.kbju-saved-actions button');
+ if(savedActions[0]) savedActions[0].textContent=t('navPlanner');
+ if(savedActions[1]) savedActions[1].textContent=t('recalc');
+
+ const toast=document.getElementById('toast');
+ if(toast && !toast.classList.contains('show')) toast.textContent=t('toastDish');
+ setPlaceholder('searchInput',t('searchPlaceholder'));
+ const filterChips=document.querySelectorAll('.filter-chip');
+ if(filterChips[0]) filterChips[0].textContent=t('all');
+ if(filterChips[1]) filterChips[1].textContent=t('proteins');
+ if(filterChips[2]) filterChips[2].textContent=t('carbsFilter');
+ if(filterChips[3]) filterChips[3].textContent=t('fiber');
+ setOption('priceRange','',t('priceAny'));
+ setOption('priceRange','under50000',t('priceUnder'));
+ setOption('priceRange','50000-100000',t('priceMid'));
+ setOption('priceRange','over100000',t('priceOver'));
+ setOption('priceSort','',t('sortDefault'));
+ setOption('priceSort','asc',t('sortAsc'));
+ setOption('priceSort','desc',t('sortDesc'));
+ setText('.catalog-heading h2',t('catalogTitle'));
+ setText('.catalog-heading p',t('catalogSub'));
+
+ setText('.contact-head h2',t('contactTitle'));
+ setText('.contact-head p',t('contactSub'));
+ const contactNotes=document.querySelectorAll('.contact-note');
+ if(contactNotes[0]) contactNotes[0].textContent=t('contactWhatsapp');
+ if(contactNotes[1]) contactNotes[1].textContent=t('contactTelegram');
+ if(contactNotes[2]) contactNotes[2].textContent=t('contactZalo');
+ setText('.contact-small',t('contactSmall'));
+
+ setText('.kbju-modal-head h2',t('calcTitle'));
+ setText('.kbju-modal-head p',t('calcSub'));
+ setText('.kbju-section-title',t('yourData'));
+ const labels=document.querySelectorAll('.kbju-field label');
+ [t('gender'),t('age'),t('height'),t('weight'),t('goal'),t('activity')].forEach((label,index)=>{if(labels[index]) labels[index].textContent=label;});
+ setOption('kbjuGender','male',t('male'));
+ setOption('kbjuGender','female',t('female'));
+ setPlaceholder('kbjuAge',t('agePh'));
+ setPlaceholder('kbjuHeight',t('heightPh'));
+ setPlaceholder('kbjuWeight',t('weightPh'));
+ setOption('kbjuGoal','loss',t('goalLoss'));
+ setOption('kbjuGoal','maintain',t('goalMaintain'));
+ setOption('kbjuGoal','gain',t('goalGain'));
+ setOption('kbjuActivity','1.2',t('activityLow'));
+ setOption('kbjuActivity','1.55',t('activityMid'));
+ setOption('kbjuActivity','1.75',t('activityHigh'));
+ const tips=document.querySelectorAll('.kbju-tip');
+ if(tips[0]) tips[0].innerHTML=`<b>${t('tipLowTitle')}</b>${t('tipLow')}`;
+ if(tips[1]) tips[1].innerHTML=`<b>${t('tipMidTitle')}</b>${t('tipMid')}`;
+ if(tips[2]) tips[2].innerHTML=`<b>${t('tipHighTitle')}</b>${t('tipHigh')}`;
+ const kbjuActions=document.querySelectorAll('.kbju-actions button');
+ if(kbjuActions[0]) kbjuActions[0].textContent=t('calcSave');
+ if(kbjuActions[1]) kbjuActions[1].textContent=t('close');
+
+ setText('.faq-head h2',t('faqTitle'));
+ setText('.faq-head p',t('faqSub'));
+ renderFAQ();
+
+ const planner=document.getElementById('plannerPanel');
+ if(planner){
+   setText('#plannerPanel .cart-heading',t('plannerTitle'));
+   setText('#plannerPanel .cart-subtitle',t('plannerSub'));
+   setText('#daySummary h3',t('dayGoal'));
+   const daySub=document.querySelector('#daySummary .cart-subtitle');
+   if(daySub) daySub.textContent=t('dayGoalSub');
+   const summaryPrice=document.querySelector('.summary-price span');
+   if(summaryPrice) summaryPrice.textContent=t('selectedPlanPrice');
+   setText('#mealSelector h3',t('mealCount'));
+ }
+
+ setText('#cartPanel .cart-heading',t('cartTitle'));
+ setText('#cartPanel .cart-subtitle',t('cartSub'));
+ const clearBtn=document.querySelector('.clear-btn');
+ if(clearBtn) clearBtn.textContent=t('clear');
+ const cartTotal=document.querySelector('.cart-total-line span');
+ if(cartTotal) cartTotal.textContent=t('cartTotal');
+ setText('.checkout-section h3',t('checkoutTitle'));
+ setPlaceholder('name',t('namePh'));
+ setPlaceholder('phone',t('phonePh'));
+ setPlaceholder('telegram',t('telegramPh'));
+ setPlaceholder('address',t('addressPh'));
+ setPlaceholder('comment',t('commentPh'));
+ const checkoutBtn=document.querySelector('.checkout-btn');
+ if(checkoutBtn) checkoutBtn.textContent=t('checkout');
+ setText('.success-box h2',t('successTitle'));
+ setText('.success-box p',t('successText'));
+ const successClose=document.querySelector('.success-box .btn');
+ if(successClose) successClose.textContent=t('close');
+ setText('#foodModalTitle',t('dishSelect'));
+ setPlaceholder('foodSearch',t('foodSearch'));
+
+ renderSavedKBJU();
+ if(products.length && window.renderProducts) window.renderProducts();
+ if(products.length) renderCart();
+ if(mealPlanData.length && document.getElementById('plannerPanel')?.classList.contains('open')) autoBuildMealPlan(true);
+}
+
+function setLanguage(lang){
+ currentLang=lang;
+ localStorage.setItem('eatfit_lang',lang);
+ applyLanguage();
+}
 
 function generateOrderId(){
  const now = new Date();
@@ -878,7 +1205,7 @@ function showToast(message,duration=2600){
  toast.classList.add('show');
  setTimeout(()=>{
    toast.classList.remove('show');
-   toast.textContent='✓ Блюдо добавлено в корзину';
+   toast.textContent=t('toastDish');
  },duration);
 }
 
@@ -892,9 +1219,9 @@ function renderSavedKBJU(){
  }
  card.style.display='block';
  document.getElementById('savedCalories').textContent=target.calories;
- document.getElementById('savedProtein').textContent=target.protein+' г';
- document.getElementById('savedFat').textContent=target.fat+' г';
- document.getElementById('savedCarbs').textContent=target.carbs+' г';
+ document.getElementById('savedProtein').textContent=target.protein+' '+gramUnit();
+ document.getElementById('savedFat').textContent=target.fat+' '+gramUnit();
+ document.getElementById('savedCarbs').textContent=target.carbs+' '+gramUnit();
 }
 
 
@@ -914,7 +1241,7 @@ function add(id){
  else cart.push({id,qty:1});
  saveCart();
 
- showToast('✓ Блюдо добавлено в корзину');
+ showToast(t('toastDish'));
 }
 
 function changeQty(id,delta){
@@ -954,7 +1281,7 @@ function updateKBJUProgress(totalCalories,totalProtein,totalFat,totalCarbs){
    document.getElementById('accuracyCircle').textContent='0%';
    ['targetCalories','targetProtein','targetFat','targetCarbs'].forEach(id=>{
      const el=document.getElementById(id);
-     if(el) el.textContent='цель не задана';
+     if(el) el.textContent=t('noGoal');
    });
    return;
  }
@@ -970,32 +1297,32 @@ function updateKBJUProgress(totalCalories,totalProtein,totalFat,totalCarbs){
  const totalPct=Math.round((calRawPct+proRawPct+fatRawPct+carbRawPct)/4);
  const leftText=(targetValue,totalValue,unit)=>{
    const diff=targetValue-totalValue;
-   return diff>=0 ? `${diff} ${unit} осталось` : `+${Math.abs(diff)} ${unit} выше цели`;
+   return diff>=0 ? t('left',{value:diff,unit}) : t('above',{value:Math.abs(diff),unit});
  };
 
  document.getElementById('accuracyCircle').textContent=totalPct+'%';
- document.getElementById('targetCalories').textContent=`из ${target.calories} ккал`;
- document.getElementById('targetProtein').textContent=`из ${target.protein} г`;
- document.getElementById('targetFat').textContent=`из ${target.fat} г`;
- document.getElementById('targetCarbs').textContent=`из ${target.carbs} г`;
+ document.getElementById('targetCalories').textContent=t('from',{value:target.calories,unit:t('calories')});
+ document.getElementById('targetProtein').textContent=t('from',{value:target.protein,unit:gramUnit()});
+ document.getElementById('targetFat').textContent=t('from',{value:target.fat,unit:gramUnit()});
+ document.getElementById('targetCarbs').textContent=t('from',{value:target.carbs,unit:gramUnit()});
 
  box.style.display='block';
  box.innerHTML=`
  <div class="goal-progress-grid">
   <div class="goal-progress-row">
-   <div class="goal-progress-top"><span>Калории</span><b>${leftText(target.calories,totalCalories,'ккал')}</b></div>
+   <div class="goal-progress-top"><span>${t('calories')}</span><b>${leftText(target.calories,totalCalories,t('calories'))}</b></div>
    <div class="progress-bar"><div class="progress-fill" style="width:${calPct}%"></div></div>
   </div>
   <div class="goal-progress-row">
-   <div class="goal-progress-top"><span>Белки</span><b>${leftText(target.protein,totalProtein,'г')}</b></div>
+   <div class="goal-progress-top"><span>${t('protein')}</span><b>${leftText(target.protein,totalProtein,gramUnit())}</b></div>
    <div class="progress-bar"><div class="progress-fill" style="width:${proPct}%"></div></div>
   </div>
   <div class="goal-progress-row">
-   <div class="goal-progress-top"><span>Жиры</span><b>${leftText(target.fat,totalFat,'г')}</b></div>
+   <div class="goal-progress-top"><span>${t('fat')}</span><b>${leftText(target.fat,totalFat,gramUnit())}</b></div>
    <div class="progress-bar"><div class="progress-fill" style="width:${fatPct}%"></div></div>
   </div>
   <div class="goal-progress-row">
-   <div class="goal-progress-top"><span>Углеводы</span><b>${leftText(target.carbs,totalCarbs,'г')}</b></div>
+   <div class="goal-progress-top"><span>${t('carbs')}</span><b>${leftText(target.carbs,totalCarbs,gramUnit())}</b></div>
    <div class="progress-bar"><div class="progress-fill" style="width:${carbPct}%"></div></div>
   </div>
  </div>`;
@@ -1013,7 +1340,7 @@ function renderCart(){
  let totalQty=0;
 
  if(cart.length===0){
-   box.innerHTML='<div class="empty-cart">Корзина пуста<br>Добавьте блюда из каталога</div>';
+   box.innerHTML=`<div class="empty-cart">${t('emptyCart')}</div>`;
  }
 
  cart.forEach(c=>{
@@ -1027,16 +1354,16 @@ function renderCart(){
    <div class="cart-item">
       <img src="assets/${p.images[0]}" alt="">
       <div class="cart-item-info">
-      <b class="cart-item-name">${p.name}</b>
-      <div class="cart-item-meta"><span>${p.calories} ккал</span><span>Б ${p.protein}</span><span>Ж ${p.fat}</span><span>У ${p.carbs}</span></div>
+      <b class="cart-item-name">${productName(p)}</b>
+      <div class="cart-item-meta"><span>${p.calories} ${t('calories')}</span><span>${t('proteinShort')} ${p.protein}</span><span>${t('fatShort')} ${p.fat}</span><span>${t('carbsShort')} ${p.carbs}</span></div>
       </div>
       <div class="cart-item-side">
       <div class="cart-item-price">${p.price.toLocaleString()} VND</div>
       <div class="qty">
-        <button onclick="changeQty('${c.id}',-1)" aria-label="Уменьшить">−</button>
+        <button onclick="changeQty('${c.id}',-1)" aria-label="-">−</button>
         <b>${formatQty(c.qty)}</b>
-        <button onclick="changeQty('${c.id}',1)" aria-label="Увеличить">+</button>
-        <button class="remove-item" onclick="removeItem('${c.id}')" aria-label="Удалить">×</button>
+        <button onclick="changeQty('${c.id}',1)" aria-label="+">+</button>
+        <button class="remove-item" onclick="removeItem('${c.id}')" aria-label="x">×</button>
       </div>
       </div>
    </div>`;
@@ -1089,9 +1416,9 @@ async function checkout(){
  const address=document.getElementById('address').value;
  const comment=document.getElementById('comment').value;
 
- if(cart.length===0){ alert('Корзина пустая'); return; }
+ if(cart.length===0){ alert(t('alertEmptyCart')); return; }
  if(!name || !phone || !address){
-   alert('Заполните имя, телефон и адрес доставки');
+   alert(t('alertCheckout'));
    return;
  }
 
@@ -1101,7 +1428,7 @@ async function checkout(){
  cart.forEach(c=>{
    const p=products.find(x=>x.id===c.id);
    if(!p)return;
-   items += `${p.name} × ${formatQty(c.qty)}
+   items += `${productName(p)} × ${formatQty(c.qty)}
 `;
    totalPrice += p.price*c.qty;
  });
@@ -1127,7 +1454,7 @@ async function checkout(){
    const result = await response.json();
 
    if(!result.success){
-      alert('Ошибка отправки заказа');
+      alert(t('alertOrderError'));
       return;
    }
 
@@ -1146,7 +1473,7 @@ async function checkout(){
    closeCart();
 
  }catch(e){
-   alert('Не удалось связаться с сервером');
+   alert(t('alertServer'));
  }
 }
 
@@ -1161,10 +1488,10 @@ fetch('data/products.json')
  let activeProductCategory='';
 
  function productCategoryInfo(p){
-   if(p.categories && p.categories.includes('protein')) return {label:'Белок',icon:'🥩'};
-   if(p.categories && p.categories.includes('carbs')) return {label:'Углеводы',icon:'🍚'};
-   if(p.categories && p.categories.includes('fiber')) return {label:'Овощи',icon:'🥦'};
-   return {label:'Блюдо',icon:'🥗'};
+   if(p.categories && p.categories.includes('protein')) return {label:t('proteins'),icon:'🥩'};
+   if(p.categories && p.categories.includes('carbs')) return {label:t('carbsFilter'),icon:'🍚'};
+   if(p.categories && p.categories.includes('fiber')) return {label:t('fiber'),icon:'🥦'};
+   return {label:t('addToCart'),icon:'🥗'};
  }
 
  window.setProductCategory=function(category,btn){
@@ -1183,7 +1510,7 @@ fetch('data/products.json')
  box.innerHTML='';
 
  let visible=products
- .filter(p=>p.name.toLowerCase().includes(search))
+ .filter(p=>(p.name+' '+productName(p)).toLowerCase().includes(search))
  .filter(p=>!activeProductCategory || (p.categories && p.categories.includes(activeProductCategory)))
  .filter(p=>{
    const price=Number(p.price||0);
@@ -1197,7 +1524,7 @@ fetch('data/products.json')
  if(priceSort==='desc') visible.sort((a,b)=>(b.price||0)-(a.price||0));
 
  if(!visible.length){
-   box.innerHTML='<div class="empty-products">Ничего не найдено. Попробуйте изменить поиск или выбрать другую категорию.</div>';
+   box.innerHTML=`<div class="empty-products">${t('emptyProducts')}</div>`;
    return;
  }
 
@@ -1207,21 +1534,21 @@ fetch('data/products.json')
  box.innerHTML+=`
  <div class="card">
    <div class="card-media">
-    <img src="assets/${p.images[0]}" alt="${p.name}" onerror="this.onerror=null;this.src='assets/logo.jpg'">
+    <img src="assets/${p.images[0]}" alt="${productName(p)}" onerror="this.onerror=null;this.src='assets/logo.jpg'">
     <div class="category-pill">${category.icon} ${category.label}</div>
    </div>
    <div class="card-body">
-    <h3>${p.name}</h3>
-    <p class="card-desc">${p.description||'Сбалансированный компонент для вашего рациона.'}</p>
+    <h3>${productName(p)}</h3>
+    <p class="card-desc">${productDesc(p)}</p>
     <div class="macro-row">
-     <div class="macro-pill"><b>${p.calories}</b>ккал</div>
-     <div class="macro-pill"><b>${p.protein}</b>Б</div>
-     <div class="macro-pill"><b>${p.fat}</b>Ж</div>
-     <div class="macro-pill"><b>${p.carbs}</b>У</div>
+     <div class="macro-pill"><b>${p.calories}</b>${t('calories')}</div>
+     <div class="macro-pill"><b>${p.protein}</b>${t('proteinShort')}</div>
+     <div class="macro-pill"><b>${p.fat}</b>${t('fatShort')}</div>
+     <div class="macro-pill"><b>${p.carbs}</b>${t('carbsShort')}</div>
     </div>
     <div class="card-footer">
      <div class="price">${p.price.toLocaleString()} VND</div>
-     <button class="btn" onclick="add('${p.id}')">В корзину</button>
+     <button class="btn" onclick="add('${p.id}')">${t('addToCart')}</button>
     </div>
    </div>
  </div>`;
@@ -1231,6 +1558,7 @@ fetch('data/products.json')
 window.renderProducts();
 renderCart();
 renderSavedKBJU();
+applyLanguage();
 });
 
 
@@ -1281,18 +1609,18 @@ function replaceMealItem(mealIndex,type){
  let pool=products.filter(p=>p.categories && p.categories.includes(category));
  if(category==='carbs') pool=carbPlanPool(pool,mealIndex,mealPlanData.length);
  const grid=document.getElementById('foodModalGrid');
- document.getElementById('foodModalTitle').innerText='Выберите блюдо';
+ document.getElementById('foodModalTitle').innerText=t('dishSelect');
  grid.innerHTML='';
  const currentId=mealPlanData[mealIndex][type]?.id;
  pool.forEach(item=>{
    const selected=item.id===currentId;
-   grid.innerHTML += `<div class="food-option ${selected?'selected':''}" data-name="${item.name.toLowerCase()}" onclick="selectFood('${item.id}')">
+   grid.innerHTML += `<div class="food-option ${selected?'selected':''}" data-name="${(item.name+' '+productName(item)).toLowerCase()}" onclick="selectFood('${item.id}')">
    <img src="assets/${item.images[0]}">
-   <b>${item.name}</b><br>
-   ${item.calories} ккал<br>
-   Б:${item.protein} Ж:${item.fat} У:${item.carbs}
+   <b>${productName(item)}</b><br>
+   ${item.calories} ${t('calories')}<br>
+   ${t('proteinShort')}:${item.protein} ${t('fatShort')}:${item.fat} ${t('carbsShort')}:${item.carbs}
    <div class="food-price">${Number(item.price||0).toLocaleString()} VND</div>
-   ${selected?'<div style="color:#6BCB2D;font-weight:bold">✓ Выбрано сейчас</div>':''}
+   ${selected?`<div style="color:#6BCB2D;font-weight:bold">${t('selectedNow')}</div>`:''}
    </div>`;
  });
  document.getElementById('foodModal').classList.add('show');
@@ -1421,7 +1749,7 @@ function mealSignature(meal){
 }
 
 function portionQty(meal,type){
- return Math.max(1,parseInt(meal[type+'Qty']||1));
+ return Math.max(0.25,parseFloat(meal[type+'Qty']||1));
 }
 
 function mealItems(meal){
@@ -1623,8 +1951,8 @@ function autoBuildMealPlan(rebuild=false){
  const mealsCount=parseInt(localStorage.getItem('mealsCount')||'0');
  const target=JSON.parse(localStorage.getItem('kbju_target')||'null');
 
- if(!mealsCount){ alert('Сначала выберите количество приемов пищи'); return; }
- if(!target){ alert('Сначала рассчитайте КБЖУ'); return; }
+ if(!mealsCount){ alert(t('alertMeals')); return; }
+ if(!target){ alert(t('alertKbju')); return; }
 
  const proteins=products.filter(p=>p.categories && p.categories.includes('protein'));
  const carbs=products.filter(p=>p.categories && p.categories.includes('carbs'));
@@ -1632,7 +1960,7 @@ function autoBuildMealPlan(rebuild=false){
 
  const shouldRebuild=!rebuild || !planMatchesFoodRules(mealPlanData,mealsCount);
  if(shouldRebuild) mealPlanData=buildBalancedMealPlan(mealsCount,target,proteins,carbs,fibers);
- let planHtml=`<h3>🍽 Ваш рацион на ${mealsCount} приемов пищи</h3>`;
+ let planHtml=`<h3>${t('yourPlan',{count:mealsCount})}</h3>`;
 
  for(let i=0;i<mealsCount;i++){
    if(!mealPlanData[i]){
@@ -1652,7 +1980,7 @@ const cb=mealPlanData[i].carbs;
 const fb=mealPlanData[i].fiber;
 const totals=mealTotals(mealPlanData[i]);
 const choicesHtml=mealItems(mealPlanData[i]).map(row=>`
-<div class="meal-choice"><span class="meal-choice-name">✓ ${row.label ? row.label+': ' : ''}${row.item.name}${row.qty!==1 ? ' ×'+formatQty(row.qty) : ''}</span><button class="replace-btn" onclick="replaceMealItem(${i},'${row.type}')">Заменить</button></div>`).join('');
+<div class="meal-choice"><span class="meal-choice-name">✓ ${row.label ? row.label+': ' : ''}${productName(row.item)}${row.qty!==1 ? ' ×'+formatQty(row.qty) : ''}</span><button class="replace-btn" onclick="replaceMealItem(${i},'${row.type}')">${t('replace')}</button></div>`).join('');
 
    const times=['07:00–09:00','10:30–12:00','14:30–16:30','17:30–19:00','20:00–21:30','22:00–23:00'];
 planHtml += `<div class="meal-card">
@@ -1660,7 +1988,7 @@ planHtml += `<div class="meal-card">
 <div class="meal-left">
 <div class="meal-number">${i+1}</div>
 <div>
-<div class="meal-title">Прием пищи ${i+1}</div>
+<div class="meal-title">${t('meal')} ${i+1}</div>
 <div class="meal-time-line">🕒 ${times[i]||''}</div>
 </div>
 </div>
@@ -1670,10 +1998,10 @@ ${choicesHtml}
 </div>
 
 <div class="meal-macros">
-<b>${totals.calories} ккал</b><br>
-Б: ${totals.protein} г<br>
-Ж: ${totals.fat} г<br>
-У: ${totals.carbs} г
+<b>${totals.calories} ${t('calories')}</b><br>
+${t('proteinShort')}: ${totals.protein} ${gramUnit()}<br>
+${t('fatShort')}: ${totals.fat} ${gramUnit()}<br>
+${t('carbsShort')}: ${totals.carbs} ${gramUnit()}
 </div>
 </div>
 </div>`;
@@ -1691,7 +2019,7 @@ ${choicesHtml}
    });
  });
 
- planHtml += `<div class="plan-actions"><button class="btn add-plan-btn" onclick="addMealPlanToCart()">Добавить рацион в корзину</button></div>`;
+ planHtml += `<div class="plan-actions"><button class="btn add-plan-btn" onclick="addMealPlanToCart()">${t('addPlan')}</button></div>`;
  document.getElementById('autoPlanResult').innerHTML=planHtml;
  document.getElementById('totalPrice').textContent=planPrice.toLocaleString();
  document.getElementById('totalCalories').textContent=kcal;
@@ -1703,7 +2031,7 @@ ${choicesHtml}
 
 function addMealPlanToCart(){
  if(!mealPlanData.length){
-   alert('Сначала подберите рацион');
+   alert(t('alertPlan'));
    return;
  }
 
@@ -1716,7 +2044,7 @@ function addMealPlanToCart(){
  });
 
  saveCart();
- showToast('✓ Рацион добавлен в корзину',2200);
+ showToast(t('toastPlan'),2200);
  closePlanner();
  toggleCart();
 }
@@ -1750,7 +2078,7 @@ function calcKBJU(){
  const goal=document.getElementById('kbjuGoal').value;
  const activity=parseFloat(document.getElementById('kbjuActivity').value);
 
- if(!age||!height||!weight){showToast('Заполните возраст, рост и вес, чтобы рассчитать КБЖУ',3000);return;}
+ if(!age||!height||!weight){showToast(t('fillKbju'),3000);return;}
 
  let bmr=10*weight+6.25*height-5*age+(gender==='male'?5:-161);
  let calories=bmr*activity;
@@ -1771,18 +2099,18 @@ function calcKBJU(){
 
  updateKBJUProgress(
 parseInt(document.getElementById('totalCalories').textContent||0),
-parseInt(document.getElementById('totalProtein').textContent||0),
-parseInt(document.getElementById('totalFat').textContent||0),
-parseInt(document.getElementById('totalCarbs').textContent||0)
+parseFloat(document.getElementById('totalProtein').textContent||0),
+parseFloat(document.getElementById('totalFat').textContent||0),
+parseFloat(document.getElementById('totalCarbs').textContent||0)
 );
  if(document.getElementById('plannerPanel').classList.contains('open') && localStorage.getItem('mealsCount')){
    autoBuildMealPlan(false);
  }
  const result=document.getElementById('kbjuResult');
  result.style.display='block';
- result.innerHTML=`Цель сохранена: ${Math.round(calories)} ккал · Б ${protein} г · Ж ${fat} г · У ${carbs} г`;
+ result.innerHTML=t('goalSaved',{calories:Math.round(calories),protein,fat,carbs});
  closeKBJU();
- showToast(`КБЖУ рассчитаны: ${Math.round(calories)} ккал · Б ${protein} г · Ж ${fat} г · У ${carbs} г`,4200);
+ showToast(t('kbjuDone',{calories:Math.round(calories),protein,fat,carbs}),4200);
 }
 
 </script>
