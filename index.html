@@ -400,7 +400,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .contact-link:hover{transform:translateY(-2px);border-color:#cde7bd;box-shadow:0 16px 36px rgba(24,36,18,.1)}
 .contact-icon{display:grid;place-items:center;width:46px;height:46px;border-radius:16px;font-weight:900;color:#fff}
 .contact-icon.whatsapp{background:#25D366}.contact-icon.telegram{background:#229ED9}.contact-icon.zalo{background:#0068ff}
-.contact-name{font-weight:900;font-size:16px}.contact-note{margin-top:3px;color:#667461;font-size:13px}
+.contact-name{display:block;font-weight:900;font-size:16px}.contact-note{display:block;margin-top:3px;color:#667461;font-size:13px}
 .contact-small{margin:16px 0 0;color:#71806d;font-size:12px;line-height:1.45}
 .hero{position:relative;overflow:hidden;background:radial-gradient(circle at 16% 20%,rgba(126,217,70,.28),transparent 28%),linear-gradient(135deg,#11180f 0%,#1f3f18 52%,#72ca33 100%);padding:56px 28px 74px;text-align:left}
 .hero::after{content:'';position:absolute;right:-90px;top:-120px;width:420px;height:420px;border-radius:50%;background:rgba(255,255,255,.12)}
@@ -889,17 +889,17 @@ const I18N={
   brandSubtitle:'Good food · Fit life',
   navCalc:'Calculate macros',navPlanner:'Build a meal plan',navContacts:'Contact options',navFaq:'FAQ',navCart:'Cart',
   heroEyebrow:'🌿 Balanced nutrition in Vietnam',heroTitle:'Food that looks beautiful and fits your macros',heroText:'Choose dishes manually or build a day plan around calories, protein, fats and carbs. No cart chaos, clear ingredients and neat delivery.',
-  heroBuild:'What you can build',heroBuildText:'Proteins, sides and vegetables for a convenient daily plan.',categories:'categories',kbjuPick:'macro plan',prices:'prices',
-  savedTitle:'Your macro goal is saved',savedSub:'Now you can automatically build a plan around these values.',calories:'kcal',protein:'protein',fat:'fats',carbs:'carbs',proteinShort:'P',fatShort:'F',carbsShort:'C',
+  heroBuild:'What you can build',heroBuildText:'Proteins, sides and vegetables for a convenient daily plan.',categories:'categories',kbjuPick:'macro-based plan',prices:'prices',
+  savedTitle:'Your macro target is saved',savedSub:'Now you can automatically build a plan around these values.',calories:'kcal',protein:'protein',fat:'fats',carbs:'carbs',proteinShort:'P',fatShort:'F',carbsShort:'C',
   recalc:'Recalculate',searchPlaceholder:'Search dish...',all:'All',proteins:'Protein',carbsFilter:'Carbs',fiber:'Vegetables',
-  priceAny:'Any price',priceUnder:'Under 50,000 VND',priceMid:'50,000–100,000 VND',priceOver:'From 100,000 VND',sortDefault:'Default',sortAsc:'Cheapest first',sortDesc:'Most expensive first',
+  priceAny:'Any price',priceUnder:'Under 50,000 VND',priceMid:'50,000–100,000 VND',priceOver:'Over 100,000 VND',sortDefault:'Default',sortAsc:'Cheapest first',sortDesc:'Most expensive first',
   catalogTitle:'EatFit Catalog',catalogSub:'Filter products by their role in your plan and add only what works for you.',
   addToCart:'Add to cart',emptyProducts:'Nothing found. Try changing the search or category.',balancedComponent:'A balanced component for your meal plan.',
-  contactTitle:'Contact options',contactSub:'Message us in your preferred messenger: we will help with macros, meal plans and delivery.',contactWhatsapp:'Quick chat at +84 392 459 260',contactTelegram:'Can be replaced with a business chat or group link',contactZalo:'Phone link now, later it can be replaced with Zalo OA',contactSmall:'For Telegram and Zalo it is better to use permanent public links. Send them after creation and I will place the exact addresses here.',
-  calcTitle:'Calculate macros',calcSub:'Enter your basic data and EatFit will calculate your daily calories, protein, fats and carbs for meal planning.',yourData:'Your data',gender:'Gender',male:'Male',female:'Female',age:'Age',height:'Height, cm',weight:'Weight, kg',goal:'Goal',goalLoss:'Weight loss — about 20% deficit',goalMaintain:'Maintain weight',goalGain:'Muscle gain — about 15% surplus',activity:'Activity',activityLow:'Low activity',activityMid:'Medium activity',activityHigh:'High activity',
+  contactTitle:'Contact options',contactSub:'Message us in your preferred messenger: we will help with macros, meal plans and delivery.',contactWhatsapp:'Quick chat at +84 392 459 260',contactTelegram:'Can be replaced with a business chat or group link',contactZalo:'Phone link now, later it can be replaced with Zalo OA',contactSmall:'For Telegram and Zalo, it is better to use permanent public links. Send them after creation and I will place the exact addresses here.',
+  calcTitle:'Calculate macros',calcSub:'Enter your basic data and EatFit will calculate your daily macro target: calories, protein, fats and carbs.',yourData:'Your data',gender:'Gender',male:'Male',female:'Female',age:'Age',height:'Height, cm',weight:'Weight, kg',goal:'Goal',goalLoss:'Weight loss — about 20% deficit',goalMaintain:'Maintain weight',goalGain:'Muscle gain — about 15% surplus',activity:'Activity',activityLow:'Low activity',activityMid:'Medium activity',activityHigh:'High activity',
   agePh:'For example, 28',heightPh:'For example, 175',weightPh:'For example, 70',tipLowTitle:'Low',tipLow:'Up to 5,000 steps a day, desk work, no training.',tipMidTitle:'Medium',tipMid:'5,000–10,000 steps a day, 2–4 workouts per week.',tipHighTitle:'High',tipHigh:'Over 10,000 steps, 5+ workouts or physical work.',calcSave:'Calculate and save goal',close:'Close',
   faqTitle:'Frequently asked questions',faqSub:'Short answers about delivery, meal plans and orders.',
-  plannerTitle:'Meal plan builder',plannerSub:'Build a day around your macros, then decide whether to add it to cart',dayGoal:'Daily goal',dayGoalSub:'What is already in the plan and what remains',noGoal:'goal not set',selectedPlanPrice:'Selected plan price',mealCount:'🍽 Number of meals',yourPlan:'🍽 Your plan for {count} meals',meal:'Meal',replace:'Replace',addPlan:'Add plan to cart',
+  plannerTitle:'Meal plan builder',plannerSub:'Build a day around your macros, then decide whether to add it to cart',dayGoal:'Daily goal',dayGoalSub:'What is already in the plan and what remains',noGoal:'goal not set',selectedPlanPrice:'Selected meal plan price',mealCount:'🍽 Number of meals',yourPlan:'🍽 Your plan for {count} meals',meal:'Meal',replace:'Replace',addPlan:'Add plan to cart',
   cartTitle:'Cart',cartSub:'Dishes you decided to order',clear:'Clear',emptyCart:'Cart is empty<br>Add dishes from the catalog',cartTotal:'Cart total',checkoutTitle:'Checkout',namePh:'Name',phonePh:'Phone',telegramPh:'Telegram (@username)',addressPh:'Delivery address',commentPh:'Comment',checkout:'Place order',
   successTitle:'Thank you for your order!',successText:'Your order has been received.',
   left:'{value} {unit} left',above:'+{value} {unit} over goal',from:'of {value} {unit}',dishSelect:'Choose a dish',foodSearch:'🔍 Search dish...',selectedNow:'✓ Selected now',
@@ -936,34 +936,34 @@ const I18N={
  },
  vi:{
   brandSubtitle:'Good food · Fit life',
-  navCalc:'Tính macro',navPlanner:'Chọn thực đơn',navContacts:'Liên hệ',navFaq:'FAQ',navCart:'Giỏ hàng',
-  heroEyebrow:'🌿 Dinh dưỡng cân bằng tại Việt Nam',heroTitle:'Món ăn đẹp mắt và phù hợp với macro của bạn',heroText:'Chọn món thủ công hoặc tạo thực đơn theo calo, protein, chất béo và carb. Giỏ hàng gọn gàng, thành phần rõ ràng và giao hàng chỉn chu.',
-  heroBuild:'Bạn có thể chọn gì',heroBuildText:'Protein, món tinh bột và rau cho thực đơn hằng ngày tiện lợi.',categories:'nhóm món',kbjuPick:'chọn macro',prices:'giá VND',
-  savedTitle:'Mục tiêu macro đã được lưu',savedSub:'Bây giờ bạn có thể tự động tạo thực đơn theo các chỉ số này.',calories:'kcal',protein:'protein',fat:'chất béo',carbs:'carb',proteinShort:'P',fatShort:'F',carbsShort:'C',
+  navCalc:'Tính chỉ số dinh dưỡng',navPlanner:'Chọn thực đơn',navContacts:'Liên hệ',navFaq:'FAQ',navCart:'Giỏ hàng',
+  heroEyebrow:'🌿 Dinh dưỡng cân bằng tại Việt Nam',heroTitle:'Món ăn đẹp mắt và phù hợp với chỉ số dinh dưỡng của bạn',heroText:'Chọn món thủ công hoặc tạo thực đơn theo calo, protein, chất béo và carb. Giỏ hàng gọn gàng, thành phần rõ ràng và giao hàng chỉn chu.',
+  heroBuild:'Bạn có thể chọn gì',heroBuildText:'Protein, món tinh bột và rau cho thực đơn hằng ngày tiện lợi.',categories:'nhóm món',kbjuPick:'theo chỉ số',prices:'giá VND',
+  savedTitle:'Mục tiêu dinh dưỡng đã được lưu',savedSub:'Bây giờ bạn có thể tự động tạo thực đơn theo các chỉ số này.',calories:'kcal',protein:'protein',fat:'chất béo',carbs:'carb',proteinShort:'P',fatShort:'F',carbsShort:'C',
   recalc:'Tính lại',searchPlaceholder:'Tìm món...',all:'Tất cả',proteins:'Protein',carbsFilter:'Carb',fiber:'Rau',
   priceAny:'Mọi mức giá',priceUnder:'Dưới 50.000 VND',priceMid:'50.000–100.000 VND',priceOver:'Từ 100.000 VND',sortDefault:'Mặc định',sortAsc:'Rẻ trước',sortDesc:'Đắt trước',
   catalogTitle:'Danh mục EatFit',catalogSub:'Lọc sản phẩm theo vai trò trong thực đơn và chỉ thêm món phù hợp với bạn.',
   addToCart:'Thêm vào giỏ',emptyProducts:'Không tìm thấy. Hãy đổi từ khóa hoặc danh mục.',balancedComponent:'Thành phần cân bằng cho thực đơn của bạn.',
-  contactTitle:'Cách liên hệ',contactSub:'Nhắn cho chúng tôi qua ứng dụng bạn thích: hỗ trợ macro, thực đơn và giao hàng.',contactWhatsapp:'Chat nhanh qua số +84 392 459 260',contactTelegram:'Có thể thay bằng link chat doanh nghiệp hoặc nhóm',contactZalo:'Hiện là link theo số điện thoại, sau này có thể thay bằng Zalo OA',contactSmall:'Với Telegram và Zalo nên dùng link công khai cố định. Sau khi tạo xong, hãy gửi link để tôi đặt đúng địa chỉ.',
-  calcTitle:'Tính macro',calcSub:'Nhập thông tin cơ bản, EatFit sẽ tính calo, protein, chất béo và carb mỗi ngày để chọn thực đơn.',yourData:'Thông tin của bạn',gender:'Giới tính',male:'Nam',female:'Nữ',age:'Tuổi',height:'Chiều cao, cm',weight:'Cân nặng, kg',goal:'Mục tiêu',goalLoss:'Giảm cân — thâm hụt khoảng 20%',goalMaintain:'Duy trì cân nặng',goalGain:'Tăng cơ — dư khoảng 15%',activity:'Mức vận động',activityLow:'Ít vận động',activityMid:'Vận động trung bình',activityHigh:'Vận động cao',
+  contactTitle:'Cách liên hệ',contactSub:'Nhắn cho chúng tôi qua ứng dụng bạn thích: hỗ trợ chỉ số dinh dưỡng, thực đơn và giao hàng.',contactWhatsapp:'Chat nhanh qua số +84 392 459 260',contactTelegram:'Có thể thay bằng link chat doanh nghiệp hoặc nhóm',contactZalo:'Hiện là link theo số điện thoại, sau này có thể thay bằng Zalo OA',contactSmall:'Với Telegram và Zalo nên dùng link công khai cố định. Sau khi tạo xong, hãy gửi link để tôi đặt đúng địa chỉ.',
+  calcTitle:'Tính chỉ số dinh dưỡng',calcSub:'Nhập thông tin cơ bản, EatFit sẽ tính mục tiêu hằng ngày của bạn: calo, protein, chất béo và carb.',yourData:'Thông tin của bạn',gender:'Giới tính',male:'Nam',female:'Nữ',age:'Tuổi',height:'Chiều cao, cm',weight:'Cân nặng, kg',goal:'Mục tiêu',goalLoss:'Giảm cân — thâm hụt khoảng 20%',goalMaintain:'Duy trì cân nặng',goalGain:'Tăng cơ — dư khoảng 15%',activity:'Mức vận động',activityLow:'Ít vận động',activityMid:'Vận động trung bình',activityHigh:'Vận động cao',
   agePh:'Ví dụ: 28',heightPh:'Ví dụ: 175',weightPh:'Ví dụ: 70',tipLowTitle:'Thấp',tipLow:'Dưới 5.000 bước/ngày, làm việc văn phòng, không tập luyện.',tipMidTitle:'Trung bình',tipMid:'5.000–10.000 bước/ngày, tập 2–4 buổi/tuần.',tipHighTitle:'Cao',tipHigh:'Trên 10.000 bước, tập 5+ buổi hoặc lao động thể chất.',calcSave:'Tính và lưu mục tiêu',close:'Đóng',
   faqTitle:'Câu hỏi thường gặp',faqSub:'Tóm tắt về giao hàng, thực đơn và đặt món.',
-  plannerTitle:'Chọn thực đơn',plannerSub:'Tạo một ngày ăn theo macro, sau đó quyết định có thêm vào giỏ hay không',dayGoal:'Mục tiêu trong ngày',dayGoalSub:'Những gì đã có trong thực đơn và phần còn lại',noGoal:'chưa có mục tiêu',selectedPlanPrice:'Giá thực đơn đã chọn',mealCount:'🍽 Số bữa ăn',yourPlan:'🍽 Thực đơn {count} bữa của bạn',meal:'Bữa ăn',replace:'Đổi món',addPlan:'Thêm thực đơn vào giỏ',
+  plannerTitle:'Chọn thực đơn',plannerSub:'Tạo thực đơn theo chỉ số dinh dưỡng của bạn, sau đó quyết định có thêm vào giỏ hay không',dayGoal:'Mục tiêu trong ngày',dayGoalSub:'Những gì đã có trong thực đơn và phần còn lại để đạt mục tiêu',noGoal:'chưa có mục tiêu',selectedPlanPrice:'Giá thực đơn đã chọn',mealCount:'🍽 Số bữa ăn',yourPlan:'🍽 Thực đơn {count} bữa của bạn',meal:'Bữa ăn',replace:'Đổi món',addPlan:'Thêm thực đơn vào giỏ',
   cartTitle:'Giỏ hàng',cartSub:'Những món bạn đã chọn đặt',clear:'Xóa',emptyCart:'Giỏ hàng trống<br>Thêm món từ danh mục',cartTotal:'Tổng giỏ hàng',checkoutTitle:'Đặt hàng',namePh:'Tên',phonePh:'Số điện thoại',telegramPh:'Telegram (@username)',addressPh:'Địa chỉ giao hàng',commentPh:'Ghi chú',checkout:'Đặt hàng',
   successTitle:'Cảm ơn bạn đã đặt hàng!',successText:'Đơn hàng của bạn đã được nhận.',
   left:'còn {value} {unit}',above:'+{value} {unit} vượt mục tiêu',from:'trên {value} {unit}',dishSelect:'Chọn món',foodSearch:'🔍 Tìm món...',selectedNow:'✓ Đang chọn',
-  alertEmptyCart:'Giỏ hàng trống',alertCheckout:'Vui lòng nhập tên, điện thoại và địa chỉ giao hàng',alertOrderError:'Lỗi gửi đơn hàng',alertServer:'Không thể kết nối máy chủ',alertMeals:'Trước tiên hãy chọn số bữa ăn',alertKbju:'Trước tiên hãy tính macro',alertPlan:'Trước tiên hãy tạo thực đơn',fillKbju:'Nhập tuổi, chiều cao và cân nặng để tính macro',
-  toastDish:'✓ Đã thêm món vào giỏ',toastPlan:'✓ Đã thêm thực đơn vào giỏ',goalSaved:'Đã lưu mục tiêu: {calories} kcal · P {protein} g · F {fat} g · C {carbs} g',kbjuDone:'Đã tính macro: {calories} kcal · P {protein} g · F {fat} g · C {carbs} g',
+  alertEmptyCart:'Giỏ hàng trống',alertCheckout:'Vui lòng nhập tên, điện thoại và địa chỉ giao hàng',alertOrderError:'Lỗi gửi đơn hàng',alertServer:'Không thể kết nối máy chủ',alertMeals:'Trước tiên hãy chọn số bữa ăn',alertKbju:'Trước tiên hãy tính chỉ số dinh dưỡng',alertPlan:'Trước tiên hãy tạo thực đơn',fillKbju:'Nhập tuổi, chiều cao và cân nặng để tính chỉ số dinh dưỡng',
+  toastDish:'✓ Đã thêm món vào giỏ',toastPlan:'✓ Đã thêm thực đơn vào giỏ',goalSaved:'Đã lưu mục tiêu: {calories} kcal · P {protein} g · F {fat} g · C {carbs} g',kbjuDone:'Đã tính chỉ số dinh dưỡng: {calories} kcal · P {protein} g · F {fat} g · C {carbs} g',
   faq:[
-   ['Chọn thực đơn theo macro hoạt động như thế nào?','Bạn tính mục tiêu, chọn số bữa ăn, sau đó website tạo thực đơn gần với chỉ số hằng ngày.'],
+   ['Chọn thực đơn theo chỉ số dinh dưỡng hoạt động như thế nào?','Bạn tính mục tiêu, chọn số bữa ăn, sau đó website tạo thực đơn gần với chỉ số hằng ngày.'],
    ['Thực đơn có tự vào giỏ hàng không?','Không. Bạn xem thực đơn trước, sau đó mới nhấn “Thêm thực đơn vào giỏ”.'],
-   ['Có thể đổi món trong thực đơn không?','Có. Bạn có thể đổi từng thành phần, hệ thống sẽ cố giữ cân bằng macro.'],
+   ['Có thể đổi món trong thực đơn không?','Có. Bạn có thể đổi từng thành phần, hệ thống sẽ cố giữ cân bằng dinh dưỡng.'],
    ['Rau có bắt buộc trong thực đơn không?','Có, mỗi bữa đều có rau để thực đơn cân bằng hơn và có chất xơ.'],
    ['Có thể đặt món riêng không cần chọn thực đơn không?','Có. Chọn món trong danh mục và thêm vào giỏ hàng.'],
    ['Xem tổng giá ở đâu?','Giá hiển thị trong phần chọn thực đơn và trong giỏ hàng trước khi đặt.'],
    ['Giao hàng ở đâu?','Bạn nhập địa chỉ khi đặt hàng. Quản lý sẽ xác nhận chi tiết sau khi gửi đơn.'],
    ['Có thể để lại ghi chú không?','Có, form đặt hàng có ô ghi chú về thời gian, mong muốn hoặc giao hàng.'],
-   ['Nếu tôi chưa biết macro thì sao?','Nhấn “Tính macro” và điền máy tính. Sau đó có thể chuyển sang chọn thực đơn.'],
+   ['Nếu tôi chưa biết chỉ số dinh dưỡng thì sao?','Nhấn “Tính chỉ số dinh dưỡng” và điền thông tin vào máy tính. Sau đó có thể chuyển sang chọn thực đơn.'],
    ['Có thể đổi số lượng khẩu phần không?','Có, trong giỏ hàng bạn có thể tăng hoặc giảm số lượng trước khi đặt.']
   ],
   products:{
@@ -1096,9 +1096,9 @@ function applyLanguage(){
  setOption('kbjuActivity','1.55',t('activityMid'));
  setOption('kbjuActivity','1.75',t('activityHigh'));
  const tips=document.querySelectorAll('.kbju-tip');
- if(tips[0]) tips[0].innerHTML=`<b>${t('tipLowTitle')}</b>${t('tipLow')}`;
- if(tips[1]) tips[1].innerHTML=`<b>${t('tipMidTitle')}</b>${t('tipMid')}`;
- if(tips[2]) tips[2].innerHTML=`<b>${t('tipHighTitle')}</b>${t('tipHigh')}`;
+ if(tips[0]) tips[0].innerHTML=`<b>${t('tipLowTitle')}</b><span>${t('tipLow')}</span>`;
+ if(tips[1]) tips[1].innerHTML=`<b>${t('tipMidTitle')}</b><span>${t('tipMid')}</span>`;
+ if(tips[2]) tips[2].innerHTML=`<b>${t('tipHighTitle')}</b><span>${t('tipHigh')}</span>`;
  const kbjuActions=document.querySelectorAll('.kbju-actions button');
  if(kbjuActions[0]) kbjuActions[0].textContent=t('calcSave');
  if(kbjuActions[1]) kbjuActions[1].textContent=t('close');
@@ -1618,7 +1618,7 @@ function replaceMealItem(mealIndex,type){
    <img src="assets/${item.images[0]}">
    <b>${productName(item)}</b><br>
    ${item.calories} ${t('calories')}<br>
-   ${t('proteinShort')}:${item.protein} ${t('fatShort')}:${item.fat} ${t('carbsShort')}:${item.carbs}
+   ${t('proteinShort')}: ${item.protein} ${t('fatShort')}: ${item.fat} ${t('carbsShort')}: ${item.carbs}
    <div class="food-price">${Number(item.price||0).toLocaleString()} VND</div>
    ${selected?`<div style="color:#6BCB2D;font-weight:bold">${t('selectedNow')}</div>`:''}
    </div>`;
