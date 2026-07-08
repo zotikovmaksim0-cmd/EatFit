@@ -482,10 +482,14 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .loyalty-info span{display:block;color:#667461;font-size:13px;line-height:1.35}
 .loyalty-info.accent{background:#fff8e0;border-color:#eadb93}
 .loyalty-levels{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
-.loyalty-level-card{padding:12px 10px;border:1px solid var(--line);border-radius:16px;background:#fff;color:#667461;font-size:12px;line-height:1.3}
+.loyalty-level-card{position:relative;padding:12px 10px;border:1px solid var(--line);border-radius:16px;background:#fff;color:#667461;font-size:12px;line-height:1.3;cursor:help;outline:none}
 .loyalty-level-card b{display:block;margin-bottom:4px;color:#172015;font-size:14px}
 .loyalty-level-card.active{border-color:#63bd2b;background:#f4fbef;box-shadow:0 8px 22px rgba(99,189,43,.11)}
 .loyalty-level-card.locked{background:#f7f8f5}
+.loyalty-level-card:focus-visible{box-shadow:0 0 0 4px rgba(99,189,43,.16)}
+.loyalty-level-card-tip{position:absolute;left:50%;bottom:calc(100% + 10px);z-index:20;width:min(230px,70vw);padding:12px;border-radius:14px;background:#172015;color:#fff;font-size:12px;line-height:1.35;box-shadow:0 18px 36px rgba(8,18,6,.25);opacity:0;pointer-events:none;transform:translate(-50%,6px);transition:opacity .18s ease,transform .18s ease}
+.loyalty-level-card-tip::after{content:'';position:absolute;left:50%;top:100%;width:12px;height:12px;background:#172015;transform:translate(-50%,-6px) rotate(45deg)}
+.loyalty-level-card:hover .loyalty-level-card-tip,.loyalty-level-card:focus-visible .loyalty-level-card-tip{opacity:1;transform:translate(-50%,0)}
 .loyalty-rewards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .loyalty-reward{padding:12px;border-radius:16px;background:#f3f7fb;border:1px solid #dce6ef;color:#5d6f7a;font-size:12px}
 .loyalty-reward b{display:block;color:#172015;font-size:14px}
@@ -1272,9 +1276,10 @@ function renderLoyalty(){
  setText('#loyaltyPromoPoint3',t('loyaltyPromo3'));
  const levels=document.getElementById('loyaltyLevels');
  if(levels){
-  levels.innerHTML=LOYALTY_LEVELS.map(item=>{
+ levels.innerHTML=LOYALTY_LEVELS.map(item=>{
    const cls=item.name===level.name ? 'active' : item.xp>xp ? 'locked' : '';
-   return `<div class="loyalty-level-card ${cls}"><b>${item.name}</b><span>${item.xp.toLocaleString()} XP</span></div>`;
+   const benefit=item.benefits[currentLang] || item.benefits.ru;
+   return `<div class="loyalty-level-card ${cls}" tabindex="0" aria-label="${item.name}: ${benefit}"><b>${item.name}</b><span>${item.xp.toLocaleString()} XP</span><small class="loyalty-level-card-tip">${benefit}</small></div>`;
   }).join('');
  }
 }
