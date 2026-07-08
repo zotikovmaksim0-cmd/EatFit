@@ -452,6 +452,28 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .kbju-saved-pill b{display:block;color:#172015;font-size:16px}
 .kbju-saved-actions{display:flex;gap:10px;flex-wrap:wrap}
 .kbju-saved-actions .btn{border-radius:14px}
+.loyalty-card{max-width:1400px;margin:18px auto 0;padding:0 24px}
+.loyalty-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px 20px;border:1px solid #d8e9cf;border-radius:24px;background:#fff;box-shadow:0 14px 38px rgba(31,55,24,.07)}
+.loyalty-title{font-weight:900;font-size:18px;color:#172015}
+.loyalty-sub{margin-top:4px;color:#667461;font-size:14px;line-height:1.4}
+.loyalty-stats{display:flex;gap:8px;flex-wrap:wrap}
+.loyalty-pill{padding:9px 11px;border-radius:13px;background:#f6faf2;color:#667461;font-size:12px;border:1px solid var(--line)}
+.loyalty-pill b{display:block;color:#172015;font-size:16px}
+.loyalty-actions{display:flex;gap:10px;flex-wrap:wrap}
+.loyalty-modal{position:fixed;inset:0;z-index:5300;display:none;align-items:center;justify-content:center;padding:22px;background:rgba(8,13,7,.68);backdrop-filter:blur(10px)}
+.loyalty-modal.show{display:flex}
+.loyalty-box{width:min(560px,94vw);background:linear-gradient(145deg,#fff,#f7fbf3);border:1px solid rgba(228,235,223,.95);border-radius:30px;padding:26px;box-shadow:0 30px 90px rgba(8,18,6,.32)}
+.loyalty-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:18px}
+.loyalty-head h2{margin:0;font-size:28px;letter-spacing:-.6px;color:#172015}
+.loyalty-head p{margin:7px 0 0;color:#667461;line-height:1.45}
+.loyalty-close{display:grid;place-items:center;width:42px;height:42px;border:1px solid var(--line);border-radius:14px;background:#fff;color:#172015;font-size:22px;cursor:pointer}
+.loyalty-result{display:none;margin-top:12px;padding:12px;border-radius:14px;background:#f2faed;color:#315229;font-weight:800}
+.bonus-box{display:none;margin:14px 0;padding:14px;border:1px solid #cfe7c2;border-radius:16px;background:#f6fbf1}
+.bonus-box.show{display:block}
+.bonus-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.bonus-row label{display:flex;align-items:center;gap:9px;font-weight:800;color:#172015}
+.bonus-row input{width:auto;margin:0}
+.bonus-note{margin-top:7px;color:#667461;font-size:13px;line-height:1.35}
 .faq-section{max-width:1180px;margin:22px auto 56px;padding:0 24px}
 .faq-card{background:#fff;border:1px solid rgba(228,235,223,.95);border-radius:30px;padding:28px;box-shadow:0 18px 48px rgba(24,36,18,.08)}
 .faq-head{display:flex;justify-content:space-between;gap:18px;align-items:end;margin-bottom:18px}
@@ -537,7 +559,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 @media(max-width:650px){
  .site-header{padding:12px 16px;align-items:flex-start;flex-direction:column}.site-actions{width:100%;gap:6px;border-radius:18px}.action-btn,.cart-btn{min-height:38px;padding:0 10px;font-size:12px;border-radius:13px}.language-switch select{height:38px;font-size:12px;border-radius:13px}.brand-title{font-size:17px}.brand-mark{width:42px;height:42px}.contact-box{padding:20px;border-radius:24px}.contact-head h2{font-size:23px}
  .kbju-modal{padding:12px}.kbju-modal-head{padding:22px 18px 16px}.kbju-modal-head h2{font-size:24px}.kbju-form{padding:18px}.kbju-grid,.kbju-tips{grid-template-columns:1fr}.kbju-wide,.kbju-two{grid-column:auto}.kbju-actions{display:grid}.kbju-primary,.kbju-secondary{width:100%}
- .hero{padding:34px 18px 44px}.hero h2{font-size:32px}.hero p{font-size:15px}.kbju-saved-card{padding:0 16px}.kbju-saved-inner{display:block}.kbju-saved-stats,.kbju-saved-actions{margin-top:12px}
+ .hero{padding:34px 18px 44px}.hero h2{font-size:32px}.hero p{font-size:15px}.kbju-saved-card,.loyalty-card{padding:0 16px}.kbju-saved-inner,.loyalty-inner{display:block}.kbju-saved-stats,.kbju-saved-actions,.loyalty-stats,.loyalty-actions{margin-top:12px}
  .catalog-shell{margin:16px auto 10px;padding:0 14px}.catalog-tools{grid-template-columns:1fr;border-radius:20px}.filter-tabs,.price-tools{justify-content:flex-start}.filter-chip{height:39px;padding:0 12px;font-size:13px}.price-tools select{width:100%}
  .catalog-heading{padding:0 16px;margin-top:20px}.catalog-heading h2{font-size:26px}.catalog-heading p{font-size:14px}.grid{padding:16px;gap:18px}.card{border-radius:22px}.card img{height:210px}
  .cart-panel{padding:0}.cart-header{margin:0;padding:16px 14px}.cart-scroll{padding:16px 14px 22px}.cart-heading{font-size:21px}.cart-subtitle{display:none}.clear-btn{width:40px;padding:0;font-size:0}.clear-btn::before{content:'🗑';font-size:15px}
@@ -561,6 +583,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <div class="site-actions">
 <button class="action-btn" onclick="openKBJU()">Рассчитать КБЖУ</button>
 <button class="action-btn primary" onclick="openPlanner()">Подобрать рацион</button>
+<button class="action-btn" onclick="openLoyalty()">Бонусы</button>
 <button class="action-btn" onclick="openContacts()">Способы связи</button>
 <button class="action-btn" onclick="scrollFAQ()">FAQ</button>
 <button class="cart-btn" onclick="toggleCart()">Корзина <b id="count">0</b></button>
@@ -605,6 +628,22 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 </div>
 </div>
 
+<div id="loyaltyCard" class="loyalty-card">
+<div class="loyalty-inner">
+<div>
+<div class="loyalty-title">Бонусная программа EatFit</div>
+<div class="loyalty-sub">Зарегистрируйтесь и получите 30 000 VND бонусами на первый заказ.</div>
+</div>
+<div class="loyalty-stats">
+<div class="loyalty-pill"><b id="loyaltyBalance">0 VND</b><span id="loyaltyBalanceLabel">баланс</span></div>
+<div class="loyalty-pill"><b id="loyaltyOrders">0</b><span id="loyaltyOrdersLabel">заказов</span></div>
+</div>
+<div class="loyalty-actions">
+<button class="btn" onclick="openLoyalty()">Зарегистрироваться</button>
+</div>
+</div>
+</div>
+
 <div id="overlay" class="overlay" onclick="closePanels()"></div>
 <div id="toast" class="toast">✓ Блюдо добавлено в корзину</div>
 
@@ -612,8 +651,32 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <div class="success-box">
 <h2>Спасибо за заказ!</h2>
 <p>Ваш заказ успешно принят.</p>
+<p id="successBonus" style="display:none"></p>
 <p><b id="successOrderId"></b></p>
 <button class="btn" onclick="closeSuccess()">Закрыть</button>
+</div>
+</div>
+
+<div id="loyaltyModal" class="loyalty-modal" onclick="closeLoyalty(event)">
+<div class="loyalty-box" onclick="event.stopPropagation()">
+<div class="loyalty-head">
+<div>
+<h2>Бонусная программа</h2>
+<p>Зарегистрируйтесь, получите бонус на первый заказ и копите бонусы с будущих заказов.</p>
+</div>
+<button class="loyalty-close" onclick="closeLoyalty()" aria-label="Закрыть">×</button>
+</div>
+<input id="loyaltyName" placeholder="Имя">
+<input id="loyaltySurname" placeholder="Фамилия">
+<input id="loyaltyPhone" placeholder="Телефон">
+<select id="loyaltyContactMethod" onchange="updateLoyaltyContactPlaceholder()">
+<option value="zalo">Zalo</option>
+<option value="whatsapp">WhatsApp</option>
+<option value="telegram">Telegram</option>
+</select>
+<input id="loyaltyContactValue" placeholder="Номер телефона для Zalo">
+<button class="btn" onclick="registerLoyalty()">Зарегистрироваться</button>
+<div id="loyaltyResult" class="loyalty-result"></div>
 </div>
 </div>
 
@@ -801,6 +864,13 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <div class="cart-scroll">
 <div id="cartItems"></div>
 <div class="cart-total-line"><span>Итого в корзине</span><b><span id="cartTotalPrice">0</span> VND</b></div>
+<div id="bonusBox" class="bonus-box">
+<div class="bonus-row">
+<label for="useBonus"><input id="useBonus" type="checkbox" checked onchange="renderCart()"> <span id="useBonusLabel">Списать бонусы</span></label>
+<b id="bonusAvailable">0 VND</b>
+</div>
+<div id="bonusNote" class="bonus-note">Бонусы будут учтены при подтверждении заказа.</div>
+</div>
 <span id="totalQty" style="display:none">0</span>
 
 <div class="checkout-section">
@@ -836,6 +906,8 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 let cart=JSON.parse(localStorage.getItem('cart')||'[]');
 let products=[];
 let currentLang=localStorage.getItem('eatfit_lang')||'ru';
+let loyaltyUser=null;
+const API_BASE='https://eatfit-bot.onrender.com';
 
 const I18N={
  ru:{
@@ -856,6 +928,7 @@ const I18N={
   faqTitle:'Частые вопросы',faqSub:'Коротко о доставке, рационе и заказе.',
   plannerTitle:'Подбор рациона',plannerSub:'Соберите день под свои КБЖУ, а потом решите, добавлять ли его в корзину',dayGoal:'Цель на день',dayGoalSub:'Что уже в рационе и сколько осталось до КБЖУ',noGoal:'цель не задана',selectedPlanPrice:'Стоимость подобранного рациона',mealCount:'🍽 Количество приемов пищи',yourPlan:'🍽 Ваш рацион на {count} приемов пищи',meal:'Прием пищи',replace:'Заменить',addPlan:'Добавить рацион в корзину',
   cartTitle:'Корзина',cartSub:'Блюда, которые вы решили заказать',clear:'Очистить',emptyCart:'Корзина пуста<br>Добавьте блюда из каталога',cartTotal:'Итого в корзине',checkoutTitle:'Оформление заказа',namePh:'Имя',surnamePh:'Фамилия',phonePh:'Телефон',contactMethodLabel:'Удобный способ связи',contactZaloPh:'Номер телефона для Zalo',contactWhatsappPh:'Номер телефона WhatsApp',contactTelegramPh:'Telegram (@username)',addressPh:'Адрес доставки',mapLabel:'Точка доставки на карте',mapPh:'Ссылка на точку в Google Maps',openMap:'Открыть карты',commentPh:'Комментарий',checkout:'Оформить заказ',
+  navLoyalty:'Бонусы',loyaltyTitle:'Бонусная программа EatFit',loyaltySub:'Зарегистрируйтесь и получите 30 000 VND бонусами на первый заказ.',loyaltyModalTitle:'Бонусная программа',loyaltyModalSub:'Зарегистрируйтесь, получите бонус на первый заказ и копите 5% с будущих заказов.',loyaltyRegister:'Зарегистрироваться',loyaltyUpdate:'Обновить данные',loyaltyBalance:'баланс',loyaltyOrders:'заказов',loyaltyRegistered:'Вы зарегистрированы. Доступно бонусов: {balance}.',loyaltySaved:'Регистрация готова. Начислено {balance} бонусов.',loyaltyError:'Не удалось обновить бонусы. Попробуйте позже.',useBonus:'Списать бонусы',bonusNote:'Бонусы будут учтены при подтверждении заказа.',bonusApplied:'Списано бонусов: {applied}. Начислено: {earned}. Баланс: {balance}.',
   successTitle:'Спасибо за заказ!',successText:'Ваш заказ принят. Менеджер свяжется с вами для подтверждения деталей и оплаты.',
   left:'{value} {unit} осталось',above:'+{value} {unit} выше цели',from:'из {value} {unit}',dishSelect:'Выберите блюдо',foodSearch:'🔍 Поиск блюда...',selectedNow:'✓ Выбрано сейчас',
   alertEmptyCart:'Корзина пустая',alertCheckout:'Заполните все поля заказа, кроме комментария',alertOrderError:'Ошибка отправки заказа',alertServer:'Не удалось связаться с сервером',alertMeals:'Сначала выберите количество приемов пищи',alertKbju:'Сначала рассчитайте КБЖУ',alertPlan:'Сначала подберите рацион',fillKbju:'Заполните возраст, рост и вес, чтобы рассчитать КБЖУ',
@@ -905,6 +978,7 @@ const I18N={
   faqTitle:'Frequently asked questions',faqSub:'Short answers about delivery, meal plans and orders.',
   plannerTitle:'Meal plan builder',plannerSub:'Build a day around your macros, then decide whether to add it to cart',dayGoal:'Daily goal',dayGoalSub:'What is already in the plan and what remains',noGoal:'goal not set',selectedPlanPrice:'Selected meal plan price',mealCount:'🍽 Number of meals',yourPlan:'🍽 Your plan for {count} meals',meal:'Meal',replace:'Replace',addPlan:'Add plan to cart',
   cartTitle:'Cart',cartSub:'Dishes you decided to order',clear:'Clear',emptyCart:'Cart is empty<br>Add dishes from the catalog',cartTotal:'Cart total',checkoutTitle:'Checkout',namePh:'Name',surnamePh:'Last name',phonePh:'Phone',contactMethodLabel:'Preferred contact method',contactZaloPh:'Phone number for Zalo',contactWhatsappPh:'WhatsApp phone number',contactTelegramPh:'Telegram (@username)',addressPh:'Delivery address',mapLabel:'Delivery point on map',mapPh:'Google Maps point link',openMap:'Open maps',commentPh:'Comment',checkout:'Place order',
+  navLoyalty:'Bonuses',loyaltyTitle:'EatFit loyalty program',loyaltySub:'Register and get 30,000 VND in bonuses for your first order.',loyaltyModalTitle:'Loyalty program',loyaltyModalSub:'Register, get a bonus for your first order and earn 5% from future orders.',loyaltyRegister:'Register',loyaltyUpdate:'Update details',loyaltyBalance:'balance',loyaltyOrders:'orders',loyaltyRegistered:'You are registered. Available bonuses: {balance}.',loyaltySaved:'Registration is ready. {balance} in bonuses added.',loyaltyError:'Could not update bonuses. Please try again later.',useBonus:'Use bonuses',bonusNote:'Bonuses will be included when the order is confirmed.',bonusApplied:'Bonuses used: {applied}. Earned: {earned}. Balance: {balance}.',
   successTitle:'Thank you for your order!',successText:'Your order has been received. A manager will contact you to confirm the details and payment.',
   left:'{value} {unit} left',above:'+{value} {unit} over goal',from:'of {value} {unit}',dishSelect:'Choose a dish',foodSearch:'🔍 Search dish...',selectedNow:'✓ Selected now',
   alertEmptyCart:'Cart is empty',alertCheckout:'Fill in every checkout field except comment',alertOrderError:'Order sending error',alertServer:'Could not connect to the server',alertMeals:'First choose the number of meals',alertKbju:'First calculate your macros',alertPlan:'First build a meal plan',fillKbju:'Fill in age, height and weight to calculate macros',
@@ -954,6 +1028,7 @@ const I18N={
   faqTitle:'Câu hỏi thường gặp',faqSub:'Thông tin ngắn gọn về giao hàng, thực đơn và đặt món.',
   plannerTitle:'Lên thực đơn',plannerSub:'Tạo thực đơn theo macro của bạn, xem trước rồi quyết định có thêm vào giỏ hàng hay không',dayGoal:'Mục tiêu trong ngày',dayGoalSub:'Phần đã chọn trong thực đơn và phần còn thiếu so với mục tiêu',noGoal:'chưa đặt mục tiêu',selectedPlanPrice:'Giá thực đơn đã chọn',mealCount:'🍽 Số bữa',yourPlan:'🍽 Thực đơn {count} bữa của bạn',meal:'Bữa',replace:'Đổi món',addPlan:'Thêm thực đơn vào giỏ',
   cartTitle:'Giỏ hàng',cartSub:'Các món bạn đã chọn',clear:'Xóa giỏ',emptyCart:'Giỏ hàng đang trống<br>Hãy thêm món từ thực đơn',cartTotal:'Tổng tiền',checkoutTitle:'Thông tin đặt hàng',namePh:'Tên',surnamePh:'Họ',phonePh:'Số điện thoại',contactMethodLabel:'Kênh liên hệ thuận tiện',contactZaloPh:'Số điện thoại dùng Zalo',contactWhatsappPh:'Số điện thoại WhatsApp',contactTelegramPh:'Telegram (@username)',addressPh:'Địa chỉ giao hàng',mapLabel:'Điểm giao hàng trên bản đồ',mapPh:'Link vị trí trên Google Maps',openMap:'Mở bản đồ',commentPh:'Ghi chú',checkout:'Gửi đơn hàng',
+  navLoyalty:'Điểm thưởng',loyaltyTitle:'Chương trình điểm thưởng EatFit',loyaltySub:'Đăng ký và nhận 30.000 VND điểm thưởng cho đơn đầu tiên.',loyaltyModalTitle:'Chương trình điểm thưởng',loyaltyModalSub:'Đăng ký để nhận ưu đãi cho đơn đầu tiên và tích 5% cho các đơn sau.',loyaltyRegister:'Đăng ký',loyaltyUpdate:'Cập nhật thông tin',loyaltyBalance:'số dư',loyaltyOrders:'đơn hàng',loyaltyRegistered:'Bạn đã đăng ký. Điểm thưởng hiện có: {balance}.',loyaltySaved:'Đăng ký thành công. Đã cộng {balance} điểm thưởng.',loyaltyError:'Không thể cập nhật điểm thưởng. Vui lòng thử lại sau.',useBonus:'Dùng điểm thưởng',bonusNote:'Điểm thưởng sẽ được tính khi xác nhận đơn hàng.',bonusApplied:'Đã dùng: {applied}. Được cộng: {earned}. Số dư: {balance}.',
   successTitle:'Cảm ơn bạn đã đặt hàng!',successText:'Đơn hàng của bạn đã được ghi nhận. Nhân viên sẽ liên hệ để xác nhận chi tiết và thanh toán.',
   left:'còn {value} {unit}',above:'+{value} {unit} vượt mục tiêu',from:'trong tổng {value} {unit}',dishSelect:'Chọn món',foodSearch:'🔍 Tìm món...',selectedNow:'✓ Đang chọn',
   alertEmptyCart:'Giỏ hàng đang trống',alertCheckout:'Vui lòng điền tất cả thông tin đặt hàng, trừ ghi chú',alertOrderError:'Không gửi được đơn hàng',alertServer:'Không thể kết nối với máy chủ',alertMeals:'Vui lòng chọn số bữa trước',alertKbju:'Vui lòng tính macro trước',alertPlan:'Vui lòng tạo thực đơn trước',fillKbju:'Nhập tuổi, chiều cao và cân nặng để tính macro',
@@ -1025,6 +1100,109 @@ function updateContactPlaceholder(){
  field.placeholder=placeholders[method] || t('contactZaloPh');
 }
 
+function updateLoyaltyContactPlaceholder(){
+ const method=document.getElementById('loyaltyContactMethod')?.value || 'zalo';
+ const field=document.getElementById('loyaltyContactValue');
+ if(!field) return;
+ const placeholders={
+  zalo:t('contactZaloPh'),
+  whatsapp:t('contactWhatsappPh'),
+  telegram:t('contactTelegramPh')
+ };
+ field.placeholder=placeholders[method] || t('contactZaloPh');
+}
+
+function formatVnd(value){
+ return `${Math.max(0,Math.round(Number(value)||0)).toLocaleString()} VND`;
+}
+
+function currentLoyaltyPhone(){
+ return localStorage.getItem('eatfit_loyalty_phone') || '';
+}
+
+async function fetchLoyaltyStatus(phone=currentLoyaltyPhone()){
+ if(!phone) {loyaltyUser=null; renderLoyalty(); return;}
+ try{
+  const response=await fetch(`${API_BASE}/loyalty-status?phone=${encodeURIComponent(phone)}`);
+  const data=await response.json();
+  loyaltyUser=data.registered ? data.user : null;
+  renderLoyalty();
+ }catch(e){
+  loyaltyUser=null;
+  renderLoyalty();
+ }
+}
+
+function renderLoyalty(){
+ const balance=loyaltyUser ? loyaltyUser.bonus_balance : 0;
+ setText('.loyalty-title',t('loyaltyTitle'));
+ setText('.loyalty-sub',loyaltyUser ? t('loyaltyRegistered',{balance:formatVnd(balance)}) : t('loyaltySub'));
+ setText('#loyaltyBalance',formatVnd(balance));
+ setText('#loyaltyBalanceLabel',t('loyaltyBalance'));
+ setText('#loyaltyOrders',loyaltyUser ? String(loyaltyUser.orders_count||0) : '0');
+ setText('#loyaltyOrdersLabel',t('loyaltyOrders'));
+ const loyaltyBtn=document.querySelector('.loyalty-actions .btn');
+ if(loyaltyBtn) loyaltyBtn.textContent=loyaltyUser ? t('loyaltyUpdate') : t('loyaltyRegister');
+ const bonusBox=document.getElementById('bonusBox');
+ if(bonusBox) bonusBox.classList.toggle('show',Boolean(loyaltyUser && balance>0));
+ setText('#useBonusLabel',t('useBonus'));
+ setText('#bonusAvailable',formatVnd(balance));
+ setText('#bonusNote',t('bonusNote'));
+}
+
+function openLoyalty(){
+ document.getElementById('loyaltyModal')?.classList.add('show');
+ if(loyaltyUser){
+  document.getElementById('loyaltyName').value=loyaltyUser.name||'';
+  document.getElementById('loyaltySurname').value=loyaltyUser.surname||'';
+  document.getElementById('loyaltyPhone').value=loyaltyUser.phone||'';
+  document.getElementById('loyaltyContactMethod').value=loyaltyUser.contact_method||'zalo';
+  document.getElementById('loyaltyContactValue').value=loyaltyUser.contact_value||'';
+ }
+ updateLoyaltyContactPlaceholder();
+}
+
+function closeLoyalty(event){
+ if(event && event.target && event.target.id!=='loyaltyModal') return;
+ document.getElementById('loyaltyModal')?.classList.remove('show');
+}
+
+async function registerLoyalty(){
+ const payload={
+  name:document.getElementById('loyaltyName').value.trim(),
+  surname:document.getElementById('loyaltySurname').value.trim(),
+  phone:document.getElementById('loyaltyPhone').value.trim(),
+  contact_method:document.getElementById('loyaltyContactMethod').value,
+  contact_value:document.getElementById('loyaltyContactValue').value.trim()
+ };
+ const result=document.getElementById('loyaltyResult');
+ if(!payload.name || !payload.surname || !payload.phone || !payload.contact_value){
+  if(result){result.style.display='block';result.textContent=t('alertCheckout');}
+  return;
+ }
+ try{
+  const response=await fetch(`${API_BASE}/loyalty-register`,{
+   method:'POST',
+   headers:{'Content-Type':'application/json'},
+   body:JSON.stringify(payload)
+  });
+  const data=await response.json();
+  if(!data.success) throw new Error(data.error||'loyalty');
+  loyaltyUser=data.user;
+  localStorage.setItem('eatfit_loyalty_phone',loyaltyUser.phone);
+  if(result){result.style.display='block';result.textContent=t('loyaltySaved',{balance:formatVnd(loyaltyUser.bonus_balance)});}
+  document.getElementById('name').value=loyaltyUser.name||'';
+  document.getElementById('surname').value=loyaltyUser.surname||'';
+  document.getElementById('phone').value=loyaltyUser.phone||'';
+  document.getElementById('contactMethod').value=loyaltyUser.contact_method||'zalo';
+  document.getElementById('contactValue').value=loyaltyUser.contact_value||'';
+  updateContactPlaceholder();
+  renderLoyalty();
+ }catch(e){
+  if(result){result.style.display='block';result.textContent=t('loyaltyError');}
+ }
+}
+
 function openDeliveryMap(){
  const address=document.getElementById('address')?.value.trim();
  const query=encodeURIComponent(address || 'Vietnam');
@@ -1046,9 +1224,10 @@ function applyLanguage(){
  const actions=document.querySelectorAll('.site-actions button');
  if(actions[0]) actions[0].textContent=t('navCalc');
  if(actions[1]) actions[1].textContent=t('navPlanner');
- if(actions[2]) actions[2].textContent=t('navContacts');
- if(actions[3]) actions[3].textContent=t('navFaq');
- if(actions[4]) actions[4].innerHTML=`${t('navCart')} <b id="count">${cart.reduce((a,b)=>a+b.qty,0)}</b>`;
+ if(actions[2]) actions[2].textContent=t('navLoyalty');
+ if(actions[3]) actions[3].textContent=t('navContacts');
+ if(actions[4]) actions[4].textContent=t('navFaq');
+ if(actions[5]) actions[5].innerHTML=`${t('navCart')} <b id="count">${cart.reduce((a,b)=>a+b.qty,0)}</b>`;
 
  setText('.hero-eyebrow',t('heroEyebrow'));
  setText('.hero h2',t('heroTitle'));
@@ -1092,6 +1271,16 @@ function applyLanguage(){
  if(contactNotes[1]) contactNotes[1].textContent=t('contactTelegram');
  if(contactNotes[2]) contactNotes[2].textContent=t('contactZalo');
  setText('.contact-small',t('contactSmall'));
+
+ setText('.loyalty-head h2',t('loyaltyModalTitle'));
+ setText('.loyalty-head p',t('loyaltyModalSub'));
+ setPlaceholder('loyaltyName',t('namePh'));
+ setPlaceholder('loyaltySurname',t('surnamePh'));
+ setPlaceholder('loyaltyPhone',t('phonePh'));
+ updateLoyaltyContactPlaceholder();
+ const loyaltyRegisterBtn=document.querySelector('.loyalty-box .btn');
+ if(loyaltyRegisterBtn) loyaltyRegisterBtn.textContent=t('loyaltyRegister');
+ renderLoyalty();
 
  setText('.kbju-modal-head h2',t('calcTitle'));
  setText('.kbju-modal-head p',t('calcSub'));
@@ -1398,6 +1587,7 @@ function renderCart(){
 
  document.getElementById('cartTotalPrice').textContent=totalPrice.toLocaleString();
  document.getElementById('totalQty').textContent=totalQty;
+ renderLoyalty();
 }
 
 function closePanels(){
@@ -1445,6 +1635,7 @@ async function checkout(){
  const address=document.getElementById('address').value;
  const deliveryMap=document.getElementById('deliveryMap').value;
  const comment=document.getElementById('comment').value;
+ const useBonus=Boolean(loyaltyUser && document.getElementById('useBonus')?.checked);
 
  if(cart.length===0){ alert(t('alertEmptyCart')); return; }
  if(!name.trim() || !surname.trim() || !phone.trim() || !contactMethod || !contactValue.trim() || !address.trim() || !deliveryMap.trim()){
@@ -1479,6 +1670,8 @@ async function checkout(){
         delivery_map:deliveryMap,
         contact_method:contactMethod,
         contact_value:contactValue,
+        loyalty_phone:loyaltyUser ? loyaltyUser.phone : '',
+        use_bonus:useBonus,
         telegram:contactMethod==='telegram' ? contactValue : '',
         comment:comment,
         items:items,
@@ -1494,6 +1687,20 @@ async function checkout(){
    }
 
    document.getElementById('successOrderId').innerText = orderId;
+   const successBonus=document.getElementById('successBonus');
+   if(result.loyalty && result.loyalty.registered){
+      successBonus.style.display='block';
+      successBonus.textContent=t('bonusApplied',{
+        applied:formatVnd(result.loyalty.bonus_applied),
+        earned:formatVnd(result.loyalty.bonus_earned),
+        balance:formatVnd(result.loyalty.bonus_balance)
+      });
+      loyaltyUser={...loyaltyUser,bonus_balance:result.loyalty.bonus_balance,orders_count:(loyaltyUser?.orders_count||0)+1};
+      renderLoyalty();
+   }else if(successBonus){
+      successBonus.style.display='none';
+      successBonus.textContent='';
+   }
    document.getElementById('successModal').style.display='flex';
 
    cart=[];
@@ -1598,6 +1805,7 @@ window.renderProducts();
 renderCart();
 renderSavedKBJU();
 applyLanguage();
+fetchLoyaltyStatus();
 });
 
 
