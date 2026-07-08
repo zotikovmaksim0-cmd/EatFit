@@ -2,6 +2,7 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update, KeyboardButton, ReplyKeyboardMarkup
 from datetime import datetime
 import json
+import os
 from pathlib import Path
 from aiohttp import web
 import threading
@@ -52,8 +53,9 @@ ORDER_CHAT_ID = 619240147
 
 telegram_app = None
 
-ORDERS_FILE = Path("orders.json")
-USERS_FILE = Path("users.json")
+DATA_DIR = Path(os.getenv("EATFIT_DATA_DIR", "."))
+ORDERS_FILE = DATA_DIR / "orders.json"
+USERS_FILE = DATA_DIR / "users.json"
 WELCOME_BONUS = 30000
 BONUS_RATE = 0.05
 XP_PER_1000_VND = 1
@@ -74,6 +76,14 @@ LEVELS = [
 ]
 
 users = {}
+
+
+def write_json_file(path, data):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp_path = path.with_suffix(path.suffix + ".tmp")
+    with open(tmp_path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+    tmp_path.replace(path)
 
 
 def cors_response(data=None, status=200):
@@ -103,8 +113,7 @@ def now_iso():
 
 
 def save_users():
-    with open(USERS_FILE, "w", encoding="utf-8") as f:
-        json.dump(users, f, ensure_ascii=False, indent=2)
+    write_json_file(USERS_FILE, users)
 
 
 def load_users():
@@ -179,8 +188,7 @@ def update_order_streak(user):
     return int(user["streak_days"]), True
 
 def save_orders():
-    with open(ORDERS_FILE, "w", encoding="utf-8") as f:
-        json.dump(orders, f, ensure_ascii=False, indent=2)
+    write_json_file(ORDERS_FILE, orders)
 
 def load_orders():
     global orders
