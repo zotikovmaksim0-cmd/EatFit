@@ -387,12 +387,18 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .action-btn:hover,.cart-btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.22)}
 .action-btn.primary{background:linear-gradient(135deg,#78d83d,#48a820);border-color:transparent;color:#fff;box-shadow:0 12px 28px rgba(99,189,43,.22)}
 .cart-btn{background:#fff;color:#172015;border-color:transparent;box-shadow:0 12px 26px rgba(0,0,0,.16)}
-.language-switch{display:inline-flex;align-items:center;gap:7px;height:46px;padding:0 9px;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:rgba(255,255,255,.08)}
-.language-flag{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;font-size:9px;font-weight:950;color:var(--flag-text,#172015);box-shadow:inset 0 0 0 1px rgba(255,255,255,.5),0 6px 14px rgba(0,0,0,.14);background:var(--flag-bg,#fff)}
-.language-switch.lang-ru{--flag-text:#172015;--flag-bg:linear-gradient(#fff 0 33%,#2856b6 33% 66%,#d83a35 66% 100%)}
-.language-switch.lang-en{--flag-text:#fff;--flag-bg:linear-gradient(135deg,#1f4f9a 0 38%,#fff 38% 45%,#c4323b 45% 55%,#fff 55% 62%,#1f4f9a 62% 100%)}
-.language-switch.lang-vi{--flag-text:#ffe36e;--flag-bg:#d8292f}
-.language-switch select{height:44px;width:auto;margin:0;border:0;border-radius:0;background:transparent;color:#edf8ea;font-weight:900;padding:0 2px;outline:none;cursor:pointer}
+.language-switch{position:relative;display:inline-flex;align-items:center;height:46px;min-width:68px;border:1px solid rgba(255,255,255,.18);border-radius:16px;overflow:hidden;box-shadow:0 10px 24px rgba(0,0,0,.16)}
+.language-switch.lang-ru{background:linear-gradient(#fff 0 33.33%,#1f57b8 33.33% 66.66%,#d52b1e 66.66% 100%)}
+.language-switch.lang-en{background:
+ linear-gradient(27deg,transparent 42%,#fff 42% 47%,#c8102e 47% 53%,#fff 53% 58%,transparent 58%),
+ linear-gradient(153deg,transparent 42%,#fff 42% 47%,#c8102e 47% 53%,#fff 53% 58%,transparent 58%),
+ linear-gradient(#fff 0 100%),
+ linear-gradient(90deg,transparent 38%,#c8102e 38% 62%,transparent 62%),
+ linear-gradient(transparent 35%,#c8102e 35% 65%,transparent 65%),
+ #012169}
+.language-switch.lang-vi{background:#da251d}
+.language-switch.lang-vi::before{content:'★';position:absolute;left:10px;top:50%;transform:translateY(-52%);color:#ffdf00;font-size:16px;line-height:1;text-shadow:0 1px 2px rgba(0,0,0,.18)}
+.language-switch select{position:relative;z-index:1;height:44px;width:100%;margin:0;border:0;border-radius:0;background:rgba(0,0,0,.18);color:#fff;font-weight:950;padding:0 10px 0 28px;outline:none;cursor:pointer;text-shadow:0 1px 3px rgba(0,0,0,.55)}
 .language-switch select option{color:#172015;background:#fff}
 .contact-modal{position:fixed;inset:0;z-index:5200;display:none;align-items:center;justify-content:center;padding:22px;background:rgba(8,13,7,.68);backdrop-filter:blur(10px)}
 .contact-modal.show{display:flex}
@@ -637,7 +643,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <button class="action-btn" onclick="openContacts()">Способы связи</button>
 <button class="action-btn" onclick="scrollFAQ()">FAQ</button>
 <button class="cart-btn" onclick="toggleCart()">Корзина <b id="count">0</b></button>
-<div class="language-switch" id="languageSwitch"><span class="language-flag" id="languageFlag">RU</span><select id="languageSelect" onchange="setLanguage(this.value)" aria-label="Language">
+<div class="language-switch" id="languageSwitch"><select id="languageSelect" onchange="setLanguage(this.value)" aria-label="Language">
 <option value="ru">RU</option>
 <option value="en">EN</option>
 <option value="vi">VI</option>
@@ -1435,7 +1441,6 @@ function applyLanguage(){
  if(langSelect) langSelect.value=currentLang;
  const langSwitch=document.getElementById('languageSwitch');
  if(langSwitch) langSwitch.className=`language-switch lang-${currentLang}`;
- setText('#languageFlag',currentLang.toUpperCase());
 
  setText('.brand-subtitle',t('brandSubtitle'));
  const actions=document.querySelectorAll('.site-actions button');
