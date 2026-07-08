@@ -726,7 +726,6 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 </div>
 <div class="loyalty-stats">
 <div class="loyalty-pill"><b id="loyaltyXp">0 XP</b><span id="loyaltyXpLabel">опыт</span></div>
-<div class="loyalty-pill"><b id="loyaltyCoins">0</b><span id="loyaltyCoinsLabel">coins</span></div>
 <div class="loyalty-pill"><b id="loyaltyStreak">0</b><span id="loyaltyStreakLabel">серия</span></div>
 <div class="loyalty-pill"><b id="loyaltyBalance">0 VND</b><span id="loyaltyBalanceLabel">бонусы</span></div>
 <div class="loyalty-pill"><b id="loyaltyOrders">0</b><span id="loyaltyOrdersLabel">заказов</span></div>
@@ -734,11 +733,10 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <div class="loyalty-benefits">
 <div class="loyalty-info accent"><strong id="loyaltyCurrentBenefitTitle">Ваш уровень</strong><span id="loyaltyCurrentBenefit">Приветственный подарок и доступ к EatFit Club.</span></div>
 <div class="loyalty-info"><strong id="loyaltyNextBenefitTitle">Следующая цель</strong><span id="loyaltyNextBenefit">Бесплатная доставка 1 раз в месяц и специальные акции.</span></div>
-<div class="loyalty-info"><strong id="loyaltyEarnTitle">Как копятся награды</strong><span id="loyaltyEarnText">За каждый заказ начисляются бонусы, XP и EatFit Coins.</span></div>
-<div class="loyalty-info"><strong id="loyaltySpendTitle">На что тратить Coins</strong><span id="loyaltySpendText">Напитки, десерты, доставку, блюда и подарки EatFit.</span></div>
+<div class="loyalty-info"><strong id="loyaltyEarnTitle">Как копятся награды</strong><span id="loyaltyEarnText">За каждый заказ начисляются бонусы и XP.</span></div>
+<div class="loyalty-info"><strong id="loyaltySpendTitle">Как использовать бонусы</strong><span id="loyaltySpendText">Бонусами можно оплатить часть следующего заказа.</span></div>
 </div>
 <div id="loyaltyLevels" class="loyalty-levels"></div>
-<div id="loyaltyRewards" class="loyalty-rewards"></div>
 </div>
 </div>
 </div>
@@ -991,7 +989,7 @@ const I18N={
   faqTitle:'Частые вопросы',faqSub:'Коротко о доставке, рационе и заказе.',
   plannerTitle:'Подбор рациона',plannerSub:'Соберите день под свои КБЖУ, а потом решите, добавлять ли его в корзину',dayGoal:'Цель на день',dayGoalSub:'Что уже в рационе и сколько осталось до КБЖУ',noGoal:'цель не задана',selectedPlanPrice:'Стоимость подобранного рациона',mealCount:'🍽 Количество приемов пищи',yourPlan:'🍽 Ваш рацион на {count} приемов пищи',meal:'Прием пищи',replace:'Заменить',addPlan:'Добавить рацион в корзину',
   cartTitle:'Корзина',cartSub:'Блюда, которые вы решили заказать',clear:'Очистить',emptyCart:'Корзина пуста<br>Добавьте блюда из каталога',cartTotal:'Итого в корзине',checkoutTitle:'Оформление заказа',namePh:'Имя',surnamePh:'Фамилия',phonePh:'Телефон',contactMethodLabel:'Удобный способ связи',contactZaloPh:'Номер телефона для Zalo',contactWhatsappPh:'Номер телефона WhatsApp',contactTelegramPh:'Telegram (@username)',addressPh:'Адрес доставки',mapLabel:'Точка доставки на карте',mapPh:'Ссылка на точку в Google Maps',openMap:'Открыть карты',commentPh:'Комментарий',checkout:'Оформить заказ',
-  navLoyalty:'Бонусы',loyaltyTitle:'EatFit Club',loyaltySub:'Зарегистрируйтесь один раз: получите подарок на первый заказ, возвращайте бонусы с каждой покупки и открывайте уровни со скидками, доставкой и подарками.',loyaltyPromo1:'30 000 VND на первый заказ',loyaltyPromo2:'Бонусы с каждой покупки',loyaltyPromo3:'Уровни открывают скидки и подарки',loyaltyModalTitle:'Бонусная программа',loyaltyModalSub:'Введите телефон: если вы уже зарегистрированы, мы откроем ваш профиль; если нет — создадим новый EatFit Club.',loyaltyRegister:'Войти / Зарегистрироваться',loyaltyUpdate:'Открыть профиль',loyaltyLoading:'Проверяем ваш EatFit Club...',loyaltyManualFallback:'Сервис бонусов сейчас не ответил. Вы можете продолжить оформление заказа: менеджер свяжется с вами и привяжет бонусы вручную.',loyaltyNextStep:'Теперь можно перейти в корзину: данные уже подставлены, бонусы будут видны в заказе.',loyaltyBalance:'бонусы',loyaltyLevel:'уровень',loyaltyXp:'опыт',loyaltyCoins:'coins',loyaltyStreak:'серия',loyaltyOrders:'заказов',loyaltyRegistered:'Вы вошли в EatFit Club. Доступно бонусов: {balance}.',loyaltySaved:'Регистрация готова. Начислено {balance} бонусов.',loyaltyLoggedIn:'Профиль найден. Это ваш текущий баланс: {balance}.',loyaltyNeedDetails:'Этот номер еще не зарегистрирован. Заполните имя, фамилию и удобный способ связи.',loyaltyError:'Не удалось обновить бонусы. Попробуйте позже.',useBonus:'Списать бонусы',bonusNote:'Бонусы будут учтены при подтверждении заказа.',bonusApplied:'Списано бонусов: {applied}. Начислено: {earned}. XP: +{xp}. Coins: +{coins}. Серия: {streak} дн. Баланс: {balance}.',
+  navLoyalty:'Бонусы',loyaltyTitle:'EatFit Club',loyaltySub:'Зарегистрируйтесь один раз: получите подарок на первый заказ, возвращайте бонусы с каждой покупки и открывайте уровни со скидками, доставкой и подарками.',loyaltyPromo1:'30 000 VND на первый заказ',loyaltyPromo2:'Бонусы с каждой покупки',loyaltyPromo3:'Уровни открывают скидки и подарки',loyaltyModalTitle:'Бонусная программа',loyaltyModalSub:'Введите телефон: если вы уже зарегистрированы, мы откроем ваш профиль; если нет — создадим новый EatFit Club.',loyaltyRegister:'Войти / Зарегистрироваться',loyaltyUpdate:'Открыть профиль',loyaltyLoading:'Проверяем ваш EatFit Club...',loyaltyManualFallback:'Сервис бонусов сейчас не ответил. Вы можете продолжить оформление заказа: менеджер свяжется с вами и привяжет бонусы вручную.',loyaltyNextStep:'Теперь можно перейти в корзину: данные уже подставлены, бонусы будут видны в заказе.',loyaltyBalance:'бонусы',loyaltyLevel:'уровень',loyaltyXp:'опыт',loyaltyStreak:'серия',loyaltyOrders:'заказов',loyaltyRegistered:'Вы вошли в EatFit Club. Доступно бонусов: {balance}.',loyaltySaved:'Регистрация готова. Начислено {balance} бонусов.',loyaltyLoggedIn:'Профиль найден. Это ваш текущий баланс: {balance}.',loyaltyNeedDetails:'Этот номер еще не зарегистрирован. Заполните имя, фамилию и удобный способ связи.',loyaltyError:'Не удалось обновить бонусы. Попробуйте позже.',useBonus:'Списать бонусы',bonusNote:'Бонусы будут учтены при подтверждении заказа.',bonusApplied:'Списано бонусов: {applied}. Начислено: {earned}. XP: +{xp}. Серия: {streak} дн. Баланс: {balance}.',
   successTitle:'Спасибо за заказ!',successText:'Ваш заказ принят. Менеджер свяжется с вами для подтверждения деталей и оплаты.',
   left:'{value} {unit} осталось',above:'+{value} {unit} выше цели',from:'из {value} {unit}',dishSelect:'Выберите блюдо',foodSearch:'🔍 Поиск блюда...',selectedNow:'✓ Выбрано сейчас',
   alertEmptyCart:'Корзина пустая',alertCheckout:'Заполните все поля заказа, кроме комментария',alertOrderError:'Ошибка отправки заказа',alertServer:'Не удалось связаться с сервером',alertMeals:'Сначала выберите количество приемов пищи',alertKbju:'Сначала рассчитайте КБЖУ',alertPlan:'Сначала подберите рацион',fillKbju:'Заполните возраст, рост и вес, чтобы рассчитать КБЖУ',
@@ -1041,7 +1039,7 @@ const I18N={
   faqTitle:'Frequently asked questions',faqSub:'Short answers about delivery, meal plans and orders.',
   plannerTitle:'Meal plan builder',plannerSub:'Build a day around your macros, then decide whether to add it to cart',dayGoal:'Daily goal',dayGoalSub:'What is already in the plan and what remains',noGoal:'goal not set',selectedPlanPrice:'Selected meal plan price',mealCount:'🍽 Number of meals',yourPlan:'🍽 Your plan for {count} meals',meal:'Meal',replace:'Replace',addPlan:'Add plan to cart',
   cartTitle:'Cart',cartSub:'Dishes you decided to order',clear:'Clear',emptyCart:'Cart is empty<br>Add dishes from the catalog',cartTotal:'Cart total',checkoutTitle:'Checkout',namePh:'Name',surnamePh:'Last name',phonePh:'Phone',contactMethodLabel:'Preferred contact method',contactZaloPh:'Phone number for Zalo',contactWhatsappPh:'WhatsApp phone number',contactTelegramPh:'Telegram (@username)',addressPh:'Delivery address',mapLabel:'Delivery point on map',mapPh:'Google Maps point link',openMap:'Open maps',commentPh:'Comment',checkout:'Place order',
-  navLoyalty:'Bonuses',loyaltyTitle:'EatFit Club',loyaltySub:'Register once: get a first-order gift, earn bonuses from every purchase and unlock levels with discounts, delivery perks and gifts.',loyaltyPromo1:'30,000 VND for the first order',loyaltyPromo2:'Bonuses from every purchase',loyaltyPromo3:'Levels unlock discounts and gifts',loyaltyModalTitle:'Loyalty program',loyaltyModalSub:'Enter your phone: if you are registered, we will open your profile; if not, we will create a new EatFit Club account.',loyaltyRegister:'Sign in / Register',loyaltyUpdate:'Open profile',loyaltyLoading:'Checking your EatFit Club...',loyaltyManualFallback:'The bonus service did not respond. You can continue checkout: a manager will contact you and attach bonuses manually.',loyaltyNextStep:'You can now continue to the cart: your details are filled in and bonuses will appear in the order.',loyaltyBalance:'bonuses',loyaltyLevel:'level',loyaltyXp:'XP',loyaltyCoins:'coins',loyaltyStreak:'streak',loyaltyOrders:'orders',loyaltyRegistered:'You are signed in to EatFit Club. Available bonuses: {balance}.',loyaltySaved:'Registration is ready. {balance} in bonuses added.',loyaltyLoggedIn:'Profile found. Your current balance is {balance}.',loyaltyNeedDetails:'This phone is not registered yet. Fill in your name, surname and preferred contact method.',loyaltyError:'Could not update bonuses. Please try again later.',useBonus:'Use bonuses',bonusNote:'Bonuses will be included when the order is confirmed.',bonusApplied:'Bonuses used: {applied}. Earned: {earned}. XP: +{xp}. Coins: +{coins}. Streak: {streak} days. Balance: {balance}.',
+  navLoyalty:'Bonuses',loyaltyTitle:'EatFit Club',loyaltySub:'Register once: get a first-order gift, earn bonuses from every purchase and unlock levels with discounts, delivery perks and gifts.',loyaltyPromo1:'30,000 VND for the first order',loyaltyPromo2:'Bonuses from every purchase',loyaltyPromo3:'Levels unlock discounts and gifts',loyaltyModalTitle:'Loyalty program',loyaltyModalSub:'Enter your phone: if you are registered, we will open your profile; if not, we will create a new EatFit Club account.',loyaltyRegister:'Sign in / Register',loyaltyUpdate:'Open profile',loyaltyLoading:'Checking your EatFit Club...',loyaltyManualFallback:'The bonus service did not respond. You can continue checkout: a manager will contact you and attach bonuses manually.',loyaltyNextStep:'You can now continue to the cart: your details are filled in and bonuses will appear in the order.',loyaltyBalance:'bonuses',loyaltyLevel:'level',loyaltyXp:'XP',loyaltyStreak:'streak',loyaltyOrders:'orders',loyaltyRegistered:'You are signed in to EatFit Club. Available bonuses: {balance}.',loyaltySaved:'Registration is ready. {balance} in bonuses added.',loyaltyLoggedIn:'Profile found. Your current balance is {balance}.',loyaltyNeedDetails:'This phone is not registered yet. Fill in your name, surname and preferred contact method.',loyaltyError:'Could not update bonuses. Please try again later.',useBonus:'Use bonuses',bonusNote:'Bonuses will be included when the order is confirmed.',bonusApplied:'Bonuses used: {applied}. Earned: {earned}. XP: +{xp}. Streak: {streak} days. Balance: {balance}.',
   successTitle:'Thank you for your order!',successText:'Your order has been received. A manager will contact you to confirm the details and payment.',
   left:'{value} {unit} left',above:'+{value} {unit} over goal',from:'of {value} {unit}',dishSelect:'Choose a dish',foodSearch:'🔍 Search dish...',selectedNow:'✓ Selected now',
   alertEmptyCart:'Cart is empty',alertCheckout:'Fill in every checkout field except comment',alertOrderError:'Order sending error',alertServer:'Could not connect to the server',alertMeals:'First choose the number of meals',alertKbju:'First calculate your macros',alertPlan:'First build a meal plan',fillKbju:'Fill in age, height and weight to calculate macros',
@@ -1091,7 +1089,7 @@ const I18N={
   faqTitle:'Câu hỏi thường gặp',faqSub:'Thông tin ngắn gọn về giao hàng, thực đơn và đặt món.',
   plannerTitle:'Lên thực đơn',plannerSub:'Tạo thực đơn theo macro của bạn, xem trước rồi quyết định có thêm vào giỏ hàng hay không',dayGoal:'Mục tiêu trong ngày',dayGoalSub:'Phần đã chọn trong thực đơn và phần còn thiếu so với mục tiêu',noGoal:'chưa đặt mục tiêu',selectedPlanPrice:'Giá thực đơn đã chọn',mealCount:'🍽 Số bữa',yourPlan:'🍽 Thực đơn {count} bữa của bạn',meal:'Bữa',replace:'Đổi món',addPlan:'Thêm thực đơn vào giỏ',
   cartTitle:'Giỏ hàng',cartSub:'Các món bạn đã chọn',clear:'Xóa giỏ',emptyCart:'Giỏ hàng đang trống<br>Hãy thêm món từ thực đơn',cartTotal:'Tổng tiền',checkoutTitle:'Thông tin đặt hàng',namePh:'Tên',surnamePh:'Họ',phonePh:'Số điện thoại',contactMethodLabel:'Kênh liên hệ thuận tiện',contactZaloPh:'Số điện thoại dùng Zalo',contactWhatsappPh:'Số điện thoại WhatsApp',contactTelegramPh:'Telegram (@username)',addressPh:'Địa chỉ giao hàng',mapLabel:'Điểm giao hàng trên bản đồ',mapPh:'Link vị trí trên Google Maps',openMap:'Mở bản đồ',commentPh:'Ghi chú',checkout:'Gửi đơn hàng',
-  navLoyalty:'Điểm thưởng',loyaltyTitle:'EatFit Club',loyaltySub:'Đăng ký một lần: nhận quà cho đơn đầu tiên, tích điểm từ mỗi lần mua và mở cấp độ với giảm giá, giao hàng và quà tặng.',loyaltyPromo1:'30.000 VND cho đơn đầu tiên',loyaltyPromo2:'Điểm thưởng từ mỗi đơn hàng',loyaltyPromo3:'Cấp độ mở giảm giá và quà tặng',loyaltyModalTitle:'Chương trình điểm thưởng',loyaltyModalSub:'Nhập số điện thoại: nếu bạn đã đăng ký, chúng tôi sẽ mở hồ sơ; nếu chưa, chúng tôi sẽ tạo tài khoản EatFit Club mới.',loyaltyRegister:'Đăng nhập / Đăng ký',loyaltyUpdate:'Mở hồ sơ',loyaltyLoading:'Đang kiểm tra EatFit Club...',loyaltyManualFallback:'Dịch vụ điểm thưởng chưa phản hồi. Bạn vẫn có thể tiếp tục đặt hàng: nhân viên sẽ liên hệ và thêm điểm thưởng thủ công.',loyaltyNextStep:'Bạn có thể tiếp tục vào giỏ hàng: thông tin đã được điền và điểm thưởng sẽ hiển thị trong đơn.',loyaltyBalance:'điểm thưởng',loyaltyLevel:'cấp độ',loyaltyXp:'XP',loyaltyCoins:'coins',loyaltyStreak:'chuỗi',loyaltyOrders:'đơn hàng',loyaltyRegistered:'Bạn đã đăng nhập EatFit Club. Điểm thưởng hiện có: {balance}.',loyaltySaved:'Đăng ký thành công. Đã cộng {balance} điểm thưởng.',loyaltyLoggedIn:'Đã tìm thấy hồ sơ. Số dư hiện tại: {balance}.',loyaltyNeedDetails:'Số điện thoại này chưa đăng ký. Vui lòng nhập tên, họ và cách liên hệ thuận tiện.',loyaltyError:'Không thể cập nhật điểm thưởng. Vui lòng thử lại sau.',useBonus:'Dùng điểm thưởng',bonusNote:'Điểm thưởng sẽ được tính khi xác nhận đơn hàng.',bonusApplied:'Đã dùng: {applied}. Được cộng: {earned}. XP: +{xp}. Coins: +{coins}. Chuỗi: {streak} ngày. Số dư: {balance}.',
+  navLoyalty:'Điểm thưởng',loyaltyTitle:'EatFit Club',loyaltySub:'Đăng ký một lần: nhận quà cho đơn đầu tiên, tích điểm từ mỗi lần mua và mở cấp độ với giảm giá, giao hàng và quà tặng.',loyaltyPromo1:'30.000 VND cho đơn đầu tiên',loyaltyPromo2:'Điểm thưởng từ mỗi đơn hàng',loyaltyPromo3:'Cấp độ mở giảm giá và quà tặng',loyaltyModalTitle:'Chương trình điểm thưởng',loyaltyModalSub:'Nhập số điện thoại: nếu bạn đã đăng ký, chúng tôi sẽ mở hồ sơ; nếu chưa, chúng tôi sẽ tạo tài khoản EatFit Club mới.',loyaltyRegister:'Đăng nhập / Đăng ký',loyaltyUpdate:'Mở hồ sơ',loyaltyLoading:'Đang kiểm tra EatFit Club...',loyaltyManualFallback:'Dịch vụ điểm thưởng chưa phản hồi. Bạn vẫn có thể tiếp tục đặt hàng: nhân viên sẽ liên hệ và thêm điểm thưởng thủ công.',loyaltyNextStep:'Bạn có thể tiếp tục vào giỏ hàng: thông tin đã được điền và điểm thưởng sẽ hiển thị trong đơn.',loyaltyBalance:'điểm thưởng',loyaltyLevel:'cấp độ',loyaltyXp:'XP',loyaltyStreak:'chuỗi',loyaltyOrders:'đơn hàng',loyaltyRegistered:'Bạn đã đăng nhập EatFit Club. Điểm thưởng hiện có: {balance}.',loyaltySaved:'Đăng ký thành công. Đã cộng {balance} điểm thưởng.',loyaltyLoggedIn:'Đã tìm thấy hồ sơ. Số dư hiện tại: {balance}.',loyaltyNeedDetails:'Số điện thoại này chưa đăng ký. Vui lòng nhập tên, họ và cách liên hệ thuận tiện.',loyaltyError:'Không thể cập nhật điểm thưởng. Vui lòng thử lại sau.',useBonus:'Dùng điểm thưởng',bonusNote:'Điểm thưởng sẽ được tính khi xác nhận đơn hàng.',bonusApplied:'Đã dùng: {applied}. Được cộng: {earned}. XP: +{xp}. Chuỗi: {streak} ngày. Số dư: {balance}.',
   successTitle:'Cảm ơn bạn đã đặt hàng!',successText:'Đơn hàng của bạn đã được ghi nhận. Nhân viên sẽ liên hệ để xác nhận chi tiết và thanh toán.',
   left:'còn {value} {unit}',above:'+{value} {unit} vượt mục tiêu',from:'trong tổng {value} {unit}',dishSelect:'Chọn món',foodSearch:'🔍 Tìm món...',selectedNow:'✓ Đang chọn',
   alertEmptyCart:'Giỏ hàng đang trống',alertCheckout:'Vui lòng điền tất cả thông tin đặt hàng, trừ ghi chú',alertOrderError:'Không gửi được đơn hàng',alertServer:'Không thể kết nối với máy chủ',alertMeals:'Vui lòng chọn số bữa trước',alertKbju:'Vui lòng tính macro trước',alertPlan:'Vui lòng tạo thực đơn trước',fillKbju:'Nhập tuổi, chiều cao và cân nặng để tính macro',
@@ -1186,8 +1184,8 @@ function currentLoyaltyPhone(){
 const LOYALTY_LEVELS=[
  {name:'Rookie',xp:0,benefits:{ru:'Приветственный подарок и доступ к EatFit Club.',en:'Welcome gift and access to EatFit Club.',vi:'Quà chào mừng và quyền truy cập EatFit Club.'}},
  {name:'Athlete',xp:5000,benefits:{ru:'Бесплатная доставка 1 раз в месяц и специальные акции.',en:'One free delivery per month and special offers.',vi:'Miễn phí giao hàng 1 lần mỗi tháng và ưu đãi riêng.'}},
- {name:'Champion',xp:15000,benefits:{ru:'Постоянная скидка 5%, ранний доступ к новым блюдам и обмен Coins.',en:'Permanent 5% discount, early access to new dishes and Coins exchange.',vi:'Giảm giá cố định 5%, ưu tiên món mới và đổi Coins.'}},
- {name:'Elite',xp:35000,benefits:{ru:'Скидка 7%, 2 бесплатные доставки в месяц, закрытые акции и больше Coins.',en:'7% discount, two free deliveries per month, private offers and more Coins.',vi:'Giảm 7%, miễn phí giao 2 lần mỗi tháng, ưu đãi riêng và nhiều Coins hơn.'}},
+ {name:'Champion',xp:15000,benefits:{ru:'Постоянная скидка 5% и ранний доступ к новым блюдам.',en:'Permanent 5% discount and early access to new dishes.',vi:'Giảm giá cố định 5% và ưu tiên món mới.'}},
+ {name:'Elite',xp:35000,benefits:{ru:'Скидка 7%, 2 бесплатные доставки в месяц и закрытые акции.',en:'7% discount, two free deliveries per month and private offers.',vi:'Giảm 7%, miễn phí giao 2 lần mỗi tháng và ưu đãi riêng.'}},
  {name:'Legend',xp:70000,benefits:{ru:'Скидка 10%, приоритетная поддержка, дегустации новинок и эксклюзивные подарки.',en:'10% discount, priority support, tastings and exclusive gifts.',vi:'Giảm 10%, hỗ trợ ưu tiên, thử món mới và quà độc quyền.'}}
 ];
 
@@ -1198,14 +1196,9 @@ const LOYALTY_TEXT={
   currentBenefit:'Ваш уровень',
   nextBenefit:'Следующая цель',
   earnTitle:'Как копятся награды',
-  earnText:'5% от суммы заказа возвращается бонусами. За каждые 1 000 VND вы получаете 1 XP, а за каждые 100 000 VND — 100 Coins.',
-  spendTitle:'На что тратить Coins',
-  spendText:'Coins можно обменивать на напитки, десерты, доставку, блюда и подарки EatFit.',
-  rewards:[
-   ['300 Coins','напиток'],
-   ['700 Coins','протеиновый десерт'],
-   ['1 000 Coins','бесплатная доставка']
-  ],
+  earnText:'5% от суммы заказа возвращается бонусами. За каждые 1 000 VND заказа вы получаете 1 XP для роста уровня.',
+  spendTitle:'Как использовать бонусы',
+  spendText:'Бонусами можно оплатить часть следующего заказа. Чем выше уровень, тем больше постоянных преимуществ.',
   progress:(xp,next,remain)=> next ? `${xp.toLocaleString()} / ${next.xp.toLocaleString()} XP · осталось ${remain.toLocaleString()} XP` : `${xp.toLocaleString()} XP · уровень Legend открыт`
  },
  en:{
@@ -1214,14 +1207,9 @@ const LOYALTY_TEXT={
   currentBenefit:'Your level',
   nextBenefit:'Next goal',
   earnTitle:'How rewards grow',
-  earnText:'5% of every order comes back as bonuses. Every 1,000 VND gives 1 XP, and every 100,000 VND gives 100 Coins.',
-  spendTitle:'How to spend Coins',
-  spendText:'Coins can be exchanged for drinks, desserts, delivery, meals and EatFit gifts.',
-  rewards:[
-   ['300 Coins','drink'],
-   ['700 Coins','protein dessert'],
-   ['1,000 Coins','free delivery']
-  ],
+  earnText:'5% of every order comes back as bonuses. Every 1,000 VND gives 1 XP toward your next level.',
+  spendTitle:'How to use bonuses',
+  spendText:'Bonuses can pay for part of your next order. Higher levels unlock more permanent perks.',
   progress:(xp,next,remain)=> next ? `${xp.toLocaleString()} / ${next.xp.toLocaleString()} XP · ${remain.toLocaleString()} XP left` : `${xp.toLocaleString()} XP · Legend level unlocked`
  },
  vi:{
@@ -1230,14 +1218,9 @@ const LOYALTY_TEXT={
   currentBenefit:'Cấp của bạn',
   nextBenefit:'Mục tiêu tiếp theo',
   earnTitle:'Cách tích thưởng',
-  earnText:'5% giá trị đơn hàng được hoàn lại thành điểm thưởng. Mỗi 1.000 VND nhận 1 XP, mỗi 100.000 VND nhận 100 Coins.',
-  spendTitle:'Dùng Coins để đổi gì',
-  spendText:'Coins có thể đổi đồ uống, món tráng miệng, giao hàng, món ăn và quà EatFit.',
-  rewards:[
-   ['300 Coins','đồ uống'],
-   ['700 Coins','tráng miệng protein'],
-   ['1.000 Coins','miễn phí giao hàng']
-  ],
+  earnText:'5% giá trị đơn hàng được hoàn lại thành điểm thưởng. Mỗi 1.000 VND nhận 1 XP để tăng cấp.',
+  spendTitle:'Cách dùng điểm thưởng',
+  spendText:'Điểm thưởng có thể dùng để thanh toán một phần đơn tiếp theo. Cấp cao hơn mở thêm quyền lợi lâu dài.',
   progress:(xp,next,remain)=> next ? `${xp.toLocaleString()} / ${next.xp.toLocaleString()} XP · còn ${remain.toLocaleString()} XP` : `${xp.toLocaleString()} XP · đã mở cấp Legend`
  }
 };
@@ -1281,8 +1264,6 @@ function renderLoyalty(){
  setText('#loyaltyProgressNote',copy.progress(xp,next,remain));
  setText('#loyaltyXp',`${xp} XP`);
  setText('#loyaltyXpLabel',t('loyaltyXp'));
- setText('#loyaltyCoins',String(loyaltyUser ? loyaltyUser.coins || 0 : 0));
- setText('#loyaltyCoinsLabel',t('loyaltyCoins'));
  setText('#loyaltyStreak',String(loyaltyUser ? loyaltyUser.streak_days || 0 : 0));
  setText('#loyaltyStreakLabel',t('loyaltyStreak'));
  setText('#loyaltyBalance',formatVnd(balance));
@@ -1313,10 +1294,6 @@ function renderLoyalty(){
    const cls=item.name===level.name ? 'active' : item.xp>xp ? 'locked' : '';
    return `<div class="loyalty-level-card ${cls}"><b>${item.name}</b><span>${item.xp.toLocaleString()} XP</span></div>`;
   }).join('');
- }
- const rewards=document.getElementById('loyaltyRewards');
- if(rewards){
-  rewards.innerHTML=copy.rewards.map(item=>`<div class="loyalty-reward"><b>${item[0]}</b><span>${item[1]}</span></div>`).join('');
  }
 }
 
@@ -1358,10 +1335,9 @@ function renderLoyaltyProfile(){
  box.classList.add('show');
  box.innerHTML=[
   [t('loyaltyLevel'),loyaltyUser.level||'Rookie'],
-  [t('loyaltyBalance'),formatVnd(loyaltyUser.bonus_balance||0)],
-  [t('loyaltyXp'),`${loyaltyUser.xp||0} XP`],
-  [t('loyaltyCoins'),loyaltyUser.coins||0],
-  [t('loyaltyStreak'),loyaltyUser.streak_days||0],
+ [t('loyaltyBalance'),formatVnd(loyaltyUser.bonus_balance||0)],
+ [t('loyaltyXp'),`${loyaltyUser.xp||0} XP`],
+ [t('loyaltyStreak'),loyaltyUser.streak_days||0],
   [t('loyaltyOrders'),loyaltyUser.orders_count||0]
  ].map(item=>`<div><b>${item[1]}</b><span>${item[0]}</span></div>`).join('');
 }
@@ -1436,7 +1412,6 @@ async function registerLoyalty(){
    ...payload,
    bonus_balance:0,
    xp:0,
-   coins:0,
    level:'Rookie',
    streak_days:0,
    orders_count:0
@@ -1943,14 +1918,12 @@ async function checkout(){
         earned:formatVnd(result.loyalty.bonus_earned),
         balance:formatVnd(result.loyalty.bonus_balance),
         xp:result.loyalty.xp_earned || 0,
-        coins:result.loyalty.coins_earned || 0,
         streak:result.loyalty.streak_days || 0
       });
       loyaltyUser={
         ...loyaltyUser,
         bonus_balance:result.loyalty.bonus_balance,
         xp:result.loyalty.xp,
-        coins:result.loyalty.coins,
         level:result.loyalty.level,
         streak_days:result.loyalty.streak_days,
         orders_count:(loyaltyUser?.orders_count||0)+1
