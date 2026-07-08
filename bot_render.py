@@ -56,6 +56,22 @@ ORDERS_FILE = Path("orders.json")
 USERS_FILE = Path("users.json")
 WELCOME_BONUS = 30000
 BONUS_RATE = 0.05
+XP_PER_1000_VND = 1
+FIRST_ORDER_XP = 300
+FAST_FIRST_ORDER_XP = 500
+COINS_PER_100000_VND = 100
+STREAK_REWARDS = {
+    7: {"xp": 500, "coins": 0},
+    14: {"xp": 1000, "coins": 0},
+    30: {"xp": 2000, "coins": 1000},
+}
+LEVELS = [
+    {"name": "Legend", "xp": 70000},
+    {"name": "Elite", "xp": 35000},
+    {"name": "Champion", "xp": 15000},
+    {"name": "Athlete", "xp": 5000},
+    {"name": "Rookie", "xp": 0},
+]
 
 users = {}
 
@@ -100,6 +116,8 @@ def load_users():
 
 
 def public_user(user):
+    xp = int(user.get("xp", 0))
+    level = club_level(xp)
     return {
         "name": user.get("name", ""),
         "surname": user.get("surname", ""),
@@ -107,11 +125,58 @@ def public_user(user):
         "contact_method": user.get("contact_method", ""),
         "contact_value": user.get("contact_value", ""),
         "bonus_balance": int(user.get("bonus_balance", 0)),
+        "xp": xp,
+        "level": level["name"],
+        "level_min_xp": level["xp"],
+        "next_level": next_level(xp),
+        "coins": int(user.get("coins", 0)),
+        "streak_days": int(user.get("streak_days", 0)),
         "orders_count": int(user.get("orders_count", 0)),
         "total_spent": int(user.get("total_spent", 0)),
         "welcome_bonus": WELCOME_BONUS,
         "bonus_rate": BONUS_RATE,
     }
+
+
+def club_level(xp):
+    for level in LEVELS:
+        if xp >= level["xp"]:
+            return level
+    return LEVELS[-1]
+
+
+def next_level(xp):
+    ordered = list(reversed(LEVELS))
+    for level in ordered:
+        if xp < level["xp"]:
+            return level
+    return None
+
+
+def today_key():
+    return datetime.utcnow().date().isoformat()
+
+
+def update_order_streak(user):
+    today = today_key()
+    last_day = user.get("last_order_date", "")
+
+    if last_day == today:
+        return int(user.get("streak_days", 0)), False
+
+    try:
+        last_date = datetime.fromisoformat(last_day).date()
+        delta = (datetime.utcnow().date() - last_date).days
+    except Exception:
+        delta = None
+
+    if delta == 1:
+        user["streak_days"] = int(user.get("streak_days", 0)) + 1
+    else:
+        user["streak_days"] = 1
+
+    user["last_order_date"] = today
+    return int(user["streak_days"]), True
 
 def save_orders():
     with open(ORDERS_FILE, "w", encoding="utf-8") as f:
@@ -921,26 +986,74 @@ async def site_order(request):
 
         loyalty_phone = normalize_phone(data.get("loyalty_phone") or data.get("phone"))
         loyalty_user = users.get(loyalty_phone)
+        if loyalty_phone and not loyalty_user:
+            users[loyalty_phone] = {
+                "name": data.get("name", ""),
+                "surname": data.get("surname", ""),
+                "phone": loyalty_phone,
+                "contact_method": contact_method,
+                "contact_value": contact_value,
+                "bonus_balance": 0,
+                "xp": 0,
+                "coins": 0,
+                "streak_days": 0,
+                "orders_count": 0,
+                "total_spent": 0,
+                "created_at": now_iso(),
+                "updated_at": now_iso(),
+                "auto_registered": True,
+            }
+            loyalty_user = users[loyalty_phone]
         use_bonus = bool(data.get("use_bonus"))
         total_value = int(float(data.get("total") or 0))
         bonus_applied = 0
         bonus_earned = 0
+        xp_earned = 0
+        coins_earned = 0
+        streak_days = 0
+        level_before = ""
+        level_after = ""
         final_total = total_value
         loyalty_line = ""
 
         if loyalty_user:
+            orders_before = int(loyalty_user.get("orders_count", 0))
+            level_before = club_level(int(loyalty_user.get("xp", 0)))["name"]
             available_bonus = int(loyalty_user.get("bonus_balance", 0))
             if use_bonus:
                 bonus_applied = min(available_bonus, total_value)
                 final_total = max(0, total_value - bonus_applied)
             bonus_earned = int(final_total * BONUS_RATE)
+            xp_earned = int(final_total / 1000) * XP_PER_1000_VND
+            if orders_before == 0:
+                xp_earned += FIRST_ORDER_XP
+                try:
+                    created_at = datetime.fromisoformat(loyalty_user.get("created_at", now_iso()))
+                    if (datetime.utcnow() - created_at).total_seconds() <= 86400:
+                        xp_earned += FAST_FIRST_ORDER_XP
+                except Exception:
+                    pass
+            coins_earned = int(final_total / 100000) * COINS_PER_100000_VND
+            streak_days, streak_changed = update_order_streak(loyalty_user)
+            if streak_changed and streak_days in STREAK_REWARDS:
+                xp_earned += STREAK_REWARDS[streak_days]["xp"]
+                coins_earned += STREAK_REWARDS[streak_days]["coins"]
             loyalty_user["bonus_balance"] = available_bonus - bonus_applied + bonus_earned
+            loyalty_user["xp"] = int(loyalty_user.get("xp", 0)) + xp_earned
+            loyalty_user["coins"] = int(loyalty_user.get("coins", 0)) + coins_earned
             loyalty_user["orders_count"] = int(loyalty_user.get("orders_count", 0)) + 1
             loyalty_user["total_spent"] = int(loyalty_user.get("total_spent", 0)) + final_total
             loyalty_user["updated_at"] = now_iso()
+            level_after = club_level(int(loyalty_user.get("xp", 0)))["name"]
             save_users()
             loyalty_line = (
-                f"\n🎁 Бонусы клиента:\n"
+                f"\n🏆 EatFit Club:\n"
+                f"Уровень: {level_after}"
+                f"{' ↑' if level_before and level_before != level_after else ''}\n"
+                f"XP за заказ: +{xp_earned:,}\n"
+                f"EatFit Coins: +{coins_earned:,}\n"
+                f"Серия заказов: {streak_days} дн.\n\n"
+                f"🎁 Бонусы клиента:\n"
                 f"Списано: {bonus_applied:,} VND\n"
                 f"Начислится: {bonus_earned:,} VND\n"
                 f"Баланс после заказа: {loyalty_user['bonus_balance']:,} VND\n"
@@ -977,6 +1090,12 @@ async def site_order(request):
                 "bonus_earned": bonus_earned,
                 "bonus_balance": int(loyalty_user.get("bonus_balance", 0)) if loyalty_user else 0,
                 "final_total": final_total,
+                "xp_earned": xp_earned,
+                "coins_earned": coins_earned,
+                "xp": int(loyalty_user.get("xp", 0)) if loyalty_user else 0,
+                "coins": int(loyalty_user.get("coins", 0)) if loyalty_user else 0,
+                "level": level_after,
+                "streak_days": streak_days,
             }
         })
     except Exception as e:
@@ -1004,6 +1123,10 @@ async def loyalty_register(request):
             "contact_method": data.get("contact_method", user.get("contact_method", "")),
             "contact_value": data.get("contact_value", user.get("contact_value", "")),
             "bonus_balance": int(user.get("bonus_balance", WELCOME_BONUS if is_new else 0)),
+            "xp": int(user.get("xp", 0)),
+            "coins": int(user.get("coins", 0)),
+            "streak_days": int(user.get("streak_days", 0)),
+            "last_order_date": user.get("last_order_date", ""),
             "orders_count": int(user.get("orders_count", 0)),
             "total_spent": int(user.get("total_spent", 0)),
             "created_at": user.get("created_at", now_iso()),
