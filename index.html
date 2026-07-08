@@ -482,10 +482,16 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .loyalty-info span{display:block;color:#667461;font-size:13px;line-height:1.35}
 .loyalty-info.accent{background:#fff8e0;border-color:#eadb93}
 .loyalty-levels{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
-.loyalty-level-card{position:relative;padding:12px 10px;border:1px solid var(--line);border-radius:16px;background:#fff;color:#667461;font-size:12px;line-height:1.3;cursor:help;outline:none}
-.loyalty-level-card b{display:block;margin-bottom:4px;color:#172015;font-size:14px}
-.loyalty-level-card.active{border-color:#63bd2b;background:#f4fbef;box-shadow:0 8px 22px rgba(99,189,43,.11)}
-.loyalty-level-card.locked{background:#f7f8f5}
+.loyalty-level-card{position:relative;overflow:visible;padding:12px 10px;border:1px solid var(--level-line,var(--line));border-radius:16px;background:var(--level-bg,#fff);color:var(--level-text,#667461);font-size:12px;line-height:1.3;cursor:help;outline:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.45)}
+.loyalty-level-card::before{content:'';display:block;width:24px;height:4px;margin-bottom:9px;border-radius:999px;background:var(--level-accent,#63bd2b)}
+.loyalty-level-card b{display:block;margin-bottom:4px;color:var(--level-title,#172015);font-size:14px}
+.loyalty-level-card.rookie{--level-bg:#f7f9f4;--level-line:#dfe7d8;--level-accent:#8fa083;--level-title:#263022;--level-text:#667461}
+.loyalty-level-card.athlete{--level-bg:#f0faec;--level-line:#cfe8c4;--level-accent:#63bd2b;--level-title:#214318;--level-text:#527149}
+.loyalty-level-card.champion{--level-bg:#fff8df;--level-line:#eadb93;--level-accent:#d5aa28;--level-title:#4a3b13;--level-text:#776739}
+.loyalty-level-card.elite{--level-bg:#edf8f5;--level-line:#bfe0d9;--level-accent:#2a9d8f;--level-title:#123f3a;--level-text:#4e716c}
+.loyalty-level-card.legend{--level-bg:#fff1e8;--level-line:#efc9ad;--level-accent:#c86b3c;--level-title:#552611;--level-text:#7d5c4b}
+.loyalty-level-card.active{border-color:var(--level-accent,#63bd2b);box-shadow:0 10px 24px rgba(31,55,24,.11),inset 0 0 0 1px rgba(255,255,255,.6)}
+.loyalty-level-card.locked{filter:saturate(.72);opacity:.82}
 .loyalty-level-card:focus-visible{box-shadow:0 0 0 4px rgba(99,189,43,.16)}
 .loyalty-level-card-tip{position:absolute;left:50%;bottom:calc(100% + 10px);z-index:20;width:min(230px,70vw);padding:12px;border-radius:14px;background:#172015;color:#fff;font-size:12px;line-height:1.35;box-shadow:0 18px 36px rgba(8,18,6,.25);opacity:0;pointer-events:none;transform:translate(-50%,6px);transition:opacity .18s ease,transform .18s ease}
 .loyalty-level-card-tip::after{content:'';position:absolute;left:50%;top:100%;width:12px;height:12px;background:#172015;transform:translate(-50%,-6px) rotate(45deg)}
@@ -1277,9 +1283,10 @@ function renderLoyalty(){
  const levels=document.getElementById('loyaltyLevels');
  if(levels){
  levels.innerHTML=LOYALTY_LEVELS.map(item=>{
-   const cls=item.name===level.name ? 'active' : item.xp>xp ? 'locked' : '';
+   const levelClass=item.name.toLowerCase();
+   const stateClass=item.name===level.name ? 'active' : item.xp>xp ? 'locked' : '';
    const benefit=item.benefits[currentLang] || item.benefits.ru;
-   return `<div class="loyalty-level-card ${cls}" tabindex="0" aria-label="${item.name}: ${benefit}"><b>${item.name}</b><span>${item.xp.toLocaleString()} XP</span><small class="loyalty-level-card-tip">${benefit}</small></div>`;
+   return `<div class="loyalty-level-card ${levelClass} ${stateClass}" tabindex="0" aria-label="${item.name}: ${benefit}"><b>${item.name}</b><span>${item.xp.toLocaleString()} XP</span><small class="loyalty-level-card-tip">${benefit}</small></div>`;
   }).join('');
  }
 }
