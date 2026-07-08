@@ -387,7 +387,12 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .action-btn:hover,.cart-btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.22)}
 .action-btn.primary{background:linear-gradient(135deg,#78d83d,#48a820);border-color:transparent;color:#fff;box-shadow:0 12px 28px rgba(99,189,43,.22)}
 .cart-btn{background:#fff;color:#172015;border-color:transparent;box-shadow:0 12px 26px rgba(0,0,0,.16)}
-.language-switch select{height:46px;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:rgba(255,255,255,.08);color:#edf8ea;font-weight:900;padding:0 10px;outline:none;cursor:pointer}
+.language-switch{display:inline-flex;align-items:center;gap:7px;height:46px;padding:0 9px;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:rgba(255,255,255,.08)}
+.language-flag{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;font-size:9px;font-weight:950;color:var(--flag-text,#172015);box-shadow:inset 0 0 0 1px rgba(255,255,255,.5),0 6px 14px rgba(0,0,0,.14);background:var(--flag-bg,#fff)}
+.language-switch.lang-ru{--flag-text:#172015;--flag-bg:linear-gradient(#fff 0 33%,#2856b6 33% 66%,#d83a35 66% 100%)}
+.language-switch.lang-en{--flag-text:#fff;--flag-bg:linear-gradient(135deg,#1f4f9a 0 38%,#fff 38% 45%,#c4323b 45% 55%,#fff 55% 62%,#1f4f9a 62% 100%)}
+.language-switch.lang-vi{--flag-text:#ffe36e;--flag-bg:#d8292f}
+.language-switch select{height:44px;width:auto;margin:0;border:0;border-radius:0;background:transparent;color:#edf8ea;font-weight:900;padding:0 2px;outline:none;cursor:pointer}
 .language-switch select option{color:#172015;background:#fff}
 .contact-modal{position:fixed;inset:0;z-index:5200;display:none;align-items:center;justify-content:center;padding:22px;background:rgba(8,13,7,.68);backdrop-filter:blur(10px)}
 .contact-modal.show{display:flex}
@@ -632,7 +637,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <button class="action-btn" onclick="openContacts()">Способы связи</button>
 <button class="action-btn" onclick="scrollFAQ()">FAQ</button>
 <button class="cart-btn" onclick="toggleCart()">Корзина <b id="count">0</b></button>
-<div class="language-switch"><select id="languageSelect" onchange="setLanguage(this.value)" aria-label="Language">
+<div class="language-switch" id="languageSwitch"><span class="language-flag" id="languageFlag">RU</span><select id="languageSelect" onchange="setLanguage(this.value)" aria-label="Language">
 <option value="ru">RU</option>
 <option value="en">EN</option>
 <option value="vi">VI</option>
@@ -1428,6 +1433,9 @@ function applyLanguage(){
  document.documentElement.lang=currentLang;
  const langSelect=document.getElementById('languageSelect');
  if(langSelect) langSelect.value=currentLang;
+ const langSwitch=document.getElementById('languageSwitch');
+ if(langSwitch) langSwitch.className=`language-switch lang-${currentLang}`;
+ setText('#languageFlag',currentLang.toUpperCase());
 
  setText('.brand-subtitle',t('brandSubtitle'));
  const actions=document.querySelectorAll('.site-actions button');
