@@ -754,7 +754,6 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 </div>
 <div class="loyalty-stats">
 <div class="loyalty-pill"><b id="loyaltyXp">0 XP</b><span id="loyaltyXpLabel">опыт</span></div>
-<div class="loyalty-pill"><b id="loyaltyStreak">0</b><span id="loyaltyStreakLabel">серия</span></div>
 <div class="loyalty-pill"><b id="loyaltyBalance">0 VND</b><span id="loyaltyBalanceLabel">бонусы</span></div>
 <div class="loyalty-pill"><b id="loyaltyOrders">0</b><span id="loyaltyOrdersLabel">заказов</span></div>
 </div>
@@ -1389,8 +1388,6 @@ function renderLoyalty(){
  setText('#loyaltyProgressNote',copy.progress(xp,next,remain));
  setText('#loyaltyXp',`${xp} XP`);
  setText('#loyaltyXpLabel',t('loyaltyXp'));
- setText('#loyaltyStreak',String(loyaltyUser ? loyaltyUser.streak_days || 0 : 0));
- setText('#loyaltyStreakLabel',t('loyaltyStreak'));
  setText('#loyaltyBalance',formatVnd(balance));
  setText('#loyaltyBalanceLabel',t('loyaltyBalance'));
  setText('#loyaltyOrders',loyaltyUser ? String(loyaltyUser.orders_count||0) : '0');
@@ -1460,11 +1457,10 @@ function renderLoyaltyProfile(){
  }
  box.classList.add('show');
  box.innerHTML=[
-  [t('loyaltyLevel'),loyaltyUser.level||'Rookie'],
+ [t('loyaltyLevel'),loyaltyUser.level||'Rookie'],
  [t('loyaltyBalance'),formatVnd(loyaltyUser.bonus_balance||0)],
  [t('loyaltyXp'),`${loyaltyUser.xp||0} XP`],
- [t('loyaltyStreak'),loyaltyUser.streak_days||0],
-  [t('loyaltyOrders'),loyaltyUser.orders_count||0]
+ [t('loyaltyOrders'),loyaltyUser.orders_count||0]
  ].map(item=>`<div><b>${item[1]}</b><span>${item[0]}</span></div>`).join('');
 }
 
