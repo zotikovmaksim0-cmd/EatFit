@@ -520,11 +520,14 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .loyalty-profile.show{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .loyalty-profile div{padding:9px;border-radius:12px;background:#f6faf2;color:#667461;font-size:12px}
 .loyalty-profile b{display:block;color:#172015;font-size:15px}
-.loyalty-orders{margin-top:14px;padding:14px;border:1px solid #d8e9cf;border-radius:18px;background:#fff}
-.loyalty-orders-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.loyalty-orders{margin-top:14px;border:1px solid #d8e9cf;border-radius:18px;background:#fff;overflow:hidden}
+.loyalty-orders-head{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:14px;border:0;background:transparent;text-align:left;cursor:pointer}
 .loyalty-orders-head h3{margin:0;font-size:17px;color:#172015}
 .loyalty-orders-note{margin:0;color:#667461;font-size:13px;line-height:1.35}
-.loyalty-orders-list{display:grid;gap:9px}
+.loyalty-orders-toggle{display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--line);border-radius:10px;background:#f7fbf3;color:#172015;font-size:18px;font-weight:900;transition:transform .2s ease}
+.loyalty-orders.open .loyalty-orders-toggle{transform:rotate(180deg)}
+.loyalty-orders-list{display:none;gap:9px;padding:0 14px 14px}
+.loyalty-orders.open .loyalty-orders-list{display:grid}
 .loyalty-order-card{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;padding:12px;border:1px solid var(--line);border-radius:14px;background:#f9fcf6}
 .loyalty-order-main{min-width:0}
 .loyalty-order-id{font-weight:900;color:#172015;overflow-wrap:anywhere}
@@ -764,13 +767,14 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <div class="loyalty-info"><strong id="loyaltySpendTitle">Как использовать бонусы</strong><span id="loyaltySpendText">Бонусами можно оплатить часть следующего заказа.</span></div>
 </div>
 <div id="loyaltyLevels" class="loyalty-levels"></div>
-<div class="loyalty-orders">
-<div class="loyalty-orders-head">
+<div id="loyaltyOrdersPanel" class="loyalty-orders">
+<button type="button" class="loyalty-orders-head" onclick="toggleLoyaltyOrders()">
 <div>
 <h3 id="loyaltyOrdersTitle">История заказов</h3>
 <p id="loyaltyOrdersNote" class="loyalty-orders-note">Здесь появятся ваши заказы и их текущие статусы.</p>
 </div>
-</div>
+<span class="loyalty-orders-toggle">⌄</span>
+</button>
 <div id="loyaltyOrdersList" class="loyalty-orders-list"></div>
 </div>
 </div>
@@ -1320,7 +1324,8 @@ async function fetchLoyaltyOrders(phone=currentLoyaltyPhone()){
 
 function renderLoyaltyOrders(){
  setText('#loyaltyOrdersTitle',t('loyaltyOrdersTitle'));
- setText('#loyaltyOrdersNote',t('loyaltyOrdersNote'));
+ const ordersCount=loyaltyOrders.length;
+ setText('#loyaltyOrdersNote',ordersCount ? `${t('loyaltyOrdersNote')} · ${ordersCount}` : t('loyaltyOrdersEmpty'));
  const box=document.getElementById('loyaltyOrdersList');
  if(!box) return;
  if(!loyaltyUser && !currentLoyaltyPhone()){
@@ -1364,6 +1369,12 @@ function renderLoyaltyOrders(){
     </div>
    </div>`;
  }).join('');
+}
+
+function toggleLoyaltyOrders(){
+ const panel=document.getElementById('loyaltyOrdersPanel');
+ if(!panel) return;
+ panel.classList.toggle('open');
 }
 
 function renderLoyalty(){
