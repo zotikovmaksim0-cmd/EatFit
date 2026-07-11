@@ -506,9 +506,14 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .loyalty-level-card.active{border-color:var(--level-accent,#63bd2b);box-shadow:0 10px 24px rgba(31,55,24,.11),inset 0 0 0 1px rgba(255,255,255,.6)}
 .loyalty-level-card.locked{filter:saturate(.72);opacity:.82}
 .loyalty-level-card:focus-visible{box-shadow:0 0 0 4px rgba(99,189,43,.16)}
-.loyalty-level-card-tip{position:absolute;left:50%;bottom:calc(100% + 10px);z-index:20;width:min(230px,70vw);padding:12px;border-radius:14px;background:#172015;color:#fff;font-size:12px;line-height:1.35;box-shadow:0 18px 36px rgba(8,18,6,.25);opacity:0;pointer-events:none;transform:translate(-50%,6px);transition:opacity .18s ease,transform .18s ease}
+.loyalty-level-card-tip{position:absolute;left:50%;bottom:calc(100% + 10px);z-index:20;width:min(260px,78vw);max-width:calc(100vw - 44px);padding:12px;border-radius:14px;background:#172015;color:#fff;font-size:12px;line-height:1.35;overflow-wrap:anywhere;box-shadow:0 18px 36px rgba(8,18,6,.25);opacity:0;pointer-events:none;transform:translate(-50%,6px);transition:opacity .18s ease,transform .18s ease}
 .loyalty-level-card-tip::after{content:'';position:absolute;left:50%;top:100%;width:12px;height:12px;background:#172015;transform:translate(-50%,-6px) rotate(45deg)}
+.loyalty-level-card:first-child .loyalty-level-card-tip{left:0;transform:translate(0,6px)}
+.loyalty-level-card:first-child .loyalty-level-card-tip::after{left:24px}
+.loyalty-level-card:last-child .loyalty-level-card-tip{left:auto;right:0;transform:translate(0,6px)}
+.loyalty-level-card:last-child .loyalty-level-card-tip::after{left:auto;right:24px}
 .loyalty-level-card:hover .loyalty-level-card-tip,.loyalty-level-card:focus-visible .loyalty-level-card-tip{opacity:1;transform:translate(-50%,0)}
+.loyalty-level-card:first-child:hover .loyalty-level-card-tip,.loyalty-level-card:first-child:focus-visible .loyalty-level-card-tip,.loyalty-level-card:last-child:hover .loyalty-level-card-tip,.loyalty-level-card:last-child:focus-visible .loyalty-level-card-tip{transform:translate(0,0)}
 .loyalty-rewards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .loyalty-reward{padding:12px;border-radius:16px;background:#f3f7fb;border:1px solid #dce6ef;color:#5d6f7a;font-size:12px}
 .loyalty-reward b{display:block;color:#172015;font-size:14px}
@@ -660,6 +665,9 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
  .site-header{padding:12px 16px;align-items:flex-start;flex-direction:column}.site-actions{width:100%;gap:6px;border-radius:18px}.action-btn,.cart-btn{min-height:38px;padding:0 10px;font-size:12px;border-radius:13px}.language-switch{width:30px;height:30px;min-width:30px}.brand-title{font-size:17px}.brand-mark{width:42px;height:42px}.contact-box{padding:20px;border-radius:24px}.contact-head h2{font-size:23px}
  .kbju-modal{padding:12px}.kbju-modal-head{padding:22px 18px 16px}.kbju-modal-head h2{font-size:24px}.kbju-form{padding:18px}.kbju-grid,.kbju-tips{grid-template-columns:1fr}.kbju-wide,.kbju-two{grid-column:auto}.kbju-actions{display:grid}.kbju-primary,.kbju-secondary{width:100%}
  .hero{padding:34px 18px 44px}.hero h2{font-size:32px}.hero p{font-size:15px}.kbju-saved-card,.loyalty-card{padding:0 16px}.kbju-saved-inner,.loyalty-inner{display:block}.loyalty-main{margin-bottom:12px}.kbju-saved-stats,.kbju-saved-actions,.loyalty-stats,.loyalty-actions{margin-top:12px}.loyalty-benefits{grid-template-columns:1fr}.loyalty-levels{grid-template-columns:repeat(2,minmax(0,1fr))}.loyalty-rewards{grid-template-columns:1fr}.loyalty-profile.show{grid-template-columns:repeat(2,1fr)}.loyalty-order-card{grid-template-columns:1fr}.loyalty-order-side{text-align:left;white-space:normal}.loyalty-order-summary{display:grid}.loyalty-order-details{grid-template-columns:1fr}.loyalty-order-detail.wide{grid-column:auto}
+ .loyalty-level-card-tip,.loyalty-level-card:first-child .loyalty-level-card-tip,.loyalty-level-card:last-child .loyalty-level-card-tip{position:static;display:none;width:auto;max-width:none;margin-top:10px;box-shadow:none;transform:none}
+ .loyalty-level-card-tip::after{display:none}
+ .loyalty-level-card:hover .loyalty-level-card-tip,.loyalty-level-card:focus-visible .loyalty-level-card-tip{display:block;opacity:1;transform:none}
  .catalog-shell{margin:16px auto 10px;padding:0 14px}.catalog-tools{grid-template-columns:1fr;border-radius:20px}.filter-tabs,.price-tools{justify-content:flex-start}.filter-chip{height:39px;padding:0 12px;font-size:13px}.price-tools select{width:100%}
  .catalog-heading{padding:0 16px;margin-top:20px}.catalog-heading h2{font-size:26px}.catalog-heading p{font-size:14px}.grid{padding:16px;gap:18px}.card{border-radius:22px}.card img{height:210px}
  .cart-panel{padding:0}.cart-header{margin:0;padding:16px 14px}.cart-scroll{padding:16px 14px 22px}.cart-heading{font-size:21px}.cart-subtitle{display:none}.clear-btn{width:40px;padding:0;font-size:0}.clear-btn::before{content:'🗑';font-size:15px}
