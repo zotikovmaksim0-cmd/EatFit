@@ -486,6 +486,9 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .loyalty-progress-track{height:10px;margin:12px 0 8px;overflow:hidden;border-radius:999px;background:rgba(255,255,255,.18)}
 .loyalty-progress-fill{display:block;width:0%;height:100%;border-radius:999px;background:linear-gradient(90deg,#63bd2b,#f1d56b);transition:width .35s ease}
 .loyalty-progress-note{font-size:13px;color:rgba(255,255,255,.78)}
+.loyalty-current-perks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+.loyalty-current-perks div{padding:10px;border-radius:13px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.72);font-size:12px}
+.loyalty-current-perks b{display:block;margin-top:3px;color:#fff;font-size:16px}
 .loyalty-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .loyalty-pill{padding:10px;border-radius:13px;background:rgba(255,255,255,.11);color:rgba(255,255,255,.72);font-size:12px;border:1px solid rgba(255,255,255,.14)}
 .loyalty-pill b{display:block;color:#fff;font-size:17px}
@@ -671,7 +674,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 @media(max-width:650px){
  .site-header{padding:12px 16px;align-items:flex-start;flex-direction:column}.site-actions{width:100%;gap:6px;border-radius:18px}.action-btn,.cart-btn{min-height:38px;padding:0 10px;font-size:12px;border-radius:13px}.language-switch{width:30px;height:30px;min-width:30px}.brand-title{font-size:17px}.brand-mark{width:42px;height:42px}.contact-box{padding:20px;border-radius:24px}.contact-head h2{font-size:23px}
  .kbju-modal{padding:12px}.kbju-modal-head{padding:22px 18px 16px}.kbju-modal-head h2{font-size:24px}.kbju-form{padding:18px}.kbju-grid,.kbju-tips{grid-template-columns:1fr}.kbju-wide,.kbju-two{grid-column:auto}.kbju-actions{display:grid}.kbju-primary,.kbju-secondary{width:100%}
-.hero{min-height:500px;padding:34px 18px 24px;background-position:58% center}.hero h2{font-size:34px;line-height:1.05}.hero p{font-size:15px}.hero-actions{margin-top:18px}.hero-cta{height:48px;border-radius:13px}.hero-points{gap:8px}.hero-point{width:100%;justify-content:flex-start}.kbju-saved-card,.loyalty-card{padding:0 16px}.kbju-saved-inner,.loyalty-inner{display:block}.loyalty-main{margin-bottom:12px}.kbju-saved-stats,.kbju-saved-actions,.loyalty-stats,.loyalty-actions{margin-top:12px}.loyalty-benefits{grid-template-columns:1fr}.loyalty-levels{grid-template-columns:repeat(2,minmax(0,1fr))}.loyalty-rewards{grid-template-columns:1fr}.loyalty-profile.show{grid-template-columns:repeat(2,1fr)}.loyalty-order-card{grid-template-columns:1fr}.loyalty-order-side{text-align:left;white-space:normal}.loyalty-order-summary{display:grid}.loyalty-order-details{grid-template-columns:1fr}.loyalty-order-detail.wide{grid-column:auto}
+.hero{min-height:500px;padding:34px 18px 24px;background-position:58% center}.hero h2{font-size:34px;line-height:1.05}.hero p{font-size:15px}.hero-actions{margin-top:18px}.hero-cta{height:48px;border-radius:13px}.hero-points{gap:8px}.hero-point{width:100%;justify-content:flex-start}.kbju-saved-card,.loyalty-card{padding:0 16px}.kbju-saved-inner,.loyalty-inner{display:block}.loyalty-main{margin-bottom:12px}.kbju-saved-stats,.kbju-saved-actions,.loyalty-stats,.loyalty-actions{margin-top:12px}.loyalty-current-perks{grid-template-columns:1fr}.loyalty-benefits{grid-template-columns:1fr}.loyalty-levels{grid-template-columns:repeat(2,minmax(0,1fr))}.loyalty-rewards{grid-template-columns:1fr}.loyalty-profile.show{grid-template-columns:repeat(2,1fr)}.loyalty-order-card{grid-template-columns:1fr}.loyalty-order-side{text-align:left;white-space:normal}.loyalty-order-summary{display:grid}.loyalty-order-details{grid-template-columns:1fr}.loyalty-order-detail.wide{grid-column:auto}
  .loyalty-level-card-tip,.loyalty-level-card:first-child .loyalty-level-card-tip,.loyalty-level-card:last-child .loyalty-level-card-tip{position:static;display:none;width:auto;max-width:none;margin-top:10px;box-shadow:none;transform:none}
  .loyalty-level-card-tip::after{display:none}
  .loyalty-level-card:hover .loyalty-level-card-tip,.loyalty-level-card:focus-visible .loyalty-level-card-tip{display:block;opacity:1;transform:none}
@@ -805,6 +808,11 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 </div>
 <div class="loyalty-progress-track"><span id="loyaltyProgressFill" class="loyalty-progress-fill"></span></div>
 <div id="loyaltyProgressNote" class="loyalty-progress-note">0 / 5 000 XP</div>
+<div class="loyalty-current-perks">
+<div><span id="loyaltyEarnRateLabel">Начисление бонусов</span><b id="loyaltyEarnRate">1%</b></div>
+<div><span id="loyaltyDiscountRateLabel">Скидка уровня</span><b id="loyaltyDiscountRate">0%</b></div>
+<div><span id="loyaltyRemainLabel">До следующего уровня</span><b id="loyaltyRemain">5 000 XP</b></div>
+</div>
 </div>
 <div class="loyalty-stats">
 <div class="loyalty-pill"><b id="loyaltyXp">0 XP</b><span id="loyaltyXpLabel">опыт</span></div>
@@ -1325,6 +1333,15 @@ function loyaltyDiscountRate(levelName){
  return 0;
 }
 
+function loyaltyBonusRate(levelName){
+ const key=String(levelName || 'Rookie').toLowerCase();
+ if(key==='athlete') return 0.03;
+ if(key==='champion') return 0.05;
+ if(key==='elite') return 0.07;
+ if(key==='legend') return 0.10;
+ return 0.01;
+}
+
 const LOYALTY_TEXT={
  ru:{
   nextLabel:'следующий уровень',
@@ -1333,6 +1350,10 @@ const LOYALTY_TEXT={
   nextBenefit:'Следующая цель',
   earnTitle:'Как копятся награды',
   earnText:'За каждые 1 000 VND заказа вы получаете 1 XP. Процент бонусов растет с уровнем: 1%, 3%, 5%, 7% и 10%.',
+  earnRateLabel:'Начисление бонусов',
+  discountRateLabel:'Скидка уровня',
+  remainLabel:'До следующего уровня',
+  maxRemain:'уровень открыт',
   spendTitle:'Как использовать бонусы',
   spendText:'Бонусами можно оплатить часть следующего заказа. Бонусы с покупок действуют 1 месяц, приветственные 30 000 VND — 7 дней.',
   progress:(xp,next,remain)=> next ? `${xp.toLocaleString()} / ${next.xp.toLocaleString()} XP · осталось ${remain.toLocaleString()} XP` : `${xp.toLocaleString()} XP · уровень Legend открыт`
@@ -1344,6 +1365,10 @@ const LOYALTY_TEXT={
   nextBenefit:'Next goal',
   earnTitle:'How rewards grow',
   earnText:'Every 1,000 VND gives 1 XP. The bonus rate grows by level: 1%, 3%, 5%, 7% and 10%.',
+  earnRateLabel:'Bonus earning rate',
+  discountRateLabel:'Level discount',
+  remainLabel:'To next level',
+  maxRemain:'level unlocked',
   spendTitle:'How to use bonuses',
   spendText:'Bonuses can pay for part of your next order. Order bonuses last 1 month; the 30,000 VND welcome bonus lasts 7 days.',
   progress:(xp,next,remain)=> next ? `${xp.toLocaleString()} / ${next.xp.toLocaleString()} XP · ${remain.toLocaleString()} XP left` : `${xp.toLocaleString()} XP · Legend level unlocked`
@@ -1355,6 +1380,10 @@ const LOYALTY_TEXT={
   nextBenefit:'Mục tiêu tiếp theo',
   earnTitle:'Cách tích thưởng',
   earnText:'Mỗi 1.000 VND nhận 1 XP. Tỷ lệ hoàn điểm tăng theo cấp: 1%, 3%, 5%, 7% và 10%.',
+  earnRateLabel:'Tỷ lệ tích điểm',
+  discountRateLabel:'Giảm theo cấp',
+  remainLabel:'Đến cấp tiếp theo',
+  maxRemain:'đã mở cấp',
   spendTitle:'Cách dùng điểm thưởng',
   spendText:'Điểm thưởng có thể dùng để thanh toán một phần đơn tiếp theo. Điểm từ đơn hàng có hiệu lực 1 tháng; quà chào mừng 30.000 VND có hiệu lực 7 ngày.',
   progress:(xp,next,remain)=> next ? `${xp.toLocaleString()} / ${next.xp.toLocaleString()} XP · còn ${remain.toLocaleString()} XP` : `${xp.toLocaleString()} XP · đã mở cấp Legend`
@@ -1484,6 +1513,12 @@ function renderLoyalty(){
  const progressFill=document.getElementById('loyaltyProgressFill');
  if(progressFill) progressFill.style.width=`${progress}%`;
  setText('#loyaltyProgressNote',copy.progress(xp,next,remain));
+ setText('#loyaltyEarnRateLabel',copy.earnRateLabel);
+ setText('#loyaltyEarnRate',`${Math.round(loyaltyBonusRate(level.name)*100)}%`);
+ setText('#loyaltyDiscountRateLabel',copy.discountRateLabel);
+ setText('#loyaltyDiscountRate',`${Math.round(loyaltyDiscountRate(level.name)*100)}%`);
+ setText('#loyaltyRemainLabel',copy.remainLabel);
+ setText('#loyaltyRemain',next ? `${remain.toLocaleString()} XP` : copy.maxRemain);
  setText('#loyaltyXp',`${xp} XP`);
  setText('#loyaltyXpLabel',t('loyaltyXp'));
  setText('#loyaltyBalance',formatVnd(balance));
