@@ -416,15 +416,24 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .contact-icon.whatsapp{background:#25D366}.contact-icon.telegram{background:#229ED9}.contact-icon.zalo{background:#0068ff}
 .contact-name{display:block;font-weight:900;font-size:16px}.contact-note{display:block;margin-top:3px;color:#667461;font-size:13px}
 .contact-small{margin:16px 0 0;color:#71806d;font-size:12px;line-height:1.45}
-.hero{position:relative;overflow:hidden;background:radial-gradient(circle at 16% 20%,rgba(126,217,70,.28),transparent 28%),linear-gradient(135deg,#11180f 0%,#1f3f18 52%,#72ca33 100%);padding:38px 28px 52px;text-align:left}
-.hero::after{content:'';position:absolute;right:-110px;top:-150px;width:390px;height:390px;border-radius:50%;background:rgba(255,255,255,.11)}
-.hero-inner{position:relative;z-index:1;max-width:1180px;margin:auto}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;margin-bottom:14px;padding:7px 11px;border:1px solid rgba(255,255,255,.2);border-radius:999px;background:rgba(255,255,255,.1);color:#e9f6e5;font-size:13px}
-.hero h2{max-width:760px;font-size:44px;line-height:1.04;letter-spacing:-1.4px;margin:0 0 12px;color:#fff}
-.hero p{max-width:720px;font-size:16px;line-height:1.48;color:#dfebdc}
-.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
-.hero-cta{height:50px;padding:0 18px;border:none;border-radius:16px;background:#fff;color:#172015;font-weight:900;cursor:pointer;box-shadow:0 18px 36px rgba(0,0,0,.18)}
-.hero-cta.green{background:linear-gradient(135deg,#75d83a,#47a91f);color:#fff}
+.hero{position:relative;overflow:hidden;min-height:470px;background:linear-gradient(90deg,rgba(8,16,7,.9) 0%,rgba(8,16,7,.72) 43%,rgba(8,16,7,.26) 100%),url('assets/meal-003-1.jpg') center/cover no-repeat;padding:54px 28px 34px;text-align:left;display:flex;align-items:stretch}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,16,7,.08),rgba(8,16,7,.76));pointer-events:none}
+.hero-inner{position:relative;z-index:1;max-width:1180px;width:100%;margin:auto;display:flex;flex-direction:column;justify-content:space-between;gap:54px}
+.hero-copy{max-width:760px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;margin-bottom:16px;padding:8px 12px;border:1px solid rgba(255,255,255,.22);border-radius:999px;background:rgba(255,255,255,.11);color:#e9f6e5;font-size:13px;font-weight:800;backdrop-filter:blur(14px)}
+.hero h2{max-width:740px;font-size:54px;line-height:1.02;letter-spacing:0;margin:0 0 14px;color:#fff;text-shadow:0 12px 36px rgba(0,0,0,.28)}
+.hero p{max-width:650px;font-size:17px;line-height:1.52;color:#edf7ea;margin:0}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.hero-cta{height:52px;padding:0 20px;border:1px solid rgba(255,255,255,.18);border-radius:14px;background:rgba(255,255,255,.95);color:#172015;font-weight:900;cursor:pointer;box-shadow:0 18px 36px rgba(0,0,0,.22);transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 24px 44px rgba(0,0,0,.26)}
+.hero-cta.green{background:linear-gradient(135deg,#75d83a,#47a91f);border-color:rgba(117,216,58,.35);color:#fff}
+.hero-points{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.hero-point{display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:8px 12px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(255,255,255,.12);color:#f5fbf2;font-size:13px;font-weight:800;backdrop-filter:blur(14px)}
+.hero-point b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#75d83a;color:#10200c;font-size:12px}
+.hero-proof{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;max-width:760px}
+.hero-proof-item{padding:14px 16px;border:1px solid rgba(255,255,255,.18);border-radius:18px;background:rgba(255,255,255,.12);backdrop-filter:blur(16px);color:#fff}
+.hero-proof-item strong{display:block;font-size:18px;line-height:1.15}
+.hero-proof-item span{display:block;margin-top:4px;color:#dcebd8;font-size:12px;font-weight:700}
 .catalog-shell{max-width:1400px;margin:22px auto 18px;padding:0 24px;position:relative;z-index:2}
 .catalog-tools{display:grid;grid-template-columns:minmax(240px,420px) minmax(0,1fr) auto;gap:16px;align-items:center;background:rgba(255,255,255,.92);border:1px solid rgba(228,235,223,.9);border-radius:26px;padding:16px;box-shadow:0 18px 48px rgba(29,45,22,.1);backdrop-filter:blur(18px)}
 .search-wrap{position:relative}
@@ -664,7 +673,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 @media(max-width:650px){
  .site-header{padding:12px 16px;align-items:flex-start;flex-direction:column}.site-actions{width:100%;gap:6px;border-radius:18px}.action-btn,.cart-btn{min-height:38px;padding:0 10px;font-size:12px;border-radius:13px}.language-switch{width:30px;height:30px;min-width:30px}.brand-title{font-size:17px}.brand-mark{width:42px;height:42px}.contact-box{padding:20px;border-radius:24px}.contact-head h2{font-size:23px}
  .kbju-modal{padding:12px}.kbju-modal-head{padding:22px 18px 16px}.kbju-modal-head h2{font-size:24px}.kbju-form{padding:18px}.kbju-grid,.kbju-tips{grid-template-columns:1fr}.kbju-wide,.kbju-two{grid-column:auto}.kbju-actions{display:grid}.kbju-primary,.kbju-secondary{width:100%}
- .hero{padding:34px 18px 44px}.hero h2{font-size:32px}.hero p{font-size:15px}.kbju-saved-card,.loyalty-card{padding:0 16px}.kbju-saved-inner,.loyalty-inner{display:block}.loyalty-main{margin-bottom:12px}.kbju-saved-stats,.kbju-saved-actions,.loyalty-stats,.loyalty-actions{margin-top:12px}.loyalty-benefits{grid-template-columns:1fr}.loyalty-levels{grid-template-columns:repeat(2,minmax(0,1fr))}.loyalty-rewards{grid-template-columns:1fr}.loyalty-profile.show{grid-template-columns:repeat(2,1fr)}.loyalty-order-card{grid-template-columns:1fr}.loyalty-order-side{text-align:left;white-space:normal}.loyalty-order-summary{display:grid}.loyalty-order-details{grid-template-columns:1fr}.loyalty-order-detail.wide{grid-column:auto}
+ .hero{min-height:520px;padding:34px 18px 24px;background-position:58% center}.hero-inner{gap:28px}.hero h2{font-size:34px;line-height:1.05}.hero p{font-size:15px}.hero-actions{margin-top:18px}.hero-cta{height:48px;border-radius:13px}.hero-points{gap:8px}.hero-point{width:100%;justify-content:flex-start}.hero-proof{grid-template-columns:1fr;gap:8px}.hero-proof-item{padding:12px 14px;border-radius:16px}.hero-proof-item strong{font-size:16px}.kbju-saved-card,.loyalty-card{padding:0 16px}.kbju-saved-inner,.loyalty-inner{display:block}.loyalty-main{margin-bottom:12px}.kbju-saved-stats,.kbju-saved-actions,.loyalty-stats,.loyalty-actions{margin-top:12px}.loyalty-benefits{grid-template-columns:1fr}.loyalty-levels{grid-template-columns:repeat(2,minmax(0,1fr))}.loyalty-rewards{grid-template-columns:1fr}.loyalty-profile.show{grid-template-columns:repeat(2,1fr)}.loyalty-order-card{grid-template-columns:1fr}.loyalty-order-side{text-align:left;white-space:normal}.loyalty-order-summary{display:grid}.loyalty-order-details{grid-template-columns:1fr}.loyalty-order-detail.wide{grid-column:auto}
  .loyalty-level-card-tip,.loyalty-level-card:first-child .loyalty-level-card-tip,.loyalty-level-card:last-child .loyalty-level-card-tip{position:static;display:none;width:auto;max-width:none;margin-top:10px;box-shadow:none;transform:none}
  .loyalty-level-card-tip::after{display:none}
  .loyalty-level-card:hover .loyalty-level-card-tip,.loyalty-level-card:focus-visible .loyalty-level-card-tip{display:block;opacity:1;transform:none}
@@ -705,7 +714,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 
 <div class="hero">
 <div class="hero-inner">
-<div>
+<div class="hero-copy">
 <div class="hero-eyebrow">🌿 Сбалансированное питание во Вьетнаме</div>
 <h2>Еда, которая выглядит красиво и попадает в ваши КБЖУ</h2>
 <p>Выбирайте блюда вручную или соберите рацион на день под калории, белки, жиры и углеводы. Без хаоса в корзине, с понятным составом и аккуратной доставкой.</p>
@@ -713,6 +722,16 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <button class="hero-cta green" onclick="openPlanner()">Подобрать рацион</button>
 <button class="hero-cta" onclick="openKBJU()">Рассчитать КБЖУ</button>
 </div>
+<div class="hero-points">
+<div class="hero-point"><b>1</b><span>30 000 VND на первый заказ</span></div>
+<div class="hero-point"><b>2</b><span>Рацион под ваши КБЖУ</span></div>
+<div class="hero-point"><b>3</b><span>Менеджер подтвердит доставку</span></div>
+</div>
+</div>
+<div class="hero-proof">
+<div class="hero-proof-item"><strong>EatFit Levels</strong><span>бонусы за каждую покупку</span></div>
+<div class="hero-proof-item"><strong>КБЖУ</strong><span>понятный состав каждого блюда</span></div>
+<div class="hero-proof-item"><strong>Da Nang</strong><span>доставка после подтверждения</span></div>
 </div>
 </div>
 </div>
@@ -1063,8 +1082,10 @@ const I18N={
   brandSubtitle:'Good food · Fit life',
   navCalc:'Рассчитать КБЖУ',navPlanner:'Подобрать рацион',navContacts:'Способы связи',navFaq:'FAQ',navCart:'Корзина',
   heroEyebrow:'🌿 Сбалансированное питание во Вьетнаме',
-  heroTitle:'Еда, которая выглядит красиво и попадает в ваши КБЖУ',
-  heroText:'Выбирайте блюда вручную или соберите рацион на день под калории, белки, жиры и углеводы. Без хаоса в корзине, с понятным составом и аккуратной доставкой.',
+  heroTitle:'Готовая еда под ваши цели, без лишней сложности',
+  heroText:'Выбирайте блюда из каталога или соберите рацион под КБЖУ. EatFit помогает питаться вкусно, считать понятнее и получать бонусы за заказы.',
+  heroPoint1:'30 000 VND на первый заказ',heroPoint2:'Рацион под ваши КБЖУ',heroPoint3:'Менеджер подтвердит доставку',
+  heroProof1Title:'EatFit Levels',heroProof1Text:'бонусы за каждую покупку',heroProof2Title:'КБЖУ',heroProof2Text:'понятный состав каждого блюда',heroProof3Title:'Da Nang',heroProof3Text:'доставка после подтверждения',
   heroBuild:'Что можно собрать',heroBuildText:'Белки, гарниры и овощи для удобного дневного рациона.',categories:'категории',kbjuPick:'подбор',prices:'цены',
   savedTitle:'Ваша цель КБЖУ сохранена',savedSub:'Теперь можно автоматически подобрать рацион под эти значения.',calories:'ккал',protein:'белки',fat:'жиры',carbs:'углеводы',proteinShort:'Б',fatShort:'Ж',carbsShort:'У',
   recalc:'Пересчитать',searchPlaceholder:'Поиск блюда...',all:'Все',proteins:'Белки',carbsFilter:'Углеводы',fiber:'Овощи',
@@ -1114,7 +1135,9 @@ const I18N={
  en:{
   brandSubtitle:'Good food · Fit life',
   navCalc:'Calculate macros',navPlanner:'Build a meal plan',navContacts:'Contact options',navFaq:'FAQ',navCart:'Cart',
-  heroEyebrow:'🌿 Balanced nutrition in Vietnam',heroTitle:'Food that looks beautiful and fits your macros',heroText:'Choose dishes manually or build a day plan around calories, protein, fats and carbs. No cart chaos, clear ingredients and neat delivery.',
+  heroEyebrow:'🌿 Balanced nutrition in Vietnam',heroTitle:'Ready meals for your goals, without the extra complexity',heroText:'Choose dishes from the catalog or build a meal plan around your macros. EatFit helps you eat well, understand the numbers and earn bonuses from orders.',
+  heroPoint1:'30,000 VND for your first order',heroPoint2:'Meal plan for your macros',heroPoint3:'Manager confirms delivery',
+  heroProof1Title:'EatFit Levels',heroProof1Text:'bonuses from every purchase',heroProof2Title:'Macros',heroProof2Text:'clear nutrition for each dish',heroProof3Title:'Da Nang',heroProof3Text:'delivery after confirmation',
   heroBuild:'What you can build',heroBuildText:'Proteins, sides and vegetables for a convenient daily plan.',categories:'categories',kbjuPick:'macro-based plan',prices:'prices',
   savedTitle:'Your macro target is saved',savedSub:'Now you can automatically build a plan around these values.',calories:'kcal',protein:'protein',fat:'fats',carbs:'carbs',proteinShort:'P',fatShort:'F',carbsShort:'C',
   recalc:'Recalculate',searchPlaceholder:'Search dish...',all:'All',proteins:'Protein',carbsFilter:'Carbs',fiber:'Vegetables',
@@ -1164,7 +1187,9 @@ const I18N={
  vi:{
   brandSubtitle:'Good food · Fit life',
   navCalc:'Tính macro',navPlanner:'Lên thực đơn',navContacts:'Liên hệ',navFaq:'FAQ',navCart:'Giỏ hàng',
-  heroEyebrow:'🌿 Bữa ăn cân bằng tại Việt Nam',heroTitle:'Món ăn đẹp mắt, đúng macro của bạn',heroText:'Tự chọn từng món hoặc để EatFit gợi ý thực đơn trong ngày theo calo, đạm, chất béo và tinh bột. Giỏ hàng rõ ràng, thành phần minh bạch, giao hàng gọn gàng.',
+  heroEyebrow:'🌿 Bữa ăn cân bằng tại Việt Nam',heroTitle:'Bữa ăn sẵn theo mục tiêu của bạn, đơn giản hơn mỗi ngày',heroText:'Chọn món trong thực đơn hoặc để EatFit gợi ý khẩu phần theo macro. Ăn ngon hơn, hiểu rõ dinh dưỡng hơn và tích lũy ưu đãi sau mỗi đơn.',
+  heroPoint1:'30.000 VND cho đơn đầu tiên',heroPoint2:'Thực đơn theo macro của bạn',heroPoint3:'Quản lý xác nhận giao hàng',
+  heroProof1Title:'EatFit Levels',heroProof1Text:'tích điểm sau mỗi đơn',heroProof2Title:'Macro',heroProof2Text:'dinh dưỡng rõ ràng từng món',heroProof3Title:'Da Nang',heroProof3Text:'giao sau khi xác nhận',
   heroBuild:'Có thể chọn gì?',heroBuildText:'Món đạm, tinh bột và rau cho thực đơn hằng ngày tiện lợi.',categories:'nhóm món',kbjuPick:'theo macro',prices:'giá VND',
   savedTitle:'Đã lưu mục tiêu macro',savedSub:'Bạn có thể để EatFit tự động gợi ý thực đơn theo mục tiêu này.',calories:'kcal',protein:'đạm',fat:'chất béo',carbs:'tinh bột',proteinShort:'Đ',fatShort:'B',carbsShort:'T',
   recalc:'Tính lại',searchPlaceholder:'Tìm món...',all:'Tất cả',proteins:'Món đạm',carbsFilter:'Tinh bột',fiber:'Rau',
@@ -1714,6 +1739,23 @@ function applyLanguage(){
  const heroBtns=document.querySelectorAll('.hero-cta');
  if(heroBtns[0]) heroBtns[0].textContent=t('navPlanner');
  if(heroBtns[1]) heroBtns[1].textContent=t('navCalc');
+ const heroPoints=document.querySelectorAll('.hero-point span');
+ if(heroPoints[0]) heroPoints[0].textContent=t('heroPoint1');
+ if(heroPoints[1]) heroPoints[1].textContent=t('heroPoint2');
+ if(heroPoints[2]) heroPoints[2].textContent=t('heroPoint3');
+ const heroProof=document.querySelectorAll('.hero-proof-item');
+ if(heroProof[0]){
+  heroProof[0].querySelector('strong').textContent=t('heroProof1Title');
+  heroProof[0].querySelector('span').textContent=t('heroProof1Text');
+ }
+ if(heroProof[1]){
+  heroProof[1].querySelector('strong').textContent=t('heroProof2Title');
+  heroProof[1].querySelector('span').textContent=t('heroProof2Text');
+ }
+ if(heroProof[2]){
+  heroProof[2].querySelector('strong').textContent=t('heroProof3Title');
+  heroProof[2].querySelector('span').textContent=t('heroProof3Text');
+ }
  setText('.kbju-saved-title',t('savedTitle'));
  setText('.kbju-saved-sub',t('savedSub'));
  const savedLabels=document.querySelectorAll('.kbju-saved-pill');
