@@ -88,7 +88,7 @@
     "calories": 250,
     "categories": ["carbs"],
     "ingredientTags": ["carbs"],
-    "images": ["meal-001-1.jpg"]
+    "images": ["rice-white-1.png", "rice-white-2.png", "rice-white-3.png"]
   },
   {
     "id": "carb-002",
