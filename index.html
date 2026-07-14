@@ -471,7 +471,6 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .card-gallery-btn{top:50%;width:34px;height:34px;border-radius:50%;font-size:20px;transform:translateY(-50%);opacity:.96}
 .card-gallery-btn.prev{left:10px}
 .card-gallery-btn.next{right:10px}
-.card-gallery-count,.quick-gallery-count{position:absolute;z-index:3;right:10px;bottom:10px;padding:6px 9px;border-radius:999px;background:rgba(255,255,255,.9);color:#172015;font-size:12px;font-weight:900;box-shadow:0 10px 24px rgba(8,18,6,.14);backdrop-filter:blur(10px)}
 .quick-view-media{position:relative}
 .quick-gallery-btn{top:50%;width:44px;height:44px;border-radius:16px;font-size:26px;transform:translateY(-50%)}
 .quick-gallery-btn.prev{left:16px}
@@ -924,7 +923,6 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <img id="quickViewImage" src="assets/logo.jpg" alt="">
 <button id="quickPrev" class="quick-gallery-btn prev" onclick="event.stopPropagation();changeQuickViewImage(-1)" aria-label="Предыдущее фото">‹</button>
 <button id="quickNext" class="quick-gallery-btn next" onclick="event.stopPropagation();changeQuickViewImage(1)" aria-label="Следующее фото">›</button>
-<span id="quickGalleryCount" class="quick-gallery-count">1/1</span>
 </div>
 <div class="quick-view-body">
 <div class="quick-view-head">
@@ -2281,10 +2279,8 @@ function setQuickViewImage(product){
   image.alt=productName(product);
   image.onerror=()=>{image.onerror=null;image.src='assets/logo.jpg';};
  }
- const count=document.getElementById('quickGalleryCount');
- if(count) count.textContent=`${quickViewImageIndex+1}/${images.length}`;
  const showControls=images.length>1;
- ['quickPrev','quickNext','quickGalleryCount'].forEach(id=>{
+ ['quickPrev','quickNext'].forEach(id=>{
   const element=document.getElementById(id);
   if(element) element.style.display=showControls ? '' : 'none';
  });
@@ -2682,8 +2678,7 @@ fetch('data/products.json')
  const imageIndex=((productImageIndex[p.id]||0)%images.length+images.length)%images.length;
  const galleryControls=images.length>1 ? `
     <button class="card-gallery-btn prev" onclick="event.stopPropagation();changeCardImage('${p.id}',-1)" aria-label="Предыдущее фото">‹</button>
-    <button class="card-gallery-btn next" onclick="event.stopPropagation();changeCardImage('${p.id}',1)" aria-label="Следующее фото">›</button>
-    <span class="card-gallery-count">${imageIndex+1}/${images.length}</span>` : '';
+    <button class="card-gallery-btn next" onclick="event.stopPropagation();changeCardImage('${p.id}',1)" aria-label="Следующее фото">›</button>` : '';
  box.innerHTML+=`
  <div class="card" onclick="openQuickView('${p.id}')">
    <div class="card-media">
