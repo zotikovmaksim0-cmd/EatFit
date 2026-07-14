@@ -23,7 +23,7 @@
     "calories": 240,
     "categories": ["protein"],
     "ingredientTags": ["protein"],
-    "images": ["meal-003-1.jpg"]
+    "images": ["chicken-teriyaki-light-1.png", "chicken-teriyaki-light-2.png"]
   },
   {
     "id": "protein-005",
