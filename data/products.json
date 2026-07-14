@@ -118,8 +118,8 @@
   },
   {
     "id": "carb-005",
-    "name": "Батат",
-    "description": "Сладкий картофель как источник сложных углеводов.",
+    "name": "Батат с паприкой",
+    "description": "Запеченный батат с паприкой и ароматными травами.",
     "price": 59000,
     "protein": 4,
     "fat": 0,
@@ -127,7 +127,7 @@
     "calories": 215,
     "categories": ["carbs"],
     "ingredientTags": ["carbs"],
-    "images": ["meal-001-1.jpg"]
+    "images": ["sweet-potato-paprika-1.png", "sweet-potato-paprika-2.png"]
   },
   {
     "id": "carb-008",
