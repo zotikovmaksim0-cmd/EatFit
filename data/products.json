@@ -10,7 +10,7 @@
     "calories": 230,
     "categories": ["protein"],
     "ingredientTags": ["protein"],
-    "images": ["meal-003-1.jpg"]
+    "images": ["chicken-creamy-garlic-1.png", "chicken-creamy-garlic-2.png", "chicken-creamy-garlic-3.jpg", "chicken-creamy-garlic-4.png"]
   },
   {
     "id": "protein-004",
