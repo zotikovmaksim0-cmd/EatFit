@@ -40,16 +40,16 @@
   },
   {
     "id": "protein-007",
-    "name": "Креветки чеснок-лайм",
-    "description": "Креветки с чесноком и лаймом.",
+    "name": "Куриное филе классическое",
+    "description": "Нежное куриное филе с легкими специями и натуральным вкусом.",
     "price": 99000,
-    "protein": 38,
-    "fat": 1,
-    "carbs": 2,
-    "calories": 165,
+    "protein": 42,
+    "fat": 4,
+    "carbs": 1,
+    "calories": 220,
     "categories": ["protein"],
     "ingredientTags": ["protein"],
-    "images": ["meal-002-1.jpg"]
+    "images": ["chicken-classic-1.png", "chicken-classic-2.png", "chicken-classic-3.png", "chicken-classic-4.png"]
   },
   {
     "id": "protein-009",
