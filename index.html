@@ -467,6 +467,15 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .card-media::after{content:'';position:absolute;inset:auto 0 0;height:34%;background:linear-gradient(180deg,transparent,rgba(10,16,8,.2));pointer-events:none}
 .card img{height:100%;border-radius:0;transition:transform .38s ease,filter .38s ease}
 .card:hover img{transform:scale(1.04)}
+.card-gallery-btn,.quick-gallery-btn{position:absolute;z-index:3;display:grid;place-items:center;border:1px solid rgba(255,255,255,.72);background:rgba(255,255,255,.9);color:#172015;cursor:pointer;box-shadow:0 10px 24px rgba(8,18,6,.18);backdrop-filter:blur(10px)}
+.card-gallery-btn{top:50%;width:34px;height:34px;border-radius:50%;font-size:20px;transform:translateY(-50%);opacity:.96}
+.card-gallery-btn.prev{left:10px}
+.card-gallery-btn.next{right:10px}
+.card-gallery-count,.quick-gallery-count{position:absolute;z-index:3;right:10px;bottom:10px;padding:6px 9px;border-radius:999px;background:rgba(255,255,255,.9);color:#172015;font-size:12px;font-weight:900;box-shadow:0 10px 24px rgba(8,18,6,.14);backdrop-filter:blur(10px)}
+.quick-view-media{position:relative}
+.quick-gallery-btn{top:50%;width:44px;height:44px;border-radius:16px;font-size:26px;transform:translateY(-50%)}
+.quick-gallery-btn.prev{left:16px}
+.quick-gallery-btn.next{right:16px}
 .card-body{display:flex;flex-direction:column;gap:13px;flex:1;padding:18px 8px 8px}
 .card h3{margin:0;font-size:21px;line-height:1.18;letter-spacing:0;color:#172015}
 .card-desc{margin:0;color:#61705c;font-size:14px;line-height:1.48;min-height:42px}
@@ -792,6 +801,10 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
  .loyalty-order-status{white-space:normal;text-align:left}
  .loyalty-order-total{text-align:left}
  .quick-view-media{height:220px}
+ .card-gallery-btn{width:32px;height:32px}
+ .quick-gallery-btn{width:40px;height:40px;border-radius:14px}
+ .quick-gallery-btn.prev{left:10px}
+ .quick-gallery-btn.next{right:10px}
  .quick-view-footer{gap:10px}
  .food-modal-box{padding:16px}
  .food-grid{grid-template-columns:1fr}
@@ -907,7 +920,12 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 
 <div id="quickViewModal" class="quick-view-modal" onclick="closeQuickView(event)">
 <div class="quick-view-box" onclick="event.stopPropagation()">
-<div class="quick-view-media"><img id="quickViewImage" src="assets/logo.jpg" alt=""></div>
+<div class="quick-view-media">
+<img id="quickViewImage" src="assets/logo.jpg" alt="">
+<button id="quickPrev" class="quick-gallery-btn prev" onclick="event.stopPropagation();changeQuickViewImage(-1)" aria-label="Предыдущее фото">‹</button>
+<button id="quickNext" class="quick-gallery-btn next" onclick="event.stopPropagation();changeQuickViewImage(1)" aria-label="Следующее фото">›</button>
+<span id="quickGalleryCount" class="quick-gallery-count">1/1</span>
+</div>
 <div class="quick-view-body">
 <div class="quick-view-head">
 <h2 id="quickViewTitle">Блюдо EatFit</h2>
@@ -1227,6 +1245,9 @@ let products=[];
 let currentLang=localStorage.getItem('eatfit_lang')||'ru';
 let loyaltyUser=null;
 let loyaltyOrders=[];
+let productImageIndex={};
+let quickViewProductId='';
+let quickViewImageIndex=0;
 const API_BASE='https://eatfit-bot.onrender.com';
 
 const I18N={
@@ -2246,16 +2267,53 @@ function removeItem(id){
  saveCart();
 }
 
+function productImages(product){
+ const images=Array.isArray(product?.images) ? product.images.filter(Boolean) : [];
+ return images.length ? images : ['logo.jpg'];
+}
+
+function setQuickViewImage(product){
+ const images=productImages(product);
+ quickViewImageIndex=((quickViewImageIndex % images.length)+images.length)%images.length;
+ const image=document.getElementById('quickViewImage');
+ if(image){
+  image.src=`assets/${images[quickViewImageIndex]}`;
+  image.alt=productName(product);
+  image.onerror=()=>{image.onerror=null;image.src='assets/logo.jpg';};
+ }
+ const count=document.getElementById('quickGalleryCount');
+ if(count) count.textContent=`${quickViewImageIndex+1}/${images.length}`;
+ const showControls=images.length>1;
+ ['quickPrev','quickNext','quickGalleryCount'].forEach(id=>{
+  const element=document.getElementById(id);
+  if(element) element.style.display=showControls ? '' : 'none';
+ });
+}
+
+function changeQuickViewImage(direction){
+ const product=products.find(item=>item.id===quickViewProductId);
+ if(!product) return;
+ const images=productImages(product);
+ quickViewImageIndex=(quickViewImageIndex+direction+images.length)%images.length;
+ setQuickViewImage(product);
+}
+
+function changeCardImage(id,direction){
+ const product=products.find(item=>item.id===id);
+ if(!product) return;
+ const images=productImages(product);
+ if(images.length<2) return;
+ productImageIndex[id]=((productImageIndex[id]||0)+direction+images.length)%images.length;
+ if(window.renderProducts) window.renderProducts();
+}
+
 function openQuickView(id){
  const product=products.find(item=>item.id===id);
  if(!product) return;
  const modal=document.getElementById('quickViewModal');
- const image=document.getElementById('quickViewImage');
- if(image){
-  image.src=`assets/${product.images[0]}`;
-  image.alt=productName(product);
-  image.onerror=()=>{image.onerror=null;image.src='assets/logo.jpg';};
- }
+ quickViewProductId=id;
+ quickViewImageIndex=productImageIndex[id]||0;
+ setQuickViewImage(product);
  setText('#quickViewTitle',productName(product));
  setText('#quickViewDesc',productDesc(product));
  setText('#quickViewCalories',String(product.calories));
@@ -2620,10 +2678,17 @@ fetch('data/products.json')
  }
 
  visible.forEach(p=>{
+ const images=productImages(p);
+ const imageIndex=((productImageIndex[p.id]||0)%images.length+images.length)%images.length;
+ const galleryControls=images.length>1 ? `
+    <button class="card-gallery-btn prev" onclick="event.stopPropagation();changeCardImage('${p.id}',-1)" aria-label="Предыдущее фото">‹</button>
+    <button class="card-gallery-btn next" onclick="event.stopPropagation();changeCardImage('${p.id}',1)" aria-label="Следующее фото">›</button>
+    <span class="card-gallery-count">${imageIndex+1}/${images.length}</span>` : '';
  box.innerHTML+=`
  <div class="card" onclick="openQuickView('${p.id}')">
    <div class="card-media">
-    <img src="assets/${p.images[0]}" alt="${productName(p)}" onerror="this.onerror=null;this.src='assets/logo.jpg'">
+    <img src="assets/${images[imageIndex]}" alt="${productName(p)}" onerror="this.onerror=null;this.src='assets/logo.jpg'">
+    ${galleryControls}
    </div>
    <div class="card-body">
     <h3>${productName(p)}</h3>
