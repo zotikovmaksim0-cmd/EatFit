@@ -153,7 +153,7 @@
     "calories": 35,
     "categories": ["fiber"],
     "ingredientTags": ["vegetables"],
-    "images": ["meal-003-1.jpg"]
+    "images": ["broccoli-1.png", "broccoli-2.png", "broccoli-3.png"]
   },
   {
     "id": "fiber-005",
