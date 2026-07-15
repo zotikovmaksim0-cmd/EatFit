@@ -427,6 +427,9 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .quick-view-head h2{margin:0;color:#172015;font-size:28px;line-height:1.12}
 .quick-view-close{display:grid;place-items:center;width:42px;height:42px;flex:0 0 42px;border:1px solid var(--line);border-radius:14px;background:#fff;color:#172015;font-size:22px;cursor:pointer}
 .quick-view-desc{margin:12px 0 16px;color:#667461;line-height:1.5}
+.quick-view-details{display:grid;gap:8px;margin:0 0 16px}
+.quick-view-detail{padding:10px 12px;border:1px solid #e7efe2;border-radius:14px;background:#f8fbf5;color:#53624e;font-size:13px;line-height:1.42}
+.quick-view-detail b{display:block;margin-bottom:3px;color:#172015;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
 .quick-view-macros{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:16px 0}
 .quick-view-macro{padding:12px;border-radius:14px;background:#f4f8f1;border:1px solid #e7efe2;text-align:center;color:#667461;font-size:12px;font-weight:800}
 .quick-view-macro b{display:block;margin-bottom:3px;color:#172015;font-size:18px}
@@ -930,6 +933,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <button class="quick-view-close" onclick="closeQuickView()" aria-label="Закрыть">×</button>
 </div>
 <p id="quickViewDesc" class="quick-view-desc"></p>
+<div id="quickViewDetails" class="quick-view-details"></div>
 <div class="quick-view-macros">
 <div class="quick-view-macro"><b id="quickViewCalories">0</b><span id="quickViewCaloriesLabel">ккал</span></div>
 <div class="quick-view-macro"><b id="quickViewProtein">0</b><span id="quickViewProteinLabel">Б</span></div>
@@ -1286,20 +1290,20 @@ const I18N={
    ['Можно изменить количество порций?','Да, в корзине можно увеличить или уменьшить количество каждого блюда перед оформлением.']
   ],
   products:{
-   'protein-001':['Куриное филе сливочно-чесночное','Нежное куриное филе в легком сливочно-чесночном соусе.'],
-   'protein-004':['Куриное филе терияки лайт','Куриное филе в легком соусе терияки.'],
-   'protein-005':['Куриное филе карри-кокос лайт','Куриное филе с мягким карри и кокосовым акцентом.'],
-   'protein-007':['Куриное филе классическое','Нежное куриное филе с легкими специями и натуральным вкусом.'],
+   'protein-001':['Куриное филе сливочно-чесночное','Нежное сочное филе с мягким сливочно-чесночным вкусом и ароматом итальянских трав.'],
+   'protein-004':['Куриное филе терияки лайт','Легкая версия азиатского вкуса с нотами меда, соевого соуса, имбиря и чеснока.'],
+   'protein-005':['Куриное филе карри-кокос лайт','Ароматное филе с мягкими нотами кокоса, карри и куркумы без тяжелого соуса.'],
+   'protein-007':['Куриное филе классическое','Натуральное филе с легким ароматом чеснока, черного перца и итальянских трав.'],
    'protein-009':['Говядина терияки лайт','Постная говядина в легком соусе терияки.'],
    'protein-010':['Говядина классическая','Постная говядина с натуральным вкусом и легкими специями.'],
    'protein-011':['Омлет с брокколи','Нежный омлет с брокколи.'],
    'carb-001':['Рис жасмин','Ароматный рис жасмин для сбалансированного рациона.'],
    'carb-002':['Рис бурый','Источник сложных углеводов.'],
    'carb-005':['Батат с паприкой','Запеченный батат с паприкой и ароматными травами.'],
-   'carb-008':['Овсянка на миндальном молоке','Овсянка на миндальном молоке для мягкого завтрака.'],
-   'fiber-001':['Брокколи','Овощной гарнир и источник клетчатки.'],
-   'fiber-005':['Цветная капуста','Нежная цветная капуста как легкий овощной гарнир.'],
-   'fiber-008':['Овощной микс (брокколи + морковь + цветная)','Смесь брокколи, моркови и цветной капусты.']
+   'carb-008':['Шоколадная овсяная каша','Густая и сытная овсяная каша с мягким шоколадным вкусом.'],
+   'fiber-001':['Брокколи на пару','Нежные соцветия брокколи с натуральным вкусом и легкой текстурой.'],
+   'fiber-005':['Цветная капуста на пару','Мягкая цветная капуста с нежным натуральным вкусом для сбалансированного рациона.'],
+   'fiber-008':['Овощной микс на пару','Сбалансированное сочетание брокколи, цветной капусты и моркови без добавления масла.']
   }
  },
  en:{
@@ -1337,20 +1341,20 @@ const I18N={
    ['Can I change portions?','Yes, you can increase or decrease quantities in the cart before checkout.']
   ],
   products:{
-   'protein-001':['Creamy garlic chicken fillet','Tender chicken fillet in a light creamy garlic sauce.'],
-   'protein-004':['Light teriyaki chicken fillet','Chicken fillet in a light teriyaki sauce.'],
-   'protein-005':['Light curry-coconut chicken fillet','Chicken fillet with mild curry and coconut notes.'],
-   'protein-007':['Classic chicken fillet','Tender chicken fillet with light spices and a clean natural taste.'],
+   'protein-001':['Creamy garlic chicken fillet','Tender juicy fillet with creamy garlic notes and Italian herbs.'],
+   'protein-004':['Light teriyaki chicken fillet','A lighter Asian-style fillet with honey, soy sauce, ginger and garlic notes.'],
+   'protein-005':['Light curry-coconut chicken fillet','Aromatic fillet with soft coconut, curry and turmeric notes.'],
+   'protein-007':['Classic chicken fillet','Natural chicken fillet with garlic, black pepper and Italian herbs.'],
    'protein-009':['Light teriyaki beef','Lean beef in a light teriyaki sauce.'],
    'protein-010':['Classic beef','Lean beef with a natural taste and light spices.'],
    'protein-011':['Broccoli omelet','Tender omelet with broccoli.'],
    'carb-001':['Jasmine rice','Aromatic jasmine rice for a balanced plan.'],
    'carb-002':['Brown rice','A source of complex carbohydrates.'],
    'carb-005':['Sweet potato with paprika','Roasted sweet potato with paprika and aromatic herbs.'],
-   'carb-008':['Oatmeal with almond milk','Oatmeal with almond milk for a gentle breakfast.'],
-   'fiber-001':['Broccoli','Vegetable side and fiber source.'],
-   'fiber-005':['Cauliflower','Tender cauliflower as a light vegetable side.'],
-   'fiber-008':['Vegetable mix (broccoli + carrot + cauliflower)','A mix of broccoli, carrot and cauliflower.']
+   'carb-008':['Chocolate oatmeal','Thick and filling oatmeal with a soft chocolate taste.'],
+   'fiber-001':['Steamed broccoli','Tender broccoli florets with a natural taste and light texture.'],
+   'fiber-005':['Steamed cauliflower','Soft cauliflower with a gentle natural taste for a balanced plan.'],
+   'fiber-008':['Steamed vegetable mix','A balanced mix of broccoli, cauliflower and carrot without added oil.']
   }
  },
  vi:{
@@ -1388,20 +1392,20 @@ const I18N={
    ['Có thể đổi số lượng phần ăn không?','Có, trong giỏ hàng bạn có thể tăng hoặc giảm số lượng từng món trước khi gửi đơn.']
   ],
   products:{
-   'protein-001':['Ức gà sốt kem tỏi','Ức gà mềm với sốt kem tỏi thanh nhẹ.'],
-   'protein-004':['Ức gà sốt teriyaki nhẹ','Ức gà với sốt teriyaki vị nhẹ, dễ ăn.'],
-   'protein-005':['Ức gà cà ri dừa nhẹ','Ức gà với cà ri dịu và hương dừa.'],
-   'protein-007':['Ức gà cổ điển','Ức gà mềm với gia vị nhẹ và hương vị tự nhiên.'],
+   'protein-001':['Ức gà kem tỏi','Ức gà mềm mọng với vị kem tỏi nhẹ và hương thảo mộc Italy.'],
+   'protein-004':['Ức gà teriyaki nhẹ','Phiên bản teriyaki nhẹ với mật ong, nước tương, gừng và tỏi.'],
+   'protein-005':['Ức gà cà ri dừa nhẹ','Ức gà thơm với vị dừa, cà ri và nghệ dịu nhẹ.'],
+   'protein-007':['Ức gà cổ điển','Ức gà tự nhiên với tỏi, tiêu đen và thảo mộc Italy.'],
    'protein-009':['Bò sốt teriyaki nhẹ','Thịt bò nạc với sốt teriyaki vị nhẹ.'],
    'protein-010':['Bò cổ điển','Thịt bò nạc với hương vị tự nhiên và gia vị nhẹ.'],
    'protein-011':['Trứng cuộn bông cải xanh','Trứng cuộn mềm với bông cải xanh.'],
    'carb-001':['Cơm gạo Jasmine','Gạo Jasmine thơm, phù hợp cho thực đơn cân bằng.'],
    'carb-002':['Cơm gạo lứt','Nguồn tinh bột phức hợp, no lâu.'],
    'carb-005':['Khoai lang ớt paprika','Khoai lang nướng với paprika và rau thơm.'],
-   'carb-008':['Yến mạch sữa hạnh nhân','Yến mạch nấu với sữa hạnh nhân cho bữa sáng nhẹ.'],
-   'fiber-001':['Bông cải xanh','Món rau ăn kèm, giàu chất xơ.'],
-   'fiber-005':['Súp lơ trắng','Súp lơ trắng mềm, phù hợp làm món rau ăn kèm nhẹ.'],
-   'fiber-008':['Rau củ hỗn hợp (bông cải xanh + cà rốt + súp lơ trắng)','Hỗn hợp bông cải xanh, cà rốt và súp lơ trắng.']
+   'carb-008':['Yến mạch chocolate','Yến mạch đặc, no lâu với vị chocolate dịu.'],
+   'fiber-001':['Bông cải xanh hấp','Bông cải xanh mềm với vị tự nhiên và kết cấu nhẹ.'],
+   'fiber-005':['Súp lơ trắng hấp','Súp lơ trắng mềm, vị tự nhiên nhẹ cho thực đơn cân bằng.'],
+   'fiber-008':['Rau củ hấp hỗn hợp','Hỗn hợp bông cải xanh, súp lơ trắng và cà rốt, không thêm dầu.']
   }
  }
 };
@@ -1413,6 +1417,20 @@ function t(key,vars={}){
 
 function productName(p){return (I18N[currentLang]?.products?.[p.id]?.[0]) || p.name;}
 function productDesc(p){return (I18N[currentLang]?.products?.[p.id]?.[1]) || p.description || t('balancedComponent');}
+function productDetailsHtml(p){
+ const details=p?.details;
+ if(!details) return '';
+ const labels={
+  ru:{composition:'Состав',weight:'Вес порции',cooking:'Способ приготовления',storage:'Хранение'},
+  en:{composition:'Ingredients',weight:'Portion weight',cooking:'Cooking method',storage:'Storage'},
+  vi:{composition:'Thành phần',weight:'Khối lượng phần',cooking:'Cách chế biến',storage:'Bảo quản'}
+ };
+ const langLabels=labels[currentLang] || labels.ru;
+ return ['composition','weight','cooking','storage']
+  .filter(key=>details[key])
+  .map(key=>`<div class="quick-view-detail"><b>${escapeHtml(langLabels[key])}</b>${escapeHtml(details[key])}</div>`)
+  .join('');
+}
 function gramUnit(){return currentLang==='ru' ? 'г' : 'g';}
 
 function setText(selector,value){
@@ -1455,6 +1473,12 @@ function updateContactPlaceholder(){
 
 function formatVnd(value){
  return `${Math.max(0,Math.round(Number(value)||0)).toLocaleString()} VND`;
+}
+
+function formatMacro(value){
+ const number=Number(value)||0;
+ const rounded=Math.round(number*10)/10;
+ return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
 }
 
 function normalizeVietnamPhone(value){
@@ -2312,10 +2336,12 @@ function openQuickView(id){
  setQuickViewImage(product);
  setText('#quickViewTitle',productName(product));
  setText('#quickViewDesc',productDesc(product));
+ const detailsBox=document.getElementById('quickViewDetails');
+ if(detailsBox) detailsBox.innerHTML=productDetailsHtml(product);
  setText('#quickViewCalories',String(product.calories));
- setText('#quickViewProtein',String(product.protein));
- setText('#quickViewFat',String(product.fat));
- setText('#quickViewCarbs',String(product.carbs));
+ setText('#quickViewProtein',formatMacro(product.protein));
+ setText('#quickViewFat',formatMacro(product.fat));
+ setText('#quickViewCarbs',formatMacro(product.carbs));
  setText('#quickViewPrice',`${product.price.toLocaleString()} VND`);
  const addBtn=document.getElementById('quickViewAdd');
  if(addBtn){
@@ -2427,7 +2453,7 @@ function renderCart(){
       <img src="assets/${p.images[0]}" alt="">
       <div class="cart-item-info">
       <b class="cart-item-name">${productName(p)}</b>
-      <div class="cart-item-meta"><span>${p.calories} ${t('calories')}</span><span>${t('proteinShort')} ${p.protein}</span><span>${t('fatShort')} ${p.fat}</span><span>${t('carbsShort')} ${p.carbs}</span></div>
+      <div class="cart-item-meta"><span>${p.calories} ${t('calories')}</span><span>${t('proteinShort')} ${formatMacro(p.protein)}</span><span>${t('fatShort')} ${formatMacro(p.fat)}</span><span>${t('carbsShort')} ${formatMacro(p.carbs)}</span></div>
       </div>
       <div class="cart-item-side">
       <div class="cart-item-price">${p.price.toLocaleString()} VND</div>
@@ -2690,9 +2716,9 @@ fetch('data/products.json')
     <p class="card-desc">${productDesc(p)}</p>
     <div class="macro-row">
      <div class="macro-pill"><b>${p.calories}</b>${t('calories')}</div>
-     <div class="macro-pill"><b>${p.protein}</b>${t('proteinShort')}</div>
-     <div class="macro-pill"><b>${p.fat}</b>${t('fatShort')}</div>
-     <div class="macro-pill"><b>${p.carbs}</b>${t('carbsShort')}</div>
+     <div class="macro-pill"><b>${formatMacro(p.protein)}</b>${t('proteinShort')}</div>
+     <div class="macro-pill"><b>${formatMacro(p.fat)}</b>${t('fatShort')}</div>
+     <div class="macro-pill"><b>${formatMacro(p.carbs)}</b>${t('carbsShort')}</div>
     </div>
     <div class="card-footer">
      <div class="price">${p.price.toLocaleString()} VND</div>
@@ -3172,9 +3198,9 @@ ${t('carbsShort')}: ${totals.carbs} ${gramUnit()}
  document.getElementById('autoPlanResult').innerHTML=planHtml;
  document.getElementById('totalPrice').textContent=planPrice.toLocaleString();
  document.getElementById('totalCalories').textContent=kcal;
- document.getElementById('totalProtein').textContent=prot;
- document.getElementById('totalFat').textContent=fat;
- document.getElementById('totalCarbs').textContent=carb;
+ document.getElementById('totalProtein').textContent=formatMacro(prot);
+ document.getElementById('totalFat').textContent=formatMacro(fat);
+ document.getElementById('totalCarbs').textContent=formatMacro(carb);
  updateKBJUProgress(kcal,prot,fat,carb);
 }
 

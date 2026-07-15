@@ -2,54 +2,78 @@
   {
     "id": "protein-001",
     "name": "Куриное филе сливочно-чесночное",
-    "description": "Нежное куриное филе в легком сливочно-чесночном соусе.",
+    "description": "Нежное и сочное куриное филе с мягким сливочно-чесночным вкусом и ароматом итальянских трав. Высокобелковое блюдо без тяжелого соуса.",
     "price": 99000,
-    "protein": 41,
-    "fat": 4,
-    "carbs": 3,
-    "calories": 230,
+    "protein": 47,
+    "fat": 6,
+    "carbs": 2,
+    "calories": 260,
     "categories": ["protein"],
     "ingredientTags": ["protein"],
-    "images": ["chicken-creamy-garlic-1.png", "chicken-creamy-garlic-2.png", "chicken-creamy-garlic-3.jpg", "chicken-creamy-garlic-4.png"]
+    "images": ["chicken-creamy-garlic-1.png", "chicken-creamy-garlic-2.png", "chicken-creamy-garlic-3.jpg", "chicken-creamy-garlic-4.png"],
+    "details": {
+      "composition": "куриное филе, греческий йогурт, свежий и сушеный чеснок, итальянские травы, черный перец, соль.",
+      "weight": "221,4 г в сыром виде.",
+      "cooking": "Приготовлено методом су-вид непосредственно в герметичной вакуумной упаковке.",
+      "storage": "При температуре 0...+4°C не более 7 суток со дня изготовления в невскрытой упаковке. После вскрытия употребить в течение 24 часов."
+    }
   },
   {
     "id": "protein-004",
     "name": "Куриное филе терияки лайт",
-    "description": "Куриное филе в легком соусе терияки.",
+    "description": "Легкая версия популярного азиатского вкуса. Нежное куриное филе с умеренно сладкими нотами меда, соевого соуса, имбиря и чеснока.",
     "price": 99000,
-    "protein": 40,
-    "fat": 3,
+    "protein": 46,
+    "fat": 5,
     "carbs": 6,
-    "calories": 240,
+    "calories": 265,
     "categories": ["protein"],
     "ingredientTags": ["protein"],
-    "images": ["chicken-teriyaki-light-2.png", "chicken-teriyaki-light-1.png"]
+    "images": ["chicken-teriyaki-light-2.png", "chicken-teriyaki-light-1.png"],
+    "details": {
+      "composition": "куриное филе, соевый соус, мед, свежий чеснок, свежий имбирь, сушеный чеснок, черный перец, соль.",
+      "weight": "215,5 г в сыром виде.",
+      "cooking": "Приготовлено методом су-вид непосредственно в герметичной вакуумной упаковке.",
+      "storage": "При температуре 0...+4°C не более 7 суток со дня изготовления в невскрытой упаковке. После вскрытия употребить в течение 24 часов."
+    }
   },
   {
     "id": "protein-005",
     "name": "Куриное филе карри-кокос лайт",
-    "description": "Куриное филе с мягким карри и кокосовым акцентом.",
+    "description": "Ароматное куриное филе с мягкими нотами кокоса, карри и куркумы. Насыщенный вкус при небольшом количестве соуса.",
     "price": 99000,
-    "protein": 40,
-    "fat": 5,
-    "carbs": 4,
-    "calories": 245,
+    "protein": 45,
+    "fat": 6,
+    "carbs": 1,
+    "calories": 254,
     "categories": ["protein"],
     "ingredientTags": ["protein"],
-    "images": ["chicken-curry-coconut-3.png", "chicken-curry-coconut-2.png", "chicken-curry-coconut-1.png", "chicken-curry-coconut-4.png", "chicken-curry-coconut-5.png"]
+    "images": ["chicken-curry-coconut-3.png", "chicken-curry-coconut-2.png", "chicken-curry-coconut-1.png", "chicken-curry-coconut-4.png", "chicken-curry-coconut-5.png"],
+    "details": {
+      "composition": "куриное филе, кокосовое молоко Light, карри, куркума, сушеный чеснок, соль.",
+      "weight": "213,9 г в сыром виде.",
+      "cooking": "Приготовлено методом су-вид непосредственно в герметичной вакуумной упаковке.",
+      "storage": "При температуре 0...+4°C не более 7 суток со дня изготовления в невскрытой упаковке. После вскрытия употребить в течение 24 часов."
+    }
   },
   {
     "id": "protein-007",
     "name": "Куриное филе классическое",
-    "description": "Нежное куриное филе с легкими специями и натуральным вкусом.",
+    "description": "Натуральное куриное филе с легким ароматом чеснока, черного перца и итальянских трав. Универсальный вариант, который хорошо сочетается с любым гарниром.",
     "price": 99000,
-    "protein": 42,
-    "fat": 4,
+    "protein": 45,
+    "fat": 5,
     "carbs": 1,
-    "calories": 220,
+    "calories": 243,
     "categories": ["protein"],
     "ingredientTags": ["protein"],
-    "images": ["chicken-classic-3.png", "chicken-classic-2.png", "chicken-classic-1.png", "chicken-classic-4.png"]
+    "images": ["chicken-classic-3.png", "chicken-classic-2.png", "chicken-classic-1.png", "chicken-classic-4.png"],
+    "details": {
+      "composition": "куриное филе, соль, черный перец, итальянские травы, сушеный чеснок.",
+      "weight": "202,4 г в сыром виде.",
+      "cooking": "Приготовлено методом су-вид непосредственно в герметичной вакуумной упаковке.",
+      "storage": "При температуре 0...+4°C не более 7 суток со дня изготовления в невскрытой упаковке. После вскрытия употребить в течение 24 часов."
+    }
   },
   {
     "id": "protein-009",
@@ -131,54 +155,78 @@
   },
   {
     "id": "carb-008",
-    "name": "Овсянка на миндальном молоке",
-    "description": "Овсянка на миндальном молоке для мягкого завтрака.",
+    "name": "Шоколадная овсяная каша",
+    "description": "Густая и сытная овсяная каша с мягким шоколадным вкусом. Приготовлена из хлопьев длительной варки на шоколадном овсяном молоке.",
     "price": 59000,
-    "protein": 9,
-    "fat": 7,
-    "carbs": 57,
-    "calories": 330,
+    "protein": 15,
+    "fat": 10,
+    "carbs": 88,
+    "calories": 499,
     "categories": ["carbs"],
     "ingredientTags": ["carbs"],
-    "images": ["meal-002-1.jpg"]
+    "images": ["meal-002-1.jpg"],
+    "details": {
+      "composition": "овсяные хлопья длительной варки, шоколадное овсяное молоко, вода, соль.",
+      "weight": "500 г ингредиентов до приготовления.",
+      "cooking": "Сварено до готовности и упаковано в вакуум сразу после приготовления.",
+      "storage": "При температуре 0...+4°C не более 3 суток со дня изготовления. После вскрытия упаковки употребить в течение 24 часов."
+    }
   },
   {
     "id": "fiber-001",
-    "name": "Брокколи",
-    "description": "Овощной гарнир и источник клетчатки.",
+    "name": "Брокколи на пару",
+    "description": "Нежные соцветия брокколи с натуральным вкусом и легкой текстурой. Подходят как самостоятельный гарнир или дополнение к мясу, птице и рыбе.",
     "price": 39000,
     "protein": 3,
     "fat": 0,
-    "carbs": 6,
-    "calories": 35,
+    "carbs": 7,
+    "calories": 34,
     "categories": ["fiber"],
     "ingredientTags": ["vegetables"],
-    "images": ["broccoli-1.png", "broccoli-2.png", "broccoli-3.png"]
+    "images": ["broccoli-1.png", "broccoli-2.png", "broccoli-3.png"],
+    "details": {
+      "composition": "брокколи.",
+      "weight": "100 г в сыром виде.",
+      "cooking": "Приготовлено на пару без добавления масла и упаковано в вакуум сразу после приготовления.",
+      "storage": "При температуре 0...+4°C не более 4 суток со дня изготовления. После вскрытия упаковки употребить в течение 24 часов."
+    }
   },
   {
     "id": "fiber-005",
-    "name": "Цветная капуста",
-    "description": "Нежная цветная капуста как легкий овощной гарнир.",
+    "name": "Цветная капуста на пару",
+    "description": "Мягкая цветная капуста с нежным натуральным вкусом. Легкий низкокалорийный гарнир для сбалансированного рациона.",
     "price": 39000,
     "protein": 2,
     "fat": 0,
     "carbs": 5,
-    "calories": 30,
+    "calories": 25,
     "categories": ["fiber"],
     "ingredientTags": ["vegetables"],
-    "images": ["cauliflower-1.png", "cauliflower-2.png", "cauliflower-3.png"]
+    "images": ["cauliflower-1.png", "cauliflower-2.png", "cauliflower-3.png"],
+    "details": {
+      "composition": "цветная капуста.",
+      "weight": "100 г в сыром виде.",
+      "cooking": "Приготовлено на пару без добавления масла и упаковано в вакуум сразу после приготовления.",
+      "storage": "При температуре 0...+4°C не более 4 суток со дня изготовления. После вскрытия упаковки употребить в течение 24 часов."
+    }
   },
   {
     "id": "fiber-008",
-    "name": "Овощной микс (брокколи + морковь + цветная)",
-    "description": "Смесь брокколи, моркови и цветной капусты.",
+    "name": "Овощной микс на пару",
+    "description": "Сбалансированное сочетание брокколи, цветной капусты и моркови. Легкий и яркий овощной гарнир без добавления масла.",
     "price": 39000,
     "protein": 2,
     "fat": 0,
-    "carbs": 6,
-    "calories": 32,
+    "carbs": 7,
+    "calories": 33,
     "categories": ["fiber"],
     "ingredientTags": ["vegetables"],
-    "images": ["vegetable-mix-1.png", "vegetable-mix-2.png", "vegetable-mix-3.png"]
+    "images": ["vegetable-mix-1.png", "vegetable-mix-2.png", "vegetable-mix-3.png"],
+    "details": {
+      "composition": "брокколи - 35 г, морковь - 30 г, цветная капуста - 35 г.",
+      "weight": "100 г в сыром виде.",
+      "cooking": "Приготовлено на пару без добавления масла и упаковано в вакуум сразу после приготовления.",
+      "storage": "При температуре 0...+4°C не более 4 суток со дня изготовления. После вскрытия упаковки употребить в течение 24 часов."
+    }
   }
 ]
