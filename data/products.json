@@ -79,8 +79,8 @@
   },
   {
     "id": "protein-011",
-    "name": "Омлет шпинат-сыр",
-    "description": "Омлет со шпинатом и сыром.",
+    "name": "Омлет с брокколи",
+    "description": "Нежный омлет с брокколи.",
     "price": 99000,
     "protein": 28,
     "fat": 12,
@@ -88,7 +88,7 @@
     "calories": 245,
     "categories": ["protein"],
     "ingredientTags": ["protein"],
-    "images": ["meal-002-1.jpg"]
+    "images": ["broccoli-omelet-1.png", "broccoli-omelet-2.png", "broccoli-omelet-3.png"]
   },
   {
     "id": "carb-001",
