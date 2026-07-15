@@ -114,7 +114,7 @@
     "calories": 245,
     "categories": ["carbs"],
     "ingredientTags": ["carbs"],
-    "images": ["meal-001-1.jpg"]
+    "images": ["brown-rice-1.png", "brown-rice-2.png"]
   },
   {
     "id": "carb-003",
