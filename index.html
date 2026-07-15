@@ -484,11 +484,15 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .macro-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:8px;border-radius:18px;background:#f4f8f1;border:1px solid #e7efe2}
 .macro-pill{padding:7px 4px;border-radius:12px;background:#fff;text-align:center;color:#71806d;font-size:11px;font-weight:800}
 .macro-pill b{display:block;margin-bottom:2px;color:#172015;font-size:15px}
-.card-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:2px}
+.card-footer{display:grid;grid-template-columns:1fr;gap:10px;margin-top:auto;padding-top:2px}
 .price{font-size:20px;font-weight:950;color:#172015;white-space:nowrap;letter-spacing:0}
-.card .btn{min-width:124px;min-height:46px;border-radius:14px;box-shadow:0 12px 24px rgba(99,189,43,.2)}
-.btn,.kbju-secondary,.hero-cta,.action-btn,.cart-btn,.filter-chip,.price-tools select,.clear-btn,.close-cart,.loyalty-repeat-btn,.quick-view-close,.menu-toggle{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,background .18s ease}
-.btn:focus-visible,.kbju-secondary:focus-visible,.hero-cta:focus-visible,.action-btn:focus-visible,.cart-btn:focus-visible,.filter-chip:focus-visible,.price-tools select:focus-visible,.clear-btn:focus-visible,.close-cart:focus-visible,.loyalty-repeat-btn:focus-visible,.quick-view-close:focus-visible,.menu-toggle:focus-visible{outline:none;box-shadow:0 0 0 4px rgba(99,189,43,.2)}
+.card-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.card .btn,.card .details-btn{min-height:44px;border-radius:14px}
+.card .btn{box-shadow:0 12px 24px rgba(99,189,43,.2)}
+.details-btn{border:1px solid #dce8d6;background:#fff;color:#2d3a28;font-weight:900;cursor:pointer}
+.details-btn:hover{border-color:#b8d8aa;background:#f4f9f0;box-shadow:0 10px 22px rgba(31,55,24,.08)}
+.btn,.details-btn,.kbju-secondary,.hero-cta,.action-btn,.cart-btn,.filter-chip,.price-tools select,.clear-btn,.close-cart,.loyalty-repeat-btn,.quick-view-close,.menu-toggle{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,background .18s ease}
+.btn:focus-visible,.details-btn:focus-visible,.kbju-secondary:focus-visible,.hero-cta:focus-visible,.action-btn:focus-visible,.cart-btn:focus-visible,.filter-chip:focus-visible,.price-tools select:focus-visible,.clear-btn:focus-visible,.close-cart:focus-visible,.loyalty-repeat-btn:focus-visible,.quick-view-close:focus-visible,.menu-toggle:focus-visible{outline:none;box-shadow:0 0 0 4px rgba(99,189,43,.2)}
 .btn:hover,.kbju-secondary:hover,.quick-view-close:hover,.menu-toggle:hover{transform:translateY(-1px)}
 .empty-products{grid-column:1/-1;padding:40px;background:#fff;border:1px dashed #cdddc6;border-radius:24px;text-align:center;color:var(--muted)}
 .kbju-saved-card{max-width:1400px;margin:18px auto 0;padding:0 24px;display:none}
@@ -2722,7 +2726,10 @@ fetch('data/products.json')
     </div>
     <div class="card-footer">
      <div class="price">${p.price.toLocaleString()} VND</div>
-     <button class="btn" onclick="event.stopPropagation();add('${p.id}')">${t('addToCart')}</button>
+     <div class="card-actions">
+      <button class="details-btn" onclick="event.stopPropagation();openQuickView('${p.id}')">${t('quickView')}</button>
+      <button class="btn" onclick="event.stopPropagation();add('${p.id}')">${t('addToCart')}</button>
+     </div>
     </div>
    </div>
  </div>`;
