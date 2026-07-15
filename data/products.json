@@ -65,6 +65,19 @@
     "images": ["beef-teriyaki-light-1.png", "beef-teriyaki-light-2.png", "beef-teriyaki-light-3.png"]
   },
   {
+    "id": "protein-010",
+    "name": "Говядина классическая",
+    "description": "Постная говядина с натуральным вкусом и легкими специями.",
+    "price": 99000,
+    "protein": 37,
+    "fat": 13,
+    "carbs": 4,
+    "calories": 290,
+    "categories": ["protein"],
+    "ingredientTags": ["protein"],
+    "images": ["beef-classic-1.png", "beef-classic-2.png", "beef-classic-3.png"]
+  },
+  {
     "id": "protein-011",
     "name": "Омлет шпинат-сыр",
     "description": "Омлет со шпинатом и сыром.",
