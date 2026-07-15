@@ -157,16 +157,16 @@
   },
   {
     "id": "fiber-005",
-    "name": "Цукини",
-    "description": "Легкий овощной гарнир и источник клетчатки.",
+    "name": "Цветная капуста",
+    "description": "Нежная цветная капуста как легкий овощной гарнир.",
     "price": 39000,
-    "protein": 1,
+    "protein": 2,
     "fat": 0,
-    "carbs": 3,
-    "calories": 20,
+    "carbs": 5,
+    "calories": 30,
     "categories": ["fiber"],
     "ingredientTags": ["vegetables"],
-    "images": ["meal-003-1.jpg"]
+    "images": ["cauliflower-1.png", "cauliflower-2.png", "cauliflower-3.png"]
   },
   {
     "id": "fiber-008",
