@@ -62,7 +62,7 @@
     "calories": 290,
     "categories": ["protein"],
     "ingredientTags": ["protein"],
-    "images": ["meal-001-1.jpg"]
+    "images": ["beef-teriyaki-light-1.png", "beef-teriyaki-light-2.png", "beef-teriyaki-light-3.png"]
   },
   {
     "id": "protein-011",
