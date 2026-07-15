@@ -117,19 +117,6 @@
     "images": ["brown-rice-1.png", "brown-rice-2.png"]
   },
   {
-    "id": "carb-003",
-    "name": "Рисовая каша на кокосовом молоке",
-    "description": "Сытный источник углеводов с мягким кокосовым вкусом.",
-    "price": 59000,
-    "protein": 6,
-    "fat": 11,
-    "carbs": 58,
-    "calories": 360,
-    "categories": ["carbs"],
-    "ingredientTags": ["carbs"],
-    "images": ["meal-001-1.jpg"]
-  },
-  {
     "id": "carb-005",
     "name": "Батат с паприкой",
     "description": "Запеченный батат с паприкой и ароматными травами.",
