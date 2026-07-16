@@ -78,54 +78,78 @@
   {
     "id": "protein-009",
     "name": "Говядина терияки лайт",
-    "description": "Постная говядина в легком соусе терияки.",
+    "description": "Нежная говядина с легким азиатским вкусом. Соевый соус, мед, имбирь и чеснок создают сбалансированный сладко-пряный маринад.",
     "price": 99000,
-    "protein": 37,
-    "fat": 13,
-    "carbs": 4,
-    "calories": 290,
+    "protein": 43,
+    "fat": 10,
+    "carbs": 6,
+    "calories": 298,
     "categories": ["protein"],
     "ingredientTags": ["protein"],
-    "images": ["beef-teriyaki-light-1.png", "beef-teriyaki-light-2.png", "beef-teriyaki-light-3.png"]
+    "images": ["beef-teriyaki-light-1.png", "beef-teriyaki-light-2.png", "beef-teriyaki-light-3.png"],
+    "details": {
+      "composition": "говядина, соевый соус, мед, свежий чеснок, свежий имбирь, сушеный чеснок, черный перец, соль.",
+      "weight": "216 г в сыром виде.",
+      "cooking": "Приготовлено методом су-вид непосредственно в герметичной вакуумной упаковке.",
+      "storage": "При температуре 0...+4°C не более 7 суток со дня изготовления в невскрытой упаковке. После вскрытия употребить в течение 24 часов."
+    }
   },
   {
     "id": "protein-010",
     "name": "Говядина классическая",
-    "description": "Постная говядина с натуральным вкусом и легкими специями.",
+    "description": "Натуральная говядина с насыщенным мясным вкусом, черным перцем и легким ароматом чеснока.",
     "price": 99000,
-    "protein": 37,
-    "fat": 13,
-    "carbs": 4,
-    "calories": 290,
+    "protein": 43,
+    "fat": 10,
+    "carbs": 1,
+    "calories": 277,
     "categories": ["protein"],
     "ingredientTags": ["protein"],
-    "images": ["beef-classic-1.png", "beef-classic-2.png", "beef-classic-3.png"]
+    "images": ["beef-classic-1.png", "beef-classic-2.png", "beef-classic-3.png"],
+    "details": {
+      "composition": "говядина, соль, черный перец, сушеный чеснок.",
+      "weight": "203 г в сыром виде.",
+      "cooking": "Приготовлено методом су-вид непосредственно в герметичной вакуумной упаковке.",
+      "storage": "При температуре 0...+4°C не более 7 суток со дня изготовления в невскрытой упаковке. После вскрытия употребить в течение 24 часов."
+    }
   },
   {
     "id": "protein-011",
-    "name": "Омлет с брокколи",
-    "description": "Нежный омлет с брокколи.",
+    "name": "Омлет с брокколи и моцареллой",
+    "description": "Нежный белковый омлет с брокколи и мягкой моцареллой. Сытный сбалансированный завтрак с приятной сливочной текстурой.",
     "price": 99000,
     "protein": 28,
-    "fat": 12,
-    "carbs": 3,
-    "calories": 245,
+    "fat": 13,
+    "carbs": 4,
+    "calories": 247,
     "categories": ["protein"],
     "ingredientTags": ["protein"],
-    "images": ["broccoli-omelet-1.png", "broccoli-omelet-2.png", "broccoli-omelet-3.png"]
+    "images": ["broccoli-omelet-1.png", "broccoli-omelet-2.png", "broccoli-omelet-3.png"],
+    "details": {
+      "composition": "куриные яйца, яичные белки, брокколи, моцарелла, соль.",
+      "weight": "246 г ингредиентов до приготовления.",
+      "cooking": "Приготовлено методом су-вид в герметичной упаковке.",
+      "storage": "При температуре 0...+4°C не более 7 суток со дня изготовления в невскрытой упаковке. После вскрытия употребить в течение 24 часов."
+    }
   },
   {
     "id": "carb-001",
     "name": "Рис жасмин",
-    "description": "Ароматный рис жасмин для сбалансированного рациона.",
+    "description": "Ароматный жасминовый рис с нежной рассыпчатой текстурой. Универсальный гарнир, который хорошо сохраняет структуру и вкус после разогрева.",
     "price": 59000,
-    "protein": 5,
+    "protein": 7,
     "fat": 1,
-    "carbs": 55,
-    "calories": 250,
+    "carbs": 79,
+    "calories": 356,
     "categories": ["carbs"],
     "ingredientTags": ["carbs"],
-    "images": ["rice-white-1.png", "rice-white-2.png", "rice-white-3.png"]
+    "images": ["rice-white-1.png", "rice-white-2.png", "rice-white-3.png"],
+    "details": {
+      "composition": "жасминовый рис, вода, соль.",
+      "weight": "100 г риса в сухом виде.",
+      "cooking": "Приготовлено до готовности, быстро охлаждено и упаковано в вакуум сразу после приготовления.",
+      "storage": "При температуре 0...+4°C не более 3 суток со дня изготовления. После вскрытия упаковки употребить в течение 24 часов."
+    }
   },
   {
     "id": "carb-002",
@@ -142,16 +166,22 @@
   },
   {
     "id": "carb-005",
-    "name": "Батат с паприкой",
-    "description": "Запеченный батат с паприкой и ароматными травами.",
+    "name": "Батат с копченой паприкой",
+    "description": "Нежный батат с естественной сладостью, ароматом копченой паприки и итальянских трав.",
     "price": 59000,
-    "protein": 4,
-    "fat": 0,
-    "carbs": 50,
-    "calories": 215,
+    "protein": 3,
+    "fat": 5,
+    "carbs": 41,
+    "calories": 218,
     "categories": ["carbs"],
     "ingredientTags": ["carbs"],
-    "images": ["sweet-potato-paprika-1.png", "sweet-potato-paprika-2.png"]
+    "images": ["sweet-potato-paprika-1.png", "sweet-potato-paprika-2.png"],
+    "details": {
+      "composition": "батат, оливковое масло, соль, копченая паприка, черный перец, итальянские травы.",
+      "weight": "207 г в сыром виде.",
+      "cooking": "Приготовлено методом су-вид непосредственно в герметичной вакуумной упаковке.",
+      "storage": "При температуре 0...+4°C не более 7 суток со дня изготовления в невскрытой упаковке. После вскрытия употребить в течение 24 часов."
+    }
   },
   {
     "id": "carb-008",
