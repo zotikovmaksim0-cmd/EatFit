@@ -194,7 +194,11 @@
     "calories": 499,
     "categories": ["carbs"],
     "ingredientTags": ["carbs"],
-    "images": ["meal-002-1.jpg"],
+    "images": [
+      "chocolate-oatmeal-1.png",
+      "chocolate-oatmeal-2.png",
+      "chocolate-oatmeal-3.png"
+    ],
     "details": {
       "composition": "овсяные хлопья длительной варки, шоколадное овсяное молоко, вода, соль.",
       "weight": "500 г ингредиентов до приготовления.",
