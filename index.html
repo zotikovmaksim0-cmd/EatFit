@@ -21,17 +21,11 @@ header h1{margin:0;color:#6BCB2D}
 .cart-panel{position:fixed;top:0;right:-760px;width:760px;height:100vh;background:#fff;transition:.3s;padding:20px 20px 180px;overflow:auto;z-index:1201}
 .cart-panel.open{right:0}
 .checkout-bar{position:fixed;bottom:0;width:660px;background:#fff;padding:15px;border-top:1px solid #ddd}
-input,textarea,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin-bottom:10px}
+input,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin-bottom:10px}
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;z-index:1200;pointer-events:none}
 .overlay.show{opacity:1;visibility:visible;pointer-events:auto}
-.success-modal{position:fixed;inset:0;z-index:7000;background:rgba(8,13,7,.68);display:none;align-items:center;justify-content:center;padding:22px;backdrop-filter:blur(8px)}
-.success-box{width:min(560px,94vw);background:#fff;padding:28px;border-radius:24px;box-shadow:0 26px 80px rgba(8,18,6,.32);text-align:left}
-.success-box h2{margin:0 0 12px;color:#172015;font-size:30px;line-height:1.15}
-.success-box p{margin:0 0 14px;color:#394934;font-size:16px;line-height:1.45}
-.success-bonus{display:none;margin:14px 0;padding:14px;border:1px solid #d8e9cf;border-radius:16px;background:#f6fbf1;color:#667461;font-size:14px;line-height:1.45;overflow-wrap:anywhere}
-.success-bonus b{display:block;margin-bottom:5px;color:#172015;font-size:15px}
-.success-order-id{margin-top:12px;padding:10px 12px;border-radius:12px;background:#f7f9f5;color:#172015;overflow-wrap:anywhere}
-.success-box .btn{margin-top:4px}
+.success-modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center}
+.success-box{background:#fff;padding:25px;border-radius:20px;max-width:420px}
 @media(max-width:768px){
 .hero h2{font-size:32px}
 .cart-panel{width:100%;right:-100%}
@@ -388,20 +382,12 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .brand-mark img{width:100%;height:100%;object-fit:cover;display:block}
 .brand-title{font-size:20px;font-weight:800;letter-spacing:-.4px}
 .brand-subtitle{font-size:12px;color:#b8c8b2;margin-top:2px}
-.menu-toggle{display:none;place-items:center;width:42px;height:42px;border:1px solid rgba(255,255,255,.13);border-radius:14px;background:rgba(255,255,255,.08);color:#fff;font-size:22px;font-weight:900;cursor:pointer}
 .site-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end;padding:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:24px}
 .action-btn,.cart-btn{position:static;display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:46px;padding:0 20px;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:rgba(255,255,255,.08);color:#edf8ea;font-weight:850;letter-spacing:-.15px;cursor:pointer;transition:.2s;box-shadow:none;white-space:nowrap}
 .action-btn:hover,.cart-btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.22)}
 .action-btn.primary{background:linear-gradient(135deg,#78d83d,#48a820);border-color:transparent;color:#fff;box-shadow:0 12px 28px rgba(99,189,43,.22)}
 .cart-btn{background:#fff;color:#172015;border-color:transparent;box-shadow:0 12px 26px rgba(0,0,0,.16)}
-.language-switch{position:relative;display:inline-grid;place-items:center;width:34px;height:34px;min-width:34px;flex:0 0 34px;border:0;border-radius:50%;overflow:hidden;background-clip:padding-box;box-shadow:0 0 0 1px rgba(255,255,255,.26),0 5px 12px rgba(0,0,0,.13)}
-.language-switch.lang-ru{background:linear-gradient(to bottom,#fff 0 33.333%,#1f57b8 0 66.666%,#d52b1e 0 100%)}
-.language-switch.lang-en{background:repeating-linear-gradient(to bottom,#b22234 0 7.69%,#fff 7.69% 15.38%)}
-.language-switch.lang-en::before{content:'★';position:absolute;left:0;top:0;width:16px;height:16px;display:grid;place-items:center;background:#3c3b6e;color:#fff;font-size:5px;letter-spacing:-1px;line-height:1;text-shadow:5px 0 0 #fff,10px 0 0 #fff,2px 5px 0 #fff,7px 5px 0 #fff,12px 5px 0 #fff,5px 10px 0 #fff,10px 10px 0 #fff}
-.language-switch.lang-vi{background:#da251d}
-.language-switch.lang-vi::before{content:'★';position:absolute;left:50%;top:50%;transform:translate(-50%,-53%);color:#ffdf00;font-size:15px;line-height:1;text-shadow:0 1px 2px rgba(0,0,0,.18)}
-.language-code{position:relative;z-index:1;color:#111;font-size:9px;font-weight:950;letter-spacing:-.3px;line-height:1;text-shadow:none}
-.language-switch select{position:absolute;inset:0;z-index:2;width:100%;height:100%;margin:0;border:0;border-radius:50%;opacity:0;cursor:pointer}
+.language-switch select{height:46px;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:rgba(255,255,255,.08);color:#edf8ea;font-weight:900;padding:0 10px;outline:none;cursor:pointer}
 .language-switch select option{color:#172015;background:#fff}
 .contact-modal{position:fixed;inset:0;z-index:5200;display:none;align-items:center;justify-content:center;padding:22px;background:rgba(8,13,7,.68);backdrop-filter:blur(10px)}
 .contact-modal.show{display:flex}
@@ -417,38 +403,15 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .contact-icon.whatsapp{background:#25D366}.contact-icon.telegram{background:#229ED9}.contact-icon.zalo{background:#0068ff}
 .contact-name{display:block;font-weight:900;font-size:16px}.contact-note{display:block;margin-top:3px;color:#667461;font-size:13px}
 .contact-small{margin:16px 0 0;color:#71806d;font-size:12px;line-height:1.45}
-.quick-view-modal{position:fixed;inset:0;z-index:5250;display:none;align-items:center;justify-content:center;padding:22px;background:rgba(8,13,7,.68);backdrop-filter:blur(10px)}
-.quick-view-modal.show{display:flex}
-.quick-view-box{width:min(860px,94vw);max-height:92vh;overflow:auto;background:#fff;border:1px solid rgba(228,235,223,.95);border-radius:28px;box-shadow:0 30px 90px rgba(8,18,6,.32)}
-.quick-view-media{height:360px;background:#eef3eb;overflow:hidden}
-.quick-view-media img{width:100%;height:100%;object-fit:cover}
-.quick-view-body{padding:24px}
-.quick-view-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}
-.quick-view-head h2{margin:0;color:#172015;font-size:28px;line-height:1.12}
-.quick-view-close{display:grid;place-items:center;width:42px;height:42px;flex:0 0 42px;border:1px solid var(--line);border-radius:14px;background:#fff;color:#172015;font-size:22px;cursor:pointer}
-.quick-view-desc{margin:12px 0 16px;color:#667461;line-height:1.5}
-.quick-view-details{display:grid;gap:8px;margin:0 0 16px}
-.quick-view-detail{padding:10px 12px;border:1px solid #e7efe2;border-radius:14px;background:#f8fbf5;color:#53624e;font-size:13px;line-height:1.42}
-.quick-view-detail b{display:block;margin-bottom:3px;color:#172015;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
-.quick-view-macros{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:16px 0}
-.quick-view-macro{padding:12px;border-radius:14px;background:#f4f8f1;border:1px solid #e7efe2;text-align:center;color:#667461;font-size:12px;font-weight:800}
-.quick-view-macro b{display:block;margin-bottom:3px;color:#172015;font-size:18px}
-.quick-view-footer{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:16px}
-.quick-view-price{font-size:24px;font-weight:950;color:#172015}
-.hero{position:relative;overflow:hidden;min-height:470px;background:linear-gradient(90deg,rgba(8,16,7,.88) 0%,rgba(8,16,7,.68) 43%,rgba(8,16,7,.2) 100%),url('assets/hero-healthy-delivery.png') center/cover no-repeat;padding:54px 28px 34px;text-align:left;display:flex;align-items:stretch}
-.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,16,7,.08),rgba(8,16,7,.76));pointer-events:none}
-.hero-inner{position:relative;z-index:1;max-width:1180px;width:100%;margin:auto}
-.hero-copy{max-width:760px}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;margin-bottom:16px;padding:8px 12px;border:1px solid rgba(255,255,255,.22);border-radius:999px;background:rgba(255,255,255,.11);color:#e9f6e5;font-size:13px;font-weight:800;backdrop-filter:blur(14px)}
-.hero h2{max-width:740px;font-size:54px;line-height:1.02;letter-spacing:0;margin:0 0 14px;color:#fff;text-shadow:0 12px 36px rgba(0,0,0,.28)}
-.hero p{max-width:650px;font-size:17px;line-height:1.52;color:#edf7ea;margin:0}
-.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
-.hero-cta{height:52px;padding:0 20px;border:1px solid rgba(255,255,255,.18);border-radius:14px;background:rgba(255,255,255,.95);color:#172015;font-weight:900;cursor:pointer;box-shadow:0 18px 36px rgba(0,0,0,.22);transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
-.hero-cta:hover{transform:translateY(-2px);box-shadow:0 24px 44px rgba(0,0,0,.26)}
-.hero-cta.green{background:linear-gradient(135deg,#75d83a,#47a91f);border-color:rgba(117,216,58,.35);color:#fff}
-.hero-points{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
-.hero-point{display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:8px 12px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(255,255,255,.12);color:#f5fbf2;font-size:13px;font-weight:800;backdrop-filter:blur(14px)}
-.hero-point b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#75d83a;color:#10200c;font-size:12px}
+.hero{position:relative;overflow:hidden;background:radial-gradient(circle at 16% 20%,rgba(126,217,70,.28),transparent 28%),linear-gradient(135deg,#11180f 0%,#1f3f18 52%,#72ca33 100%);padding:38px 28px 52px;text-align:left}
+.hero::after{content:'';position:absolute;right:-110px;top:-150px;width:390px;height:390px;border-radius:50%;background:rgba(255,255,255,.11)}
+.hero-inner{position:relative;z-index:1;max-width:1180px;margin:auto}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;margin-bottom:14px;padding:7px 11px;border:1px solid rgba(255,255,255,.2);border-radius:999px;background:rgba(255,255,255,.1);color:#e9f6e5;font-size:13px}
+.hero h2{max-width:760px;font-size:44px;line-height:1.04;letter-spacing:-1.4px;margin:0 0 12px;color:#fff}
+.hero p{max-width:720px;font-size:16px;line-height:1.48;color:#dfebdc}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.hero-cta{height:50px;padding:0 18px;border:none;border-radius:16px;background:#fff;color:#172015;font-weight:900;cursor:pointer;box-shadow:0 18px 36px rgba(0,0,0,.18)}
+.hero-cta.green{background:linear-gradient(135deg,#75d83a,#47a91f);color:#fff}
 .catalog-shell{max-width:1400px;margin:22px auto 18px;padding:0 24px;position:relative;z-index:2}
 .catalog-tools{display:grid;grid-template-columns:minmax(240px,420px) minmax(0,1fr) auto;gap:16px;align-items:center;background:rgba(255,255,255,.92);border:1px solid rgba(228,235,223,.9);border-radius:26px;padding:16px;box-shadow:0 18px 48px rgba(29,45,22,.1);backdrop-filter:blur(18px)}
 .search-wrap{position:relative}
@@ -463,37 +426,22 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .catalog-heading{max-width:1400px;margin:26px auto 0;padding:0 24px;display:flex;align-items:end;justify-content:space-between;gap:18px}
 .catalog-heading h2{margin:0;font-size:32px;letter-spacing:-.8px;color:#172015}
 .catalog-heading p{margin:6px 0 0;color:#667461}
-.grid{grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:28px;padding:24px}
-.card{display:flex;flex-direction:column;min-height:100%;padding:10px;border:1px solid rgba(222,232,216,.95);border-radius:26px;background:linear-gradient(180deg,#fff 0%,#fbfdf9 100%);box-shadow:0 18px 46px rgba(24,36,18,.075);transition:transform .24s ease,box-shadow .24s ease,border-color .24s ease;cursor:pointer}
-.card:hover{transform:translateY(-5px);box-shadow:0 28px 68px rgba(24,36,18,.13);border-color:#c9e0bd}
-.card-media{position:relative;overflow:hidden;border-radius:20px;background:#eef3eb;aspect-ratio:1.22/1}
-.card-media::after{content:'';position:absolute;inset:auto 0 0;height:34%;background:linear-gradient(180deg,transparent,rgba(10,16,8,.2));pointer-events:none}
-.card img{height:100%;border-radius:0;transition:transform .38s ease,filter .38s ease}
+.grid{grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:26px;padding:24px}
+.card{display:flex;flex-direction:column;min-height:100%;padding:12px;border:1px solid rgba(228,235,223,.9);border-radius:28px;background:rgba(255,255,255,.96);box-shadow:0 16px 44px rgba(24,36,18,.08);transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.card:hover{transform:translateY(-7px);box-shadow:0 26px 60px rgba(24,36,18,.14);border-color:#cfe5c3}
+.card-media{position:relative;overflow:hidden;border-radius:22px;background:#eef3eb}
+.card img{height:230px;border-radius:0;transition:transform .35s ease}
 .card:hover img{transform:scale(1.04)}
-.card-gallery-btn,.quick-gallery-btn{position:absolute;z-index:3;display:grid;place-items:center;border:1px solid rgba(255,255,255,.72);background:rgba(255,255,255,.9);color:#172015;cursor:pointer;box-shadow:0 10px 24px rgba(8,18,6,.18);backdrop-filter:blur(10px)}
-.card-gallery-btn{top:50%;width:34px;height:34px;border-radius:50%;font-size:20px;transform:translateY(-50%);opacity:.96}
-.card-gallery-btn.prev{left:10px}
-.card-gallery-btn.next{right:10px}
-.quick-view-media{position:relative}
-.quick-gallery-btn{top:50%;width:44px;height:44px;border-radius:16px;font-size:26px;transform:translateY(-50%)}
-.quick-gallery-btn.prev{left:16px}
-.quick-gallery-btn.next{right:16px}
-.card-body{display:flex;flex-direction:column;gap:13px;flex:1;padding:18px 8px 8px}
-.card h3{margin:0;font-size:21px;line-height:1.18;letter-spacing:0;color:#172015}
-.card-desc{margin:0;color:#61705c;font-size:14px;line-height:1.48;min-height:42px}
-.macro-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:8px;border-radius:18px;background:#f4f8f1;border:1px solid #e7efe2}
-.macro-pill{padding:7px 4px;border-radius:12px;background:#fff;text-align:center;color:#71806d;font-size:11px;font-weight:800}
-.macro-pill b{display:block;margin-bottom:2px;color:#172015;font-size:15px}
-.card-footer{display:grid;grid-template-columns:1fr;gap:10px;margin-top:auto;padding-top:2px}
-.price{font-size:20px;font-weight:950;color:#172015;white-space:nowrap;letter-spacing:0}
-.card-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.card .btn,.card .details-btn{min-height:44px;border-radius:14px}
-.card .btn{box-shadow:0 12px 24px rgba(99,189,43,.2)}
-.details-btn{border:1px solid #dce8d6;background:#fff;color:#2d3a28;font-weight:900;cursor:pointer}
-.details-btn:hover{border-color:#b8d8aa;background:#f4f9f0;box-shadow:0 10px 22px rgba(31,55,24,.08)}
-.btn,.details-btn,.kbju-secondary,.hero-cta,.action-btn,.cart-btn,.filter-chip,.price-tools select,.clear-btn,.close-cart,.loyalty-repeat-btn,.quick-view-close,.menu-toggle{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,background .18s ease}
-.btn:focus-visible,.details-btn:focus-visible,.kbju-secondary:focus-visible,.hero-cta:focus-visible,.action-btn:focus-visible,.cart-btn:focus-visible,.filter-chip:focus-visible,.price-tools select:focus-visible,.clear-btn:focus-visible,.close-cart:focus-visible,.loyalty-repeat-btn:focus-visible,.quick-view-close:focus-visible,.menu-toggle:focus-visible{outline:none;box-shadow:0 0 0 4px rgba(99,189,43,.2)}
-.btn:hover,.kbju-secondary:hover,.quick-view-close:hover,.menu-toggle:hover{transform:translateY(-1px)}
+.category-pill{position:absolute;left:12px;top:12px;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.92);color:#25451b;font-size:12px;font-weight:800;box-shadow:0 8px 22px rgba(0,0,0,.09)}
+.card-body{display:flex;flex-direction:column;gap:12px;flex:1;padding:16px 4px 4px}
+.card h3{margin:0;font-size:20px;line-height:1.2;letter-spacing:-.35px;color:#172015}
+.card-desc{margin:0;color:#657260;font-size:14px;line-height:1.45;min-height:40px}
+.macro-row{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.macro-pill{padding:8px 4px;border-radius:12px;background:#f5f7f2;text-align:center;color:#71806d;font-size:11px}
+.macro-pill b{display:block;color:#172015;font-size:14px}
+.card-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:4px}
+.price{font-size:18px;font-weight:900;color:#172015;white-space:nowrap}
+.card .btn{min-width:118px;border-radius:14px;box-shadow:0 10px 20px rgba(99,189,43,.18)}
 .empty-products{grid-column:1/-1;padding:40px;background:#fff;border:1px dashed #cdddc6;border-radius:24px;text-align:center;color:var(--muted)}
 .kbju-saved-card{max-width:1400px;margin:18px auto 0;padding:0 24px;display:none}
 .kbju-saved-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px 20px;border:1px solid #cfe7c2;border-radius:24px;background:linear-gradient(135deg,#f4fbef,#fff);box-shadow:0 14px 38px rgba(31,55,24,.08)}
@@ -504,115 +452,6 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .kbju-saved-pill b{display:block;color:#172015;font-size:16px}
 .kbju-saved-actions{display:flex;gap:10px;flex-wrap:wrap}
 .kbju-saved-actions .btn{border-radius:14px}
-.loyalty-card{max-width:1400px;margin:18px auto 0;padding:0 24px}
-.loyalty-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px;border:1px solid #d8e9cf;border-radius:24px;background:#fff;box-shadow:0 14px 38px rgba(31,55,24,.07)}
-.loyalty-main{display:flex;flex-direction:column;gap:14px;padding:18px;border-radius:20px;background:linear-gradient(145deg,#17311d,#26492b);color:#fff}
-.loyalty-main.promo{flex:1}
-.loyalty-kicker{width:max-content;padding:6px 10px;border-radius:999px;background:#f1d56b;color:#172015;font-size:12px;font-weight:900}
-.loyalty-title{font-weight:900;font-size:24px;line-height:1.1;color:inherit}
-.loyalty-sub{color:rgba(255,255,255,.78);font-size:14px;line-height:1.45}
-.loyalty-promo-points{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.loyalty-promo-points span{padding:10px;border-radius:14px;background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.14);font-size:13px;line-height:1.3;color:rgba(255,255,255,.86)}
-.loyalty-progress{padding:14px;border-radius:16px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.16)}
-.loyalty-box .loyalty-progress{background:#17311d;border-color:#24482c;color:#fff}
-.loyalty-progress-top{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:rgba(255,255,255,.76)}
-.loyalty-progress-top b{display:block;color:#fff;font-size:18px}
-.loyalty-progress-track{height:10px;margin:12px 0 8px;overflow:hidden;border-radius:999px;background:rgba(255,255,255,.18)}
-.loyalty-progress-fill{display:block;width:0%;height:100%;border-radius:999px;background:linear-gradient(90deg,#63bd2b,#f1d56b);transition:width .35s ease}
-.loyalty-progress-note{font-size:13px;color:rgba(255,255,255,.78)}
-.loyalty-current-perks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
-.loyalty-current-perks div{padding:10px;border-radius:13px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.72);font-size:12px}
-.loyalty-current-perks b{display:block;margin-top:3px;color:#fff;font-size:16px}
-.loyalty-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.loyalty-pill{padding:10px;border-radius:13px;background:rgba(255,255,255,.11);color:rgba(255,255,255,.72);font-size:12px;border:1px solid rgba(255,255,255,.14)}
-.loyalty-pill b{display:block;color:#fff;font-size:17px}
-.loyalty-box .loyalty-pill{background:#f6faf2;color:#667461;border-color:var(--line)}
-.loyalty-box .loyalty-pill b{color:#172015}
-.loyalty-actions{display:flex;gap:10px;flex-wrap:wrap}
-.loyalty-actions .btn{background:#f1d56b;color:#172015}
-.loyalty-guide{display:grid;grid-template-columns:1fr;gap:12px;margin-top:14px}
-.loyalty-benefits{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.loyalty-info{padding:14px;border-radius:18px;border:1px solid var(--line);background:#fbfcfa}
-.loyalty-info strong{display:block;margin-bottom:5px;color:#172015}
-.loyalty-info span{display:block;color:#667461;font-size:13px;line-height:1.35}
-.loyalty-info.accent{background:#fff8e0;border-color:#eadb93}
-.loyalty-levels{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
-.loyalty-level-card{position:relative;overflow:visible;padding:12px 10px;border:1px solid var(--level-line,var(--line));border-radius:16px;background:var(--level-bg,#fff);color:var(--level-text,#667461);font-size:12px;line-height:1.3;cursor:help;outline:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.45)}
-.loyalty-level-card::before{content:'';display:block;width:24px;height:4px;margin-bottom:9px;border-radius:999px;background:var(--level-accent,#63bd2b)}
-.loyalty-level-card b{display:block;margin-bottom:4px;color:var(--level-title,#172015);font-size:14px}
-.loyalty-level-card.rookie{--level-bg:#f7f9f4;--level-line:#dfe7d8;--level-accent:#8fa083;--level-title:#263022;--level-text:#667461}
-.loyalty-level-card.athlete{--level-bg:#f0faec;--level-line:#cfe8c4;--level-accent:#63bd2b;--level-title:#214318;--level-text:#527149}
-.loyalty-level-card.champion{--level-bg:#fff8df;--level-line:#eadb93;--level-accent:#d5aa28;--level-title:#4a3b13;--level-text:#776739}
-.loyalty-level-card.elite{--level-bg:#edf8f5;--level-line:#bfe0d9;--level-accent:#2a9d8f;--level-title:#123f3a;--level-text:#4e716c}
-.loyalty-level-card.legend{--level-bg:#fff1e8;--level-line:#efc9ad;--level-accent:#c86b3c;--level-title:#552611;--level-text:#7d5c4b}
-.loyalty-level-card.active{border-color:var(--level-accent,#63bd2b);box-shadow:0 10px 24px rgba(31,55,24,.11),inset 0 0 0 1px rgba(255,255,255,.6)}
-.loyalty-level-card.locked{filter:saturate(.72);opacity:.82}
-.loyalty-level-card:focus-visible{box-shadow:0 0 0 4px rgba(99,189,43,.16)}
-.loyalty-level-card-tip{position:absolute;left:50%;bottom:calc(100% + 10px);z-index:20;width:min(260px,78vw);max-width:calc(100vw - 44px);padding:12px;border-radius:14px;background:#172015;color:#fff;font-size:12px;line-height:1.35;overflow-wrap:anywhere;box-shadow:0 18px 36px rgba(8,18,6,.25);opacity:0;pointer-events:none;transform:translate(-50%,6px);transition:opacity .18s ease,transform .18s ease}
-.loyalty-level-card-tip::after{content:'';position:absolute;left:50%;top:100%;width:12px;height:12px;background:#172015;transform:translate(-50%,-6px) rotate(45deg)}
-.loyalty-level-card:first-child .loyalty-level-card-tip{left:0;transform:translate(0,6px)}
-.loyalty-level-card:first-child .loyalty-level-card-tip::after{left:24px}
-.loyalty-level-card:last-child .loyalty-level-card-tip{left:auto;right:0;transform:translate(0,6px)}
-.loyalty-level-card:last-child .loyalty-level-card-tip::after{left:auto;right:24px}
-.loyalty-level-card:hover .loyalty-level-card-tip,.loyalty-level-card:focus-visible .loyalty-level-card-tip{opacity:1;transform:translate(-50%,0)}
-.loyalty-level-card:first-child:hover .loyalty-level-card-tip,.loyalty-level-card:first-child:focus-visible .loyalty-level-card-tip,.loyalty-level-card:last-child:hover .loyalty-level-card-tip,.loyalty-level-card:last-child:focus-visible .loyalty-level-card-tip{transform:translate(0,0)}
-.loyalty-rewards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.loyalty-reward{padding:12px;border-radius:16px;background:#f3f7fb;border:1px solid #dce6ef;color:#5d6f7a;font-size:12px}
-.loyalty-reward b{display:block;color:#172015;font-size:14px}
-.loyalty-modal{position:fixed;inset:0;z-index:5300;display:none;align-items:center;justify-content:center;padding:22px;background:rgba(8,13,7,.68);backdrop-filter:blur(10px)}
-.loyalty-modal.show{display:flex}
-.loyalty-box{width:min(760px,94vw);max-height:92vh;overflow:auto;background:linear-gradient(145deg,#fff,#f7fbf3);border:1px solid rgba(228,235,223,.95);border-radius:30px;padding:26px;box-shadow:0 30px 90px rgba(8,18,6,.32)}
-.loyalty-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:18px}
-.loyalty-head h2{margin:0;font-size:28px;letter-spacing:-.6px;color:#172015}
-.loyalty-head p{margin:7px 0 0;color:#667461;line-height:1.45}
-.loyalty-close{display:grid;place-items:center;width:42px;height:42px;border:1px solid var(--line);border-radius:14px;background:#fff;color:#172015;font-size:22px;cursor:pointer}
-.loyalty-result{display:none;margin-top:12px;padding:12px;border-radius:14px;background:#f2faed;color:#315229;font-weight:800;line-height:1.4}
-.loyalty-result.error{background:#fff4ef;color:#8a3b1f}
-.loyalty-result.info{background:#eef7ff;color:#244d72}
-.loyalty-auth-fields{display:grid;gap:0}
-.loyalty-auth-fields.hidden{display:none}
-.loyalty-greeting{display:none;margin:14px 0;padding:14px;border:1px solid #d8e9cf;border-radius:16px;background:#fff;color:#667461;line-height:1.4}
-.loyalty-greeting.show{display:block}
-.loyalty-greeting b{display:block;margin-bottom:4px;color:#172015;font-size:18px}
-.loyalty-profile{display:none;margin:14px 0;padding:12px;border:1px solid #d8e9cf;border-radius:16px;background:#fff}
-.loyalty-profile.show{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.loyalty-profile div{padding:9px;border-radius:12px;background:#f6faf2;color:#667461;font-size:12px}
-.loyalty-profile b{display:block;color:#172015;font-size:15px}
-.loyalty-orders{margin-top:14px;border:1px solid #d8e9cf;border-radius:18px;background:#fff;overflow:hidden}
-.loyalty-orders-head{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:14px;border:0;background:transparent;text-align:left;cursor:pointer}
-.loyalty-orders-head h3{margin:0;font-size:17px;color:#172015}
-.loyalty-orders-note{margin:0;color:#667461;font-size:13px;line-height:1.35}
-.loyalty-orders-toggle{display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--line);border-radius:10px;background:#f7fbf3;color:#172015;font-size:18px;font-weight:900;transition:transform .2s ease}
-.loyalty-orders.open .loyalty-orders-toggle{transform:rotate(180deg)}
-.loyalty-orders-list{display:none;gap:9px;padding:0 14px 14px}
-.loyalty-orders.open .loyalty-orders-list{display:grid}
-.loyalty-order-card{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;padding:12px;border:1px solid var(--line);border-radius:14px;background:#f9fcf6}
-.loyalty-order-card.open{background:#fff}
-.loyalty-order-main{min-width:0}
-.loyalty-order-id{font-weight:900;color:#172015;overflow-wrap:anywhere}
-.loyalty-order-meta{margin-top:4px;color:#667461;font-size:12px;line-height:1.35}
-.loyalty-order-summary{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:2px}
-.loyalty-order-open{height:32px;padding:0 10px;border:1px solid var(--line);border-radius:10px;background:#fff;color:#172015;font-size:12px;font-weight:900;cursor:pointer}
-.loyalty-order-card.open .loyalty-order-open{background:#eef8e8;border-color:#cfe7c2;color:#2f6d1f}
-.loyalty-order-items{color:#394934;font-size:13px;line-height:1.35;white-space:pre-line}
-.loyalty-order-side{text-align:right;white-space:nowrap}
-.loyalty-order-status{display:inline-flex;align-items:center;min-height:28px;padding:0 9px;border-radius:999px;background:#eef8e8;color:#2f6d1f;font-size:12px;font-weight:900}
-.loyalty-order-total{margin-top:8px;color:#172015;font-size:14px;font-weight:900}
-.loyalty-order-extra{grid-column:1/-1;display:none;gap:8px}
-.loyalty-order-card.open .loyalty-order-extra{display:grid}
-.loyalty-order-actions{display:flex;gap:8px;flex-wrap:wrap}
-.loyalty-repeat-btn{min-height:34px;padding:0 12px;border:1px solid #cfe7c2;border-radius:11px;background:#eef8e8;color:#2f6d1f;font-size:12px;font-weight:900;cursor:pointer}
-.loyalty-repeat-btn:hover{background:#e1f3d8}
-.loyalty-order-details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.loyalty-order-detail{padding:9px;border-radius:10px;background:#fff;border:1px solid #edf2e9;color:#667461;font-size:12px;line-height:1.35;overflow-wrap:anywhere}
-.loyalty-order-detail b{display:block;margin-bottom:3px;color:#172015;font-size:12px}
-.loyalty-order-detail.wide{grid-column:1/-1}
-.bonus-box{display:none;margin:14px 0;padding:14px;border:1px solid #cfe7c2;border-radius:16px;background:#f6fbf1}
-.bonus-box.show{display:block}
-.bonus-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.bonus-row label{display:flex;align-items:center;gap:9px;font-weight:800;color:#172015}
-.bonus-row input{width:auto;margin:0}
-.bonus-note{margin-top:7px;color:#667461;font-size:13px;line-height:1.35}
 .faq-section{max-width:1180px;margin:22px auto 56px;padding:0 24px}
 .faq-card{background:#fff;border:1px solid rgba(228,235,223,.95);border-radius:30px;padding:28px;box-shadow:0 18px 48px rgba(24,36,18,.08)}
 .faq-head{display:flex;justify-content:space-between;gap:18px;align-items:end;margin-bottom:18px}
@@ -651,11 +490,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .qty{display:flex;align-items:center;justify-content:flex-end;gap:5px;margin-top:10px}
 .qty button{display:grid;place-items:center;width:28px;height:28px;margin:0;padding:0;border:1px solid var(--line);background:#fff;border-radius:8px;color:var(--ink);cursor:pointer}
 .qty .remove-item{margin-left:3px;color:#b0443d;background:#fff5f4;border-color:#f2d8d5}
-.empty-cart{text-align:center;padding:34px 18px;color:var(--muted);background:#fff;border:1px dashed #cedac7;border-radius:18px}
-.empty-cart b{display:block;margin-bottom:6px;color:var(--ink);font-size:18px}
-.empty-cart p{margin:0 auto 16px;max-width:360px;line-height:1.45}
-.empty-cart-actions{display:flex;justify-content:center;gap:9px;flex-wrap:wrap}
-.empty-cart-actions .btn,.empty-cart-actions .kbju-secondary{min-height:42px;border-radius:13px}
+.empty-cart{text-align:center;padding:36px 18px;color:var(--muted);background:#fff;border:1px dashed #cedac7;border-radius:18px}
 .day-summary{margin:18px 0;padding:20px;background:linear-gradient(145deg,#f3fbed,#fff);border:1px solid #cae4b9;border-radius:22px}
 .summary-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}
 .summary-head h3{margin:0;font-size:18px}
@@ -671,21 +506,8 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .goal-progress-top b{color:var(--ink);font-size:13px}
 .summary-price{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:14px;border-top:1px solid #dcebd4;color:var(--muted)}
 .summary-price b{color:var(--ink);font-size:17px}
-.order-summary{margin-top:14px;padding:16px;background:linear-gradient(180deg,#fff 0%,#fbfdf9 100%);border:1px solid var(--line);border-radius:20px;box-shadow:0 12px 30px rgba(31,55,24,.055)}
-.order-summary h4{margin:0 0 12px;color:var(--ink);font-size:16px}
-.order-summary-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0;color:var(--muted);font-size:13px;border-top:1px solid #edf2e9}
-.order-summary-row:first-of-type{border-top:0}
-.order-summary-row b{color:var(--ink);font-size:14px;white-space:nowrap}
-.order-summary-row.saving b{color:var(--green-dark)}
-.order-summary-row.final{margin:8px -4px 0;padding:13px 12px;border:1px solid #cfe7c2;border-radius:16px;background:#f5fbef;color:var(--ink);font-weight:900}
-.order-summary-row.final b{font-size:21px}
-.order-summary-row.hidden{display:none}
-.delivery-note{margin-top:10px;padding:12px 14px;background:#f6fbf1;border:1px solid #dcebd4;border-radius:14px;color:#667461;font-size:13px;line-height:1.4}
-.delivery-note b{display:block;margin-bottom:3px;color:var(--ink);font-size:14px}
-.checkout-steps{display:grid;gap:8px;margin-top:12px;padding:14px;border:1px solid #e2eadc;border-radius:16px;background:#fff;color:#667461;font-size:13px;line-height:1.38}
-.checkout-steps b{color:#172015;font-size:14px}
-.checkout-step{display:flex;gap:9px;align-items:flex-start}
-.checkout-step i{display:grid;place-items:center;width:22px;height:22px;flex:0 0 22px;border-radius:50%;background:#eef8e8;color:#317d20;font-style:normal;font-weight:900;font-size:12px}
+.cart-total-line{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding:14px;background:#fff;border:1px solid var(--line);border-radius:16px;color:var(--muted)}
+.cart-total-line b{color:var(--ink);font-size:18px}
 .planner-top-card,.total{border:1px solid var(--line);border-radius:20px;background:#fff;padding:18px}
 .planner-header{gap:14px}.planner-edit{color:var(--green-dark);font-weight:700;font-size:13px;white-space:nowrap}
 .planner-progress{grid-template-columns:minmax(0,1.6fr) minmax(130px,1fr)}
@@ -702,23 +524,15 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .meal-macros{width:150px;min-width:150px;text-align:right;font-size:14px;line-height:1.7;justify-self:end;padding:12px;background:var(--green-soft);border-radius:12px}
 .checkout-section{margin-top:24px;padding:20px;background:#fff;border:1px solid var(--line);border-radius:20px}
 .checkout-section h3{margin-top:0}
-.checkout-label{display:block;margin:0 0 7px;color:var(--muted);font-size:13px;font-weight:800}
-.checkout-section select{height:46px;background:#fff;color:var(--ink);outline:none}
-.checkout-section select:focus,.checkout-section input:focus,.checkout-section textarea:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(99,189,43,.12)}
-.map-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px}
-.map-row .btn{height:46px;white-space:nowrap;border-radius:10px}
 .checkout-bar{position:relative;right:auto;bottom:auto;width:100%;padding:14px 28px 18px;background:rgba(255,255,255,.96);border-top:1px solid var(--line);backdrop-filter:blur(12px);z-index:15}
 .checkout-btn{width:100%;min-height:48px;font-size:16px;box-shadow:0 8px 18px rgba(99,189,43,.24)}
 .planner-open{display:block;margin:0 auto 25px}
 .plan-actions{position:sticky;bottom:-28px;margin:18px -28px -28px;padding:14px 28px 18px;background:rgba(247,249,245,.96);border-top:1px solid var(--line);backdrop-filter:blur(12px);z-index:12}
 .add-plan-btn{width:100%;min-height:48px;font-size:16px}
 @media(max-width:650px){
- .site-header{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;padding:12px 14px;align-items:center}.menu-toggle{display:grid}.site-actions{grid-column:1/-1;display:none;width:100%;gap:6px;border-radius:18px}.site-header.menu-open .site-actions{display:flex}.action-btn,.cart-btn{min-height:38px;padding:0 10px;font-size:12px;border-radius:13px}.language-switch{width:30px;height:30px;min-width:30px}.brand-title{font-size:17px}.brand-mark{width:42px;height:42px}.contact-box{padding:20px;border-radius:24px}.contact-head h2{font-size:23px}.quick-view-modal{padding:12px}.quick-view-media{height:260px}.quick-view-body{padding:18px}.quick-view-head h2{font-size:23px}.quick-view-macros{grid-template-columns:repeat(2,minmax(0,1fr))}.quick-view-footer{display:grid}.quick-view-footer .btn{width:100%}
+ .site-header{padding:12px 16px;align-items:flex-start;flex-direction:column}.site-actions{width:100%;gap:6px;border-radius:18px}.action-btn,.cart-btn{min-height:38px;padding:0 10px;font-size:12px;border-radius:13px}.language-switch select{height:38px;font-size:12px;border-radius:13px}.brand-title{font-size:17px}.brand-mark{width:42px;height:42px}.contact-box{padding:20px;border-radius:24px}.contact-head h2{font-size:23px}
  .kbju-modal{padding:12px}.kbju-modal-head{padding:22px 18px 16px}.kbju-modal-head h2{font-size:24px}.kbju-form{padding:18px}.kbju-grid,.kbju-tips{grid-template-columns:1fr}.kbju-wide,.kbju-two{grid-column:auto}.kbju-actions{display:grid}.kbju-primary,.kbju-secondary{width:100%}
-.hero{min-height:500px;padding:34px 18px 24px;background-position:58% center}.hero h2{font-size:34px;line-height:1.05}.hero p{font-size:15px}.hero-actions{margin-top:18px}.hero-cta{height:48px;border-radius:13px}.hero-points{gap:8px}.hero-point{width:100%;justify-content:flex-start}.kbju-saved-card,.loyalty-card{padding:0 16px}.kbju-saved-inner,.loyalty-inner{display:block}.loyalty-main{margin-bottom:12px}.kbju-saved-stats,.kbju-saved-actions,.loyalty-stats,.loyalty-actions{margin-top:12px}.loyalty-current-perks{grid-template-columns:1fr}.loyalty-benefits{grid-template-columns:1fr}.loyalty-levels{grid-template-columns:repeat(2,minmax(0,1fr))}.loyalty-rewards{grid-template-columns:1fr}.loyalty-profile.show{grid-template-columns:repeat(2,1fr)}.loyalty-order-card{grid-template-columns:1fr}.loyalty-order-side{text-align:left;white-space:normal}.loyalty-order-summary{display:grid}.loyalty-order-details{grid-template-columns:1fr}.loyalty-order-detail.wide{grid-column:auto}
- .loyalty-level-card-tip,.loyalty-level-card:first-child .loyalty-level-card-tip,.loyalty-level-card:last-child .loyalty-level-card-tip{position:static;display:none;width:auto;max-width:none;margin-top:10px;box-shadow:none;transform:none}
- .loyalty-level-card-tip::after{display:none}
- .loyalty-level-card:hover .loyalty-level-card-tip,.loyalty-level-card:focus-visible .loyalty-level-card-tip{display:block;opacity:1;transform:none}
+ .hero{padding:34px 18px 44px}.hero h2{font-size:32px}.hero p{font-size:15px}.kbju-saved-card{padding:0 16px}.kbju-saved-inner{display:block}.kbju-saved-stats,.kbju-saved-actions{margin-top:12px}
  .catalog-shell{margin:16px auto 10px;padding:0 14px}.catalog-tools{grid-template-columns:1fr;border-radius:20px}.filter-tabs,.price-tools{justify-content:flex-start}.filter-chip{height:39px;padding:0 12px;font-size:13px}.price-tools select{width:100%}
  .catalog-heading{padding:0 16px;margin-top:20px}.catalog-heading h2{font-size:26px}.catalog-heading p{font-size:14px}.grid{padding:16px;gap:18px}.card{border-radius:22px}.card img{height:210px}
  .cart-panel{padding:0}.cart-header{margin:0;padding:16px 14px}.cart-scroll{padding:16px 14px 22px}.cart-heading{font-size:21px}.cart-subtitle{display:none}.clear-btn{width:40px;padding:0;font-size:0}.clear-btn::before{content:'🗑';font-size:15px}
@@ -726,108 +540,8 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
  .day-summary{padding:15px}.day-grid,.planner-stats{gap:5px}.day-grid>div,.planner-stats>div{padding:8px 2px}.day-grid b,.planner-stats b{font-size:16px}.goal-progress-grid{grid-template-columns:1fr}
  .planner-progress{grid-template-columns:1fr}.meal-buttons{grid-template-columns:repeat(2,1fr)}
  .meal-plan-row{grid-template-columns:1fr;gap:13px}.meal-left{align-items:center}.meal-info .meal-choice{grid-template-columns:minmax(0,1fr) 92px;align-items:start}.meal-macros{display:grid;width:100%;min-width:0;grid-template-columns:repeat(4,1fr);gap:4px;text-align:center;line-height:1.35;justify-self:stretch}.meal-macros b{display:block}
- .checkout-section{padding:15px}.map-row{grid-template-columns:1fr}.checkout-bar{padding:11px 14px 14px}.plan-actions{bottom:-22px;margin:16px -14px -22px;padding:12px 14px 14px}
+ .checkout-section{padding:15px}.checkout-bar{padding:11px 14px 14px}.plan-actions{bottom:-22px;margin:16px -14px -22px;padding:12px 14px 14px}
  .faq-section{padding:0 16px}.faq-card{padding:20px;border-radius:24px}.faq-head{display:block}.faq-head h2{font-size:26px}.faq-grid{grid-template-columns:1fr}
-}
-
-@media(max-width:650px){
- html,body{width:100%;max-width:100%;overflow-x:hidden}
- body{background:#f7f9f5}
- input,textarea,select{font-size:16px}
- input,textarea,select{min-height:48px;padding:12px 14px;border-radius:14px}
- textarea{min-height:96px;resize:vertical}
- .site-header{width:100%;max-width:100%;box-shadow:0 10px 26px rgba(8,18,6,.2)}
- .site-actions{max-width:100%;overflow:hidden}
- .action-btn,.cart-btn{flex:1 1 calc(50% - 6px);min-width:0;white-space:normal;text-align:center;line-height:1.15}
- .cart-btn{flex-basis:calc(50% - 6px)}
- .language-switch{flex:0 0 30px}
- .hero{min-height:auto;padding:32px 16px 24px}
- .hero-copy,.hero h2,.hero p{max-width:100%}
- .hero-actions{display:grid;grid-template-columns:1fr;gap:10px}
- .hero-cta{width:100%;min-width:0}
- .loyalty-card{margin-top:14px}
- .loyalty-inner{padding:14px;border-radius:20px}
- .loyalty-main{padding:16px;border-radius:18px}
- .loyalty-title{font-size:22px}
- .loyalty-promo-points{grid-template-columns:1fr}
- .catalog-tools{padding:12px;gap:12px}
- .filter-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%}
- .filter-chip{width:100%;min-width:0}
- .price-tools{display:grid;grid-template-columns:1fr;gap:8px;width:100%}
- .price-tools select{height:44px;margin:0}
- .grid{grid-template-columns:minmax(0,1fr);padding:14px}
- .card{min-width:0;padding:9px}
- .card h3{font-size:20px;line-height:1.15;overflow-wrap:anywhere}
- .card-desc{font-size:14px;line-height:1.42}
- .card-footer{display:grid;grid-template-columns:1fr;gap:12px;align-items:stretch}
- .card-price{font-size:22px}
- .card .btn{width:100%;min-width:0}
- .macro-row{grid-template-columns:repeat(2,minmax(0,1fr))}
- .cart-panel{width:100%;height:100dvh;max-height:100dvh}
- .cart-header{position:sticky;top:0}
- .cart-header-actions{flex:0 0 auto}
- .cart-scroll{overflow-x:hidden}
- .cart-item{min-width:0;border-radius:16px}
- .cart-item-name,.cart-item-price{overflow-wrap:anywhere}
- .cart-item-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
- .cart-item-meta span{text-align:center}
- .qty{gap:7px}
- .qty button{width:32px;height:32px}
- .order-summary{padding:14px;border-radius:18px}
- .order-summary-row{align-items:flex-start}
- .order-summary-row span{min-width:0;line-height:1.25}
- .order-summary-row b{text-align:right;white-space:normal;overflow-wrap:anywhere}
- .order-summary-row.final{display:grid;grid-template-columns:1fr;gap:5px}
- .order-summary-row.final b{text-align:left;font-size:22px}
- .checkout-steps{padding:12px}
- .checkout-section{margin-top:16px;border-radius:18px}
- .checkout-section input,.checkout-section select,.checkout-section textarea{margin-bottom:10px}
- .map-row .btn{width:100%;height:48px}
- .checkout-bar{position:sticky;bottom:0}
- .checkout-btn{min-height:52px;border-radius:14px}
- .success-modal,.kbju-modal,.loyalty-modal,.contact-modal,.quick-view-modal,.food-modal{align-items:flex-start;padding:10px;overflow:auto}
- .success-box,.kbju-box,.loyalty-box,.contact-box,.quick-view-box,.food-modal-box{width:100%;max-width:100%;max-height:none;border-radius:22px}
- .success-box{padding:22px}
- .success-box h2{font-size:26px}
- .loyalty-box{padding:18px}
- .loyalty-head{gap:10px}
- .loyalty-head h2{font-size:25px}
- .loyalty-close,.kbju-close,.contact-close,.quick-view-close{width:40px;height:40px;flex:0 0 40px;border-radius:13px}
- .loyalty-stats{display:grid;grid-template-columns:1fr;gap:8px}
- .loyalty-pill,.loyalty-info,.loyalty-order-card{min-width:0}
- .loyalty-profile.show{grid-template-columns:1fr}
- .loyalty-progress-top{display:grid;grid-template-columns:1fr;gap:8px}
- .loyalty-levels{grid-template-columns:1fr}
- .loyalty-level-card{padding:13px}
- .loyalty-level-card-tip{font-size:13px;line-height:1.4}
- .loyalty-orders-head{align-items:flex-start}
- .loyalty-orders-list{padding:0 10px 10px}
- .loyalty-order-summary{gap:8px}
- .loyalty-order-open,.loyalty-repeat-btn{width:100%;min-height:38px}
- .loyalty-order-status{white-space:normal;text-align:left}
- .loyalty-order-total{text-align:left}
- .quick-view-media{height:220px}
- .card-gallery-btn{width:32px;height:32px}
- .quick-gallery-btn{width:40px;height:40px;border-radius:14px}
- .quick-gallery-btn.prev{left:10px}
- .quick-gallery-btn.next{right:10px}
- .quick-view-footer{gap:10px}
- .food-modal-box{padding:16px}
- .food-grid{grid-template-columns:1fr}
-}
-
-@media(max-width:380px){
- .brand-title{font-size:16px}
- .brand-subtitle{font-size:12px}
- .hero h2{font-size:30px}
- .hero-point{font-size:12px}
- .loyalty-title{font-size:20px}
- .catalog-heading h2{font-size:24px}
- .cart-heading{font-size:20px}
- .day-grid,.planner-stats,.meal-macros{grid-template-columns:repeat(2,minmax(0,1fr))}
- .filter-tabs{grid-template-columns:1fr}
- .card img{height:190px}
- .quick-view-media{height:200px}
 }
 
 </style>
@@ -839,15 +553,13 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <div class="brand-mark"><img src="assets/brand-mark.png" alt="EatFit"></div>
 <div><div class="brand-title">EatFit Vietnam</div><div class="brand-subtitle">Good food · Fit life</div></div>
 </div>
-<button class="menu-toggle" onclick="toggleMobileMenu()" aria-label="Меню">☰</button>
 <div class="site-actions">
 <button class="action-btn" onclick="openKBJU()">Рассчитать КБЖУ</button>
 <button class="action-btn primary" onclick="openPlanner()">Подобрать рацион</button>
-<button class="action-btn" onclick="openLoyalty()">Бонусы</button>
 <button class="action-btn" onclick="openContacts()">Способы связи</button>
 <button class="action-btn" onclick="scrollFAQ()">FAQ</button>
 <button class="cart-btn" onclick="toggleCart()">Корзина <b id="count">0</b></button>
-<div class="language-switch" id="languageSwitch"><span class="language-code" id="languageCode">RU</span><select id="languageSelect" onchange="setLanguage(this.value)" aria-label="Language">
+<div class="language-switch"><select id="languageSelect" onchange="setLanguage(this.value)" aria-label="Language">
 <option value="ru">RU</option>
 <option value="en">EN</option>
 <option value="vi">VI</option>
@@ -857,18 +569,13 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 
 <div class="hero">
 <div class="hero-inner">
-<div class="hero-copy">
+<div>
 <div class="hero-eyebrow">🌿 Сбалансированное питание во Вьетнаме</div>
 <h2>Еда, которая выглядит красиво и попадает в ваши КБЖУ</h2>
 <p>Выбирайте блюда вручную или соберите рацион на день под калории, белки, жиры и углеводы. Без хаоса в корзине, с понятным составом и аккуратной доставкой.</p>
 <div class="hero-actions">
 <button class="hero-cta green" onclick="openPlanner()">Подобрать рацион</button>
 <button class="hero-cta" onclick="openKBJU()">Рассчитать КБЖУ</button>
-</div>
-<div class="hero-points">
-<div class="hero-point"><b>1</b><span>Готовые блюда под вашу цель</span></div>
-<div class="hero-point"><b>2</b><span>Рацион под ваши КБЖУ</span></div>
-<div class="hero-point"><b>3</b><span>Быстрый заказ без регистрации</span></div>
 </div>
 </div>
 </div>
@@ -893,24 +600,6 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 </div>
 </div>
 
-<div id="loyaltyCard" class="loyalty-card">
-<div class="loyalty-inner">
-<div class="loyalty-main promo">
-<div class="loyalty-kicker">EATFIT LEVELS</div>
-<div class="loyalty-title">Скидка на первый заказ и бонусы за каждую покупку</div>
-<div class="loyalty-sub">Зарегистрируйтесь в EatFit Levels, получите 30 000 VND на первый заказ и копите бонусы для следующих покупок.</div>
-<div class="loyalty-promo-points">
-<span id="loyaltyPromoPoint1">30 000 VND можно списать на первый заказ</span>
-<span id="loyaltyPromoPoint2">Бонусы возвращаются с каждой покупки</span>
-<span id="loyaltyPromoPoint3">Чем выше уровень, тем больше выгода</span>
-</div>
-</div>
-<div class="loyalty-actions">
-<button class="btn" onclick="openLoyalty()">Зарегистрироваться</button>
-</div>
-</div>
-</div>
-
 <div id="overlay" class="overlay" onclick="closePanels()"></div>
 <div id="toast" class="toast">✓ Блюдо добавлено в корзину</div>
 
@@ -918,95 +607,8 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <div class="success-box">
 <h2>Спасибо за заказ!</h2>
 <p>Ваш заказ успешно принят.</p>
-<div id="successBonus" class="success-bonus"></div>
-<p class="success-order-id"><b id="successOrderId"></b></p>
+<p><b id="successOrderId"></b></p>
 <button class="btn" onclick="closeSuccess()">Закрыть</button>
-</div>
-</div>
-
-<div id="quickViewModal" class="quick-view-modal" onclick="closeQuickView(event)">
-<div class="quick-view-box" onclick="event.stopPropagation()">
-<div class="quick-view-media">
-<img id="quickViewImage" src="assets/logo.jpg" alt="">
-<button id="quickPrev" class="quick-gallery-btn prev" onclick="event.stopPropagation();changeQuickViewImage(-1)" aria-label="Предыдущее фото">‹</button>
-<button id="quickNext" class="quick-gallery-btn next" onclick="event.stopPropagation();changeQuickViewImage(1)" aria-label="Следующее фото">›</button>
-</div>
-<div class="quick-view-body">
-<div class="quick-view-head">
-<h2 id="quickViewTitle">Блюдо EatFit</h2>
-<button class="quick-view-close" onclick="closeQuickView()" aria-label="Закрыть">×</button>
-</div>
-<p id="quickViewDesc" class="quick-view-desc"></p>
-<div id="quickViewDetails" class="quick-view-details"></div>
-<div class="quick-view-macros">
-<div class="quick-view-macro"><b id="quickViewCalories">0</b><span id="quickViewCaloriesLabel">ккал</span></div>
-<div class="quick-view-macro"><b id="quickViewProtein">0</b><span id="quickViewProteinLabel">Б</span></div>
-<div class="quick-view-macro"><b id="quickViewFat">0</b><span id="quickViewFatLabel">Ж</span></div>
-<div class="quick-view-macro"><b id="quickViewCarbs">0</b><span id="quickViewCarbsLabel">У</span></div>
-</div>
-<div class="quick-view-footer">
-<div id="quickViewPrice" class="quick-view-price">0 VND</div>
-<button id="quickViewAdd" class="btn" onclick="">В корзину</button>
-</div>
-</div>
-</div>
-</div>
-
-<div id="loyaltyModal" class="loyalty-modal" onclick="closeLoyalty(event)">
-<div class="loyalty-box" onclick="event.stopPropagation()">
-<div class="loyalty-head">
-<div>
-<h2>Бонусная программа</h2>
-<p>Зарегистрируйтесь, получите бонус на первый заказ и копите бонусы с будущих заказов.</p>
-</div>
-<button class="loyalty-close" onclick="closeLoyalty()" aria-label="Закрыть">×</button>
-</div>
-<div id="loyaltyAuthFields" class="loyalty-auth-fields">
-<input id="loyaltyName" placeholder="Имя">
-<input id="loyaltySurname" placeholder="Фамилия">
-<input id="loyaltyPhone" placeholder="Телефон">
-</div>
-<div id="loyaltyGreeting" class="loyalty-greeting"></div>
-<div id="loyaltyProfile" class="loyalty-profile"></div>
-<button id="loyaltyAuthButton" class="btn" onclick="handleLoyaltyAuth()">Зарегистрироваться</button>
-<div id="loyaltyResult" class="loyalty-result"></div>
-<div class="loyalty-guide">
-<div class="loyalty-progress">
-<div class="loyalty-progress-top">
-<span><b id="loyaltyLevel">Rookie</b><span id="loyaltyLevelLabel">уровень</span></span>
-<span><b id="loyaltyNextLevel">Athlete</b><span id="loyaltyNextLabel">следующий уровень</span></span>
-</div>
-<div class="loyalty-progress-track"><span id="loyaltyProgressFill" class="loyalty-progress-fill"></span></div>
-<div id="loyaltyProgressNote" class="loyalty-progress-note">0 / 5 000 XP</div>
-<div class="loyalty-current-perks">
-<div><span id="loyaltyEarnRateLabel">Начисление бонусов</span><b id="loyaltyEarnRate">1%</b></div>
-<div><span id="loyaltyDiscountRateLabel">Скидка уровня</span><b id="loyaltyDiscountRate">0%</b></div>
-<div><span id="loyaltyRemainLabel">До следующего уровня</span><b id="loyaltyRemain">5 000 XP</b></div>
-</div>
-</div>
-<div class="loyalty-stats">
-<div class="loyalty-pill"><b id="loyaltyXp">0 XP</b><span id="loyaltyXpLabel">опыт</span></div>
-<div class="loyalty-pill"><b id="loyaltyBalance">0 VND</b><span id="loyaltyBalanceLabel">бонусы</span></div>
-<div class="loyalty-pill"><b id="loyaltyOrders">0</b><span id="loyaltyOrdersLabel">заказов</span></div>
-</div>
-<div class="loyalty-benefits">
-<div class="loyalty-info accent"><strong id="loyaltyCurrentBenefitTitle">Ваш уровень</strong><span id="loyaltyCurrentBenefit">Приветственный подарок и доступ к EatFit Club.</span></div>
-<div class="loyalty-info"><strong id="loyaltyNextBenefitTitle">Следующая цель</strong><span id="loyaltyNextBenefit">Бесплатная доставка 1 раз в месяц и специальные акции.</span></div>
-<div class="loyalty-info"><strong id="loyaltyEarnTitle">Как копятся награды</strong><span id="loyaltyEarnText">За каждый заказ начисляются бонусы и XP.</span></div>
-<div class="loyalty-info"><strong id="loyaltySpendTitle">Как использовать бонусы</strong><span id="loyaltySpendText">Бонусами можно оплатить часть следующего заказа.</span></div>
-</div>
-<div id="loyaltyLevels" class="loyalty-levels"></div>
-<div id="loyaltyOrdersPanel" class="loyalty-orders">
-<button type="button" class="loyalty-orders-head" onclick="toggleLoyaltyOrders()">
-<div>
-<h3 id="loyaltyOrdersTitle">История заказов</h3>
-<p id="loyaltyOrdersNote" class="loyalty-orders-note">Здесь появятся ваши заказы и их текущие статусы.</p>
-</div>
-<span class="loyalty-orders-toggle">⌄</span>
-</button>
-<div id="loyaltyOrdersList" class="loyalty-orders-list"></div>
-</div>
-</div>
 </div>
 </div>
 
@@ -1026,14 +628,14 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 </a>
 <a class="contact-link" id="telegramContact" target="_blank" rel="noopener">
 <span class="contact-icon telegram">T</span>
-<span><span class="contact-name">Telegram</span><span class="contact-note">Можно заменить на ссылку бизнес-чата или группы</span></span>
+<span><span class="contact-name">Telegram</span><span class="contact-note">Напишите нам в Telegram, если удобнее общаться там</span></span>
 </a>
 <a class="contact-link" id="zaloContact" target="_blank" rel="noopener">
 <span class="contact-icon zalo">Z</span>
-<span><span class="contact-name">Zalo</span><span class="contact-note">Ссылка по номеру, позже можно заменить на Zalo OA</span></span>
+<span><span class="contact-name">Zalo</span><span class="contact-note">Быстрая связь для клиентов во Вьетнаме</span></span>
 </a>
 </div>
-<p class="contact-small">Для Telegram и Zalo лучше использовать постоянные публичные ссылки. После создания пришлите их, и я поставлю точные адреса вместо временных.</p>
+<p class="contact-small">Обычно отвечаем в течение дня. Для срочных вопросов по заказу лучше писать в WhatsApp.</p>
 </div>
 </div>
 
@@ -1161,10 +763,10 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <div id="daySummary" class="day-summary">
 <div class="summary-head"><div><h3>Цель на день</h3><div class="cart-subtitle">Что уже в рационе и сколько осталось до КБЖУ</div></div><div class='accuracy-circle' id='accuracyCircle'>0%</div></div>
 <div class="day-grid">
-<div><b id="totalCalories">0</b><span id="totalCaloriesUnit">ккал</span><span class="day-target" id="targetCalories">цель не задана</span></div>
-<div><b id="totalProtein">0</b><span id="totalProteinUnit">Б</span><span class="day-target" id="targetProtein">цель не задана</span></div>
-<div><b id="totalFat">0</b><span id="totalFatUnit">Ж</span><span class="day-target" id="targetFat">цель не задана</span></div>
-<div><b id="totalCarbs">0</b><span id="totalCarbsUnit">У</span><span class="day-target" id="targetCarbs">цель не задана</span></div>
+<div><b id="totalCalories">0</b>ккал<span class="day-target" id="targetCalories">цель не задана</span></div>
+<div><b id="totalProtein">0</b>Б<span class="day-target" id="targetProtein">цель не задана</span></div>
+<div><b id="totalFat">0</b>Ж<span class="day-target" id="targetFat">цель не задана</span></div>
+<div><b id="totalCarbs">0</b>У<span class="day-target" id="targetCarbs">цель не задана</span></div>
 </div>
 <div id="kbjuProgress" class="goal-progress"></div>
 <div class="summary-price"><span>Стоимость подобранного рациона</span><b><span id="totalPrice">0</span> VND</b></div>
@@ -1193,47 +795,15 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 </div>
 <div class="cart-scroll">
 <div id="cartItems"></div>
-<div id="bonusBox" class="bonus-box">
-<div class="bonus-row">
-<label for="useBonus"><input id="useBonus" type="checkbox" checked onchange="renderCart()"> <span id="useBonusLabel">Списать бонусы</span></label>
-<b id="bonusAvailable">0 VND</b>
-</div>
-<div id="bonusNote" class="bonus-note">Бонусы будут учтены при подтверждении заказа.</div>
-</div>
-<div class="order-summary">
-<h4 id="orderSummaryTitle">Расчет заказа</h4>
-<div class="order-summary-row"><span id="orderFoodTotalLabel">Сумма блюд</span><b><span id="orderFoodTotal">0</span> VND</b></div>
-<div id="orderLevelDiscountRow" class="order-summary-row saving hidden"><span id="orderLevelDiscountLabel">Скидка уровня</span><b>-<span id="orderLevelDiscount">0</span> VND</b></div>
-<div id="orderBonusSpendRow" class="order-summary-row saving hidden"><span id="orderBonusSpendLabel">Списать бонусы</span><b>-<span id="orderBonusSpend">0</span> VND</b></div>
-<div class="order-summary-row final"><span id="orderFinalLabel">К оплате без доставки</span><b><span id="orderFinalTotal">0</span> VND</b></div>
-<div class="delivery-note"><b id="deliveryNoteTitle">Доставка</b><span id="deliveryNoteText">Стоимость в корзине указана без доставки. Менеджер рассчитает доставку и подтвердит итоговую сумму после оформления заказа.</span></div>
-<div class="checkout-steps">
-<b id="checkoutStepsTitle">После оформления</b>
-<div class="checkout-step"><i>1</i><span id="checkoutStep1">Мы получим заказ и проверим детали.</span></div>
-<div class="checkout-step"><i>2</i><span id="checkoutStep2">Менеджер свяжется с вами, подтвердит доставку и оплату.</span></div>
-<div class="checkout-step"><i>3</i><span id="checkoutStep3">Бонусы и XP обновятся после статуса «Оплачен».</span></div>
-</div>
-</div>
+<div class="cart-total-line"><span>Итого в корзине</span><b><span id="cartTotalPrice">0</span> VND</b></div>
 <span id="totalQty" style="display:none">0</span>
 
 <div class="checkout-section">
 <h3>Оформление заказа</h3>
-<input id="name" placeholder="Имя" required>
-<input id="surname" placeholder="Фамилия" required>
-<input id="phone" placeholder="Телефон" required>
-<label class="checkout-label" for="contactMethod">Удобный способ связи</label>
-<select id="contactMethod" onchange="updateContactPlaceholder()" required>
-<option value="zalo">Zalo</option>
-<option value="whatsapp">WhatsApp</option>
-<option value="telegram">Telegram</option>
-</select>
-<input id="contactValue" placeholder="Номер телефона для Zalo" required>
-<input id="address" placeholder="Адрес доставки" required>
-<label class="checkout-label" for="deliveryMap">Точка доставки на карте</label>
-<div class="map-row">
-<input id="deliveryMap" placeholder="Ссылка на точку в Google Maps" required>
-<button type="button" class="btn" onclick="openDeliveryMap()">Открыть карты</button>
-</div>
+<input id="name" placeholder="Имя">
+<input id="phone" placeholder="Телефон">
+<input id="telegram" placeholder="Telegram (@username)">
+<input id="address" placeholder="Адрес доставки">
 <textarea id="comment" placeholder="Комментарий"></textarea>
 <div id="orderPreview" style="display:none;background:#eef;padding:10px;border-radius:8px;margin-bottom:10px"></div>
 </div>
@@ -1249,37 +819,29 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 let cart=JSON.parse(localStorage.getItem('cart')||'[]');
 let products=[];
 let currentLang=localStorage.getItem('eatfit_lang')||'ru';
-let loyaltyUser=null;
-let loyaltyOrders=[];
-let productImageIndex={};
-let quickViewProductId='';
-let quickViewImageIndex=0;
-const API_BASE='https://eatfit-bot.onrender.com';
 
 const I18N={
  ru:{
   brandSubtitle:'Good food · Fit life',
   navCalc:'Рассчитать КБЖУ',navPlanner:'Подобрать рацион',navContacts:'Способы связи',navFaq:'FAQ',navCart:'Корзина',
   heroEyebrow:'🌿 Сбалансированное питание во Вьетнаме',
-  heroTitle:'Готовая еда под ваши цели, без лишней сложности',
-  heroText:'Выбирайте блюда из каталога или соберите рацион под КБЖУ. EatFit помогает питаться вкусно, считать понятнее и получать бонусы за заказы.',
-  heroPoint1:'Готовые блюда под вашу цель',heroPoint2:'Рацион под ваши КБЖУ',heroPoint3:'Быстрый заказ без регистрации',
+  heroTitle:'Еда, которая выглядит красиво и попадает в ваши КБЖУ',
+  heroText:'Выбирайте блюда вручную или соберите рацион на день под калории, белки, жиры и углеводы. Без хаоса в корзине, с понятным составом и аккуратной доставкой.',
   heroBuild:'Что можно собрать',heroBuildText:'Белки, гарниры и овощи для удобного дневного рациона.',categories:'категории',kbjuPick:'подбор',prices:'цены',
   savedTitle:'Ваша цель КБЖУ сохранена',savedSub:'Теперь можно автоматически подобрать рацион под эти значения.',calories:'ккал',protein:'белки',fat:'жиры',carbs:'углеводы',proteinShort:'Б',fatShort:'Ж',carbsShort:'У',
   recalc:'Пересчитать',searchPlaceholder:'Поиск блюда...',all:'Все',proteins:'Белки',carbsFilter:'Углеводы',fiber:'Овощи',
   priceAny:'Любая цена',priceUnder:'До 50 000 VND',priceMid:'50 000–100 000 VND',priceOver:'От 100 000 VND',sortDefault:'По умолчанию',sortAsc:'Сначала дешевле',sortDesc:'Сначала дороже',
   catalogTitle:'Каталог EatFit',catalogSub:'Фильтруйте продукты по роли в рационе и добавляйте только то, что подходит вам.',
-  addToCart:'В корзину',quickView:'Подробнее',emptyProducts:'Ничего не найдено. Попробуйте изменить поиск или выбрать другую категорию.',emptyCartTitle:'Корзина пока пустая',emptyCartText:'Добавьте блюда из каталога или соберите рацион под ваши КБЖУ.',emptyCartMenu:'К меню',balancedComponent:'Сбалансированный компонент для вашего рациона.',
-  contactTitle:'Способы связи',contactSub:'Напишите нам в удобный мессенджер: поможем с КБЖУ, рационом и доставкой.',contactWhatsapp:'Быстрый чат по номеру +84 392 459 260',contactTelegram:'Можно заменить на ссылку бизнес-чата или группы',contactZalo:'Ссылка по номеру, позже можно заменить на Zalo OA',contactSmall:'Для Telegram и Zalo лучше использовать постоянные публичные ссылки. После создания пришлите их, и я поставлю точные адреса вместо временных.',
+  addToCart:'В корзину',emptyProducts:'Ничего не найдено. Попробуйте изменить поиск или выбрать другую категорию.',balancedComponent:'Сбалансированный компонент для вашего рациона.',
+  contactTitle:'Способы связи',contactSub:'Напишите нам в удобный мессенджер: поможем с КБЖУ, рационом и доставкой.',contactWhatsapp:'Быстрый чат по номеру +84 392 459 260',contactTelegram:'Напишите нам в Telegram, если удобнее общаться там',contactZalo:'Быстрая связь для клиентов во Вьетнаме',contactSmall:'Обычно отвечаем в течение дня. Для срочных вопросов по заказу лучше писать в WhatsApp.',
   calcTitle:'Рассчитать КБЖУ',calcSub:'Укажите базовые данные, а EatFit рассчитает дневную цель по калориям, белкам, жирам и углеводам для подбора рациона.',yourData:'Ваши данные',gender:'Пол',male:'Мужчина',female:'Женщина',age:'Возраст',height:'Рост, см',weight:'Вес, кг',goal:'Цель',goalLoss:'Похудение — дефицит около 20%',goalMaintain:'Поддержание веса',goalGain:'Набор массы — профицит около 15%',activity:'Активность',activityLow:'Низкая активность',activityMid:'Средняя активность',activityHigh:'Высокая активность',
   agePh:'Например, 28',heightPh:'Например, 175',weightPh:'Например, 70',tipLowTitle:'Низкая',tipLow:'До 5000 шагов в день, сидячая работа, без тренировок.',tipMidTitle:'Средняя',tipMid:'5000–10000 шагов в день, 2–4 тренировки в неделю.',tipHighTitle:'Высокая',tipHigh:'Более 10000 шагов, 5+ тренировок или физическая работа.',calcSave:'Рассчитать и сохранить цель',close:'Закрыть',
   faqTitle:'Частые вопросы',faqSub:'Коротко о доставке, рационе и заказе.',
   plannerTitle:'Подбор рациона',plannerSub:'Соберите день под свои КБЖУ, а потом решите, добавлять ли его в корзину',dayGoal:'Цель на день',dayGoalSub:'Что уже в рационе и сколько осталось до КБЖУ',noGoal:'цель не задана',selectedPlanPrice:'Стоимость подобранного рациона',mealCount:'🍽 Количество приемов пищи',yourPlan:'🍽 Ваш рацион на {count} приемов пищи',meal:'Прием пищи',replace:'Заменить',addPlan:'Добавить рацион в корзину',
-  cartTitle:'Корзина',cartSub:'Блюда, которые вы решили заказать',clear:'Очистить',emptyCart:'Корзина пуста<br>Добавьте блюда из каталога',cartTotal:'Итого в корзине',orderSummaryTitle:'Расчет заказа',orderFoodTotal:'Сумма блюд',orderLevelDiscount:'Скидка уровня',orderBonusSpend:'Списать бонусы',orderFinalTotal:'К оплате без доставки',deliveryNoteTitle:'Доставка',deliveryNoteText:'Стоимость в корзине указана без доставки. Менеджер рассчитает доставку и подтвердит итоговую сумму после оформления заказа.',checkoutStepsTitle:'После оформления',checkoutStep1:'Мы получим заказ и проверим детали.',checkoutStep2:'Менеджер свяжется с вами, подтвердит доставку и оплату.',checkoutStep3:'Бонусы и XP обновятся после статуса «Оплачен».',checkoutTitle:'Оформление заказа',namePh:'Имя',surnamePh:'Фамилия',phonePh:'Телефон',contactMethodLabel:'Удобный способ связи',contactZaloPh:'Номер телефона для Zalo',contactWhatsappPh:'Номер телефона WhatsApp',contactTelegramPh:'Telegram (@username)',addressPh:'Адрес доставки',mapLabel:'Точка доставки на карте',mapPh:'Ссылка на точку в Google Maps',openMap:'Открыть карты',commentPh:'Комментарий',checkout:'Оформить заказ',
-  navLoyalty:'Бонусы',loyaltyTitle:'Скидка на первый заказ и бонусы за каждую покупку',loyaltySub:'Зарегистрируйтесь в EatFit Levels, получите 30 000 VND на первый заказ и копите бонусы для следующих покупок.',loyaltyPromo1:'30 000 VND можно списать на первый заказ',loyaltyPromo2:'Бонусы возвращаются с каждой покупки',loyaltyPromo3:'Чем выше уровень, тем больше выгода',loyaltyModalTitle:'EatFit Levels',loyaltyModalSub:'Введите телефон: если вы уже зарегистрированы, мы откроем ваш профиль; если нет — создадим новый EatFit Levels.',loyaltyRegister:'Войти / Зарегистрироваться',loyaltyLogout:'Выйти',loyaltyGreeting:'Рады видеть вас, {name}. Ваш уровень: {level}. Доступно бонусов: {balance}.',loyaltyUpdate:'Открыть профиль',loyaltyLoading:'Проверяем ваш EatFit Levels...',loyaltyManualFallback:'Сервис бонусов сейчас не ответил. Вы можете продолжить оформление заказа: менеджер свяжется с вами и привяжет бонусы вручную.',loyaltyNextStep:'Теперь можно перейти в корзину: имя, фамилия и телефон уже подставлены, а способ связи вы выберете при заказе.',loyaltyBalance:'бонусы',loyaltyLevel:'уровень',loyaltyXp:'опыт',loyaltyOrders:'заказов',loyaltyOrdersTitle:'История заказов',loyaltyOrdersNote:'Здесь отображаются все заказы по вашему номеру, детали и статусы, которые обновляет менеджер.',loyaltyOrdersEmpty:'После первого заказа здесь появится история и текущий статус.',loyaltyOrderDetails:'Детали',loyaltyRepeatOrder:'Повторить заказ',loyaltyRepeatAdded:'Добавлено в корзину: {count}',loyaltyRepeatUnavailable:'Не удалось повторить заказ: позиции не найдены в текущем каталоге.',loyaltyOrderTotal:'К оплате',loyaltyOrderUpdated:'Обновлено',loyaltyOrderCreated:'Создан',loyaltyOrderItems:'Состав заказа',loyaltyOrderAddress:'Адрес',loyaltyOrderMap:'Точка на карте',loyaltyOrderContact:'Связь',loyaltyOrderPhone:'Телефон',loyaltyOrderComment:'Комментарий',loyaltyOrderOriginalTotal:'Сумма заказа',loyaltyOrderDiscount:'Скидка уровня',loyaltyOrderBonusUsed:'Списано бонусов',loyaltyOrderBonusEarned:'Будет начислено',loyaltyOrderXpEarned:'XP после оплаты',loyaltyRegistered:'Вы вошли в EatFit Levels. Доступно бонусов: {balance}.',loyaltySaved:'Регистрация готова. Начислено {balance} бонусов.',loyaltyLoggedIn:'Профиль найден. Это ваш текущий баланс: {balance}.',loyaltyNeedDetails:'Этот номер еще не зарегистрирован. Заполните имя и фамилию.',loyaltyError:'Не удалось обновить бонусы. Попробуйте позже.',useBonus:'Списать бонусы',bonusNote:'Бонусы будут списаны только после подтверждения оплаты.',bonusApplied:'После оплаты: скидка уровня {discount}, к списанию бонусов {applied}, к начислению {earned}, XP +{xp}. Текущий баланс: {balance}.',
-  successTitle:'Спасибо за заказ!',successText:'Ваш заказ принят. Менеджер свяжется с вами для подтверждения деталей и оплаты.',successBonusTitle:'Бонусы после оплаты',successOrderLabel:'Номер заказа',
+  cartTitle:'Корзина',cartSub:'Блюда, которые вы решили заказать',clear:'Очистить',emptyCart:'Корзина пуста<br>Добавьте блюда из каталога',cartTotal:'Итого в корзине',checkoutTitle:'Оформление заказа',namePh:'Имя',phonePh:'Телефон',telegramPh:'Telegram (@username)',addressPh:'Адрес доставки',commentPh:'Комментарий',checkout:'Оформить заказ',
+  successTitle:'Спасибо за заказ!',successText:'Ваш заказ успешно принят.',
   left:'{value} {unit} осталось',above:'+{value} {unit} выше цели',from:'из {value} {unit}',dishSelect:'Выберите блюдо',foodSearch:'🔍 Поиск блюда...',selectedNow:'✓ Выбрано сейчас',
-  alertEmptyCart:'Корзина пустая',alertCheckout:'Заполните все поля заказа, кроме комментария',alertPhoneInvalid:'Введите корректный вьетнамский номер: 0xxxxxxxxx или +84xxxxxxxxx.',alertOrderError:'Ошибка отправки заказа',alertServer:'Не удалось связаться с сервером',alertMeals:'Сначала выберите количество приемов пищи',alertKbju:'Сначала рассчитайте КБЖУ',alertPlan:'Сначала подберите рацион',fillKbju:'Заполните возраст, рост и вес, чтобы рассчитать КБЖУ',
+  alertEmptyCart:'Корзина пустая',alertCheckout:'Заполните имя, телефон и адрес доставки',alertOrderError:'Ошибка отправки заказа',alertServer:'Не удалось связаться с сервером',alertMeals:'Сначала выберите количество приемов пищи',alertKbju:'Сначала рассчитайте КБЖУ',alertPlan:'Сначала подберите рацион',fillKbju:'Заполните возраст, рост и вес, чтобы рассчитать КБЖУ',
   toastDish:'✓ Блюдо добавлено в корзину',toastPlan:'✓ Рацион добавлен в корзину',goalSaved:'Цель сохранена: {calories} ккал · Б {protein} г · Ж {fat} г · У {carbs} г',kbjuDone:'КБЖУ рассчитаны: {calories} ккал · Б {protein} г · Ж {fat} г · У {carbs} г',
   faq:[
    ['Как работает подбор рациона под КБЖУ?','Вы рассчитываете цель, выбираете количество приёмов пищи, а сайт собирает рацион максимально близко к дневной норме.'],
@@ -1294,43 +856,41 @@ const I18N={
    ['Можно изменить количество порций?','Да, в корзине можно увеличить или уменьшить количество каждого блюда перед оформлением.']
   ],
   products:{
-   'protein-001':['Куриное филе сливочно-чесночное','Нежное сочное филе с мягким сливочно-чесночным вкусом и ароматом итальянских трав.'],
-   'protein-004':['Куриное филе терияки лайт','Легкая версия азиатского вкуса с нотами меда, соевого соуса, имбиря и чеснока.'],
-   'protein-005':['Куриное филе карри-кокос лайт','Ароматное филе с мягкими нотами кокоса, карри и куркумы без тяжелого соуса.'],
-   'protein-007':['Куриное филе классическое','Натуральное филе с легким ароматом чеснока, черного перца и итальянских трав.'],
-   'protein-009':['Говядина терияки лайт','Нежная говядина с легким азиатским вкусом, соевым соусом, медом, имбирем и чесноком.'],
-   'protein-010':['Говядина классическая','Натуральная говядина с насыщенным мясным вкусом, черным перцем и легким ароматом чеснока.'],
-   'protein-011':['Омлет с брокколи и моцареллой','Нежный белковый омлет с брокколи и мягкой моцареллой.'],
-   'carb-001':['Рис жасмин','Ароматный жасминовый рис с нежной рассыпчатой текстурой.'],
+   'protein-001':['Куриное филе сливочно-чесночное','Нежное куриное филе в легком сливочно-чесночном соусе.'],
+   'protein-004':['Куриное филе терияки лайт','Куриное филе в легком соусе терияки.'],
+   'protein-005':['Куриное филе карри-кокос лайт','Куриное филе с мягким карри и кокосовым акцентом.'],
+   'protein-007':['Креветки чеснок-лайм','Креветки с чесноком и лаймом.'],
+   'protein-009':['Говядина терияки лайт','Постная говядина в легком соусе терияки.'],
+   'protein-011':['Омлет шпинат-сыр','Омлет со шпинатом и сыром.'],
+   'carb-001':['Рис жасмин','Ароматный рис жасмин для сбалансированного рациона.'],
    'carb-002':['Рис бурый','Источник сложных углеводов.'],
-   'carb-005':['Батат с копченой паприкой','Нежный батат с естественной сладостью, копченой паприкой и итальянскими травами.'],
-   'carb-008':['Шоколадная овсяная каша','Густая и сытная овсяная каша с мягким шоколадным вкусом.'],
-   'fiber-001':['Брокколи на пару','Нежные соцветия брокколи с натуральным вкусом и легкой текстурой.'],
-   'fiber-005':['Цветная капуста на пару','Мягкая цветная капуста с нежным натуральным вкусом для сбалансированного рациона.'],
-   'fiber-008':['Овощной микс на пару','Сбалансированное сочетание брокколи, цветной капусты и моркови без добавления масла.']
+   'carb-003':['Рисовая каша на кокосовом молоке','Сытный источник углеводов с мягким кокосовым вкусом.'],
+   'carb-005':['Батат','Сладкий картофель как источник сложных углеводов.'],
+   'carb-008':['Овсянка на миндальном молоке','Овсянка на миндальном молоке для мягкого завтрака.'],
+   'fiber-001':['Брокколи','Овощной гарнир и источник клетчатки.'],
+   'fiber-005':['Цукини','Легкий овощной гарнир и источник клетчатки.'],
+   'fiber-008':['Овощной микс (брокколи + морковь + цветная)','Смесь брокколи, моркови и цветной капусты.']
   }
  },
  en:{
   brandSubtitle:'Good food · Fit life',
   navCalc:'Calculate macros',navPlanner:'Build a meal plan',navContacts:'Contact options',navFaq:'FAQ',navCart:'Cart',
-  heroEyebrow:'🌿 Balanced nutrition in Vietnam',heroTitle:'Ready meals for your goals, without the extra complexity',heroText:'Choose dishes from the catalog or build a meal plan around your macros. EatFit helps you eat well, understand the numbers and earn bonuses from orders.',
-  heroPoint1:'Ready meals for your goal',heroPoint2:'Meal plan for your macros',heroPoint3:'Fast order without registration',
+  heroEyebrow:'🌿 Balanced nutrition in Vietnam',heroTitle:'Food that looks beautiful and fits your macros',heroText:'Choose dishes manually or build a day plan around calories, protein, fats and carbs. No cart chaos, clear ingredients and neat delivery.',
   heroBuild:'What you can build',heroBuildText:'Proteins, sides and vegetables for a convenient daily plan.',categories:'categories',kbjuPick:'macro-based plan',prices:'prices',
   savedTitle:'Your macro target is saved',savedSub:'Now you can automatically build a plan around these values.',calories:'kcal',protein:'protein',fat:'fats',carbs:'carbs',proteinShort:'P',fatShort:'F',carbsShort:'C',
   recalc:'Recalculate',searchPlaceholder:'Search dish...',all:'All',proteins:'Protein',carbsFilter:'Carbs',fiber:'Vegetables',
   priceAny:'Any price',priceUnder:'Under 50,000 VND',priceMid:'50,000–100,000 VND',priceOver:'Over 100,000 VND',sortDefault:'Default',sortAsc:'Cheapest first',sortDesc:'Most expensive first',
   catalogTitle:'EatFit Catalog',catalogSub:'Filter products by their role in your plan and add only what works for you.',
-  addToCart:'Add to cart',quickView:'Details',emptyProducts:'Nothing found. Try changing the search or category.',emptyCartTitle:'Your cart is empty',emptyCartText:'Add dishes from the catalog or build a meal plan around your macros.',emptyCartMenu:'To menu',balancedComponent:'A balanced component for your meal plan.',
-  contactTitle:'Contact options',contactSub:'Message us in your preferred messenger: we will help with macros, meal plans and delivery.',contactWhatsapp:'Quick chat at +84 392 459 260',contactTelegram:'Can be replaced with a business chat or group link',contactZalo:'Phone link now, later it can be replaced with Zalo OA',contactSmall:'For Telegram and Zalo, it is better to use permanent public links. Send them after creation and I will place the exact addresses here.',
+  addToCart:'Add to cart',emptyProducts:'Nothing found. Try changing the search or category.',balancedComponent:'A balanced component for your meal plan.',
+  contactTitle:'Contact options',contactSub:'Message us in your preferred messenger: we will help with macros, meal plans and delivery.',contactWhatsapp:'Quick chat at +84 392 459 260',contactTelegram:'Message us on Telegram if it is more convenient for you',contactZalo:'Fast contact option for customers in Vietnam',contactSmall:'We usually reply during the day. For urgent order questions, WhatsApp is the best option.',
   calcTitle:'Calculate macros',calcSub:'Enter your basic data and EatFit will calculate your daily macro target: calories, protein, fats and carbs.',yourData:'Your data',gender:'Gender',male:'Male',female:'Female',age:'Age',height:'Height, cm',weight:'Weight, kg',goal:'Goal',goalLoss:'Weight loss — about 20% deficit',goalMaintain:'Maintain weight',goalGain:'Muscle gain — about 15% surplus',activity:'Activity',activityLow:'Low activity',activityMid:'Medium activity',activityHigh:'High activity',
   agePh:'For example, 28',heightPh:'For example, 175',weightPh:'For example, 70',tipLowTitle:'Low',tipLow:'Up to 5,000 steps a day, desk work, no training.',tipMidTitle:'Medium',tipMid:'5,000–10,000 steps a day, 2–4 workouts per week.',tipHighTitle:'High',tipHigh:'Over 10,000 steps, 5+ workouts or physical work.',calcSave:'Calculate and save goal',close:'Close',
   faqTitle:'Frequently asked questions',faqSub:'Short answers about delivery, meal plans and orders.',
   plannerTitle:'Meal plan builder',plannerSub:'Build a day around your macros, then decide whether to add it to cart',dayGoal:'Daily goal',dayGoalSub:'What is already in the plan and what remains',noGoal:'goal not set',selectedPlanPrice:'Selected meal plan price',mealCount:'🍽 Number of meals',yourPlan:'🍽 Your plan for {count} meals',meal:'Meal',replace:'Replace',addPlan:'Add plan to cart',
-  cartTitle:'Cart',cartSub:'Dishes you decided to order',clear:'Clear',emptyCart:'Cart is empty<br>Add dishes from the catalog',cartTotal:'Cart total',orderSummaryTitle:'Order total',orderFoodTotal:'Food total',orderLevelDiscount:'Level discount',orderBonusSpend:'Use bonuses',orderFinalTotal:'To pay without delivery',deliveryNoteTitle:'Delivery',deliveryNoteText:'The cart total does not include delivery. A manager will calculate delivery and confirm the final amount after you place the order.',checkoutStepsTitle:'After checkout',checkoutStep1:'We receive your order and check the details.',checkoutStep2:'A manager contacts you to confirm delivery and payment.',checkoutStep3:'Bonuses and XP update after the status becomes “Paid”.',checkoutTitle:'Checkout',namePh:'Name',surnamePh:'Last name',phonePh:'Phone',contactMethodLabel:'Preferred contact method',contactZaloPh:'Phone number for Zalo',contactWhatsappPh:'WhatsApp phone number',contactTelegramPh:'Telegram (@username)',addressPh:'Delivery address',mapLabel:'Delivery point on map',mapPh:'Google Maps point link',openMap:'Open maps',commentPh:'Comment',checkout:'Place order',
-  navLoyalty:'Bonuses',loyaltyTitle:'First-order discount and bonuses from every purchase',loyaltySub:'Join EatFit Levels, get 30,000 VND for your first order and earn bonuses for future purchases.',loyaltyPromo1:'Use 30,000 VND on your first order',loyaltyPromo2:'Earn bonuses from every purchase',loyaltyPromo3:'Higher levels unlock more value',loyaltyModalTitle:'EatFit Levels',loyaltyModalSub:'Enter your phone: if you are registered, we will open your profile; if not, we will create a new EatFit Levels account.',loyaltyRegister:'Sign in / Register',loyaltyLogout:'Log out',loyaltyGreeting:'Good to see you, {name}. Your level: {level}. Available bonuses: {balance}.',loyaltyUpdate:'Open profile',loyaltyLoading:'Checking your EatFit Levels...',loyaltyManualFallback:'The bonus service did not respond. You can continue checkout: a manager will contact you and attach bonuses manually.',loyaltyNextStep:'You can now continue to the cart: name, surname and phone are filled in, and you will choose contact method at checkout.',loyaltyBalance:'bonuses',loyaltyLevel:'level',loyaltyXp:'XP',loyaltyOrders:'orders',loyaltyOrdersTitle:'Order history',loyaltyOrdersNote:'All orders for your phone number, details and manager-updated statuses appear here.',loyaltyOrdersEmpty:'After your first order, its history and current status will appear here.',loyaltyOrderDetails:'Details',loyaltyRepeatOrder:'Repeat order',loyaltyRepeatAdded:'Added to cart: {count}',loyaltyRepeatUnavailable:'Could not repeat this order: items were not found in the current catalog.',loyaltyOrderTotal:'To pay',loyaltyOrderUpdated:'Updated',loyaltyOrderCreated:'Created',loyaltyOrderItems:'Order items',loyaltyOrderAddress:'Address',loyaltyOrderMap:'Map point',loyaltyOrderContact:'Contact',loyaltyOrderPhone:'Phone',loyaltyOrderComment:'Comment',loyaltyOrderOriginalTotal:'Order total',loyaltyOrderDiscount:'Level discount',loyaltyOrderBonusUsed:'Bonuses used',loyaltyOrderBonusEarned:'Bonuses to earn',loyaltyOrderXpEarned:'XP after payment',loyaltyRegistered:'You are signed in to EatFit Levels. Available bonuses: {balance}.',loyaltySaved:'Registration is ready. {balance} in bonuses added.',loyaltyLoggedIn:'Profile found. Your current balance is {balance}.',loyaltyNeedDetails:'This phone is not registered yet. Fill in your name and surname.',loyaltyError:'Could not update bonuses. Please try again later.',useBonus:'Use bonuses',bonusNote:'Bonuses will be used only after payment is confirmed.',bonusApplied:'After payment: level discount {discount}, bonuses to use {applied}, bonuses to earn {earned}, XP +{xp}. Current balance: {balance}.',
-  successTitle:'Thank you for your order!',successText:'Your order has been received. A manager will contact you to confirm the details and payment.',successBonusTitle:'Bonuses after payment',successOrderLabel:'Order number',
+  cartTitle:'Cart',cartSub:'Dishes you decided to order',clear:'Clear',emptyCart:'Cart is empty<br>Add dishes from the catalog',cartTotal:'Cart total',checkoutTitle:'Checkout',namePh:'Name',phonePh:'Phone',telegramPh:'Telegram (@username)',addressPh:'Delivery address',commentPh:'Comment',checkout:'Place order',
+  successTitle:'Thank you for your order!',successText:'Your order has been received.',
   left:'{value} {unit} left',above:'+{value} {unit} over goal',from:'of {value} {unit}',dishSelect:'Choose a dish',foodSearch:'🔍 Search dish...',selectedNow:'✓ Selected now',
-  alertEmptyCart:'Cart is empty',alertCheckout:'Fill in every checkout field except comment',alertPhoneInvalid:'Enter a valid Vietnam phone number: 0xxxxxxxxx or +84xxxxxxxxx.',alertOrderError:'Order sending error',alertServer:'Could not connect to the server',alertMeals:'First choose the number of meals',alertKbju:'First calculate your macros',alertPlan:'First build a meal plan',fillKbju:'Fill in age, height and weight to calculate macros',
+  alertEmptyCart:'Cart is empty',alertCheckout:'Fill in name, phone and delivery address',alertOrderError:'Order sending error',alertServer:'Could not connect to the server',alertMeals:'First choose the number of meals',alertKbju:'First calculate your macros',alertPlan:'First build a meal plan',fillKbju:'Fill in age, height and weight to calculate macros',
   toastDish:'✓ Dish added to cart',toastPlan:'✓ Meal plan added to cart',goalSaved:'Goal saved: {calories} kcal · P {protein} g · F {fat} g · C {carbs} g',kbjuDone:'Macros calculated: {calories} kcal · P {protein} g · F {fat} g · C {carbs} g',
   faq:[
    ['How does macro-based meal planning work?','You calculate your goal, choose the number of meals, and the site builds a daily plan close to your target.'],
@@ -1345,71 +905,69 @@ const I18N={
    ['Can I change portions?','Yes, you can increase or decrease quantities in the cart before checkout.']
   ],
   products:{
-   'protein-001':['Creamy garlic chicken fillet','Tender juicy fillet with creamy garlic notes and Italian herbs.'],
-   'protein-004':['Light teriyaki chicken fillet','A lighter Asian-style fillet with honey, soy sauce, ginger and garlic notes.'],
-   'protein-005':['Light curry-coconut chicken fillet','Aromatic fillet with soft coconut, curry and turmeric notes.'],
-   'protein-007':['Classic chicken fillet','Natural chicken fillet with garlic, black pepper and Italian herbs.'],
-   'protein-009':['Light teriyaki beef','Tender beef with a light Asian taste from soy sauce, honey, ginger and garlic.'],
-   'protein-010':['Classic beef','Natural beef with a rich meat taste, black pepper and light garlic notes.'],
-   'protein-011':['Broccoli mozzarella omelet','Tender high-protein omelet with broccoli and soft mozzarella.'],
-   'carb-001':['Jasmine rice','Aromatic jasmine rice with a tender fluffy texture.'],
+   'protein-001':['Creamy garlic chicken fillet','Tender chicken fillet in a light creamy garlic sauce.'],
+   'protein-004':['Light teriyaki chicken fillet','Chicken fillet in a light teriyaki sauce.'],
+   'protein-005':['Light curry-coconut chicken fillet','Chicken fillet with mild curry and coconut notes.'],
+   'protein-007':['Garlic-lime shrimp','Shrimp with garlic and lime.'],
+   'protein-009':['Light teriyaki beef','Lean beef in a light teriyaki sauce.'],
+   'protein-011':['Spinach-cheese omelet','Omelet with spinach and cheese.'],
+   'carb-001':['Jasmine rice','Aromatic jasmine rice for a balanced plan.'],
    'carb-002':['Brown rice','A source of complex carbohydrates.'],
-   'carb-005':['Sweet potato with smoked paprika','Tender sweet potato with natural sweetness, smoked paprika and Italian herbs.'],
-   'carb-008':['Chocolate oatmeal','Thick and filling oatmeal with a soft chocolate taste.'],
-   'fiber-001':['Steamed broccoli','Tender broccoli florets with a natural taste and light texture.'],
-   'fiber-005':['Steamed cauliflower','Soft cauliflower with a gentle natural taste for a balanced plan.'],
-   'fiber-008':['Steamed vegetable mix','A balanced mix of broccoli, cauliflower and carrot without added oil.']
+   'carb-003':['Rice porridge with coconut milk','A filling carb source with a soft coconut taste.'],
+   'carb-005':['Sweet potato','Sweet potato as a complex carb source.'],
+   'carb-008':['Oatmeal with almond milk','Oatmeal with almond milk for a gentle breakfast.'],
+   'fiber-001':['Broccoli','Vegetable side and fiber source.'],
+   'fiber-005':['Zucchini','Light vegetable side and fiber source.'],
+   'fiber-008':['Vegetable mix (broccoli + carrot + cauliflower)','A mix of broccoli, carrot and cauliflower.']
   }
  },
  vi:{
   brandSubtitle:'Good food · Fit life',
-  navCalc:'Tính macro',navPlanner:'Lên thực đơn',navContacts:'Liên hệ',navFaq:'FAQ',navCart:'Giỏ hàng',
-  heroEyebrow:'🌿 Bữa ăn cân bằng tại Việt Nam',heroTitle:'Bữa ăn sẵn theo mục tiêu của bạn, đơn giản hơn mỗi ngày',heroText:'Chọn món trong thực đơn hoặc để EatFit gợi ý khẩu phần theo macro. Ăn ngon hơn, hiểu rõ dinh dưỡng hơn và tích lũy ưu đãi sau mỗi đơn.',
-  heroPoint1:'Bữa ăn sẵn theo mục tiêu',heroPoint2:'Thực đơn theo macro của bạn',heroPoint3:'Đặt nhanh, không cần đăng ký',
-  heroBuild:'Có thể chọn gì?',heroBuildText:'Món đạm, tinh bột và rau cho thực đơn hằng ngày tiện lợi.',categories:'nhóm món',kbjuPick:'theo macro',prices:'giá VND',
-  savedTitle:'Đã lưu mục tiêu macro',savedSub:'Bạn có thể để EatFit tự động gợi ý thực đơn theo mục tiêu này.',calories:'kcal',protein:'đạm',fat:'chất béo',carbs:'tinh bột',proteinShort:'Đ',fatShort:'B',carbsShort:'T',
-  recalc:'Tính lại',searchPlaceholder:'Tìm món...',all:'Tất cả',proteins:'Món đạm',carbsFilter:'Tinh bột',fiber:'Rau',
-  priceAny:'Tất cả mức giá',priceUnder:'Dưới 50.000 VND',priceMid:'50.000–100.000 VND',priceOver:'Từ 100.000 VND',sortDefault:'Mặc định',sortAsc:'Giá thấp trước',sortDesc:'Giá cao trước',
-  catalogTitle:'Thực đơn EatFit',catalogSub:'Lọc món theo vai trò trong bữa ăn và chỉ thêm những món phù hợp với bạn.',
-  addToCart:'Thêm vào giỏ',quickView:'Chi tiết',emptyProducts:'Không tìm thấy món phù hợp. Hãy đổi từ khóa hoặc chọn nhóm món khác.',emptyCartTitle:'Giỏ hàng đang trống',emptyCartText:'Thêm món từ thực đơn hoặc để EatFit gợi ý khẩu phần theo macro.',emptyCartMenu:'Đến thực đơn',balancedComponent:'Một phần ăn cân bằng cho thực đơn của bạn.',
-  contactTitle:'Liên hệ',contactSub:'Nhắn cho EatFit qua kênh bạn tiện dùng: chúng tôi sẽ hỗ trợ về macro, thực đơn và giao hàng.',contactWhatsapp:'Chat nhanh qua số +84 392 459 260',contactTelegram:'Có thể thay bằng link chat doanh nghiệp hoặc nhóm',contactZalo:'Hiện dùng link theo số điện thoại, sau này có thể đổi sang Zalo OA',contactSmall:'Với Telegram và Zalo, nên dùng link công khai cố định. Khi có link chính thức, hãy gửi để chúng tôi cập nhật đúng địa chỉ.',
-  calcTitle:'Tính macro',calcSub:'Nhập thông tin cơ bản, EatFit sẽ tính mục tiêu hằng ngày của bạn: calo, đạm, chất béo và tinh bột.',yourData:'Thông tin của bạn',gender:'Giới tính',male:'Nam',female:'Nữ',age:'Tuổi',height:'Chiều cao, cm',weight:'Cân nặng, kg',goal:'Mục tiêu',goalLoss:'Giảm cân — thâm hụt khoảng 20%',goalMaintain:'Giữ cân',goalGain:'Tăng cơ — dư năng lượng khoảng 15%',activity:'Mức vận động',activityLow:'Ít vận động',activityMid:'Vận động vừa',activityHigh:'Vận động nhiều',
-  agePh:'Ví dụ: 28',heightPh:'Ví dụ: 175',weightPh:'Ví dụ: 70',tipLowTitle:'Thấp',tipLow:'Dưới 5.000 bước/ngày, làm việc văn phòng, không tập luyện.',tipMidTitle:'Vừa',tipMid:'5.000–10.000 bước/ngày, tập 2–4 buổi/tuần.',tipHighTitle:'Cao',tipHigh:'Trên 10.000 bước/ngày, tập 5+ buổi/tuần hoặc làm việc thể lực.',calcSave:'Tính và lưu mục tiêu',close:'Đóng',
-  faqTitle:'Câu hỏi thường gặp',faqSub:'Thông tin ngắn gọn về giao hàng, thực đơn và đặt món.',
-  plannerTitle:'Lên thực đơn',plannerSub:'Tạo thực đơn theo macro của bạn, xem trước rồi quyết định có thêm vào giỏ hàng hay không',dayGoal:'Mục tiêu trong ngày',dayGoalSub:'Phần đã chọn trong thực đơn và phần còn thiếu so với mục tiêu',noGoal:'chưa đặt mục tiêu',selectedPlanPrice:'Giá thực đơn đã chọn',mealCount:'🍽 Số bữa',yourPlan:'🍽 Thực đơn {count} bữa của bạn',meal:'Bữa',replace:'Đổi món',addPlan:'Thêm thực đơn vào giỏ',
-  cartTitle:'Giỏ hàng',cartSub:'Các món bạn đã chọn',clear:'Xóa giỏ',emptyCart:'Giỏ hàng đang trống<br>Hãy thêm món từ thực đơn',cartTotal:'Tổng tiền',orderSummaryTitle:'Tính tiền đơn hàng',orderFoodTotal:'Tổng món ăn',orderLevelDiscount:'Giảm theo cấp',orderBonusSpend:'Dùng điểm thưởng',orderFinalTotal:'Cần thanh toán chưa gồm giao hàng',deliveryNoteTitle:'Giao hàng',deliveryNoteText:'Tổng tiền trong giỏ chưa bao gồm phí giao hàng. Nhân viên sẽ tính phí giao hàng và xác nhận tổng cuối cùng sau khi bạn gửi đơn.',checkoutStepsTitle:'Sau khi gửi đơn',checkoutStep1:'EatFit nhận đơn và kiểm tra chi tiết.',checkoutStep2:'Nhân viên liên hệ để xác nhận giao hàng và thanh toán.',checkoutStep3:'Điểm thưởng và XP cập nhật sau trạng thái “Đã thanh toán”.',checkoutTitle:'Thông tin đặt hàng',namePh:'Tên',surnamePh:'Họ',phonePh:'Số điện thoại',contactMethodLabel:'Kênh liên hệ thuận tiện',contactZaloPh:'Số điện thoại dùng Zalo',contactWhatsappPh:'Số điện thoại WhatsApp',contactTelegramPh:'Telegram (@username)',addressPh:'Địa chỉ giao hàng',mapLabel:'Điểm giao hàng trên bản đồ',mapPh:'Link vị trí trên Google Maps',openMap:'Mở bản đồ',commentPh:'Ghi chú',checkout:'Gửi đơn hàng',
-  navLoyalty:'Điểm thưởng',loyaltyTitle:'Ưu đãi đơn đầu tiên và điểm thưởng cho mỗi lần mua',loyaltySub:'Đăng ký EatFit Levels, nhận 30.000 VND cho đơn đầu tiên và tích điểm cho các lần mua tiếp theo.',loyaltyPromo1:'Dùng 30.000 VND cho đơn đầu tiên',loyaltyPromo2:'Tích điểm từ mỗi lần mua',loyaltyPromo3:'Cấp càng cao, quyền lợi càng tốt',loyaltyModalTitle:'EatFit Levels',loyaltyModalSub:'Nhập số điện thoại: nếu bạn đã đăng ký, chúng tôi sẽ mở hồ sơ; nếu chưa, chúng tôi sẽ tạo tài khoản EatFit Levels mới.',loyaltyRegister:'Đăng nhập / Đăng ký',loyaltyLogout:'Đăng xuất',loyaltyGreeting:'Rất vui gặp lại, {name}. Cấp của bạn: {level}. Điểm hiện có: {balance}.',loyaltyUpdate:'Mở hồ sơ',loyaltyLoading:'Đang kiểm tra EatFit Levels...',loyaltyManualFallback:'Dịch vụ điểm thưởng chưa phản hồi. Bạn vẫn có thể tiếp tục đặt hàng: nhân viên sẽ liên hệ và thêm điểm thưởng thủ công.',loyaltyNextStep:'Bạn có thể tiếp tục vào giỏ hàng: tên, họ và số điện thoại đã được điền, kênh liên hệ sẽ chọn khi đặt hàng.',loyaltyBalance:'điểm thưởng',loyaltyLevel:'cấp độ',loyaltyXp:'XP',loyaltyOrders:'đơn hàng',loyaltyOrdersTitle:'Lịch sử đơn hàng',loyaltyOrdersNote:'Tất cả đơn hàng theo số điện thoại, chi tiết và trạng thái do nhân viên cập nhật sẽ hiển thị tại đây.',loyaltyOrdersEmpty:'Sau đơn đầu tiên, lịch sử và trạng thái hiện tại sẽ xuất hiện tại đây.',loyaltyOrderDetails:'Chi tiết',loyaltyRepeatOrder:'Đặt lại đơn này',loyaltyRepeatAdded:'Đã thêm vào giỏ: {count}',loyaltyRepeatUnavailable:'Không thể đặt lại đơn này: món không có trong thực đơn hiện tại.',loyaltyOrderTotal:'Cần thanh toán',loyaltyOrderUpdated:'Cập nhật',loyaltyOrderCreated:'Tạo lúc',loyaltyOrderItems:'Món đã đặt',loyaltyOrderAddress:'Địa chỉ',loyaltyOrderMap:'Vị trí bản đồ',loyaltyOrderContact:'Liên hệ',loyaltyOrderPhone:'Số điện thoại',loyaltyOrderComment:'Ghi chú',loyaltyOrderOriginalTotal:'Tổng đơn',loyaltyOrderDiscount:'Giảm theo cấp',loyaltyOrderBonusUsed:'Điểm đã dùng',loyaltyOrderBonusEarned:'Điểm sẽ nhận',loyaltyOrderXpEarned:'XP sau thanh toán',loyaltyRegistered:'Bạn đã đăng nhập EatFit Levels. Điểm thưởng hiện có: {balance}.',loyaltySaved:'Đăng ký thành công. Đã cộng {balance} điểm thưởng.',loyaltyLoggedIn:'Đã tìm thấy hồ sơ. Số dư hiện tại: {balance}.',loyaltyNeedDetails:'Số điện thoại này chưa đăng ký. Vui lòng nhập tên và họ.',loyaltyError:'Không thể cập nhật điểm thưởng. Vui lòng thử lại sau.',useBonus:'Dùng điểm thưởng',bonusNote:'Điểm thưởng chỉ được dùng sau khi xác nhận thanh toán.',bonusApplied:'Sau khi thanh toán: giảm theo cấp {discount}, điểm sẽ dùng {applied}, điểm sẽ cộng {earned}, XP +{xp}. Số dư hiện tại: {balance}.',
-  successTitle:'Cảm ơn bạn đã đặt hàng!',successText:'Đơn hàng của bạn đã được ghi nhận. Nhân viên sẽ liên hệ để xác nhận chi tiết và thanh toán.',successBonusTitle:'Điểm thưởng sau thanh toán',successOrderLabel:'Mã đơn hàng',
-  left:'còn {value} {unit}',above:'+{value} {unit} vượt mục tiêu',from:'trong tổng {value} {unit}',dishSelect:'Chọn món',foodSearch:'🔍 Tìm món...',selectedNow:'✓ Đang chọn',
-  alertEmptyCart:'Giỏ hàng đang trống',alertCheckout:'Vui lòng điền tất cả thông tin đặt hàng, trừ ghi chú',alertPhoneInvalid:'Vui lòng nhập số điện thoại Việt Nam hợp lệ: 0xxxxxxxxx hoặc +84xxxxxxxxx.',alertOrderError:'Không gửi được đơn hàng',alertServer:'Không thể kết nối với máy chủ',alertMeals:'Vui lòng chọn số bữa trước',alertKbju:'Vui lòng tính macro trước',alertPlan:'Vui lòng tạo thực đơn trước',fillKbju:'Nhập tuổi, chiều cao và cân nặng để tính macro',
-  toastDish:'✓ Đã thêm món vào giỏ',toastPlan:'✓ Đã thêm thực đơn vào giỏ',goalSaved:'Đã lưu mục tiêu: {calories} kcal · Đ {protein} g · B {fat} g · T {carbs} g',kbjuDone:'Đã tính macro: {calories} kcal · Đ {protein} g · B {fat} g · T {carbs} g',
+  navCalc:'Tính chỉ số dinh dưỡng',navPlanner:'Chọn thực đơn',navContacts:'Liên hệ',navFaq:'FAQ',navCart:'Giỏ hàng',
+  heroEyebrow:'🌿 Dinh dưỡng cân bằng tại Việt Nam',heroTitle:'Món ăn đẹp mắt và phù hợp với chỉ số dinh dưỡng của bạn',heroText:'Chọn món thủ công hoặc tạo thực đơn theo calo, protein, chất béo và carb. Giỏ hàng gọn gàng, thành phần rõ ràng và giao hàng chỉn chu.',
+  heroBuild:'Bạn có thể chọn gì',heroBuildText:'Protein, món tinh bột và rau cho thực đơn hằng ngày tiện lợi.',categories:'nhóm món',kbjuPick:'theo chỉ số',prices:'giá VND',
+  savedTitle:'Mục tiêu dinh dưỡng đã được lưu',savedSub:'Bây giờ bạn có thể tự động tạo thực đơn theo các chỉ số này.',calories:'kcal',protein:'protein',fat:'chất béo',carbs:'carb',proteinShort:'P',fatShort:'F',carbsShort:'C',
+  recalc:'Tính lại',searchPlaceholder:'Tìm món...',all:'Tất cả',proteins:'Protein',carbsFilter:'Carb',fiber:'Rau',
+  priceAny:'Mọi mức giá',priceUnder:'Dưới 50.000 VND',priceMid:'50.000–100.000 VND',priceOver:'Từ 100.000 VND',sortDefault:'Mặc định',sortAsc:'Rẻ trước',sortDesc:'Đắt trước',
+  catalogTitle:'Danh mục EatFit',catalogSub:'Lọc sản phẩm theo vai trò trong thực đơn và chỉ thêm món phù hợp với bạn.',
+  addToCart:'Thêm vào giỏ',emptyProducts:'Không tìm thấy. Hãy đổi từ khóa hoặc danh mục.',balancedComponent:'Thành phần cân bằng cho thực đơn của bạn.',
+  contactTitle:'Cách liên hệ',contactSub:'Nhắn cho chúng tôi qua ứng dụng bạn thích: hỗ trợ chỉ số dinh dưỡng, thực đơn và giao hàng.',contactWhatsapp:'Chat nhanh qua số +84 392 459 260',contactTelegram:'Nhắn qua Telegram nếu bạn thấy tiện hơn',contactZalo:'Liên hệ nhanh cho khách hàng tại Việt Nam',contactSmall:'Chúng tôi thường trả lời trong ngày. Nếu cần gấp về đơn hàng, WhatsApp là lựa chọn tốt nhất.',
+  calcTitle:'Tính chỉ số dinh dưỡng',calcSub:'Nhập thông tin cơ bản, EatFit sẽ tính mục tiêu hằng ngày của bạn: calo, protein, chất béo và carb.',yourData:'Thông tin của bạn',gender:'Giới tính',male:'Nam',female:'Nữ',age:'Tuổi',height:'Chiều cao, cm',weight:'Cân nặng, kg',goal:'Mục tiêu',goalLoss:'Giảm cân — thâm hụt khoảng 20%',goalMaintain:'Duy trì cân nặng',goalGain:'Tăng cơ — dư khoảng 15%',activity:'Mức vận động',activityLow:'Ít vận động',activityMid:'Vận động trung bình',activityHigh:'Vận động cao',
+  agePh:'Ví dụ: 28',heightPh:'Ví dụ: 175',weightPh:'Ví dụ: 70',tipLowTitle:'Thấp',tipLow:'Dưới 5.000 bước/ngày, làm việc văn phòng, không tập luyện.',tipMidTitle:'Trung bình',tipMid:'5.000–10.000 bước/ngày, tập 2–4 buổi/tuần.',tipHighTitle:'Cao',tipHigh:'Trên 10.000 bước, tập 5+ buổi hoặc lao động thể chất.',calcSave:'Tính và lưu mục tiêu',close:'Đóng',
+  faqTitle:'Câu hỏi thường gặp',faqSub:'Tóm tắt về giao hàng, thực đơn và đặt món.',
+  plannerTitle:'Chọn thực đơn',plannerSub:'Tạo thực đơn theo chỉ số dinh dưỡng của bạn, sau đó quyết định có thêm vào giỏ hay không',dayGoal:'Mục tiêu trong ngày',dayGoalSub:'Những gì đã có trong thực đơn và phần còn lại để đạt mục tiêu',noGoal:'chưa có mục tiêu',selectedPlanPrice:'Giá thực đơn đã chọn',mealCount:'🍽 Số bữa ăn',yourPlan:'🍽 Thực đơn {count} bữa của bạn',meal:'Bữa ăn',replace:'Đổi món',addPlan:'Thêm thực đơn vào giỏ',
+  cartTitle:'Giỏ hàng',cartSub:'Những món bạn đã chọn đặt',clear:'Xóa',emptyCart:'Giỏ hàng trống<br>Thêm món từ danh mục',cartTotal:'Tổng giỏ hàng',checkoutTitle:'Đặt hàng',namePh:'Tên',phonePh:'Số điện thoại',telegramPh:'Telegram (@username)',addressPh:'Địa chỉ giao hàng',commentPh:'Ghi chú',checkout:'Đặt hàng',
+  successTitle:'Cảm ơn bạn đã đặt hàng!',successText:'Đơn hàng của bạn đã được nhận.',
+  left:'còn {value} {unit}',above:'+{value} {unit} vượt mục tiêu',from:'trên {value} {unit}',dishSelect:'Chọn món',foodSearch:'🔍 Tìm món...',selectedNow:'✓ Đang chọn',
+  alertEmptyCart:'Giỏ hàng trống',alertCheckout:'Vui lòng nhập tên, điện thoại và địa chỉ giao hàng',alertOrderError:'Lỗi gửi đơn hàng',alertServer:'Không thể kết nối máy chủ',alertMeals:'Trước tiên hãy chọn số bữa ăn',alertKbju:'Trước tiên hãy tính chỉ số dinh dưỡng',alertPlan:'Trước tiên hãy tạo thực đơn',fillKbju:'Nhập tuổi, chiều cao và cân nặng để tính chỉ số dinh dưỡng',
+  toastDish:'✓ Đã thêm món vào giỏ',toastPlan:'✓ Đã thêm thực đơn vào giỏ',goalSaved:'Đã lưu mục tiêu: {calories} kcal · P {protein} g · F {fat} g · C {carbs} g',kbjuDone:'Đã tính chỉ số dinh dưỡng: {calories} kcal · P {protein} g · F {fat} g · C {carbs} g',
   faq:[
-   ['Lên thực đơn theo macro hoạt động như thế nào?','Bạn tính mục tiêu, chọn số bữa, sau đó website sẽ gợi ý thực đơn trong ngày gần với mục tiêu của bạn.'],
-   ['Thực đơn có tự thêm vào giỏ hàng không?','Không. Bạn xem thực đơn gợi ý trước, sau đó mới nhấn “Thêm thực đơn vào giỏ”.'],
-   ['Có thể đổi món trong thực đơn không?','Có. Bạn có thể đổi từng món, hệ thống sẽ cố giữ cân bằng macro.'],
-   ['Mỗi bữa có rau không?','Có, mỗi bữa đều có rau để thực đơn cân bằng hơn và bổ sung chất xơ.'],
-   ['Có thể đặt món lẻ mà không cần lên thực đơn không?','Có. Bạn chỉ cần chọn món trong thực đơn và thêm vào giỏ hàng.'],
-   ['Xem tổng tiền ở đâu?','Tổng tiền hiển thị trong phần thực đơn gợi ý và trong giỏ hàng trước khi gửi đơn.'],
-   ['EatFit giao hàng ở đâu?','Bạn nhập địa chỉ khi đặt hàng. Nhân viên sẽ xác nhận chi tiết sau khi nhận đơn.'],
-   ['Có thể để lại ghi chú không?','Có, form đặt hàng có ô ghi chú về thời gian, yêu cầu riêng hoặc thông tin giao hàng.'],
-   ['Nếu tôi chưa biết macro của mình thì sao?','Nhấn “Tính macro” và điền thông tin vào máy tính. Sau đó bạn có thể chuyển sang lên thực đơn.'],
-   ['Có thể đổi số lượng phần ăn không?','Có, trong giỏ hàng bạn có thể tăng hoặc giảm số lượng từng món trước khi gửi đơn.']
+   ['Chọn thực đơn theo chỉ số dinh dưỡng hoạt động như thế nào?','Bạn tính mục tiêu, chọn số bữa ăn, sau đó website tạo thực đơn gần với chỉ số hằng ngày.'],
+   ['Thực đơn có tự vào giỏ hàng không?','Không. Bạn xem thực đơn trước, sau đó mới nhấn “Thêm thực đơn vào giỏ”.'],
+   ['Có thể đổi món trong thực đơn không?','Có. Bạn có thể đổi từng thành phần, hệ thống sẽ cố giữ cân bằng dinh dưỡng.'],
+   ['Rau có bắt buộc trong thực đơn không?','Có, mỗi bữa đều có rau để thực đơn cân bằng hơn và có chất xơ.'],
+   ['Có thể đặt món riêng không cần chọn thực đơn không?','Có. Chọn món trong danh mục và thêm vào giỏ hàng.'],
+   ['Xem tổng giá ở đâu?','Giá hiển thị trong phần chọn thực đơn và trong giỏ hàng trước khi đặt.'],
+   ['Giao hàng ở đâu?','Bạn nhập địa chỉ khi đặt hàng. Quản lý sẽ xác nhận chi tiết sau khi gửi đơn.'],
+   ['Có thể để lại ghi chú không?','Có, form đặt hàng có ô ghi chú về thời gian, mong muốn hoặc giao hàng.'],
+   ['Nếu tôi chưa biết chỉ số dinh dưỡng thì sao?','Nhấn “Tính chỉ số dinh dưỡng” và điền thông tin vào máy tính. Sau đó có thể chuyển sang chọn thực đơn.'],
+   ['Có thể đổi số lượng khẩu phần không?','Có, trong giỏ hàng bạn có thể tăng hoặc giảm số lượng trước khi đặt.']
   ],
   products:{
-   'protein-001':['Ức gà kem tỏi','Ức gà mềm mọng với vị kem tỏi nhẹ và hương thảo mộc Italy.'],
-   'protein-004':['Ức gà teriyaki nhẹ','Phiên bản teriyaki nhẹ với mật ong, nước tương, gừng và tỏi.'],
-   'protein-005':['Ức gà cà ri dừa nhẹ','Ức gà thơm với vị dừa, cà ri và nghệ dịu nhẹ.'],
-   'protein-007':['Ức gà cổ điển','Ức gà tự nhiên với tỏi, tiêu đen và thảo mộc Italy.'],
-   'protein-009':['Bò sốt teriyaki nhẹ','Thịt bò mềm với vị Á nhẹ từ nước tương, mật ong, gừng và tỏi.'],
-   'protein-010':['Bò cổ điển','Thịt bò tự nhiên với vị đậm, tiêu đen và hương tỏi nhẹ.'],
-   'protein-011':['Trứng cuộn bông cải xanh mozzarella','Trứng cuộn giàu đạm với bông cải xanh và mozzarella mềm.'],
-   'carb-001':['Cơm gạo Jasmine','Gạo Jasmine thơm với kết cấu mềm tơi.'],
-   'carb-002':['Cơm gạo lứt','Nguồn tinh bột phức hợp, no lâu.'],
-   'carb-005':['Khoai lang paprika xông khói','Khoai lang mềm với vị ngọt tự nhiên, paprika xông khói và thảo mộc Italy.'],
-   'carb-008':['Yến mạch chocolate','Yến mạch đặc, no lâu với vị chocolate dịu.'],
-   'fiber-001':['Bông cải xanh hấp','Bông cải xanh mềm với vị tự nhiên và kết cấu nhẹ.'],
-   'fiber-005':['Súp lơ trắng hấp','Súp lơ trắng mềm, vị tự nhiên nhẹ cho thực đơn cân bằng.'],
-   'fiber-008':['Rau củ hấp hỗn hợp','Hỗn hợp bông cải xanh, súp lơ trắng và cà rốt, không thêm dầu.']
+   'protein-001':['Ức gà sốt kem tỏi','Ức gà mềm với sốt kem tỏi nhẹ.'],
+   'protein-004':['Ức gà teriyaki light','Ức gà với sốt teriyaki nhẹ.'],
+   'protein-005':['Ức gà cà ri dừa light','Ức gà với vị cà ri nhẹ và hương dừa.'],
+   'protein-007':['Tôm tỏi chanh','Tôm với tỏi và chanh.'],
+   'protein-009':['Bò teriyaki light','Thịt bò nạc với sốt teriyaki nhẹ.'],
+   'protein-011':['Trứng ốp la rau bina phô mai','Trứng với rau bina và phô mai.'],
+   'carb-001':['Cơm jasmine','Gạo jasmine thơm cho thực đơn cân bằng.'],
+   'carb-002':['Gạo lứt','Nguồn carb phức hợp.'],
+   'carb-003':['Cháo gạo sữa dừa','Nguồn carb no lâu với vị dừa nhẹ.'],
+   'carb-005':['Khoai lang','Khoai lang là nguồn carb phức hợp.'],
+   'carb-008':['Yến mạch sữa hạnh nhân','Yến mạch với sữa hạnh nhân cho bữa sáng nhẹ nhàng.'],
+   'fiber-001':['Bông cải xanh','Món rau và nguồn chất xơ.'],
+   'fiber-005':['Bí ngòi','Món rau nhẹ và nguồn chất xơ.'],
+   'fiber-008':['Rau mix (bông cải + cà rốt + súp lơ)','Hỗn hợp bông cải xanh, cà rốt và súp lơ.']
   }
  }
 };
@@ -1421,20 +979,6 @@ function t(key,vars={}){
 
 function productName(p){return (I18N[currentLang]?.products?.[p.id]?.[0]) || p.name;}
 function productDesc(p){return (I18N[currentLang]?.products?.[p.id]?.[1]) || p.description || t('balancedComponent');}
-function productDetailsHtml(p){
- const details=p?.details;
- if(!details) return '';
- const labels={
-  ru:{composition:'Состав',weight:'Вес порции',cooking:'Способ приготовления',storage:'Хранение'},
-  en:{composition:'Ingredients',weight:'Portion weight',cooking:'Cooking method',storage:'Storage'},
-  vi:{composition:'Thành phần',weight:'Khối lượng phần',cooking:'Cách chế biến',storage:'Bảo quản'}
- };
- const langLabels=labels[currentLang] || labels.ru;
- return ['composition','weight','cooking','storage']
-  .filter(key=>details[key])
-  .map(key=>`<div class="quick-view-detail"><b>${escapeHtml(langLabels[key])}</b>${escapeHtml(details[key])}</div>`)
-  .join('');
-}
 function gramUnit(){return currentLang==='ru' ? 'г' : 'g';}
 
 function setText(selector,value){
@@ -1447,551 +991,9 @@ function setPlaceholder(id,value){
  if(el) el.placeholder=value;
 }
 
-function scrollCatalog(){
- document.querySelector('.catalog-heading')?.scrollIntoView({behavior:'smooth',block:'start'});
-}
-
-function toggleMobileMenu(force){
- const header=document.querySelector('.site-header');
- if(!header) return;
- const open=typeof force==='boolean' ? force : !header.classList.contains('menu-open');
- header.classList.toggle('menu-open',open);
-}
-
 function setOption(selectId,value,label){
  const option=document.querySelector(`#${selectId} option[value="${value}"]`);
  if(option) option.textContent=label;
-}
-
-function updateContactPlaceholder(){
- const method=document.getElementById('contactMethod')?.value || 'zalo';
- const field=document.getElementById('contactValue');
- if(!field) return;
- const placeholders={
-  zalo:t('contactZaloPh'),
-  whatsapp:t('contactWhatsappPh'),
-  telegram:t('contactTelegramPh')
- };
- field.placeholder=placeholders[method] || t('contactZaloPh');
-}
-
-function formatVnd(value){
- return `${Math.max(0,Math.round(Number(value)||0)).toLocaleString()} VND`;
-}
-
-function formatMacro(value){
- const number=Number(value)||0;
- const rounded=Math.round(number*10)/10;
- return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
-}
-
-function normalizeVietnamPhone(value){
- let digits=String(value || '').replace(/\D/g,'');
- if(digits.startsWith('00')) digits=digits.slice(2);
- if(digits.startsWith('84') && digits.length===11 && '35789'.includes(digits[2])) return digits;
- if(digits.startsWith('0') && digits.length===10 && '35789'.includes(digits[1])) return `84${digits.slice(1)}`;
- if(digits.length===9 && '35789'.includes(digits[0])) return `84${digits}`;
- return '';
-}
-
-function escapeHtml(value){
- return String(value ?? '').replace(/[&<>"']/g,match=>({
-  '&':'&amp;',
-  '<':'&lt;',
-  '>':'&gt;',
-  '"':'&quot;',
-  "'":'&#39;'
- }[match]));
-}
-
-function formatOrderDate(value){
- if(!value) return '';
- const date=new Date(value);
- if(Number.isNaN(date.getTime())) return String(value);
- return date.toLocaleString(currentLang==='ru' ? 'ru-RU' : currentLang==='vi' ? 'vi-VN' : 'en-US',{
-  day:'2-digit',
-  month:'2-digit',
-  year:'numeric',
-  hour:'2-digit',
-  minute:'2-digit'
- });
-}
-
-function currentLoyaltyPhone(){
- return localStorage.getItem('eatfit_loyalty_phone') || '';
-}
-
-const LOYALTY_LEVELS=[
- {name:'Rookie',xp:0,benefits:{ru:'Стартовый уровень EatFit Club: возвращайте 1% от каждого заказа бонусами и получите приветственные 30 000 VND после регистрации.',en:'The starting EatFit Club level: earn 1% of every order back in bonuses and receive a 30,000 VND welcome gift after registration.',vi:'Cấp khởi đầu của EatFit Club: nhận lại 1% giá trị mỗi đơn bằng điểm thưởng và quà chào mừng 30.000 VND sau khi đăng ký.'}},
- {name:'Athlete',xp:5000,benefits:{ru:'Больше выгоды в регулярных заказах: 3% от суммы возвращается бонусами, плюс одна бесплатная доставка каждый месяц.',en:'More value for regular orders: 3% of the order returns as bonuses, plus one free delivery every month.',vi:'Nhiều lợi ích hơn cho đơn hàng thường xuyên: hoàn 3% bằng điểm thưởng và miễn phí giao hàng một lần mỗi tháng.'}},
- {name:'Champion',xp:15000,benefits:{ru:'Уровень для постоянных клиентов: 5% возвращается бонусами, а каждый заказ получает постоянную скидку 5%.',en:'A level for loyal customers: 5% returns as bonuses, and every order receives a permanent 5% discount.',vi:'Cấp dành cho khách hàng thân thiết: hoàn 5% bằng điểm thưởng và mỗi đơn được giảm cố định 5%.'}},
- {name:'Elite',xp:35000,benefits:{ru:'Расширенные привилегии клуба: 7% возвращается бонусами, действует скидка 7% и доступны две бесплатные доставки в месяц.',en:'Expanded club privileges: 7% returns as bonuses, a 7% discount applies, and two free deliveries are available each month.',vi:'Quyền lợi mở rộng của câu lạc bộ: hoàn 7% bằng điểm thưởng, giảm 7% và có hai lần giao hàng miễn phí mỗi tháng.'}},
- {name:'Legend',xp:70000,benefits:{ru:'Максимальный статус EatFit Club: 10% возвращается бонусами, действует скидка 10%, приоритетная поддержка, дегустации новинок, подарки и золотой значок в профиле.',en:'The highest EatFit Club status: 10% returns as bonuses, a 10% discount applies, with priority support, new-dish tastings, gifts and a gold profile badge.',vi:'Trạng thái cao nhất của EatFit Club: hoàn 10% bằng điểm thưởng, giảm 10%, hỗ trợ ưu tiên, thử món mới, quà tặng và huy hiệu vàng trong hồ sơ.'}}
-];
-
-function loyaltyDiscountRate(levelName){
- const key=String(levelName || 'Rookie').toLowerCase();
- if(key==='champion') return 0.05;
- if(key==='elite') return 0.07;
- if(key==='legend') return 0.10;
- return 0;
-}
-
-function loyaltyBonusRate(levelName){
- const key=String(levelName || 'Rookie').toLowerCase();
- if(key==='athlete') return 0.03;
- if(key==='champion') return 0.05;
- if(key==='elite') return 0.07;
- if(key==='legend') return 0.10;
- return 0.01;
-}
-
-const LOYALTY_TEXT={
- ru:{
-  nextLabel:'следующий уровень',
-  maxLevel:'максимальный уровень',
-  currentBenefit:'Ваш уровень',
-  nextBenefit:'Следующая цель',
-  earnTitle:'Как копятся награды',
-  earnText:'За каждые 1 000 VND заказа вы получаете 1 XP. Процент бонусов растет с уровнем: 1%, 3%, 5%, 7% и 10%.',
-  earnRateLabel:'Начисление бонусов',
-  discountRateLabel:'Скидка уровня',
-  remainLabel:'До следующего уровня',
-  maxRemain:'уровень открыт',
-  spendTitle:'Как использовать бонусы',
-  spendText:'Бонусами можно оплатить часть следующего заказа. Бонусы с покупок действуют 1 месяц, приветственные 30 000 VND — 7 дней.',
-  progress:(xp,next,remain)=> next ? `${xp.toLocaleString()} / ${next.xp.toLocaleString()} XP · осталось ${remain.toLocaleString()} XP` : `${xp.toLocaleString()} XP · уровень Legend открыт`
- },
- en:{
-  nextLabel:'next level',
-  maxLevel:'max level',
-  currentBenefit:'Your level',
-  nextBenefit:'Next goal',
-  earnTitle:'How rewards grow',
-  earnText:'Every 1,000 VND gives 1 XP. The bonus rate grows by level: 1%, 3%, 5%, 7% and 10%.',
-  earnRateLabel:'Bonus earning rate',
-  discountRateLabel:'Level discount',
-  remainLabel:'To next level',
-  maxRemain:'level unlocked',
-  spendTitle:'How to use bonuses',
-  spendText:'Bonuses can pay for part of your next order. Order bonuses last 1 month; the 30,000 VND welcome bonus lasts 7 days.',
-  progress:(xp,next,remain)=> next ? `${xp.toLocaleString()} / ${next.xp.toLocaleString()} XP · ${remain.toLocaleString()} XP left` : `${xp.toLocaleString()} XP · Legend level unlocked`
- },
- vi:{
-  nextLabel:'cấp tiếp theo',
-  maxLevel:'cấp cao nhất',
-  currentBenefit:'Cấp của bạn',
-  nextBenefit:'Mục tiêu tiếp theo',
-  earnTitle:'Cách tích thưởng',
-  earnText:'Mỗi 1.000 VND nhận 1 XP. Tỷ lệ hoàn điểm tăng theo cấp: 1%, 3%, 5%, 7% và 10%.',
-  earnRateLabel:'Tỷ lệ tích điểm',
-  discountRateLabel:'Giảm theo cấp',
-  remainLabel:'Đến cấp tiếp theo',
-  maxRemain:'đã mở cấp',
-  spendTitle:'Cách dùng điểm thưởng',
-  spendText:'Điểm thưởng có thể dùng để thanh toán một phần đơn tiếp theo. Điểm từ đơn hàng có hiệu lực 1 tháng; quà chào mừng 30.000 VND có hiệu lực 7 ngày.',
-  progress:(xp,next,remain)=> next ? `${xp.toLocaleString()} / ${next.xp.toLocaleString()} XP · còn ${remain.toLocaleString()} XP` : `${xp.toLocaleString()} XP · đã mở cấp Legend`
- }
-};
-
-function currentLoyaltyLevel(xp){
- return LOYALTY_LEVELS.slice().reverse().find(level=>xp>=level.xp) || LOYALTY_LEVELS[0];
-}
-
-async function fetchLoyaltyStatus(phone=currentLoyaltyPhone()){
- if(!phone) {loyaltyUser=null; loyaltyOrders=[]; renderLoyalty(); renderLoyaltyOrders(); return;}
- try{
-  const response=await fetch(`${API_BASE}/loyalty-status?phone=${encodeURIComponent(phone)}`);
-  const data=await response.json();
-  loyaltyUser=data.registered ? data.user : null;
-  await fetchLoyaltyOrders(phone);
-  renderLoyalty();
- }catch(e){
-  loyaltyUser=null;
-  loyaltyOrders=[];
-  renderLoyalty();
-  renderLoyaltyOrders();
- }
-}
-
-async function fetchLoyaltyOrders(phone=currentLoyaltyPhone()){
- if(!phone){
-  loyaltyOrders=[];
-  renderLoyaltyOrders();
-  return;
- }
- try{
-  const response=await fetch(`${API_BASE}/loyalty-orders?phone=${encodeURIComponent(phone)}`);
-  const data=await response.json();
-  loyaltyOrders=data.success && Array.isArray(data.orders) ? data.orders : [];
- }catch(e){
-  loyaltyOrders=[];
- }
- renderLoyaltyOrders();
-}
-
-function renderLoyaltyOrders(){
- setText('#loyaltyOrdersTitle',t('loyaltyOrdersTitle'));
- const ordersCount=loyaltyOrders.length;
- setText('#loyaltyOrdersNote',ordersCount ? `${t('loyaltyOrdersNote')} · ${ordersCount}` : t('loyaltyOrdersEmpty'));
- const box=document.getElementById('loyaltyOrdersList');
- if(!box) return;
- if(!loyaltyUser && !currentLoyaltyPhone()){
-  box.innerHTML=`<div class="loyalty-order-card"><div class="loyalty-order-main"><div class="loyalty-order-meta">${escapeHtml(t('loyaltyOrdersEmpty'))}</div></div></div>`;
-  return;
- }
- if(!loyaltyOrders.length){
-  box.innerHTML=`<div class="loyalty-order-card"><div class="loyalty-order-main"><div class="loyalty-order-meta">${escapeHtml(t('loyaltyOrdersEmpty'))}</div></div></div>`;
-  return;
- }
- box.innerHTML=loyaltyOrders.map((order,index)=>{
-  const created=formatOrderDate(order.created_at);
-  const updated=formatOrderDate(order.updated_at);
-  const items=String(order.items || '').trim();
-  const loyalty=order.loyalty || {};
-  const detailRows=[
-   [t('loyaltyOrderPhone'),order.phone],
-   [t('loyaltyOrderContact'),[order.contact_method,order.contact_value].filter(Boolean).join(' — ')],
-   [t('loyaltyOrderAddress'),order.address],
-   [t('loyaltyOrderMap'),order.delivery_map],
-   [t('loyaltyOrderOriginalTotal'),formatVnd(order.total_value || order.total || 0)],
-   [t('loyaltyOrderDiscount'),formatVnd(loyalty.level_discount || 0)],
-   [t('loyaltyOrderBonusUsed'),formatVnd(loyalty.bonus_applied || 0)],
-   [t('loyaltyOrderBonusEarned'),formatVnd(loyalty.bonus_earned || 0)],
-   [t('loyaltyOrderXpEarned'),loyalty.xp_earned ? `+${loyalty.xp_earned} XP` : '0 XP'],
-   [t('loyaltyOrderComment'),order.comment]
-  ].filter(item=>String(item[1] ?? '').trim());
-  return `
-   <div class="loyalty-order-card">
-    <div class="loyalty-order-main">
-     <div class="loyalty-order-id">№ ${escapeHtml(order.order_id || '')}</div>
-     <div class="loyalty-order-meta">${escapeHtml(t('loyaltyOrderCreated'))}: ${escapeHtml(created)}${updated ? ` · ${escapeHtml(t('loyaltyOrderUpdated'))}: ${escapeHtml(updated)}` : ''}</div>
-    </div>
-    <div class="loyalty-order-side">
-     <div class="loyalty-order-status">${escapeHtml(order.status_label || order.status || '')}</div>
-     <div class="loyalty-order-total">${formatVnd(order.total || order.total_value || 0)}</div>
-    </div>
-    <div class="loyalty-order-summary">
-     <span class="loyalty-order-meta">${escapeHtml(items ? items.split('\n').filter(Boolean)[0] || t('loyaltyOrderItems') : t('loyaltyOrderItems'))}</span>
-     <button type="button" class="loyalty-order-open" onclick="toggleLoyaltyOrderDetails(${index})">${escapeHtml(t('loyaltyOrderDetails'))}</button>
-    </div>
-    <div class="loyalty-order-extra">
-     ${items ? `<div class="loyalty-order-items"><b>${escapeHtml(t('loyaltyOrderItems'))}</b>\n${escapeHtml(items)}</div>` : ''}
-     <div class="loyalty-order-actions"><button type="button" class="loyalty-repeat-btn" onclick="repeatLoyaltyOrder(${index})">${escapeHtml(t('loyaltyRepeatOrder'))}</button></div>
-     <div class="loyalty-order-details">
-      ${detailRows.map(([label,value])=>`<div class="loyalty-order-detail ${String(value).length>42 ? 'wide' : ''}"><b>${escapeHtml(label)}</b>${escapeHtml(value)}</div>`).join('')}
-     </div>
-    </div>
-   </div>`;
- }).join('');
-}
-
-function normalizeOrderItemName(value){
- return String(value || '')
-  .toLowerCase()
-  .replace(/[ё]/g,'е')
-  .replace(/[×x]\s*[\d.,]+.*$/i,'')
-  .replace(/=\s*[\d\s,.]+.*$/,'')
-  .replace(/[^\p{L}\p{N}\s()+-]/gu,' ')
-  .replace(/\s+/g,' ')
-  .trim();
-}
-
-function productSearchNames(product){
- const names=new Set([product.name]);
- Object.values(I18N).forEach(lang=>{
-  const translated=lang.products?.[product.id]?.[0];
-  if(translated) names.add(translated);
- });
- return [...names].map(normalizeOrderItemName).filter(Boolean);
-}
-
-function parseOrderItemsForRepeat(itemsText){
- return String(itemsText || '').split('\n').map(line=>{
-  const qtyMatch=line.match(/[×x]\s*([\d.,]+)/i);
-  const qty=qtyMatch ? Number(String(qtyMatch[1]).replace(',','.')) : 1;
-  const name=normalizeOrderItemName(line);
-  return {name,qty:Number.isFinite(qty) && qty>0 ? qty : 1};
- }).filter(item=>item.name);
-}
-
-function repeatLoyaltyOrder(index){
- const order=loyaltyOrders[index];
- if(!order) return;
- const items=parseOrderItemsForRepeat(order.items);
- const productNames=products.map(product=>({product,names:productSearchNames(product)}));
- let added=0;
-
- items.forEach(item=>{
-  const found=productNames.find(entry=>entry.names.some(name=>name===item.name || item.name.includes(name) || name.includes(item.name)));
-  if(!found) return;
-  const existing=cart.find(cartItem=>cartItem.id===found.product.id);
-  if(existing) existing.qty=Math.round((Number(existing.qty||0)+item.qty)*100)/100;
-  else cart.push({id:found.product.id,qty:item.qty});
-  added+=item.qty;
- });
-
- if(!added){
-  showToast(t('loyaltyRepeatUnavailable'),3600);
-  return;
- }
- saveCart();
- closeLoyalty();
- toggleCart();
- showToast(t('loyaltyRepeatAdded',{count:formatQty(added)}),3200);
-}
-
-function toggleLoyaltyOrders(){
- const panel=document.getElementById('loyaltyOrdersPanel');
- if(!panel) return;
- panel.classList.toggle('open');
-}
-
-function toggleLoyaltyOrderDetails(index){
- const cards=document.querySelectorAll('#loyaltyOrdersList .loyalty-order-card');
- const card=cards[index];
- if(card) card.classList.toggle('open');
-}
-
-function renderLoyalty(){
- const balance=loyaltyUser ? loyaltyUser.bonus_balance : 0;
- const xp=loyaltyUser ? Number(loyaltyUser.xp || 0) : 0;
- const level=currentLoyaltyLevel(xp);
- const levelIndex=LOYALTY_LEVELS.findIndex(item=>item.name===level.name);
- const next=LOYALTY_LEVELS[levelIndex+1] || null;
- const previousXp=level.xp;
- const nextXp=next ? next.xp : level.xp;
- const progress=next ? Math.min(100,Math.max(0,((xp-previousXp)/(nextXp-previousXp))*100)) : 100;
- const remain=next ? Math.max(0,next.xp-xp) : 0;
- const copy=LOYALTY_TEXT[currentLang] || LOYALTY_TEXT.ru;
- setText('.loyalty-title',t('loyaltyTitle'));
- setText('.loyalty-sub',loyaltyUser ? t('loyaltyRegistered',{balance:formatVnd(balance)}) : t('loyaltySub'));
- setText('#loyaltyLevel',loyaltyUser ? loyaltyUser.level || level.name : level.name);
- setText('#loyaltyLevelLabel',t('loyaltyLevel'));
- setText('#loyaltyNextLevel',next ? next.name : 'Legend');
- setText('#loyaltyNextLabel',next ? copy.nextLabel : copy.maxLevel);
- const progressFill=document.getElementById('loyaltyProgressFill');
- if(progressFill) progressFill.style.width=`${progress}%`;
- setText('#loyaltyProgressNote',copy.progress(xp,next,remain));
- setText('#loyaltyEarnRateLabel',copy.earnRateLabel);
- setText('#loyaltyEarnRate',`${Math.round(loyaltyBonusRate(level.name)*100)}%`);
- setText('#loyaltyDiscountRateLabel',copy.discountRateLabel);
- setText('#loyaltyDiscountRate',`${Math.round(loyaltyDiscountRate(level.name)*100)}%`);
- setText('#loyaltyRemainLabel',copy.remainLabel);
- setText('#loyaltyRemain',next ? `${remain.toLocaleString()} XP` : copy.maxRemain);
- setText('#loyaltyXp',`${xp} XP`);
- setText('#loyaltyXpLabel',t('loyaltyXp'));
- setText('#loyaltyBalance',formatVnd(balance));
- setText('#loyaltyBalanceLabel',t('loyaltyBalance'));
- const visibleOrdersCount=loyaltyUser ? Math.max(Number(loyaltyUser.orders_count||0),loyaltyOrders.length) : 0;
- setText('#loyaltyOrders',String(visibleOrdersCount));
- setText('#loyaltyOrdersLabel',t('loyaltyOrders'));
- const loyaltyBtn=document.querySelector('.loyalty-actions .btn');
- if(loyaltyBtn) loyaltyBtn.textContent=loyaltyUser ? t('loyaltyUpdate') : t('loyaltyRegister');
- renderLoyaltyAuthState();
- const bonusBox=document.getElementById('bonusBox');
- if(bonusBox) bonusBox.classList.toggle('show',Boolean(loyaltyUser && balance>0));
- setText('#useBonusLabel',t('useBonus'));
- setText('#bonusAvailable',formatVnd(balance));
- setText('#bonusNote',t('bonusNote'));
- setText('#loyaltyCurrentBenefitTitle',copy.currentBenefit);
- setText('#loyaltyCurrentBenefit',level.benefits[currentLang] || level.benefits.ru);
- setText('#loyaltyNextBenefitTitle',copy.nextBenefit);
- setText('#loyaltyNextBenefit',next ? (next.benefits[currentLang] || next.benefits.ru) : (level.benefits[currentLang] || level.benefits.ru));
- setText('#loyaltyEarnTitle',copy.earnTitle);
- setText('#loyaltyEarnText',copy.earnText);
- setText('#loyaltySpendTitle',copy.spendTitle);
- setText('#loyaltySpendText',copy.spendText);
- setText('#loyaltyPromoPoint1',t('loyaltyPromo1'));
- setText('#loyaltyPromoPoint2',t('loyaltyPromo2'));
- setText('#loyaltyPromoPoint3',t('loyaltyPromo3'));
- const levels=document.getElementById('loyaltyLevels');
- if(levels){
- levels.innerHTML=LOYALTY_LEVELS.map(item=>{
-   const levelClass=item.name.toLowerCase();
-   const stateClass=item.name===level.name ? 'active' : item.xp>xp ? 'locked' : '';
-   const benefit=item.benefits[currentLang] || item.benefits.ru;
-   return `<div class="loyalty-level-card ${levelClass} ${stateClass}" tabindex="0" aria-label="${item.name}: ${benefit}"><b>${item.name}</b><span>${item.xp.toLocaleString()} XP</span><small class="loyalty-level-card-tip">${benefit}</small></div>`;
-  }).join('');
- }
- renderLoyaltyOrders();
-}
-
-function openLoyalty(){
- document.getElementById('loyaltyModal')?.classList.add('show');
- setLoyaltyResult('','');
- if(loyaltyUser){
- document.getElementById('loyaltyName').value=loyaltyUser.name||'';
- document.getElementById('loyaltySurname').value=loyaltyUser.surname||'';
- document.getElementById('loyaltyPhone').value=loyaltyUser.phone||'';
- fetchLoyaltyOrders(loyaltyUser.phone);
- }
- renderLoyaltyAuthState();
- renderLoyaltyProfile();
-}
-
-function closeLoyalty(event){
- if(event && event.target && event.target.id!=='loyaltyModal') return;
- document.getElementById('loyaltyModal')?.classList.remove('show');
-}
-
-function setLoyaltyResult(type,message){
- const result=document.getElementById('loyaltyResult');
- if(!result) return;
- result.className=`loyalty-result ${type||''}`.trim();
- result.style.display=message ? 'block' : 'none';
- result.textContent=message || '';
-}
-
-function renderLoyaltyProfile(){
- const box=document.getElementById('loyaltyProfile');
- if(!box) return;
- if(!loyaltyUser){
-  box.classList.remove('show');
-  box.innerHTML='';
-  return;
- }
- box.classList.add('show');
- box.innerHTML=[
- [t('loyaltyLevel'),loyaltyUser.level||'Rookie'],
- [t('loyaltyBalance'),formatVnd(loyaltyUser.bonus_balance||0)],
- [t('loyaltyXp'),`${loyaltyUser.xp||0} XP`],
- [t('loyaltyOrders'),loyaltyUser.orders_count||0]
- ].map(item=>`<div><b>${item[1]}</b><span>${item[0]}</span></div>`).join('');
-}
-
-function renderLoyaltyAuthState(){
- const fields=document.getElementById('loyaltyAuthFields');
- const greeting=document.getElementById('loyaltyGreeting');
- const button=document.getElementById('loyaltyAuthButton');
- if(fields) fields.classList.toggle('hidden',Boolean(loyaltyUser));
- if(greeting){
-  greeting.classList.toggle('show',Boolean(loyaltyUser));
-  if(loyaltyUser){
-   const displayName=[loyaltyUser.name,loyaltyUser.surname].filter(Boolean).join(' ') || loyaltyUser.phone || 'EatFit Club';
-   greeting.innerHTML=`<b>${escapeHtml(displayName)}</b>${escapeHtml(t('loyaltyGreeting',{name:displayName,level:loyaltyUser.level||'Rookie',balance:formatVnd(loyaltyUser.bonus_balance||0)}))}`;
-  }else{
-   greeting.innerHTML='';
-  }
- }
- if(button) button.textContent=loyaltyUser ? t('loyaltyLogout') : t('loyaltyRegister');
-}
-
-function handleLoyaltyAuth(){
- if(loyaltyUser){
-  logoutLoyalty();
-  return;
- }
- registerLoyalty();
-}
-
-function logoutLoyalty(){
- loyaltyUser=null;
- loyaltyOrders=[];
- localStorage.removeItem('eatfit_loyalty_phone');
- document.getElementById('loyaltyName').value='';
- document.getElementById('loyaltySurname').value='';
- document.getElementById('loyaltyPhone').value='';
- const useBonusInput=document.getElementById('useBonus');
- if(useBonusInput) useBonusInput.checked=false;
- renderLoyalty();
- renderLoyaltyProfile();
- renderLoyaltyOrders();
- setLoyaltyResult('','');
-}
-
-function copyLoyaltyToCheckout(user){
- if(!user) return;
- document.getElementById('name').value=user.name||'';
- document.getElementById('surname').value=user.surname||'';
- document.getElementById('phone').value=user.phone||'';
-}
-
-async function registerLoyalty(){
- const normalizedPhone=normalizeVietnamPhone(document.getElementById('loyaltyPhone').value);
- const payload={
-  name:document.getElementById('loyaltyName').value.trim(),
-  surname:document.getElementById('loyaltySurname').value.trim(),
-  phone:normalizedPhone
- };
- if(!payload.phone){
-  setLoyaltyResult('error',t('alertPhoneInvalid'));
-  return;
- }
- document.getElementById('loyaltyPhone').value=payload.phone;
- const button=document.getElementById('loyaltyAuthButton');
- const buttonText=button ? button.textContent : '';
- const controller=new AbortController();
- const timeout=setTimeout(()=>controller.abort(),15000);
- if(button){button.disabled=true;button.textContent=t('loyaltyLoading');}
- setLoyaltyResult('info',t('loyaltyLoading'));
- try{
-  const statusResponse=await fetch(`${API_BASE}/loyalty-status?phone=${encodeURIComponent(payload.phone)}`,{
-   signal:controller.signal
-  });
-  const statusData=await statusResponse.json();
-  if(statusData.success && statusData.registered && statusData.user){
-   clearTimeout(timeout);
-   loyaltyUser=statusData.user;
-   localStorage.setItem('eatfit_loyalty_phone',loyaltyUser.phone);
-   copyLoyaltyToCheckout(loyaltyUser);
-   renderLoyalty();
-   renderLoyaltyProfile();
-   fetchLoyaltyOrders(loyaltyUser.phone);
-   setLoyaltyResult('',`${t('loyaltyLoggedIn',{balance:formatVnd(loyaltyUser.bonus_balance)})} ${t('loyaltyNextStep')}`);
-   return;
-  }
-  if(!payload.name || !payload.surname){
-   clearTimeout(timeout);
-   setLoyaltyResult('error',t('loyaltyNeedDetails'));
-   return;
-  }
-  const response=await fetch(`${API_BASE}/loyalty-register`,{
-   method:'POST',
-   headers:{'Content-Type':'application/json'},
-   body:JSON.stringify(payload),
-   signal:controller.signal
-  });
-  clearTimeout(timeout);
-  const data=await response.json();
-  if(!data.success){
-   if(data.error==='invalid_phone'){
-    setLoyaltyResult('error',t('alertPhoneInvalid'));
-    return;
-   }
-   throw new Error(data.error||'loyalty');
-  }
-  loyaltyUser=data.user;
-  localStorage.setItem('eatfit_loyalty_phone',loyaltyUser.phone);
-  const message=data.is_new ? t('loyaltySaved',{balance:formatVnd(loyaltyUser.bonus_balance)}) : t('loyaltyLoggedIn',{balance:formatVnd(loyaltyUser.bonus_balance)});
-  setLoyaltyResult('',`${message} ${t('loyaltyNextStep')}`);
-  copyLoyaltyToCheckout(loyaltyUser);
-  renderLoyalty();
-  renderLoyaltyProfile();
-  fetchLoyaltyOrders(loyaltyUser.phone);
- }catch(e){
-  clearTimeout(timeout);
-  const pendingUser={
-   ...payload,
-   bonus_balance:0,
-   xp:0,
-   level:'Rookie',
-   orders_count:0
-  };
-  copyLoyaltyToCheckout(pendingUser);
-  setLoyaltyResult('error',t('loyaltyManualFallback'));
- }finally{
-  if(button){
-   button.disabled=false;
-   renderLoyaltyAuthState();
-  }
- }
-}
-
-function openDeliveryMap(){
- const address=document.getElementById('address')?.value.trim();
- const query=encodeURIComponent(address || 'Vietnam');
- window.open(`https://www.google.com/maps/search/?api=1&query=${query}`,'_blank','noopener');
 }
 
 function renderFAQ(){
@@ -2000,33 +1002,18 @@ function renderFAQ(){
  grid.innerHTML=t('faq').map(item=>`<div class="faq-item"><b>${item[0]}</b><p>${item[1]}</p></div>`).join('');
 }
 
-setInterval(()=>{
- const phone=currentLoyaltyPhone();
- if(phone) fetchLoyaltyOrders(phone);
-},30000);
-
 function applyLanguage(){
  document.documentElement.lang=currentLang;
  const langSelect=document.getElementById('languageSelect');
  if(langSelect) langSelect.value=currentLang;
- const langSwitch=document.getElementById('languageSwitch');
- if(langSwitch) langSwitch.className=`language-switch lang-${currentLang}`;
- const langCode=document.getElementById('languageCode');
- if(langCode) langCode.textContent=({ru:'RU',en:'EN',vi:'VI'}[currentLang] || currentLang.toUpperCase());
 
  setText('.brand-subtitle',t('brandSubtitle'));
  const actions=document.querySelectorAll('.site-actions button');
  if(actions[0]) actions[0].textContent=t('navCalc');
  if(actions[1]) actions[1].textContent=t('navPlanner');
- if(actions[2]) actions[2].textContent=t('navLoyalty');
- if(actions[3]) actions[3].textContent=t('navContacts');
- if(actions[4]) actions[4].textContent=t('navFaq');
- if(actions[5]) actions[5].innerHTML=`${t('navCart')} <b id="count">${cart.reduce((a,b)=>a+b.qty,0)}</b>`;
- setText('#quickViewCaloriesLabel',t('calories'));
- setText('#quickViewProteinLabel',t('proteinShort'));
- setText('#quickViewFatLabel',t('fatShort'));
- setText('#quickViewCarbsLabel',t('carbsShort'));
- setText('#quickViewAdd',t('addToCart'));
+ if(actions[2]) actions[2].textContent=t('navContacts');
+ if(actions[3]) actions[3].textContent=t('navFaq');
+ if(actions[4]) actions[4].innerHTML=`${t('navCart')} <b id="count">${cart.reduce((a,b)=>a+b.qty,0)}</b>`;
 
  setText('.hero-eyebrow',t('heroEyebrow'));
  setText('.hero h2',t('heroTitle'));
@@ -2034,10 +1021,6 @@ function applyLanguage(){
  const heroBtns=document.querySelectorAll('.hero-cta');
  if(heroBtns[0]) heroBtns[0].textContent=t('navPlanner');
  if(heroBtns[1]) heroBtns[1].textContent=t('navCalc');
- const heroPoints=document.querySelectorAll('.hero-point span');
- if(heroPoints[0]) heroPoints[0].textContent=t('heroPoint1');
- if(heroPoints[1]) heroPoints[1].textContent=t('heroPoint2');
- if(heroPoints[2]) heroPoints[2].textContent=t('heroPoint3');
  setText('.kbju-saved-title',t('savedTitle'));
  setText('.kbju-saved-sub',t('savedSub'));
  const savedLabels=document.querySelectorAll('.kbju-saved-pill');
@@ -2074,14 +1057,6 @@ function applyLanguage(){
  if(contactNotes[1]) contactNotes[1].textContent=t('contactTelegram');
  if(contactNotes[2]) contactNotes[2].textContent=t('contactZalo');
  setText('.contact-small',t('contactSmall'));
-
- setText('.loyalty-head h2',t('loyaltyModalTitle'));
- setText('.loyalty-head p',t('loyaltyModalSub'));
- setPlaceholder('loyaltyName',t('namePh'));
- setPlaceholder('loyaltySurname',t('surnamePh'));
- setPlaceholder('loyaltyPhone',t('phonePh'));
- renderLoyaltyAuthState();
- renderLoyalty();
 
  setText('.kbju-modal-head h2',t('calcTitle'));
  setText('.kbju-modal-head p',t('calcSub'));
@@ -2121,48 +1096,24 @@ function applyLanguage(){
    const summaryPrice=document.querySelector('.summary-price span');
    if(summaryPrice) summaryPrice.textContent=t('selectedPlanPrice');
    setText('#mealSelector h3',t('mealCount'));
-   setText('#totalCaloriesUnit',t('calories'));
-   setText('#totalProteinUnit',t('proteinShort'));
-   setText('#totalFatUnit',t('fatShort'));
-   setText('#totalCarbsUnit',t('carbsShort'));
-   if(!localStorage.getItem('kbju_target')){
-    ['targetCalories','targetProtein','targetFat','targetCarbs'].forEach(id=>setText('#'+id,t('noGoal')));
-   }
  }
 
  setText('#cartPanel .cart-heading',t('cartTitle'));
  setText('#cartPanel .cart-subtitle',t('cartSub'));
  const clearBtn=document.querySelector('.clear-btn');
  if(clearBtn) clearBtn.textContent=t('clear');
- setText('#orderSummaryTitle',t('orderSummaryTitle'));
- setText('#orderFoodTotalLabel',t('orderFoodTotal'));
- setText('#orderLevelDiscountLabel',t('orderLevelDiscount'));
- setText('#orderBonusSpendLabel',t('orderBonusSpend'));
- setText('#orderFinalLabel',t('orderFinalTotal'));
- setText('#deliveryNoteTitle',t('deliveryNoteTitle'));
- setText('#deliveryNoteText',t('deliveryNoteText'));
- setText('#checkoutStepsTitle',t('checkoutStepsTitle'));
- setText('#checkoutStep1',t('checkoutStep1'));
- setText('#checkoutStep2',t('checkoutStep2'));
- setText('#checkoutStep3',t('checkoutStep3'));
+ const cartTotal=document.querySelector('.cart-total-line span');
+ if(cartTotal) cartTotal.textContent=t('cartTotal');
  setText('.checkout-section h3',t('checkoutTitle'));
  setPlaceholder('name',t('namePh'));
- setPlaceholder('surname',t('surnamePh'));
  setPlaceholder('phone',t('phonePh'));
- setText('label[for="contactMethod"]',t('contactMethodLabel'));
- updateContactPlaceholder();
+ setPlaceholder('telegram',t('telegramPh'));
  setPlaceholder('address',t('addressPh'));
- setText('label[for="deliveryMap"]',t('mapLabel'));
- setPlaceholder('deliveryMap',t('mapPh'));
- const mapBtn=document.querySelector('.map-row .btn');
- if(mapBtn) mapBtn.textContent=t('openMap');
  setPlaceholder('comment',t('commentPh'));
  const checkoutBtn=document.querySelector('.checkout-btn');
  if(checkoutBtn) checkoutBtn.textContent=t('checkout');
  setText('.success-box h2',t('successTitle'));
  setText('.success-box p',t('successText'));
- const successOrder=document.getElementById('successOrderId');
- if(successOrder && successOrder.dataset.orderId) successOrder.textContent=`${t('successOrderLabel')}: ${successOrder.dataset.orderId}`;
  const successClose=document.querySelector('.success-box .btn');
  if(successClose) successClose.textContent=t('close');
  setText('#foodModalTitle',t('dishSelect'));
@@ -2293,73 +1244,6 @@ function removeItem(id){
  saveCart();
 }
 
-function productImages(product){
- const images=Array.isArray(product?.images) ? product.images.filter(Boolean) : [];
- return images.length ? images : ['logo.jpg'];
-}
-
-function setQuickViewImage(product){
- const images=productImages(product);
- quickViewImageIndex=((quickViewImageIndex % images.length)+images.length)%images.length;
- const image=document.getElementById('quickViewImage');
- if(image){
-  image.src=`assets/${images[quickViewImageIndex]}`;
-  image.alt=productName(product);
-  image.onerror=()=>{image.onerror=null;image.src='assets/logo.jpg';};
- }
- const showControls=images.length>1;
- ['quickPrev','quickNext'].forEach(id=>{
-  const element=document.getElementById(id);
-  if(element) element.style.display=showControls ? '' : 'none';
- });
-}
-
-function changeQuickViewImage(direction){
- const product=products.find(item=>item.id===quickViewProductId);
- if(!product) return;
- const images=productImages(product);
- quickViewImageIndex=(quickViewImageIndex+direction+images.length)%images.length;
- setQuickViewImage(product);
-}
-
-function changeCardImage(id,direction){
- const product=products.find(item=>item.id===id);
- if(!product) return;
- const images=productImages(product);
- if(images.length<2) return;
- productImageIndex[id]=((productImageIndex[id]||0)+direction+images.length)%images.length;
- if(window.renderProducts) window.renderProducts();
-}
-
-function openQuickView(id){
- const product=products.find(item=>item.id===id);
- if(!product) return;
- const modal=document.getElementById('quickViewModal');
- quickViewProductId=id;
- quickViewImageIndex=productImageIndex[id]||0;
- setQuickViewImage(product);
- setText('#quickViewTitle',productName(product));
- setText('#quickViewDesc',productDesc(product));
- const detailsBox=document.getElementById('quickViewDetails');
- if(detailsBox) detailsBox.innerHTML=productDetailsHtml(product);
- setText('#quickViewCalories',String(product.calories));
- setText('#quickViewProtein',formatMacro(product.protein));
- setText('#quickViewFat',formatMacro(product.fat));
- setText('#quickViewCarbs',formatMacro(product.carbs));
- setText('#quickViewPrice',`${product.price.toLocaleString()} VND`);
- const addBtn=document.getElementById('quickViewAdd');
- if(addBtn){
-  addBtn.textContent=t('addToCart');
-  addBtn.onclick=()=>{add(id);closeQuickView();};
- }
- modal?.classList.add('show');
-}
-
-function closeQuickView(event){
- if(event && event.target && event.target.id!=='quickViewModal') return;
- document.getElementById('quickViewModal')?.classList.remove('show');
-}
-
 function formatQty(qty){
  const value=Math.round(Number(qty||0)*100)/100;
  return Number.isInteger(value) ? String(value) : String(value).replace(/0+$/,'').replace(/\.$/,'');
@@ -2435,14 +1319,7 @@ function renderCart(){
  let totalQty=0;
 
  if(cart.length===0){
-   box.innerHTML=`<div class="empty-cart">
-    <b>${escapeHtml(t('emptyCartTitle'))}</b>
-    <p>${escapeHtml(t('emptyCartText'))}</p>
-    <div class="empty-cart-actions">
-     <button class="btn" onclick="closeCart();scrollCatalog()">${escapeHtml(t('emptyCartMenu'))}</button>
-     <button class="kbju-secondary" onclick="openPlanner()">${escapeHtml(t('navPlanner'))}</button>
-    </div>
-   </div>`;
+   box.innerHTML=`<div class="empty-cart">${t('emptyCart')}</div>`;
  }
 
  cart.forEach(c=>{
@@ -2457,7 +1334,7 @@ function renderCart(){
       <img src="assets/${p.images[0]}" alt="">
       <div class="cart-item-info">
       <b class="cart-item-name">${productName(p)}</b>
-      <div class="cart-item-meta"><span>${p.calories} ${t('calories')}</span><span>${t('proteinShort')} ${formatMacro(p.protein)}</span><span>${t('fatShort')} ${formatMacro(p.fat)}</span><span>${t('carbsShort')} ${formatMacro(p.carbs)}</span></div>
+      <div class="cart-item-meta"><span>${p.calories} ${t('calories')}</span><span>${t('proteinShort')} ${p.protein}</span><span>${t('fatShort')} ${p.fat}</span><span>${t('carbsShort')} ${p.carbs}</span></div>
       </div>
       <div class="cart-item-side">
       <div class="cart-item-price">${p.price.toLocaleString()} VND</div>
@@ -2471,24 +1348,8 @@ function renderCart(){
    </div>`;
  });
 
- const discountRate=loyaltyUser ? loyaltyDiscountRate(loyaltyUser.level) : 0;
- const levelDiscount=Math.floor(totalPrice*discountRate);
- const afterDiscount=Math.max(totalPrice-levelDiscount,0);
- const bonusBalance=loyaltyUser ? Number(loyaltyUser.bonus_balance || 0) : 0;
- const useBonus=Boolean(loyaltyUser && document.getElementById('useBonus')?.checked);
- const bonusSpend=useBonus ? Math.min(bonusBalance,afterDiscount) : 0;
- const finalTotal=Math.max(afterDiscount-bonusSpend,0);
- const levelDiscountRow=document.getElementById('orderLevelDiscountRow');
- const bonusSpendRow=document.getElementById('orderBonusSpendRow');
-
- document.getElementById('orderFoodTotal').textContent=totalPrice.toLocaleString();
- document.getElementById('orderLevelDiscount').textContent=levelDiscount.toLocaleString();
- document.getElementById('orderBonusSpend').textContent=bonusSpend.toLocaleString();
- document.getElementById('orderFinalTotal').textContent=finalTotal.toLocaleString();
- if(levelDiscountRow) levelDiscountRow.classList.toggle('hidden',levelDiscount<=0);
- if(bonusSpendRow) bonusSpendRow.classList.toggle('hidden',!loyaltyUser || bonusSpend<=0);
+ document.getElementById('cartTotalPrice').textContent=totalPrice.toLocaleString();
  document.getElementById('totalQty').textContent=totalQty;
- renderLoyalty();
 }
 
 function closePanels(){
@@ -2529,26 +1390,16 @@ function closePlanner(){
 
 async function checkout(){
  const name=document.getElementById('name').value;
- const surname=document.getElementById('surname').value;
  const phone=document.getElementById('phone').value;
- const normalizedPhone=normalizeVietnamPhone(phone);
- const contactMethod=document.getElementById('contactMethod').value;
- const contactValue=document.getElementById('contactValue').value;
+ const telegram=document.getElementById('telegram').value;
  const address=document.getElementById('address').value;
- const deliveryMap=document.getElementById('deliveryMap').value;
  const comment=document.getElementById('comment').value;
- const useBonus=Boolean(loyaltyUser && document.getElementById('useBonus')?.checked);
 
  if(cart.length===0){ alert(t('alertEmptyCart')); return; }
- if(!name.trim() || !surname.trim() || !phone.trim() || !contactMethod || !contactValue.trim() || !address.trim() || !deliveryMap.trim()){
+ if(!name || !phone || !address){
    alert(t('alertCheckout'));
    return;
  }
- if(!normalizedPhone){
-   alert(t('alertPhoneInvalid'));
-   return;
- }
- document.getElementById('phone').value=normalizedPhone;
 
  let items='';
  let totalPrice=0;
@@ -2570,16 +1421,9 @@ async function checkout(){
       body:JSON.stringify({
         order_id:orderId,
         name:name,
-        surname:surname,
-        phone:normalizedPhone,
+        phone:phone,
         address:address,
-        maps:deliveryMap,
-        delivery_map:deliveryMap,
-        contact_method:contactMethod,
-        contact_value:contactValue,
-        loyalty_phone:loyaltyUser ? loyaltyUser.phone : '',
-        use_bonus:useBonus,
-        telegram:contactMethod==='telegram' ? contactValue : '',
+        telegram:telegram,
         comment:comment,
         items:items,
         total:totalPrice
@@ -2589,60 +1433,20 @@ async function checkout(){
    const result = await response.json();
 
    if(!result.success){
-      if(result.error==='invalid_phone' || result.error==='invalid_loyalty_phone'){
-         alert(t('alertPhoneInvalid'));
-         return;
-      }
       alert(t('alertOrderError'));
       return;
    }
 
-   const successOrderId=document.getElementById('successOrderId');
-   successOrderId.dataset.orderId=orderId;
-   successOrderId.textContent=`${t('successOrderLabel')}: ${orderId}`;
-   const successBonus=document.getElementById('successBonus');
-   if(result.loyalty && result.loyalty.registered){
-      successBonus.style.display='block';
-      successBonus.innerHTML=`
-       <b>${escapeHtml(t('successBonusTitle'))}</b>
-       <span>${escapeHtml(t('loyaltyOrderDiscount'))}: ${escapeHtml(formatVnd(result.loyalty.level_discount || 0))}</span><br>
-       <span>${escapeHtml(t('loyaltyOrderBonusUsed'))}: ${escapeHtml(formatVnd(result.loyalty.bonus_applied || 0))}</span><br>
-       <span>${escapeHtml(t('loyaltyOrderBonusEarned'))}: ${escapeHtml(formatVnd(result.loyalty.bonus_earned || 0))}</span><br>
-       <span>${escapeHtml(t('loyaltyOrderXpEarned'))}: +${escapeHtml(result.loyalty.xp_earned || 0)} XP</span><br>
-       <span>${escapeHtml(t('loyaltyBalance'))}: ${escapeHtml(formatVnd(result.loyalty.bonus_balance || 0))}</span>
-      `;
-      if(!result.loyalty.pending){
-        loyaltyUser={
-          ...loyaltyUser,
-          bonus_balance:result.loyalty.bonus_balance,
-          xp:result.loyalty.xp,
-          level:result.loyalty.level,
-          orders_count:(loyaltyUser?.orders_count||0)+1
-        };
-        renderLoyalty();
-      }
-      const refreshPhone=loyaltyUser?.phone || normalizedPhone;
-      if(refreshPhone){
-        localStorage.setItem('eatfit_loyalty_phone',refreshPhone);
-        await fetchLoyaltyStatus(refreshPhone);
-      }
-   }else if(successBonus){
-      successBonus.style.display='none';
-      successBonus.innerHTML='';
-   }
+   document.getElementById('successOrderId').innerText = orderId;
    document.getElementById('successModal').style.display='flex';
 
    cart=[];
    saveCart();
 
    document.getElementById('name').value='';
-   document.getElementById('surname').value='';
    document.getElementById('phone').value='';
-   document.getElementById('contactMethod').value='zalo';
-   document.getElementById('contactValue').value='';
-   updateContactPlaceholder();
+   document.getElementById('telegram').value='';
    document.getElementById('address').value='';
-   document.getElementById('deliveryMap').value='';
    document.getElementById('comment').value='';
 
    closeCart();
@@ -2704,32 +1508,26 @@ fetch('data/products.json')
  }
 
  visible.forEach(p=>{
- const images=productImages(p);
- const imageIndex=((productImageIndex[p.id]||0)%images.length+images.length)%images.length;
- const galleryControls=images.length>1 ? `
-    <button class="card-gallery-btn prev" onclick="event.stopPropagation();changeCardImage('${p.id}',-1)" aria-label="Предыдущее фото">‹</button>
-    <button class="card-gallery-btn next" onclick="event.stopPropagation();changeCardImage('${p.id}',1)" aria-label="Следующее фото">›</button>` : '';
+ const category=productCategoryInfo(p);
+
  box.innerHTML+=`
- <div class="card" onclick="openQuickView('${p.id}')">
+ <div class="card">
    <div class="card-media">
-    <img src="assets/${images[imageIndex]}" alt="${productName(p)}" onerror="this.onerror=null;this.src='assets/logo.jpg'">
-    ${galleryControls}
+    <img src="assets/${p.images[0]}" alt="${productName(p)}" onerror="this.onerror=null;this.src='assets/logo.jpg'">
+    <div class="category-pill">${category.icon} ${category.label}</div>
    </div>
    <div class="card-body">
     <h3>${productName(p)}</h3>
     <p class="card-desc">${productDesc(p)}</p>
     <div class="macro-row">
      <div class="macro-pill"><b>${p.calories}</b>${t('calories')}</div>
-     <div class="macro-pill"><b>${formatMacro(p.protein)}</b>${t('proteinShort')}</div>
-     <div class="macro-pill"><b>${formatMacro(p.fat)}</b>${t('fatShort')}</div>
-     <div class="macro-pill"><b>${formatMacro(p.carbs)}</b>${t('carbsShort')}</div>
+     <div class="macro-pill"><b>${p.protein}</b>${t('proteinShort')}</div>
+     <div class="macro-pill"><b>${p.fat}</b>${t('fatShort')}</div>
+     <div class="macro-pill"><b>${p.carbs}</b>${t('carbsShort')}</div>
     </div>
     <div class="card-footer">
      <div class="price">${p.price.toLocaleString()} VND</div>
-     <div class="card-actions">
-      <button class="details-btn" onclick="event.stopPropagation();openQuickView('${p.id}')">${t('quickView')}</button>
-      <button class="btn" onclick="event.stopPropagation();add('${p.id}')">${t('addToCart')}</button>
-     </div>
+     <button class="btn" onclick="add('${p.id}')">${t('addToCart')}</button>
     </div>
    </div>
  </div>`;
@@ -2740,7 +1538,6 @@ window.renderProducts();
 renderCart();
 renderSavedKBJU();
 applyLanguage();
-fetchLoyaltyStatus();
 });
 
 
@@ -3205,9 +2002,9 @@ ${t('carbsShort')}: ${totals.carbs} ${gramUnit()}
  document.getElementById('autoPlanResult').innerHTML=planHtml;
  document.getElementById('totalPrice').textContent=planPrice.toLocaleString();
  document.getElementById('totalCalories').textContent=kcal;
- document.getElementById('totalProtein').textContent=formatMacro(prot);
- document.getElementById('totalFat').textContent=formatMacro(fat);
- document.getElementById('totalCarbs').textContent=formatMacro(carb);
+ document.getElementById('totalProtein').textContent=prot;
+ document.getElementById('totalFat').textContent=fat;
+ document.getElementById('totalCarbs').textContent=carb;
  updateKBJUProgress(kcal,prot,fat,carb);
 }
 
