@@ -961,7 +961,13 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 </div>
 <button class="loyalty-close" onclick="closeLoyalty()" aria-label="Закрыть">×</button>
 </div>
-<div id="loyaltyAuthFields" class="loyalty-auth-fields">
+<div id="loyaltyEmailFields" class="loyalty-auth-fields">
+<input id="loyaltyEmail" type="email" autocomplete="email" placeholder="Email">
+</div>
+<div id="loyaltyOtpFields" class="loyalty-auth-fields hidden">
+<input id="loyaltyOtp" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="Код из письма">
+</div>
+<div id="loyaltyAuthFields" class="loyalty-auth-fields hidden">
 <input id="loyaltyName" placeholder="Имя">
 <input id="loyaltySurname" placeholder="Фамилия">
 <input id="loyaltyPhone" placeholder="Телефон">
@@ -1251,10 +1257,14 @@ let products=[];
 let currentLang=localStorage.getItem('eatfit_lang')||'ru';
 let loyaltyUser=null;
 let loyaltyOrders=[];
+let loyaltyAuthStage='email';
+let loyaltySession=null;
 let productImageIndex={};
 let quickViewProductId='';
 let quickViewImageIndex=0;
 const API_BASE='https://eatfit-bot.onrender.com';
+const SUPABASE_URL='https://mlezdundixgtjopaxfsg.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY='sb_publishable_1bWW-LmfPLyvEwOxVdhKHg_7HYyCG9p';
 
 const I18N={
  ru:{
@@ -1517,8 +1527,89 @@ function formatOrderDate(value){
  });
 }
 
+const LOYALTY_AUTH_TEXT={
+ ru:{
+  subtitle:'Войдите по email, чтобы защитить бонусы и историю заказов.',
+  email:'Email',code:'6-значный код из письма',send:'Получить код',verify:'Подтвердить код',
+  create:'Создать профиль',sent:'Код отправлен на {email}. Проверьте входящие и папку «Спам».',
+  verifying:'Проверяем код...',profile:'Email подтверждён. Заполните данные профиля один раз.',
+  invalidEmail:'Введите корректный email.',invalidCode:'Введите 6-значный код из письма.',
+  authError:'Не удалось подтвердить email. Проверьте код и попробуйте снова.',
+  conflict:'Этот номер уже связан с другим профилем. Напишите менеджеру EatFit.',
+  mismatch:'Для переноса старого профиля укажите те же имя и фамилию, что использовали ранее.'
+ },
+ en:{
+  subtitle:'Sign in by email to protect your bonuses and order history.',
+  email:'Email',code:'6-digit email code',send:'Get code',verify:'Verify code',
+  create:'Create profile',sent:'We sent a code to {email}. Check your inbox and spam folder.',
+  verifying:'Verifying code...',profile:'Email verified. Complete your profile once.',
+  invalidEmail:'Enter a valid email.',invalidCode:'Enter the 6-digit code from the email.',
+  authError:'Could not verify the email. Check the code and try again.',
+  conflict:'This phone is linked to another profile. Contact the EatFit manager.',
+  mismatch:'To move your old profile, enter the same first and last name you used before.'
+ },
+ vi:{
+  subtitle:'Đăng nhập bằng email để bảo vệ điểm thưởng và lịch sử đơn hàng.',
+  email:'Email',code:'Mã 6 số trong email',send:'Nhận mã',verify:'Xác nhận mã',
+  create:'Tạo hồ sơ',sent:'Mã đã được gửi đến {email}. Hãy kiểm tra hộp thư đến và thư rác.',
+  verifying:'Đang xác nhận mã...',profile:'Email đã được xác nhận. Vui lòng hoàn tất hồ sơ một lần.',
+  invalidEmail:'Vui lòng nhập email hợp lệ.',invalidCode:'Nhập mã 6 số trong email.',
+  authError:'Không thể xác nhận email. Hãy kiểm tra mã và thử lại.',
+  conflict:'Số điện thoại này đã liên kết với hồ sơ khác. Hãy liên hệ quản lý EatFit.',
+  mismatch:'Để chuyển hồ sơ cũ, hãy nhập đúng họ tên đã dùng trước đây.'
+ }
+};
+
+function authT(key,params={}){
+ const copy=(LOYALTY_AUTH_TEXT[currentLang] || LOYALTY_AUTH_TEXT.ru)[key] || key;
+ return Object.entries(params).reduce((value,[name,replacement])=>value.replaceAll(`{${name}}`,replacement),copy);
+}
+
 function currentLoyaltyPhone(){
- return localStorage.getItem('eatfit_loyalty_phone') || '';
+ return loyaltyUser?.phone || '';
+}
+
+function saveLoyaltySession(session){
+ loyaltySession=session;
+ if(session) localStorage.setItem('eatfit_supabase_session',JSON.stringify(session));
+ else localStorage.removeItem('eatfit_supabase_session');
+}
+
+function loadLoyaltySession(){
+ try{
+  const session=JSON.parse(localStorage.getItem('eatfit_supabase_session') || 'null');
+  return session?.access_token ? session : null;
+ }catch(e){
+  return null;
+ }
+}
+
+async function refreshLoyaltySession(){
+ if(!loyaltySession) return null;
+ const expiresAt=Number(loyaltySession.expires_at || 0);
+ if(expiresAt>Date.now()+60000) return loyaltySession;
+ if(!loyaltySession.refresh_token) return null;
+ try{
+  const response=await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=refresh_token`,{
+   method:'POST',
+   headers:{'Content-Type':'application/json','apikey':SUPABASE_PUBLISHABLE_KEY},
+   body:JSON.stringify({refresh_token:loyaltySession.refresh_token})
+  });
+  const data=await response.json();
+  if(!response.ok || !data.access_token) throw new Error(data.error_description || 'refresh');
+  saveLoyaltySession({...data,expires_at:Date.now()+Number(data.expires_in || 3600)*1000});
+  return loyaltySession;
+ }catch(e){
+  saveLoyaltySession(null);
+  return null;
+ }
+}
+
+async function authorizedFetch(url,options={}){
+ await refreshLoyaltySession();
+ const headers={...(options.headers || {})};
+ if(loyaltySession?.access_token) headers.Authorization=`Bearer ${loyaltySession.access_token}`;
+ return fetch(url,{...options,headers});
 }
 
 const LOYALTY_LEVELS=[
@@ -1598,36 +1689,50 @@ function currentLoyaltyLevel(xp){
  return LOYALTY_LEVELS.slice().reverse().find(level=>xp>=level.xp) || LOYALTY_LEVELS[0];
 }
 
-async function fetchLoyaltyStatus(phone=currentLoyaltyPhone()){
- if(!phone) {loyaltyUser=null; loyaltyOrders=[]; renderLoyalty(); renderLoyaltyOrders(); return;}
+async function fetchLoyaltyStatus(){
+ if(!loyaltySession) {loyaltyUser=null; loyaltyOrders=[]; renderLoyalty(); renderLoyaltyOrders(); return;}
  try{
-  const response=await fetch(`${API_BASE}/loyalty-status?phone=${encodeURIComponent(phone)}`);
+  const response=await authorizedFetch(`${API_BASE}/loyalty-status`);
   const data=await response.json();
+  if(response.status===401) throw new Error('auth_required');
   loyaltyUser=data.registered ? data.user : null;
-  await fetchLoyaltyOrders(phone);
+  loyaltyAuthStage=loyaltyUser ? 'signed-in' : 'profile';
+  await fetchLoyaltyOrders();
   renderLoyalty();
+  renderLoyaltyProfile();
  }catch(e){
+  if(String(e.message)==='auth_required') saveLoyaltySession(null);
   loyaltyUser=null;
   loyaltyOrders=[];
+  loyaltyAuthStage='email';
   renderLoyalty();
   renderLoyaltyOrders();
  }
 }
 
-async function fetchLoyaltyOrders(phone=currentLoyaltyPhone()){
- if(!phone){
+async function fetchLoyaltyOrders(){
+ if(!loyaltySession || !loyaltyUser){
   loyaltyOrders=[];
   renderLoyaltyOrders();
   return;
  }
  try{
-  const response=await fetch(`${API_BASE}/loyalty-orders?phone=${encodeURIComponent(phone)}`);
+  const response=await authorizedFetch(`${API_BASE}/loyalty-orders`);
   const data=await response.json();
   loyaltyOrders=data.success && Array.isArray(data.orders) ? data.orders : [];
  }catch(e){
   loyaltyOrders=[];
  }
  renderLoyaltyOrders();
+}
+
+async function restoreLoyaltyAuth(){
+ loyaltySession=loadLoyaltySession();
+ if(!loyaltySession){
+  renderLoyalty();
+  return;
+ }
+ await fetchLoyaltyStatus();
 }
 
 function renderLoyaltyOrders(){
@@ -1820,11 +1925,12 @@ function renderLoyalty(){
 function openLoyalty(){
  document.getElementById('loyaltyModal')?.classList.add('show');
  setLoyaltyResult('','');
+ if(loyaltySession?.user?.email) document.getElementById('loyaltyEmail').value=loyaltySession.user.email;
  if(loyaltyUser){
  document.getElementById('loyaltyName').value=loyaltyUser.name||'';
  document.getElementById('loyaltySurname').value=loyaltyUser.surname||'';
  document.getElementById('loyaltyPhone').value=loyaltyUser.phone||'';
- fetchLoyaltyOrders(loyaltyUser.phone);
+ fetchLoyaltyOrders();
  }
  renderLoyaltyAuthState();
  renderLoyaltyProfile();
@@ -1861,10 +1967,14 @@ function renderLoyaltyProfile(){
 }
 
 function renderLoyaltyAuthState(){
+ const emailFields=document.getElementById('loyaltyEmailFields');
+ const otpFields=document.getElementById('loyaltyOtpFields');
  const fields=document.getElementById('loyaltyAuthFields');
  const greeting=document.getElementById('loyaltyGreeting');
  const button=document.getElementById('loyaltyAuthButton');
- if(fields) fields.classList.toggle('hidden',Boolean(loyaltyUser));
+ if(emailFields) emailFields.classList.toggle('hidden',Boolean(loyaltyUser) || loyaltyAuthStage!=='email');
+ if(otpFields) otpFields.classList.toggle('hidden',Boolean(loyaltyUser) || loyaltyAuthStage!=='otp');
+ if(fields) fields.classList.toggle('hidden',Boolean(loyaltyUser) || loyaltyAuthStage!=='profile');
  if(greeting){
   greeting.classList.toggle('show',Boolean(loyaltyUser));
   if(loyaltyUser){
@@ -1874,21 +1984,39 @@ function renderLoyaltyAuthState(){
    greeting.innerHTML='';
   }
  }
- if(button) button.textContent=loyaltyUser ? t('loyaltyLogout') : t('loyaltyRegister');
+ if(button){
+  if(loyaltyUser) button.textContent=t('loyaltyLogout');
+  else if(loyaltyAuthStage==='otp') button.textContent=authT('verify');
+  else if(loyaltyAuthStage==='profile') button.textContent=authT('create');
+  else button.textContent=authT('send');
+ }
 }
 
-function handleLoyaltyAuth(){
+async function handleLoyaltyAuth(){
  if(loyaltyUser){
-  logoutLoyalty();
+  await logoutLoyalty();
   return;
  }
- registerLoyalty();
+ if(loyaltyAuthStage==='otp') await verifyLoyaltyOtp();
+ else if(loyaltyAuthStage==='profile') await registerLoyalty();
+ else await sendLoyaltyOtp();
 }
 
-function logoutLoyalty(){
+async function logoutLoyalty(){
+ if(loyaltySession?.access_token){
+  try{
+   await fetch(`${SUPABASE_URL}/auth/v1/logout`,{
+    method:'POST',
+    headers:{'apikey':SUPABASE_PUBLISHABLE_KEY,'Authorization':`Bearer ${loyaltySession.access_token}`}
+   });
+  }catch(e){}
+ }
+ saveLoyaltySession(null);
  loyaltyUser=null;
  loyaltyOrders=[];
- localStorage.removeItem('eatfit_loyalty_phone');
+ loyaltyAuthStage='email';
+ document.getElementById('loyaltyEmail').value='';
+ document.getElementById('loyaltyOtp').value='';
  document.getElementById('loyaltyName').value='';
  document.getElementById('loyaltySurname').value='';
  document.getElementById('loyaltyPhone').value='';
@@ -1905,6 +2033,68 @@ function copyLoyaltyToCheckout(user){
  document.getElementById('name').value=user.name||'';
  document.getElementById('surname').value=user.surname||'';
  document.getElementById('phone').value=user.phone||'';
+}
+
+async function sendLoyaltyOtp(){
+ const email=document.getElementById('loyaltyEmail').value.trim().toLowerCase();
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+  setLoyaltyResult('error',authT('invalidEmail'));
+  return;
+ }
+ const button=document.getElementById('loyaltyAuthButton');
+ if(button){button.disabled=true;button.textContent=t('loyaltyLoading');}
+ try{
+  const response=await fetch(`${SUPABASE_URL}/auth/v1/otp`,{
+   method:'POST',
+   headers:{'Content-Type':'application/json','apikey':SUPABASE_PUBLISHABLE_KEY},
+   body:JSON.stringify({email,create_user:true})
+  });
+  const data=await response.json();
+  if(!response.ok) throw new Error(data.msg || data.error_description || 'otp');
+  localStorage.setItem('eatfit_pending_email',email);
+  loyaltyAuthStage='otp';
+  setLoyaltyResult('info',authT('sent',{email}));
+ }catch(e){
+  setLoyaltyResult('error',authT('authError'));
+ }finally{
+  if(button) button.disabled=false;
+  renderLoyaltyAuthState();
+ }
+}
+
+async function verifyLoyaltyOtp(){
+ const email=(localStorage.getItem('eatfit_pending_email') || document.getElementById('loyaltyEmail').value).trim().toLowerCase();
+ const token=document.getElementById('loyaltyOtp').value.replace(/\D/g,'');
+ if(token.length!==6){
+  setLoyaltyResult('error',authT('invalidCode'));
+  return;
+ }
+ const button=document.getElementById('loyaltyAuthButton');
+ if(button){button.disabled=true;button.textContent=authT('verifying');}
+ try{
+  const response=await fetch(`${SUPABASE_URL}/auth/v1/verify`,{
+   method:'POST',
+   headers:{'Content-Type':'application/json','apikey':SUPABASE_PUBLISHABLE_KEY},
+   body:JSON.stringify({email,token,type:'email'})
+  });
+  const data=await response.json();
+  if(!response.ok || !data.access_token) throw new Error(data.msg || data.error_description || 'verify');
+  saveLoyaltySession({...data,expires_at:Date.now()+Number(data.expires_in || 3600)*1000});
+  localStorage.removeItem('eatfit_pending_email');
+  await fetchLoyaltyStatus();
+  if(loyaltyUser){
+   copyLoyaltyToCheckout(loyaltyUser);
+   setLoyaltyResult('',`${t('loyaltyLoggedIn',{balance:formatVnd(loyaltyUser.bonus_balance)})} ${t('loyaltyNextStep')}`);
+  }else{
+   loyaltyAuthStage='profile';
+   setLoyaltyResult('info',authT('profile'));
+  }
+ }catch(e){
+  setLoyaltyResult('error',authT('authError'));
+ }finally{
+  if(button) button.disabled=false;
+  renderLoyaltyAuthState();
+ }
 }
 
 async function registerLoyalty(){
@@ -1926,27 +2116,12 @@ async function registerLoyalty(){
  if(button){button.disabled=true;button.textContent=t('loyaltyLoading');}
  setLoyaltyResult('info',t('loyaltyLoading'));
  try{
-  const statusResponse=await fetch(`${API_BASE}/loyalty-status?phone=${encodeURIComponent(payload.phone)}`,{
-   signal:controller.signal
-  });
-  const statusData=await statusResponse.json();
-  if(statusData.success && statusData.registered && statusData.user){
-   clearTimeout(timeout);
-   loyaltyUser=statusData.user;
-   localStorage.setItem('eatfit_loyalty_phone',loyaltyUser.phone);
-   copyLoyaltyToCheckout(loyaltyUser);
-   renderLoyalty();
-   renderLoyaltyProfile();
-   fetchLoyaltyOrders(loyaltyUser.phone);
-   setLoyaltyResult('',`${t('loyaltyLoggedIn',{balance:formatVnd(loyaltyUser.bonus_balance)})} ${t('loyaltyNextStep')}`);
-   return;
-  }
   if(!payload.name || !payload.surname){
    clearTimeout(timeout);
    setLoyaltyResult('error',t('loyaltyNeedDetails'));
    return;
   }
-  const response=await fetch(`${API_BASE}/loyalty-register`,{
+  const response=await authorizedFetch(`${API_BASE}/loyalty-register`,{
    method:'POST',
    headers:{'Content-Type':'application/json'},
    body:JSON.stringify(payload),
@@ -1959,16 +2134,24 @@ async function registerLoyalty(){
     setLoyaltyResult('error',t('alertPhoneInvalid'));
     return;
    }
+   if(data.error==='phone_already_registered' || data.error==='account_already_linked'){
+    setLoyaltyResult('error',authT('conflict'));
+    return;
+   }
+   if(data.error==='profile_mismatch'){
+    setLoyaltyResult('error',authT('mismatch'));
+    return;
+   }
    throw new Error(data.error||'loyalty');
   }
   loyaltyUser=data.user;
-  localStorage.setItem('eatfit_loyalty_phone',loyaltyUser.phone);
+  loyaltyAuthStage='signed-in';
   const message=data.is_new ? t('loyaltySaved',{balance:formatVnd(loyaltyUser.bonus_balance)}) : t('loyaltyLoggedIn',{balance:formatVnd(loyaltyUser.bonus_balance)});
   setLoyaltyResult('',`${message} ${t('loyaltyNextStep')}`);
   copyLoyaltyToCheckout(loyaltyUser);
   renderLoyalty();
   renderLoyaltyProfile();
-  fetchLoyaltyOrders(loyaltyUser.phone);
+  fetchLoyaltyOrders();
  }catch(e){
   clearTimeout(timeout);
   const pendingUser={
@@ -2001,8 +2184,7 @@ function renderFAQ(){
 }
 
 setInterval(()=>{
- const phone=currentLoyaltyPhone();
- if(phone) fetchLoyaltyOrders(phone);
+ if(loyaltySession && loyaltyUser) fetchLoyaltyOrders();
 },30000);
 
 function applyLanguage(){
@@ -2076,7 +2258,9 @@ function applyLanguage(){
  setText('.contact-small',t('contactSmall'));
 
  setText('.loyalty-head h2',t('loyaltyModalTitle'));
- setText('.loyalty-head p',t('loyaltyModalSub'));
+ setText('.loyalty-head p',authT('subtitle'));
+ setPlaceholder('loyaltyEmail',authT('email'));
+ setPlaceholder('loyaltyOtp',authT('code'));
  setPlaceholder('loyaltyName',t('namePh'));
  setPlaceholder('loyaltySurname',t('surnamePh'));
  setPlaceholder('loyaltyPhone',t('phonePh'));
@@ -2564,7 +2748,7 @@ async function checkout(){
  const orderId = generateOrderId();
 
  try{
-   const response = await fetch('https://eatfit-bot.onrender.com/site-order',{
+   const response = await authorizedFetch('https://eatfit-bot.onrender.com/site-order',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
@@ -2621,11 +2805,7 @@ async function checkout(){
         };
         renderLoyalty();
       }
-      const refreshPhone=loyaltyUser?.phone || normalizedPhone;
-      if(refreshPhone){
-        localStorage.setItem('eatfit_loyalty_phone',refreshPhone);
-        await fetchLoyaltyStatus(refreshPhone);
-      }
+      if(loyaltyUser) await fetchLoyaltyStatus();
    }else if(successBonus){
       successBonus.style.display='none';
       successBonus.innerHTML='';
@@ -2740,7 +2920,7 @@ window.renderProducts();
 renderCart();
 renderSavedKBJU();
 applyLanguage();
-fetchLoyaltyStatus();
+restoreLoyaltyAuth();
 });
 
 
