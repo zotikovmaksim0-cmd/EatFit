@@ -1529,9 +1529,9 @@ function formatOrderDate(value){
 
 const LOYALTY_AUTH_TEXT={
  ru:{
-  subtitle:'Войдите по email, чтобы защитить бонусы и историю заказов.',
+  subtitle:'Войдите по ссылке или коду из письма, чтобы защитить бонусы и историю заказов.',
   email:'Email',code:'6-значный код из письма',send:'Получить код',verify:'Подтвердить код',
-  create:'Создать профиль',sent:'Код отправлен на {email}. Проверьте входящие и папку «Спам».',
+  create:'Создать профиль',sent:'Письмо отправлено на {email}. Нажмите ссылку входа в письме. Если в письме указан 6-значный код, введите его ниже.',
   verifying:'Проверяем код...',profile:'Email подтверждён. Заполните данные профиля один раз.',
   invalidEmail:'Введите корректный email.',invalidCode:'Введите 6-значный код из письма.',
   authError:'Не удалось подтвердить email. Проверьте код и попробуйте снова.',
@@ -1539,9 +1539,9 @@ const LOYALTY_AUTH_TEXT={
   mismatch:'Для переноса старого профиля укажите те же имя и фамилию, что использовали ранее.'
  },
  en:{
-  subtitle:'Sign in by email to protect your bonuses and order history.',
+  subtitle:'Use the link or code from the email to protect your bonuses and order history.',
   email:'Email',code:'6-digit email code',send:'Get code',verify:'Verify code',
-  create:'Create profile',sent:'We sent a code to {email}. Check your inbox and spam folder.',
+  create:'Create profile',sent:'We sent an email to {email}. Open the sign-in link. If the email contains a 6-digit code, enter it below.',
   verifying:'Verifying code...',profile:'Email verified. Complete your profile once.',
   invalidEmail:'Enter a valid email.',invalidCode:'Enter the 6-digit code from the email.',
   authError:'Could not verify the email. Check the code and try again.',
@@ -1549,9 +1549,9 @@ const LOYALTY_AUTH_TEXT={
   mismatch:'To move your old profile, enter the same first and last name you used before.'
  },
  vi:{
-  subtitle:'Đăng nhập bằng email để bảo vệ điểm thưởng và lịch sử đơn hàng.',
+  subtitle:'Dùng liên kết hoặc mã trong email để bảo vệ điểm thưởng và lịch sử đơn hàng.',
   email:'Email',code:'Mã 6 số trong email',send:'Nhận mã',verify:'Xác nhận mã',
-  create:'Tạo hồ sơ',sent:'Mã đã được gửi đến {email}. Hãy kiểm tra hộp thư đến và thư rác.',
+  create:'Tạo hồ sơ',sent:'Email đã được gửi đến {email}. Hãy mở liên kết đăng nhập. Nếu email có mã 6 số, hãy nhập mã bên dưới.',
   verifying:'Đang xác nhận mã...',profile:'Email đã được xác nhận. Vui lòng hoàn tất hồ sơ một lần.',
   invalidEmail:'Vui lòng nhập email hợp lệ.',invalidCode:'Nhập mã 6 số trong email.',
   authError:'Không thể xác nhận email. Hãy kiểm tra mã và thử lại.',
@@ -1726,8 +1726,27 @@ async function fetchLoyaltyOrders(){
  renderLoyaltyOrders();
 }
 
+function consumeSupabaseEmailRedirect(){
+ const hash=new URLSearchParams(window.location.hash.replace(/^#/,''));
+ const accessToken=hash.get('access_token');
+ const refreshToken=hash.get('refresh_token');
+ if(!accessToken || !refreshToken) return false;
+ const expiresIn=Number(hash.get('expires_in') || 3600);
+ saveLoyaltySession({
+  access_token:accessToken,
+  refresh_token:refreshToken,
+  token_type:hash.get('token_type') || 'bearer',
+  expires_in:expiresIn,
+  expires_at:Date.now()+expiresIn*1000
+ });
+ loyaltyAuthStage='signed-in';
+ history.replaceState(null,'',window.location.pathname+window.location.search);
+ return true;
+}
+
 async function restoreLoyaltyAuth(){
- loyaltySession=loadLoyaltySession();
+ consumeSupabaseEmailRedirect();
+ loyaltySession=loyaltySession || loadLoyaltySession();
  if(!loyaltySession){
   renderLoyalty();
   return;
@@ -2044,7 +2063,8 @@ async function sendLoyaltyOtp(){
  const button=document.getElementById('loyaltyAuthButton');
  if(button){button.disabled=true;button.textContent=t('loyaltyLoading');}
  try{
-  const response=await fetch(`${SUPABASE_URL}/auth/v1/otp`,{
+  const redirectUrl='https://zotikovmaksim0-cmd.github.io/EatFit/';
+  const response=await fetch(`${SUPABASE_URL}/auth/v1/otp?redirect_to=${encodeURIComponent(redirectUrl)}`,{
    method:'POST',
    headers:{'Content-Type':'application/json','apikey':SUPABASE_PUBLISHABLE_KEY},
    body:JSON.stringify({email,create_user:true})
