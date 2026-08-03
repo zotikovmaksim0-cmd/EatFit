@@ -581,8 +581,9 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .loyalty-auth-secondary.show{display:inline-flex}
 .loyalty-auth-secondary:disabled{color:#899586;cursor:default;text-decoration:none}
 .loyalty-greeting{display:none;margin:14px 0;padding:14px;border:1px solid #d8e9cf;border-radius:16px;background:#fff;color:#667461;line-height:1.4}
-.loyalty-greeting.show{display:block}
+.loyalty-greeting.show{display:flex;align-items:center;justify-content:space-between;gap:14px}
 .loyalty-greeting b{display:block;margin-bottom:4px;color:#172015;font-size:18px}
+.loyalty-inline-logout{flex:0 0 auto;min-height:38px;padding:0 14px;border:1px solid #d7e2d2;border-radius:12px;background:#f7fbf3;color:#294b22;font:inherit;font-size:13px;font-weight:900;cursor:pointer}
 .loyalty-profile{display:none;margin:14px 0;padding:12px;border:1px solid #d8e9cf;border-radius:16px;background:#fff}
 .loyalty-profile.show{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .loyalty-profile div{padding:9px;border-radius:12px;background:#f6faf2;color:#667461;font-size:12px}
@@ -728,6 +729,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
  .loyalty-level-card-tip,.loyalty-level-card:first-child .loyalty-level-card-tip,.loyalty-level-card:last-child .loyalty-level-card-tip{position:static;display:none;width:auto;max-width:none;margin-top:10px;box-shadow:none;transform:none}
  .loyalty-level-card-tip::after{display:none}
  .loyalty-level-card:hover .loyalty-level-card-tip,.loyalty-level-card:focus-visible .loyalty-level-card-tip{display:block;opacity:1;transform:none}
+ .loyalty-greeting.show{align-items:flex-start;flex-direction:column}.loyalty-inline-logout{width:100%}
  .catalog-shell{margin:16px auto 10px;padding:0 14px}.catalog-tools{grid-template-columns:1fr;border-radius:20px}.filter-tabs,.price-tools{justify-content:flex-start}.filter-chip{height:39px;padding:0 12px;font-size:13px}.price-tools select{width:100%}
  .catalog-heading{padding:0 16px;margin-top:20px}.catalog-heading h2{font-size:26px}.catalog-heading p{font-size:14px}.grid{padding:16px;gap:18px}.card{border-radius:22px}.card img{height:210px}
  .cart-panel{padding:0}.cart-header{margin:0;padding:16px 14px}.cart-scroll{padding:16px 14px 22px}.cart-heading{font-size:21px}.cart-subtitle{display:none}.clear-btn{width:40px;padding:0;font-size:0}.clear-btn::before{content:'🗑';font-size:15px}
@@ -1276,6 +1278,10 @@ const SUPABASE_URL='https://mlezdundixgtjopaxfsg.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_1bWW-LmfPLyvEwOxVdhKHg_7HYyCG9p';
 const LOYALTY_EMAIL_VALID_MS=10*60*1000;
 const LOYALTY_EMAIL_RESEND_MS=60*1000;
+const LOYALTY_IDLE_TIMEOUT_MS=30*60*1000;
+const LOYALTY_IDLE_WARNING_MS=60*1000;
+let loyaltyIdleWarningShown=false;
+let loyaltyActivityWriteAt=0;
 
 const I18N={
  ru:{
@@ -1543,40 +1549,43 @@ const LOYALTY_AUTH_TEXT={
   subtitle:'Войдите по ссылке из письма, чтобы защитить бонусы и историю заказов.',
   email:'Email',send:'Отправить письмо',
   emailHint:'Мы отправим письмо на этот адрес. Откройте его и подтвердите email, чтобы безопасно войти в EatFit Levels, увидеть бонусы и историю заказов.',
-  create:'Создать профиль',sent:'Письмо отправлено на {email}. Откройте его и нажмите ссылку «Подтвердить email», чтобы завершить авторизацию на сайте.',
-  profile:'Email подтверждён. Заполните данные профиля один раз.',
+  create:'Продолжить',sent:'Письмо отправлено на {email}. Откройте его и нажмите ссылку «Подтвердить email», чтобы завершить авторизацию на сайте.',
+  profile:'Email подтверждён. Укажите данные один раз, чтобы безопасно привязать ранее созданный профиль EatFit. Если профиля ещё нет, мы создадим его.',
   invalidEmail:'Введите корректный email.',
   authError:'Не удалось отправить письмо. Попробуйте снова немного позже.',
   conflict:'Этот номер уже связан с другим профилем. Напишите менеджеру EatFit.',
   mismatch:'Для переноса старого профиля укажите те же имя и фамилию, что использовали ранее.',
   resend:'Отправить письмо ещё раз',resendIn:'Повторная отправка через {seconds} сек.',
-  expiresIn:'Ссылка действует ещё {minutes}.',expired:'Срок действия письма истёк. Отправьте новое письмо.'
+  expiresIn:'Ссылка действует ещё {minutes}.',expired:'Срок действия письма истёк. Отправьте новое письмо.',
+  idleWarning:'Сессия завершится через минуту из-за бездействия.',idleLogout:'Вы вышли из профиля после 30 минут бездействия.'
  },
  en:{
   subtitle:'Use the link from the email to protect your bonuses and order history.',
   email:'Email',send:'Send email',
   emailHint:'We will send an email to this address. Open it and confirm your email to sign in securely, view bonuses and order history.',
-  create:'Create profile',sent:'We sent an email to {email}. Open it and select the confirmation link to finish signing in.',
-  profile:'Email verified. Complete your profile once.',
+  create:'Continue',sent:'We sent an email to {email}. Open it and select the confirmation link to finish signing in.',
+  profile:'Email verified. Enter your details once to securely link an existing EatFit profile. If you do not have one, we will create it.',
   invalidEmail:'Enter a valid email.',
   authError:'Could not send the email. Please try again shortly.',
   conflict:'This phone is linked to another profile. Contact the EatFit manager.',
   mismatch:'To move your old profile, enter the same first and last name you used before.',
   resend:'Send the email again',resendIn:'You can resend in {seconds} sec.',
-  expiresIn:'The link remains valid for {minutes}.',expired:'This email has expired. Send a new email.'
+  expiresIn:'The link remains valid for {minutes}.',expired:'This email has expired. Send a new email.',
+  idleWarning:'Your session will end in one minute due to inactivity.',idleLogout:'You were signed out after 30 minutes of inactivity.'
  },
  vi:{
   subtitle:'Dùng liên kết trong email để bảo vệ điểm thưởng và lịch sử đơn hàng.',
   email:'Email',send:'Gửi email',
   emailHint:'Chúng tôi sẽ gửi thư đến địa chỉ này. Hãy mở thư và xác nhận email để đăng nhập an toàn, xem điểm thưởng và lịch sử đơn hàng.',
-  create:'Tạo hồ sơ',sent:'Email đã được gửi đến {email}. Hãy mở thư và nhấn liên kết xác nhận để hoàn tất đăng nhập.',
-  profile:'Email đã được xác nhận. Vui lòng hoàn tất hồ sơ một lần.',
+  create:'Tiếp tục',sent:'Email đã được gửi đến {email}. Hãy mở thư và nhấn liên kết xác nhận để hoàn tất đăng nhập.',
+  profile:'Email đã được xác nhận. Nhập thông tin một lần để liên kết an toàn với hồ sơ EatFit hiện có. Nếu chưa có hồ sơ, chúng tôi sẽ tạo mới.',
   invalidEmail:'Vui lòng nhập email hợp lệ.',
   authError:'Không thể gửi email. Vui lòng thử lại sau ít phút.',
   conflict:'Số điện thoại này đã liên kết với hồ sơ khác. Hãy liên hệ quản lý EatFit.',
   mismatch:'Để chuyển hồ sơ cũ, hãy nhập đúng họ tên đã dùng trước đây.',
   resend:'Gửi lại email',resendIn:'Có thể gửi lại sau {seconds} giây.',
-  expiresIn:'Liên kết còn hiệu lực trong {minutes}.',expired:'Email này đã hết hạn. Hãy gửi email mới.'
+  expiresIn:'Liên kết còn hiệu lực trong {minutes}.',expired:'Email này đã hết hạn. Hãy gửi email mới.',
+  idleWarning:'Phiên đăng nhập sẽ kết thúc sau một phút do không hoạt động.',idleLogout:'Bạn đã đăng xuất sau 30 phút không hoạt động.'
  }
 };
 
@@ -1591,16 +1600,51 @@ function currentLoyaltyPhone(){
 
 function saveLoyaltySession(session){
  loyaltySession=session;
- if(session) localStorage.setItem('eatfit_supabase_session',JSON.stringify(session));
- else localStorage.removeItem('eatfit_supabase_session');
+ if(session){
+  localStorage.setItem('eatfit_supabase_session',JSON.stringify(session));
+  if(!localStorage.getItem('eatfit_last_activity_at')) localStorage.setItem('eatfit_last_activity_at',String(Date.now()));
+ }else{
+  localStorage.removeItem('eatfit_supabase_session');
+  localStorage.removeItem('eatfit_last_activity_at');
+ }
 }
 
 function loadLoyaltySession(){
  try{
   const session=JSON.parse(localStorage.getItem('eatfit_supabase_session') || 'null');
+  const lastActivity=Number(localStorage.getItem('eatfit_last_activity_at') || 0);
+  if(session?.access_token && lastActivity && Date.now()-lastActivity>=LOYALTY_IDLE_TIMEOUT_MS){
+   localStorage.removeItem('eatfit_supabase_session');
+   localStorage.removeItem('eatfit_last_activity_at');
+   return null;
+  }
+  if(session?.access_token && !lastActivity) localStorage.setItem('eatfit_last_activity_at',String(Date.now()));
   return session?.access_token ? session : null;
  }catch(e){
   return null;
+ }
+}
+
+function markLoyaltyActivity(){
+ if(!loyaltySession) return;
+ const now=Date.now();
+ if(now-loyaltyActivityWriteAt<15000) return;
+ loyaltyActivityWriteAt=now;
+ loyaltyIdleWarningShown=false;
+ localStorage.setItem('eatfit_last_activity_at',String(now));
+}
+
+async function checkLoyaltyIdleSession(){
+ if(!loyaltySession) return;
+ const lastActivity=Number(localStorage.getItem('eatfit_last_activity_at') || Date.now());
+ const idleFor=Date.now()-lastActivity;
+ if(idleFor>=LOYALTY_IDLE_TIMEOUT_MS){
+  await logoutLoyalty(true);
+  return;
+ }
+ if(idleFor>=LOYALTY_IDLE_TIMEOUT_MS-LOYALTY_IDLE_WARNING_MS && !loyaltyIdleWarningShown){
+  loyaltyIdleWarningShown=true;
+  showToast(authT('idleWarning'),6000);
  }
 }
 
@@ -2046,15 +2090,14 @@ function renderLoyaltyAuthState(){
   greeting.classList.toggle('show',Boolean(loyaltyUser));
   if(loyaltyUser){
    const displayName=[loyaltyUser.name,loyaltyUser.surname].filter(Boolean).join(' ') || loyaltyUser.phone || 'EatFit Club';
-   greeting.innerHTML=`<b>${escapeHtml(displayName)}</b>${escapeHtml(t('loyaltyGreeting',{name:displayName,level:loyaltyUser.level||'Rookie',balance:formatVnd(loyaltyUser.bonus_balance||0)}))}`;
+   greeting.innerHTML=`<div><b>${escapeHtml(displayName)}</b>${escapeHtml(t('loyaltyGreeting',{name:displayName,level:loyaltyUser.level||'Rookie',balance:formatVnd(loyaltyUser.bonus_balance||0)}))}</div><button type="button" class="loyalty-inline-logout" onclick="logoutLoyalty()">${escapeHtml(t('loyaltyLogout'))}</button>`;
   }else{
    greeting.innerHTML='';
   }
  }
  if(button){
-  button.style.display=loyaltyAuthStage==='otp' && !loyaltyUser ? 'none' : '';
-  if(loyaltyUser) button.textContent=t('loyaltyLogout');
-  else if(loyaltyAuthStage==='profile') button.textContent=authT('create');
+  button.style.display=loyaltyUser || loyaltyAuthStage==='otp' ? 'none' : '';
+  if(loyaltyAuthStage==='profile') button.textContent=authT('create');
   else button.textContent=authT('send');
  }
  if(resendButton) resendButton.classList.toggle('show',!loyaltyUser && loyaltyAuthStage==='otp');
@@ -2072,7 +2115,7 @@ async function handleLoyaltyAuth(){
  else await sendLoyaltyOtp();
 }
 
-async function logoutLoyalty(){
+async function logoutLoyalty(automatic=false){
  if(loyaltySession?.access_token){
   try{
    await fetch(`${SUPABASE_URL}/auth/v1/logout`,{
@@ -2090,12 +2133,17 @@ async function logoutLoyalty(){
  document.getElementById('loyaltyName').value='';
  document.getElementById('loyaltySurname').value='';
  document.getElementById('loyaltyPhone').value='';
+ ['name','surname','phone'].forEach(id=>{
+  const field=document.getElementById(id);
+  if(field) field.value='';
+ });
  const useBonusInput=document.getElementById('useBonus');
  if(useBonusInput) useBonusInput.checked=false;
  renderLoyalty();
  renderLoyaltyProfile();
  renderLoyaltyOrders();
  setLoyaltyResult('','');
+ if(automatic) showToast(authT('idleLogout'),5000);
 }
 
 function copyLoyaltyToCheckout(user){
@@ -2262,6 +2310,10 @@ setInterval(()=>{
 },30000);
 
 setInterval(updateLoyaltyEmailWaitingState,1000);
+setInterval(checkLoyaltyIdleSession,30000);
+['pointerdown','keydown','touchstart','scroll'].forEach(eventName=>{
+ window.addEventListener(eventName,markLoyaltyActivity,{passive:true});
+});
 
 function applyLanguage(){
  document.documentElement.lang=currentLang;
