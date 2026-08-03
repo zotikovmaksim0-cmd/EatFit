@@ -1553,6 +1553,7 @@ const LOYALTY_AUTH_TEXT={
   profile:'Email подтверждён. Укажите данные один раз, чтобы безопасно привязать ранее созданный профиль EatFit. Если профиля ещё нет, мы создадим его.',
   invalidEmail:'Введите корректный email.',
   authError:'Не удалось отправить письмо. Попробуйте снова немного позже.',
+  rateLimit:'Слишком много писем было запрошено за короткое время. Отправка временно ограничена почтовым сервисом. Попробуйте снова примерно через час.',
   conflict:'Этот номер уже связан с другим профилем. Напишите менеджеру EatFit.',
   mismatch:'Для переноса старого профиля укажите те же имя и фамилию, что использовали ранее.',
   resend:'Отправить письмо ещё раз',resendIn:'Повторная отправка через {seconds} сек.',
@@ -1567,6 +1568,7 @@ const LOYALTY_AUTH_TEXT={
   profile:'Email verified. Enter your details once to securely link an existing EatFit profile. If you do not have one, we will create it.',
   invalidEmail:'Enter a valid email.',
   authError:'Could not send the email. Please try again shortly.',
+  rateLimit:'Too many emails were requested in a short time. Email delivery is temporarily limited. Please try again in about one hour.',
   conflict:'This phone is linked to another profile. Contact the EatFit manager.',
   mismatch:'To move your old profile, enter the same first and last name you used before.',
   resend:'Send the email again',resendIn:'You can resend in {seconds} sec.',
@@ -1581,6 +1583,7 @@ const LOYALTY_AUTH_TEXT={
   profile:'Email đã được xác nhận. Nhập thông tin một lần để liên kết an toàn với hồ sơ EatFit hiện có. Nếu chưa có hồ sơ, chúng tôi sẽ tạo mới.',
   invalidEmail:'Vui lòng nhập email hợp lệ.',
   authError:'Không thể gửi email. Vui lòng thử lại sau ít phút.',
+  rateLimit:'Đã yêu cầu quá nhiều email trong thời gian ngắn. Dịch vụ email tạm thời giới hạn gửi thư. Vui lòng thử lại sau khoảng một giờ.',
   conflict:'Số điện thoại này đã liên kết với hồ sơ khác. Hãy liên hệ quản lý EatFit.',
   mismatch:'Để chuyển hồ sơ cũ, hãy nhập đúng họ tên đã dùng trước đây.',
   resend:'Gửi lại email',resendIn:'Có thể gửi lại sau {seconds} giây.',
@@ -2175,7 +2178,12 @@ async function sendLoyaltyOtp(){
    body:JSON.stringify({email,create_user:true})
   });
   const data=await response.json();
-  if(!response.ok) throw new Error(data.msg || data.error_description || 'otp');
+  if(!response.ok){
+   const error=new Error(data.msg || data.error_description || 'otp');
+   error.code=data.error_code || data.code || '';
+   error.status=response.status;
+   throw error;
+  }
   const sentAt=Date.now();
   localStorage.setItem('eatfit_pending_email',email);
   localStorage.setItem('eatfit_pending_email_sent_at',String(sentAt));
@@ -2183,7 +2191,8 @@ async function sendLoyaltyOtp(){
   loyaltyAuthStage='otp';
   setLoyaltyResult('info',authT('sent',{email}));
  }catch(e){
-  setLoyaltyResult('error',authT('authError'));
+  const rateLimited=e.status===429 || e.code==='over_email_send_rate_limit' || /rate limit/i.test(e.message||'');
+  setLoyaltyResult('error',authT(rateLimited ? 'rateLimit' : 'authError'));
  }finally{
   if(button) button.disabled=false;
   renderLoyaltyAuthState();
