@@ -577,6 +577,9 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .loyalty-email-hint{margin:8px 0 12px;color:#667461;font-size:13px;line-height:1.45}
 .loyalty-otp-meta{display:none;margin:8px 0 0;color:#667461;font-size:13px;font-weight:700}
 .loyalty-otp-meta.show{display:block}
+.loyalty-otp-fields{display:none;gap:10px;margin-top:12px}
+.loyalty-otp-fields.show{display:grid}
+.loyalty-otp-fields input{text-align:center;font-size:24px;font-weight:800;letter-spacing:8px;font-variant-numeric:tabular-nums}
 .loyalty-auth-secondary{display:none;margin-top:8px;border:0;background:transparent;color:#2f6f23;font:inherit;font-weight:800;text-decoration:underline;cursor:pointer}
 .loyalty-auth-secondary.show{display:inline-flex}
 .loyalty-auth-secondary:disabled{color:#899586;cursor:default;text-decoration:none}
@@ -975,6 +978,9 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <div id="loyaltyEmailFields" class="loyalty-auth-fields">
 <input id="loyaltyEmail" type="email" autocomplete="email" placeholder="Email">
 <p id="loyaltyEmailHint" class="loyalty-email-hint"></p>
+</div>
+<div id="loyaltyOtpFields" class="loyalty-auth-fields loyalty-otp-fields">
+<input id="loyaltyOtp" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]*" placeholder="000000">
 </div>
 <div id="loyaltyAuthFields" class="loyalty-auth-fields hidden">
 <input id="loyaltyName" placeholder="Имя">
@@ -1547,10 +1553,11 @@ function formatOrderDate(value){
 
 const LOYALTY_AUTH_TEXT={
  ru:{
-  subtitle:'Войдите по ссылке из письма, чтобы защитить бонусы и историю заказов.',
+  subtitle:'Войдите по коду из письма, чтобы защитить бонусы и историю заказов.',
   email:'Email',send:'Отправить письмо',
-  emailHint:'Мы отправим письмо на этот адрес. Откройте его и подтвердите email, чтобы безопасно войти в EatFit Levels, увидеть бонусы и историю заказов.',
-  create:'Продолжить',sent:'Письмо отправлено на {email}. Откройте его и нажмите ссылку «Подтвердить email», чтобы завершить авторизацию на сайте.',
+  emailHint:'Мы отправим на этот адрес одноразовый код. Введите его здесь, чтобы безопасно войти в EatFit Levels.',
+  create:'Продолжить',verify:'Войти по коду',sent:'Код отправлен на {email}. Введите 6 цифр из письма в поле ниже.',
+  otp:'Код из письма',invalidOtp:'Введите шестизначный код из письма.',otpError:'Код неверный или уже истёк. Проверьте письмо либо запросите новый код.',
   profile:'Email подтверждён. Укажите данные один раз, чтобы безопасно привязать ранее созданный профиль EatFit. Если профиля ещё нет, мы создадим его.',
   invalidEmail:'Введите корректный email.',
   authError:'Не удалось отправить письмо. Попробуйте снова немного позже.',
@@ -1561,15 +1568,16 @@ const LOYALTY_AUTH_TEXT={
   profileLoadError:'Сервер профиля пока не ответил. Закройте и снова откройте окно «Профиль», чтобы повторить загрузку.',
   conflict:'Этот номер уже связан с другим профилем. Напишите менеджеру EatFit.',
   mismatch:'Для переноса старого профиля укажите те же имя и фамилию, что использовали ранее.',
-  resend:'Отправить письмо ещё раз',resendIn:'Повторная отправка через {seconds} сек.',
-  expiresIn:'Ссылка действует ещё {minutes}.',expired:'Срок действия письма истёк. Отправьте новое письмо.',
+  resend:'Отправить новый код',resendIn:'Новый код можно запросить через {seconds} сек.',
+  expiresIn:'Код действует ещё {minutes}.',expired:'Срок действия кода истёк. Запросите новый код.',
   idleWarning:'Сессия завершится через минуту из-за бездействия.',idleLogout:'Вы вышли из профиля после 30 минут бездействия.'
  },
  en:{
-  subtitle:'Use the link from the email to protect your bonuses and order history.',
+  subtitle:'Use the email code to protect your bonuses and order history.',
   email:'Email',send:'Send email',
-  emailHint:'We will send an email to this address. Open it and confirm your email to sign in securely, view bonuses and order history.',
-  create:'Continue',sent:'We sent an email to {email}. Open it and select the confirmation link to finish signing in.',
+  emailHint:'We will send a one-time code to this address. Enter it here to sign in securely to EatFit Levels.',
+  create:'Continue',verify:'Sign in with code',sent:'A code was sent to {email}. Enter the 6 digits from the email below.',
+  otp:'Email code',invalidOtp:'Enter the six-digit code from the email.',otpError:'The code is incorrect or has expired. Check the email or request a new code.',
   profile:'Email verified. Enter your details once to securely link an existing EatFit profile. If you do not have one, we will create it.',
   invalidEmail:'Enter a valid email.',
   authError:'Could not send the email. Please try again shortly.',
@@ -1580,15 +1588,16 @@ const LOYALTY_AUTH_TEXT={
   profileLoadError:'The profile server did not respond yet. Close and reopen Profile to try again.',
   conflict:'This phone is linked to another profile. Contact the EatFit manager.',
   mismatch:'To move your old profile, enter the same first and last name you used before.',
-  resend:'Send the email again',resendIn:'You can resend in {seconds} sec.',
-  expiresIn:'The link remains valid for {minutes}.',expired:'This email has expired. Send a new email.',
+  resend:'Send a new code',resendIn:'You can request a new code in {seconds} sec.',
+  expiresIn:'The code remains valid for {minutes}.',expired:'This code has expired. Request a new code.',
   idleWarning:'Your session will end in one minute due to inactivity.',idleLogout:'You were signed out after 30 minutes of inactivity.'
  },
  vi:{
-  subtitle:'Dùng liên kết trong email để bảo vệ điểm thưởng và lịch sử đơn hàng.',
+  subtitle:'Dùng mã trong email để bảo vệ điểm thưởng và lịch sử đơn hàng.',
   email:'Email',send:'Gửi email',
-  emailHint:'Chúng tôi sẽ gửi thư đến địa chỉ này. Hãy mở thư và xác nhận email để đăng nhập an toàn, xem điểm thưởng và lịch sử đơn hàng.',
-  create:'Tiếp tục',sent:'Email đã được gửi đến {email}. Hãy mở thư và nhấn liên kết xác nhận để hoàn tất đăng nhập.',
+  emailHint:'Chúng tôi sẽ gửi mã dùng một lần đến địa chỉ này. Nhập mã tại đây để đăng nhập an toàn vào EatFit Levels.',
+  create:'Tiếp tục',verify:'Đăng nhập bằng mã',sent:'Mã đã được gửi đến {email}. Nhập 6 chữ số trong email vào ô bên dưới.',
+  otp:'Mã trong email',invalidOtp:'Nhập mã gồm 6 chữ số trong email.',otpError:'Mã không đúng hoặc đã hết hạn. Kiểm tra email hoặc yêu cầu mã mới.',
   profile:'Email đã được xác nhận. Nhập thông tin một lần để liên kết an toàn với hồ sơ EatFit hiện có. Nếu chưa có hồ sơ, chúng tôi sẽ tạo mới.',
   invalidEmail:'Vui lòng nhập email hợp lệ.',
   authError:'Không thể gửi email. Vui lòng thử lại sau ít phút.',
@@ -1599,8 +1608,8 @@ const LOYALTY_AUTH_TEXT={
   profileLoadError:'Máy chủ hồ sơ chưa phản hồi. Hãy đóng và mở lại Hồ sơ để thử lại.',
   conflict:'Số điện thoại này đã liên kết với hồ sơ khác. Hãy liên hệ quản lý EatFit.',
   mismatch:'Để chuyển hồ sơ cũ, hãy nhập đúng họ tên đã dùng trước đây.',
-  resend:'Gửi lại email',resendIn:'Có thể gửi lại sau {seconds} giây.',
-  expiresIn:'Liên kết còn hiệu lực trong {minutes}.',expired:'Email này đã hết hạn. Hãy gửi email mới.',
+  resend:'Gửi mã mới',resendIn:'Có thể yêu cầu mã mới sau {seconds} giây.',
+  expiresIn:'Mã còn hiệu lực trong {minutes}.',expired:'Mã này đã hết hạn. Hãy yêu cầu mã mới.',
   idleWarning:'Phiên đăng nhập sẽ kết thúc sau một phút do không hoạt động.',idleLogout:'Bạn đã đăng xuất sau 30 phút không hoạt động.'
  }
 };
@@ -2126,6 +2135,7 @@ function renderLoyaltyProfile(){
 
 function renderLoyaltyAuthState(){
  const emailFields=document.getElementById('loyaltyEmailFields');
+ const otpFields=document.getElementById('loyaltyOtpFields');
  const fields=document.getElementById('loyaltyAuthFields');
  const greeting=document.getElementById('loyaltyGreeting');
  const button=document.getElementById('loyaltyAuthButton');
@@ -2136,6 +2146,7 @@ function renderLoyaltyAuthState(){
  const profileReady=Boolean(loyaltyUser);
  setText('#headerAuthButton',authenticated ? t('navProfile') : t('navAccount'));
  if(emailFields) emailFields.classList.toggle('hidden',authenticated || loyaltyAuthStage!=='email');
+ if(otpFields) otpFields.classList.toggle('show',!authenticated && loyaltyAuthStage==='otp');
  if(fields) fields.classList.toggle('hidden',profileReady || loyaltyAuthStage!=='profile');
  if(greeting){
   greeting.classList.toggle('show',Boolean(loyaltyUser));
@@ -2147,8 +2158,9 @@ function renderLoyaltyAuthState(){
   }
  }
  if(button){
-  button.style.display=profileReady || loyaltyAuthStage==='otp' || loyaltyAuthStage==='signed-in' ? 'none' : '';
+  button.style.display=profileReady || loyaltyAuthStage==='signed-in' ? 'none' : '';
   if(loyaltyAuthStage==='profile') button.textContent=authT('create');
+  else if(loyaltyAuthStage==='otp') button.textContent=authT('verify');
   else button.textContent=authT('send');
  }
  if(resendButton) resendButton.classList.toggle('show',!loyaltyUser && loyaltyAuthStage==='otp');
@@ -2163,6 +2175,7 @@ async function handleLoyaltyAuth(){
   return;
  }
  if(loyaltyAuthStage==='profile') await registerLoyalty();
+ else if(loyaltyAuthStage==='otp') await verifyLoyaltyOtp();
  else await sendLoyaltyOtp();
 }
 
@@ -2181,6 +2194,7 @@ async function logoutLoyalty(automatic=false){
  loyaltyAuthStage='email';
  clearPendingLoyaltyEmail();
  document.getElementById('loyaltyEmail').value='';
+ document.getElementById('loyaltyOtp').value='';
  document.getElementById('loyaltyName').value='';
  document.getElementById('loyaltySurname').value='';
  document.getElementById('loyaltyPhone').value='';
@@ -2241,6 +2255,49 @@ async function sendLoyaltyOtp(){
  }
 }
 
+async function verifyLoyaltyOtp(){
+ const email=(localStorage.getItem('eatfit_pending_email') || document.getElementById('loyaltyEmail').value).trim().toLowerCase();
+ const token=document.getElementById('loyaltyOtp').value.replace(/\D/g,'').slice(0,6);
+ document.getElementById('loyaltyOtp').value=token;
+ if(!/^\d{6}$/.test(token)){
+  setLoyaltyResult('error',authT('invalidOtp'));
+  return;
+ }
+ const button=document.getElementById('loyaltyAuthButton');
+ if(button){button.disabled=true;button.textContent=t('loyaltyLoading');}
+ try{
+  const response=await fetch(`${SUPABASE_URL}/auth/v1/verify`,{
+   method:'POST',
+   headers:{'Content-Type':'application/json','apikey':SUPABASE_PUBLISHABLE_KEY},
+   body:JSON.stringify({email,token,type:'email'})
+  });
+  const data=await response.json();
+  if(!response.ok || !data.access_token || !data.refresh_token) throw new Error(data.msg || data.error_description || 'otp_invalid');
+  const expiresIn=Number(data.expires_in || 3600);
+  saveLoyaltySession({
+   access_token:data.access_token,
+   refresh_token:data.refresh_token,
+   token_type:data.token_type || 'bearer',
+   expires_in:expiresIn,
+   expires_at:Date.now()+expiresIn*1000,
+   user:data.user || null
+  });
+  clearPendingLoyaltyEmail();
+  document.getElementById('loyaltyOtp').value='';
+  loyaltyAuthStage='signed-in';
+  renderLoyaltyAuthState();
+  await fetchLoyaltyStatus();
+  setLoyaltyResult('info',loyaltyUser
+   ? t('loyaltyLoggedIn',{balance:formatVnd(loyaltyUser.bonus_balance)})
+   : authT('profile'));
+ }catch(e){
+  setLoyaltyResult('error',authT('otpError'));
+ }finally{
+  if(button) button.disabled=false;
+  renderLoyaltyAuthState();
+ }
+}
+
 function updateLoyaltyEmailWaitingState(){
  if(loyaltyAuthStage!=='otp') return;
  const now=Date.now();
@@ -2272,6 +2329,7 @@ async function resendLoyaltyOtp(){
   return;
  }
  document.getElementById('loyaltyEmail').value=email;
+ document.getElementById('loyaltyOtp').value='';
  loyaltyAuthStage='email';
  await sendLoyaltyOtp();
 }
@@ -2372,6 +2430,12 @@ setInterval(()=>{
 
 setInterval(updateLoyaltyEmailWaitingState,1000);
 setInterval(checkLoyaltyIdleSession,30000);
+document.getElementById('loyaltyOtp')?.addEventListener('input',event=>{
+ event.target.value=event.target.value.replace(/\D/g,'').slice(0,6);
+});
+document.getElementById('loyaltyOtp')?.addEventListener('keydown',event=>{
+ if(event.key==='Enter') verifyLoyaltyOtp();
+});
 ['pointerdown','keydown','touchstart','scroll'].forEach(eventName=>{
  window.addEventListener(eventName,markLoyaltyActivity,{passive:true});
 });
@@ -2449,6 +2513,7 @@ function applyLanguage(){
  setText('.loyalty-head h2',t('loyaltyModalTitle'));
  setText('.loyalty-head p',authT('subtitle'));
  setPlaceholder('loyaltyEmail',authT('email'));
+ setPlaceholder('loyaltyOtp',authT('otp'));
  setText('#loyaltyEmailHint',authT('emailHint'));
  setPlaceholder('loyaltyName',t('namePh'));
  setPlaceholder('loyaltySurname',t('surnamePh'));
