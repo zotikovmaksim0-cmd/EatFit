@@ -1565,6 +1565,7 @@ const LOYALTY_AUTH_TEXT={
   linkExpired:'Эта ссылка уже использована или срок её действия истёк. Введите email и запросите новое письмо.',
   linkInvalid:'Не удалось подтвердить email по этой ссылке. Введите email и запросите новое письмо.',
   profileLoading:'Загружаем ваш профиль и бонусы…',
+  otpAccepted:'Код подтверждён. Загружаем ваш профиль и бонусы…',
   profileLoadError:'Сервер профиля пока не ответил. Закройте и снова откройте окно «Профиль», чтобы повторить загрузку.',
   conflict:'Этот номер уже связан с другим профилем. Напишите менеджеру EatFit.',
   mismatch:'Для переноса старого профиля укажите те же имя и фамилию, что использовали ранее.',
@@ -1585,6 +1586,7 @@ const LOYALTY_AUTH_TEXT={
   linkExpired:'This link has already been used or has expired. Enter your email and request a new message.',
   linkInvalid:'We could not confirm your email with this link. Enter your email and request a new message.',
   profileLoading:'Loading your profile and bonuses…',
+  otpAccepted:'Code confirmed. Loading your profile and bonuses…',
   profileLoadError:'The profile server did not respond yet. Close and reopen Profile to try again.',
   conflict:'This phone is linked to another profile. Contact the EatFit manager.',
   mismatch:'To move your old profile, enter the same first and last name you used before.',
@@ -1605,6 +1607,7 @@ const LOYALTY_AUTH_TEXT={
   linkExpired:'Liên kết này đã được sử dụng hoặc đã hết hạn. Nhập email và yêu cầu gửi thư mới.',
   linkInvalid:'Không thể xác nhận email bằng liên kết này. Nhập email và yêu cầu gửi thư mới.',
   profileLoading:'Đang tải hồ sơ và điểm thưởng của bạn…',
+  otpAccepted:'Mã đã được xác nhận. Đang tải hồ sơ và điểm thưởng của bạn…',
   profileLoadError:'Máy chủ hồ sơ chưa phản hồi. Hãy đóng và mở lại Hồ sơ để thử lại.',
   conflict:'Số điện thoại này đã liên kết với hồ sơ khác. Hãy liên hệ quản lý EatFit.',
   mismatch:'Để chuyển hồ sơ cũ, hãy nhập đúng họ tên đã dùng trước đây.',
@@ -2285,6 +2288,7 @@ async function verifyLoyaltyOtp(){
   clearPendingLoyaltyEmail();
   document.getElementById('loyaltyOtp').value='';
   loyaltyAuthStage='signed-in';
+  setLoyaltyResult('info',authT('otpAccepted'));
   renderLoyaltyAuthState();
   await fetchLoyaltyStatus();
   setLoyaltyResult('info',loyaltyUser
