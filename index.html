@@ -2112,9 +2112,10 @@ function renderLoyaltyAuthState(){
  const otpMeta=document.getElementById('loyaltyOtpMeta');
  const guide=document.querySelector('#loyaltyModal .loyalty-guide');
  const authenticated=hasLoyaltySession();
+ const profileReady=Boolean(loyaltyUser);
  setText('#headerAuthButton',authenticated ? t('navProfile') : t('navAccount'));
  if(emailFields) emailFields.classList.toggle('hidden',authenticated || loyaltyAuthStage!=='email');
- if(fields) fields.classList.toggle('hidden',authenticated || loyaltyAuthStage!=='profile');
+ if(fields) fields.classList.toggle('hidden',profileReady || loyaltyAuthStage!=='profile');
  if(greeting){
   greeting.classList.toggle('show',Boolean(loyaltyUser));
   if(loyaltyUser){
@@ -2125,7 +2126,7 @@ function renderLoyaltyAuthState(){
   }
  }
  if(button){
-  button.style.display=authenticated || loyaltyAuthStage==='otp' ? 'none' : '';
+  button.style.display=profileReady || loyaltyAuthStage==='otp' || loyaltyAuthStage==='signed-in' ? 'none' : '';
   if(loyaltyAuthStage==='profile') button.textContent=authT('create');
   else button.textContent=authT('send');
  }
