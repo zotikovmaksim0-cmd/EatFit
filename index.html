@@ -980,7 +980,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <p id="loyaltyEmailHint" class="loyalty-email-hint"></p>
 </div>
 <div id="loyaltyOtpFields" class="loyalty-auth-fields loyalty-otp-fields">
-<input id="loyaltyOtp" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]*" placeholder="000000">
+<input id="loyaltyOtp" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="10" pattern="[0-9]*" placeholder="000000">
 </div>
 <div id="loyaltyAuthFields" class="loyalty-auth-fields hidden">
 <input id="loyaltyName" placeholder="Имя">
@@ -1556,8 +1556,8 @@ const LOYALTY_AUTH_TEXT={
   subtitle:'Войдите по коду из письма, чтобы защитить бонусы и историю заказов.',
   email:'Email',send:'Отправить письмо',
   emailHint:'Мы отправим на этот адрес одноразовый код. Введите его здесь, чтобы безопасно войти в EatFit Levels.',
-  create:'Продолжить',verify:'Войти по коду',sent:'Код отправлен на {email}. Введите 6 цифр из письма в поле ниже.',
-  otp:'Код из письма',invalidOtp:'Введите шестизначный код из письма.',otpError:'Код неверный или уже истёк. Проверьте письмо либо запросите новый код.',
+  create:'Продолжить',verify:'Войти по коду',sent:'Код отправлен на {email}. Введите код из письма в поле ниже.',
+  otp:'Код из письма',invalidOtp:'Введите код из письма полностью.',otpError:'Код неверный или уже истёк. Проверьте письмо либо запросите новый код.',
   profile:'Email подтверждён. Укажите данные один раз, чтобы безопасно привязать ранее созданный профиль EatFit. Если профиля ещё нет, мы создадим его.',
   invalidEmail:'Введите корректный email.',
   authError:'Не удалось отправить письмо. Попробуйте снова немного позже.',
@@ -1577,8 +1577,8 @@ const LOYALTY_AUTH_TEXT={
   subtitle:'Use the email code to protect your bonuses and order history.',
   email:'Email',send:'Send email',
   emailHint:'We will send a one-time code to this address. Enter it here to sign in securely to EatFit Levels.',
-  create:'Continue',verify:'Sign in with code',sent:'A code was sent to {email}. Enter the 6 digits from the email below.',
-  otp:'Email code',invalidOtp:'Enter the six-digit code from the email.',otpError:'The code is incorrect or has expired. Check the email or request a new code.',
+  create:'Continue',verify:'Sign in with code',sent:'A code was sent to {email}. Enter the code from the email below.',
+  otp:'Email code',invalidOtp:'Enter the complete code from the email.',otpError:'The code is incorrect or has expired. Check the email or request a new code.',
   profile:'Email verified. Enter your details once to securely link an existing EatFit profile. If you do not have one, we will create it.',
   invalidEmail:'Enter a valid email.',
   authError:'Could not send the email. Please try again shortly.',
@@ -1598,8 +1598,8 @@ const LOYALTY_AUTH_TEXT={
   subtitle:'Dùng mã trong email để bảo vệ điểm thưởng và lịch sử đơn hàng.',
   email:'Email',send:'Gửi email',
   emailHint:'Chúng tôi sẽ gửi mã dùng một lần đến địa chỉ này. Nhập mã tại đây để đăng nhập an toàn vào EatFit Levels.',
-  create:'Tiếp tục',verify:'Đăng nhập bằng mã',sent:'Mã đã được gửi đến {email}. Nhập 6 chữ số trong email vào ô bên dưới.',
-  otp:'Mã trong email',invalidOtp:'Nhập mã gồm 6 chữ số trong email.',otpError:'Mã không đúng hoặc đã hết hạn. Kiểm tra email hoặc yêu cầu mã mới.',
+  create:'Tiếp tục',verify:'Đăng nhập bằng mã',sent:'Mã đã được gửi đến {email}. Nhập mã trong email vào ô bên dưới.',
+  otp:'Mã trong email',invalidOtp:'Nhập đầy đủ mã trong email.',otpError:'Mã không đúng hoặc đã hết hạn. Kiểm tra email hoặc yêu cầu mã mới.',
   profile:'Email đã được xác nhận. Nhập thông tin một lần để liên kết an toàn với hồ sơ EatFit hiện có. Nếu chưa có hồ sơ, chúng tôi sẽ tạo mới.',
   invalidEmail:'Vui lòng nhập email hợp lệ.',
   authError:'Không thể gửi email. Vui lòng thử lại sau ít phút.',
@@ -2260,9 +2260,9 @@ async function sendLoyaltyOtp(){
 
 async function verifyLoyaltyOtp(){
  const email=(localStorage.getItem('eatfit_pending_email') || document.getElementById('loyaltyEmail').value).trim().toLowerCase();
- const token=document.getElementById('loyaltyOtp').value.replace(/\D/g,'').slice(0,6);
+ const token=document.getElementById('loyaltyOtp').value.replace(/\D/g,'').slice(0,10);
  document.getElementById('loyaltyOtp').value=token;
- if(!/^\d{6}$/.test(token)){
+ if(!/^\d{6,10}$/.test(token)){
   setLoyaltyResult('error',authT('invalidOtp'));
   return;
  }
@@ -2435,7 +2435,7 @@ setInterval(()=>{
 setInterval(updateLoyaltyEmailWaitingState,1000);
 setInterval(checkLoyaltyIdleSession,30000);
 document.getElementById('loyaltyOtp')?.addEventListener('input',event=>{
- event.target.value=event.target.value.replace(/\D/g,'').slice(0,6);
+ event.target.value=event.target.value.replace(/\D/g,'').slice(0,10);
 });
 document.getElementById('loyaltyOtp')?.addEventListener('keydown',event=>{
  if(event.key==='Enter') verifyLoyaltyOtp();
