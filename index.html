@@ -1554,6 +1554,8 @@ const LOYALTY_AUTH_TEXT={
   invalidEmail:'Введите корректный email.',
   authError:'Не удалось отправить письмо. Попробуйте снова немного позже.',
   rateLimit:'Слишком много писем было запрошено за короткое время. Отправка временно ограничена почтовым сервисом. Попробуйте снова примерно через час.',
+  linkExpired:'Эта ссылка уже использована или срок её действия истёк. Введите email и запросите новое письмо.',
+  linkInvalid:'Не удалось подтвердить email по этой ссылке. Введите email и запросите новое письмо.',
   conflict:'Этот номер уже связан с другим профилем. Напишите менеджеру EatFit.',
   mismatch:'Для переноса старого профиля укажите те же имя и фамилию, что использовали ранее.',
   resend:'Отправить письмо ещё раз',resendIn:'Повторная отправка через {seconds} сек.',
@@ -1569,6 +1571,8 @@ const LOYALTY_AUTH_TEXT={
   invalidEmail:'Enter a valid email.',
   authError:'Could not send the email. Please try again shortly.',
   rateLimit:'Too many emails were requested in a short time. Email delivery is temporarily limited. Please try again in about one hour.',
+  linkExpired:'This link has already been used or has expired. Enter your email and request a new message.',
+  linkInvalid:'We could not confirm your email with this link. Enter your email and request a new message.',
   conflict:'This phone is linked to another profile. Contact the EatFit manager.',
   mismatch:'To move your old profile, enter the same first and last name you used before.',
   resend:'Send the email again',resendIn:'You can resend in {seconds} sec.',
@@ -1584,6 +1588,8 @@ const LOYALTY_AUTH_TEXT={
   invalidEmail:'Vui lòng nhập email hợp lệ.',
   authError:'Không thể gửi email. Vui lòng thử lại sau ít phút.',
   rateLimit:'Đã yêu cầu quá nhiều email trong thời gian ngắn. Dịch vụ email tạm thời giới hạn gửi thư. Vui lòng thử lại sau khoảng một giờ.',
+  linkExpired:'Liên kết này đã được sử dụng hoặc đã hết hạn. Nhập email và yêu cầu gửi thư mới.',
+  linkInvalid:'Không thể xác nhận email bằng liên kết này. Nhập email và yêu cầu gửi thư mới.',
   conflict:'Số điện thoại này đã liên kết với hồ sơ khác. Hãy liên hệ quản lý EatFit.',
   mismatch:'Để chuyển hồ sơ cũ, hãy nhập đúng họ tên đã dùng trước đây.',
   resend:'Gửi lại email',resendIn:'Có thể gửi lại sau {seconds} giây.',
@@ -1799,9 +1805,19 @@ async function fetchLoyaltyOrders(){
 
 function consumeSupabaseEmailRedirect(){
  const hash=new URLSearchParams(window.location.hash.replace(/^#/,''));
+ const error=hash.get('error');
+ const errorCode=hash.get('error_code');
+ if(error || errorCode){
+  const email=localStorage.getItem('eatfit_pending_email') || '';
+  clearPendingLoyaltyEmail();
+  if(email) document.getElementById('loyaltyEmail').value=email;
+  loyaltyAuthStage='email';
+  history.replaceState(null,'',window.location.pathname+window.location.search);
+  return {ok:false,errorCode:errorCode || error};
+ }
  const accessToken=hash.get('access_token');
  const refreshToken=hash.get('refresh_token');
- if(!accessToken || !refreshToken) return false;
+ if(!accessToken || !refreshToken) return null;
  const expiresIn=Number(hash.get('expires_in') || 3600);
  saveLoyaltySession({
   access_token:accessToken,
@@ -1812,7 +1828,7 @@ function consumeSupabaseEmailRedirect(){
  });
  loyaltyAuthStage='signed-in';
  history.replaceState(null,'',window.location.pathname+window.location.search);
- return true;
+ return {ok:true};
 }
 
 function clearPendingLoyaltyEmail(){
@@ -1835,16 +1851,20 @@ function restorePendingLoyaltyEmail(){
 }
 
 async function restoreLoyaltyAuth(){
- const returnedFromEmail=consumeSupabaseEmailRedirect();
+ const emailRedirect=consumeSupabaseEmailRedirect();
  loyaltySession=loyaltySession || loadLoyaltySession();
  if(!loyaltySession){
-  restorePendingLoyaltyEmail();
+  if(!emailRedirect) restorePendingLoyaltyEmail();
   renderLoyalty();
+  if(emailRedirect && !emailRedirect.ok){
+   openLoyalty();
+   setLoyaltyResult('error',authT(emailRedirect.errorCode==='otp_expired' ? 'linkExpired' : 'linkInvalid'));
+  }
   return;
  }
  renderLoyaltyAuthState();
  await fetchLoyaltyStatus();
- if(returnedFromEmail){
+ if(emailRedirect?.ok){
   openLoyalty();
   setLoyaltyResult('info',loyaltyUser
    ? t('loyaltyLoggedIn',{balance:formatVnd(loyaltyUser.bonus_balance)})
