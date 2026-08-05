@@ -723,6 +723,13 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .checkout-bar{position:relative;right:auto;bottom:auto;width:100%;padding:14px 28px 18px;background:rgba(255,255,255,.96);border-top:1px solid var(--line);backdrop-filter:blur(12px);z-index:15}
 .checkout-btn{width:100%;min-height:48px;font-size:16px;box-shadow:0 8px 18px rgba(99,189,43,.24)}
 .mobile-cart-bar{display:none}
+.mobile-filter-toggle{display:none}
+.card-qty{display:grid;grid-template-columns:44px minmax(36px,1fr) 44px;align-items:center;min-height:48px;border:1px solid #cfe4c5;border-radius:13px;background:#f2faee;overflow:hidden}
+.card-qty button{height:100%;border:0;background:transparent;color:var(--green-dark);font-size:24px;font-weight:900;cursor:pointer}
+.card-qty b{text-align:center;font-size:16px}
+.card-media.is-loading::before,.quick-view-media.is-loading::before{content:'';position:absolute;inset:0;background:linear-gradient(105deg,#151a15 35%,#283128 50%,#151a15 65%);background-size:220% 100%;animation:imageLoading 1.25s linear infinite;z-index:0}
+.card-media img,.quick-view-media img{position:relative;z-index:1}
+@keyframes imageLoading{to{background-position:-220% 0}}
 .planner-open{display:block;margin:0 auto 25px}
 .plan-actions{position:sticky;bottom:-28px;margin:18px -28px -28px;padding:14px 28px 18px;background:rgba(247,249,245,.96);border-top:1px solid var(--line);backdrop-filter:blur(12px);z-index:12}
 .add-plan-btn{width:100%;min-height:48px;font-size:16px}
@@ -765,10 +772,15 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
  .loyalty-main{padding:16px;border-radius:18px}
  .loyalty-title{font-size:22px}
  .loyalty-promo-points{grid-template-columns:1fr}
- .catalog-tools{padding:12px;gap:12px}
- .filter-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%}
- .filter-chip{width:100%;min-width:0}
- .price-tools{display:grid;grid-template-columns:1fr;gap:8px;width:100%}
+ .catalog-tools{padding:12px;gap:10px}
+ .filter-tabs{display:flex;flex-wrap:nowrap;justify-content:flex-start;gap:8px;width:calc(100% + 12px);margin-right:-12px;padding-right:12px;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain;scroll-snap-type:x proximity}
+ .filter-tabs::-webkit-scrollbar{display:none}
+ .filter-chip{flex:0 0 auto;width:auto;min-width:max-content;scroll-snap-align:start}
+ .mobile-filter-toggle{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:44px;padding:0 14px;border:1px solid var(--line);border-radius:13px;background:#fff;color:var(--ink);font:inherit;font-size:14px;font-weight:900;cursor:pointer}
+ .mobile-filter-toggle b{font-size:18px;transition:transform .18s ease}
+ .catalog-tools.filters-open .mobile-filter-toggle b{transform:rotate(180deg)}
+ .price-tools{display:none;grid-template-columns:1fr;gap:8px;width:100%}
+ .catalog-tools.filters-open .price-tools{display:grid}
  .price-tools select{height:44px;margin:0}
  .grid{grid-template-columns:minmax(0,1fr);padding:14px}
  .card{min-width:0;padding:9px}
@@ -781,7 +793,8 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
  .card .btn,.card .details-btn{width:100%;min-width:0;min-height:48px;font-size:14px}
  .card-gallery-btn{width:42px;height:42px;font-size:24px}
  .card-gallery-btn.prev{left:8px}.card-gallery-btn.next{right:8px}
- .macro-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .macro-row{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+ .macro-pill{padding:7px 2px}
  .cart-panel{width:100%;height:100dvh;max-height:100dvh}
  .cart-header{position:sticky;top:0}
  .cart-header-actions{flex:0 0 auto}
@@ -833,11 +846,16 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
  .quick-view-footer{gap:10px}
  .food-modal-box{padding:16px}
  .food-grid{grid-template-columns:1fr}
- body.has-mobile-cart{padding-bottom:82px}
- .mobile-cart-bar.show{position:fixed;left:12px;right:12px;bottom:max(10px,env(safe-area-inset-bottom));z-index:60;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:58px;padding:10px 16px;border:1px solid rgba(255,255,255,.22);border-radius:16px;background:#18321e;color:#fff;box-shadow:0 16px 38px rgba(10,22,8,.28);font:inherit;font-weight:900;cursor:pointer}
- .mobile-cart-bar span{min-width:0}
- .mobile-cart-bar b{white-space:nowrap;color:#d8f6c7;font-size:14px}
- body.cart-is-open .mobile-cart-bar{display:none}
+ body{padding-bottom:calc(74px + env(safe-area-inset-bottom))}
+ .mobile-cart-bar{position:fixed;left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom));z-index:60;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));min-height:62px;padding:5px;border:1px solid rgba(255,255,255,.18);border-radius:18px;background:rgba(20,43,25,.97);color:#fff;box-shadow:0 16px 38px rgba(10,22,8,.3);backdrop-filter:blur(16px)}
+ .mobile-dock-action{position:relative;display:flex;min-width:0;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:5px 2px;border:0;border-radius:13px;background:transparent;color:#dbe8d7;font:inherit;font-size:10px;font-weight:800;line-height:1.05;cursor:pointer}
+ .mobile-dock-action:active,.mobile-dock-action.cart-active{background:#65cf26;color:#10200f}
+ .mobile-dock-icon{font-size:20px;line-height:1}
+ .mobile-dock-badge{position:absolute;top:1px;left:calc(50% + 8px);display:none;min-width:18px;height:18px;padding:0 4px;border:2px solid #18321e;border-radius:9px;background:#ffd85a;color:#182016;font-size:10px;line-height:14px;text-align:center}
+ .mobile-dock-badge.show{display:block}
+ .mobile-dock-total{display:none;font-size:9px;white-space:nowrap}
+ .mobile-dock-action.cart-active .mobile-dock-total{display:block}
+ body.cart-is-open .mobile-cart-bar,body.planner-is-open .mobile-cart-bar{display:none}
 }
 
 @media(max-width:380px){
@@ -849,7 +867,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
  .catalog-heading h2{font-size:24px}
  .cart-heading{font-size:20px}
  .day-grid,.planner-stats,.meal-macros{grid-template-columns:repeat(2,minmax(0,1fr))}
- .filter-tabs{grid-template-columns:1fr}
+ .filter-tabs{display:flex}
  .card img{height:100%}
  .quick-view-media{height:min(50vh,350px)}
 }
@@ -937,10 +955,12 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 
 <div id="overlay" class="overlay" onclick="closePanels()"></div>
 <div id="toast" class="toast">✓ Блюдо добавлено в корзину</div>
-<button id="mobileCartBar" class="mobile-cart-bar" type="button" onclick="toggleCart()" aria-label="Открыть корзину">
-<span id="mobileCartBarLabel">Корзина</span>
-<b><span id="mobileCartBarCount">0</span> · <span id="mobileCartBarTotal">0</span> VND</b>
-</button>
+<nav id="mobileCartBar" class="mobile-cart-bar" aria-label="Мобильная навигация">
+<button class="mobile-dock-action" type="button" onclick="scrollCatalog()"><span class="mobile-dock-icon">☰</span><span id="mobileDockCatalog">Каталог</span></button>
+<button class="mobile-dock-action" type="button" onclick="openPlanner()"><span class="mobile-dock-icon">◎</span><span id="mobileDockPlanner">Рацион</span></button>
+<button class="mobile-dock-action" type="button" onclick="openLoyalty()"><span class="mobile-dock-icon">○</span><span id="mobileDockProfile">Войти</span></button>
+<button id="mobileDockCart" class="mobile-dock-action" type="button" onclick="toggleCart()"><span class="mobile-dock-icon">▣</span><span id="mobileDockCartLabel">Корзина</span><b id="mobileCartBarCount" class="mobile-dock-badge">0</b><small id="mobileCartBarTotal" class="mobile-dock-total">0 VND</small></button>
+</nav>
 
 <div id="successModal" class="success-modal">
 <div class="success-box">
@@ -1084,6 +1104,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <button class="filter-chip" data-category="carbs" onclick="setProductCategory('carbs',this)">Углеводы</button>
 <button class="filter-chip" data-category="fiber" onclick="setProductCategory('fiber',this)">Овощи</button>
 </div>
+<button id="mobileFilterToggle" class="mobile-filter-toggle" type="button" onclick="toggleMobileFilters()" aria-expanded="false"><span id="mobileFilterLabel">Сортировка и цена</span><b>⌄</b></button>
 <div class="price-tools">
 <select id="priceRange" onchange="renderProducts()" aria-label="Фильтр по цене">
 <option value="">Любая цена</option>
@@ -1314,7 +1335,7 @@ const I18N={
   heroPoint1:'Готовые блюда под вашу цель',heroPoint2:'Рацион под ваши КБЖУ',heroPoint3:'Быстрый заказ без регистрации',
   heroBuild:'Что можно собрать',heroBuildText:'Белки, гарниры и овощи для удобного дневного рациона.',categories:'категории',kbjuPick:'подбор',prices:'цены',
   savedTitle:'Ваша цель КБЖУ сохранена',savedSub:'Теперь можно автоматически подобрать рацион под эти значения.',calories:'ккал',protein:'белки',fat:'жиры',carbs:'углеводы',proteinShort:'Б',fatShort:'Ж',carbsShort:'У',
-  recalc:'Пересчитать',searchPlaceholder:'Поиск блюда...',all:'Все',proteins:'Белки',carbsFilter:'Углеводы',fiber:'Овощи',
+  recalc:'Пересчитать',searchPlaceholder:'Поиск блюда...',all:'Все',proteins:'Белки',carbsFilter:'Углеводы',fiber:'Овощи',mobileCatalog:'Каталог',mobilePlan:'Рацион',mobileFilters:'Сортировка и цена',menuLabel:'Меню',mobileNavigation:'Мобильная навигация',previousPhoto:'Предыдущее фото',nextPhoto:'Следующее фото',
   priceAny:'Любая цена',priceUnder:'До 50 000 VND',priceMid:'50 000–100 000 VND',priceOver:'От 100 000 VND',sortDefault:'По умолчанию',sortAsc:'Сначала дешевле',sortDesc:'Сначала дороже',
   catalogTitle:'Каталог EatFit',catalogSub:'Фильтруйте продукты по роли в рационе и добавляйте только то, что подходит вам.',
   addToCart:'В корзину',quickView:'Подробнее',emptyProducts:'Ничего не найдено. Попробуйте изменить поиск или выбрать другую категорию.',emptyCartTitle:'Корзина пока пустая',emptyCartText:'Добавьте блюда из каталога или соберите рацион под ваши КБЖУ.',emptyCartMenu:'К меню',balancedComponent:'Сбалансированный компонент для вашего рациона.',
@@ -1365,7 +1386,7 @@ const I18N={
   heroPoint1:'Ready meals for your goal',heroPoint2:'Meal plan for your macros',heroPoint3:'Fast order without registration',
   heroBuild:'What you can build',heroBuildText:'Proteins, sides and vegetables for a convenient daily plan.',categories:'categories',kbjuPick:'macro-based plan',prices:'prices',
   savedTitle:'Your macro target is saved',savedSub:'Now you can automatically build a plan around these values.',calories:'kcal',protein:'protein',fat:'fats',carbs:'carbs',proteinShort:'P',fatShort:'F',carbsShort:'C',
-  recalc:'Recalculate',searchPlaceholder:'Search dish...',all:'All',proteins:'Protein',carbsFilter:'Carbs',fiber:'Vegetables',
+  recalc:'Recalculate',searchPlaceholder:'Search dish...',all:'All',proteins:'Protein',carbsFilter:'Carbs',fiber:'Vegetables',mobileCatalog:'Menu',mobilePlan:'Meal plan',mobileFilters:'Sort and price',menuLabel:'Menu',mobileNavigation:'Mobile navigation',previousPhoto:'Previous photo',nextPhoto:'Next photo',
   priceAny:'Any price',priceUnder:'Under 50,000 VND',priceMid:'50,000–100,000 VND',priceOver:'Over 100,000 VND',sortDefault:'Default',sortAsc:'Cheapest first',sortDesc:'Most expensive first',
   catalogTitle:'EatFit Catalog',catalogSub:'Filter products by their role in your plan and add only what works for you.',
   addToCart:'Add to cart',quickView:'Details',emptyProducts:'Nothing found. Try changing the search or category.',emptyCartTitle:'Your cart is empty',emptyCartText:'Add dishes from the catalog or build a meal plan around your macros.',emptyCartMenu:'To menu',balancedComponent:'A balanced component for your meal plan.',
@@ -1416,7 +1437,7 @@ const I18N={
   heroPoint1:'Bữa ăn sẵn theo mục tiêu',heroPoint2:'Thực đơn theo macro của bạn',heroPoint3:'Đặt nhanh, không cần đăng ký',
   heroBuild:'Có thể chọn gì?',heroBuildText:'Món đạm, tinh bột và rau cho thực đơn hằng ngày tiện lợi.',categories:'nhóm món',kbjuPick:'theo macro',prices:'giá VND',
   savedTitle:'Đã lưu mục tiêu macro',savedSub:'Bạn có thể để EatFit tự động gợi ý thực đơn theo mục tiêu này.',calories:'kcal',protein:'đạm',fat:'chất béo',carbs:'tinh bột',proteinShort:'Đ',fatShort:'B',carbsShort:'T',
-  recalc:'Tính lại',searchPlaceholder:'Tìm món...',all:'Tất cả',proteins:'Món đạm',carbsFilter:'Tinh bột',fiber:'Rau',
+  recalc:'Tính lại',searchPlaceholder:'Tìm món...',all:'Tất cả',proteins:'Món đạm',carbsFilter:'Tinh bột',fiber:'Rau',mobileCatalog:'Thực đơn',mobilePlan:'Khẩu phần',mobileFilters:'Sắp xếp và giá',menuLabel:'Menu',mobileNavigation:'Điều hướng di động',previousPhoto:'Ảnh trước',nextPhoto:'Ảnh tiếp theo',
   priceAny:'Tất cả mức giá',priceUnder:'Dưới 50.000 VND',priceMid:'50.000–100.000 VND',priceOver:'Từ 100.000 VND',sortDefault:'Mặc định',sortAsc:'Giá thấp trước',sortDesc:'Giá cao trước',
   catalogTitle:'Thực đơn EatFit',catalogSub:'Lọc món theo vai trò trong bữa ăn và chỉ thêm những món phù hợp với bạn.',
   addToCart:'Thêm vào giỏ',quickView:'Chi tiết',emptyProducts:'Không tìm thấy món phù hợp. Hãy đổi từ khóa hoặc chọn nhóm món khác.',emptyCartTitle:'Giỏ hàng đang trống',emptyCartText:'Thêm món từ thực đơn hoặc để EatFit gợi ý khẩu phần theo macro.',emptyCartMenu:'Đến thực đơn',balancedComponent:'Một phần ăn cân bằng cho thực đơn của bạn.',
@@ -1496,6 +1517,7 @@ function setPlaceholder(id,value){
 }
 
 function scrollCatalog(){
+ toggleMobileMenu(false);
  document.querySelector('.catalog-heading')?.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
@@ -1504,6 +1526,14 @@ function toggleMobileMenu(force){
  if(!header) return;
  const open=typeof force==='boolean' ? force : !header.classList.contains('menu-open');
  header.classList.toggle('menu-open',open);
+}
+
+function toggleMobileFilters(){
+ const tools=document.querySelector('.catalog-tools');
+ const button=document.getElementById('mobileFilterToggle');
+ if(!tools || !button) return;
+ const open=tools.classList.toggle('filters-open');
+ button.setAttribute('aria-expanded',String(open));
 }
 
 function setOption(selectId,value,label){
@@ -2164,6 +2194,7 @@ function renderLoyaltyAuthState(){
  const authenticated=hasLoyaltySession();
  const profileReady=Boolean(loyaltyUser);
  setText('#headerAuthButton',authenticated ? t('navProfile') : t('navAccount'));
+ setText('#mobileDockProfile',authenticated ? t('navProfile') : t('navAccount'));
  if(emailFields) emailFields.classList.toggle('hidden',authenticated || loyaltyAuthStage!=='email');
  if(otpFields) otpFields.classList.toggle('show',!authenticated && loyaltyAuthStage==='otp');
  if(fields) fields.classList.toggle('hidden',profileReady || loyaltyAuthStage!=='profile');
@@ -2477,6 +2508,20 @@ function applyLanguage(){
  if(actions[3]) actions[3].textContent=t('navFaq');
  if(actions[4]) actions[4].innerHTML=`${t('navCart')} <b id="count">${cart.reduce((a,b)=>a+b.qty,0)}</b>`;
  setText('#headerAuthButton',hasLoyaltySession() ? t('navProfile') : t('navAccount'));
+ setText('#mobileDockCatalog',t('mobileCatalog'));
+ setText('#mobileDockPlanner',t('mobilePlan'));
+ setText('#mobileDockProfile',hasLoyaltySession() ? t('navProfile') : t('navAccount'));
+ setText('#mobileDockCartLabel',t('navCart'));
+ setText('#mobileFilterLabel',t('mobileFilters'));
+ const menuToggle=document.querySelector('.menu-toggle');
+ if(menuToggle) menuToggle.setAttribute('aria-label',t('menuLabel'));
+ const mobileCartBar=document.getElementById('mobileCartBar');
+ if(mobileCartBar) mobileCartBar.setAttribute('aria-label',t('mobileNavigation'));
+ document.querySelectorAll('.quick-view-close,.loyalty-close,.contact-close,.kbju-close,.close-cart').forEach(button=>button.setAttribute('aria-label',t('close')));
+ const quickPrev=document.getElementById('quickPrev');
+ if(quickPrev) quickPrev.setAttribute('aria-label',t('previousPhoto'));
+ const quickNext=document.getElementById('quickNext');
+ if(quickNext) quickNext.setAttribute('aria-label',t('nextPhoto'));
  setText('#quickViewCaloriesLabel',t('calories'));
  setText('#quickViewProteinLabel',t('proteinShort'));
  setText('#quickViewFatLabel',t('fatShort'));
@@ -2721,11 +2766,9 @@ function updateCounter(){
  document.getElementById('count').textContent=count;
  const bar=document.getElementById('mobileCartBar');
  const countNode=document.getElementById('mobileCartBarCount');
- const label=document.getElementById('mobileCartBarLabel');
  if(countNode) countNode.textContent=formatQty(count);
- if(label) label.textContent=t('navCart');
- if(bar) bar.classList.toggle('show',count>0);
- document.body.classList.toggle('has-mobile-cart',count>0);
+ if(countNode) countNode.classList.toggle('show',count>0);
+ document.getElementById('mobileDockCart')?.classList.toggle('cart-active',count>0);
 }
 
 function add(id){
@@ -2733,6 +2776,7 @@ function add(id){
  if(item)item.qty++;
  else cart.push({id,qty:1});
  saveCart();
+ if(window.renderProducts) window.renderProducts();
 
  showToast(t('toastDish'));
 }
@@ -2746,16 +2790,27 @@ function changeQty(id,delta){
    cart=cart.filter(x=>x.id!==id);
  }
  saveCart();
+ if(window.renderProducts) window.renderProducts();
 }
 
 function clearCart(){
  cart=[];
  saveCart();
+ if(window.renderProducts) window.renderProducts();
 }
 
 function removeItem(id){
  cart=cart.filter(x=>x.id!==id);
  saveCart();
+ if(window.renderProducts) window.renderProducts();
+}
+
+function cartQuantity(id){
+ return Number(cart.find(item=>item.id===id)?.qty||0);
+}
+
+function markProductImageLoaded(image){
+ image?.closest('.card-media,.quick-view-media')?.classList.remove('is-loading');
 }
 
 function productImages(product){
@@ -2786,10 +2841,12 @@ function setQuickViewImage(product){
  quickViewImageIndex=((quickViewImageIndex % images.length)+images.length)%images.length;
  const image=document.getElementById('quickViewImage');
  if(image){
-  const file=images[quickViewImageIndex];
+ const file=images[quickViewImageIndex];
+  image.closest('.quick-view-media')?.classList.add('is-loading');
   image.src=productImagePath(file);
   image.alt=productName(product);
   image.onerror=()=>useOriginalProductImage(image,file);
+  image.onload=()=>markProductImageLoaded(image);
  }
  const showControls=images.length>1;
  ['quickPrev','quickNext'].forEach(id=>{
@@ -2973,7 +3030,7 @@ function renderCart(){
  if(bonusSpendRow) bonusSpendRow.classList.toggle('hidden',!loyaltyUser || bonusSpend<=0);
  document.getElementById('totalQty').textContent=totalQty;
  const mobileTotal=document.getElementById('mobileCartBarTotal');
- if(mobileTotal) mobileTotal.textContent=finalTotal.toLocaleString();
+ if(mobileTotal) mobileTotal.textContent=`${finalTotal.toLocaleString()} VND`;
  renderLoyalty();
 }
 
@@ -3003,12 +3060,14 @@ function openPlanner(){
  closeCart();
  document.getElementById('plannerPanel').classList.add('open');
  document.getElementById('overlay').classList.add('show');
+ document.body.classList.add('planner-is-open');
  const count=localStorage.getItem('mealsCount');
  if(count && products.length) autoBuildMealPlan(false);
 }
 
 function closePlanner(){
  document.getElementById('plannerPanel').classList.remove('open');
+ document.body.classList.remove('planner-is-open');
  if(!document.getElementById('cartPanel').classList.contains('open')){
    document.getElementById('overlay').classList.remove('show');
  }
@@ -3195,12 +3254,14 @@ fetch('data/products.json')
  const images=productImages(p);
  const imageIndex=((productImageIndex[p.id]||0)%images.length+images.length)%images.length;
  const galleryControls=images.length>1 ? `
-    <button class="card-gallery-btn prev" onclick="event.stopPropagation();changeCardImage('${p.id}',-1)" aria-label="Предыдущее фото">‹</button>
-    <button class="card-gallery-btn next" onclick="event.stopPropagation();changeCardImage('${p.id}',1)" aria-label="Следующее фото">›</button>` : '';
+    <button class="card-gallery-btn prev" onclick="event.stopPropagation();changeCardImage('${p.id}',-1)" aria-label="${t('previousPhoto')}">‹</button>
+    <button class="card-gallery-btn next" onclick="event.stopPropagation();changeCardImage('${p.id}',1)" aria-label="${t('nextPhoto')}">›</button>` : '';
+ const qty=cartQuantity(p.id);
+ const cartAction=qty>0 ? `<div class="card-qty" onclick="event.stopPropagation()"><button type="button" onclick="changeQty('${p.id}',-1)" aria-label="−">−</button><b>${formatQty(qty)}</b><button type="button" onclick="changeQty('${p.id}',1)" aria-label="+">+</button></div>` : `<button class="btn" onclick="event.stopPropagation();add('${p.id}')">${t('addToCart')}</button>`;
  box.innerHTML+=`
  <div class="card" onclick="openQuickView('${p.id}')">
-   <div class="card-media">
-    <img src="${productImagePath(images[imageIndex])}" alt="${productName(p)}" ${visibleIndex<2?'loading="eager" fetchpriority="high"':'loading="lazy"'} decoding="async" onerror="useOriginalProductImage(this,'${images[imageIndex]}')">
+   <div class="card-media is-loading" data-product-id="${p.id}">
+    <img src="${productImagePath(images[imageIndex])}" alt="${productName(p)}" ${visibleIndex<2?'loading="eager" fetchpriority="high"':'loading="lazy"'} decoding="async" onload="markProductImageLoaded(this)" onerror="useOriginalProductImage(this,'${images[imageIndex]}')">
     ${galleryControls}
    </div>
    <div class="card-body">
@@ -3216,7 +3277,7 @@ fetch('data/products.json')
      <div class="price">${p.price.toLocaleString()} VND</div>
      <div class="card-actions">
       <button class="details-btn" onclick="event.stopPropagation();openQuickView('${p.id}')">${t('quickView')}</button>
-      <button class="btn" onclick="event.stopPropagation();add('${p.id}')">${t('addToCart')}</button>
+      ${cartAction}
      </div>
     </div>
    </div>
