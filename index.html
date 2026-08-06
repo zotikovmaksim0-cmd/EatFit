@@ -61,6 +61,9 @@ box-shadow:0 18px 50px rgba(0,0,0,.24);
 opacity:1;
 visibility:visible;
 }
+.toast.info{background:#244d72}.toast.success{background:#245d2c}.toast.error{background:#913f25}
+.toast.loading::before{content:'';display:inline-block;width:15px;height:15px;margin-right:9px;border:2px solid rgba(255,255,255,.42);border-top-color:#fff;border-radius:50%;vertical-align:-3px;animation:statusSpin .75s linear infinite}
+@keyframes statusSpin{to{transform:rotate(360deg)}}
 .cart-item{
 display:flex;
 gap:12px;
@@ -572,6 +575,8 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .loyalty-result{display:none;margin-top:12px;padding:12px;border-radius:14px;background:#f2faed;color:#315229;font-weight:800;line-height:1.4}
 .loyalty-result.error{background:#fff4ef;color:#8a3b1f}
 .loyalty-result.info{background:#eef7ff;color:#244d72}
+.loyalty-result.loading{display:flex!important;align-items:center;gap:10px;background:#eef7ff;color:#244d72}
+.loyalty-result.loading::before{content:'';flex:0 0 auto;width:16px;height:16px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:statusSpin .7s linear infinite}
 .loyalty-auth-fields{display:grid;gap:0}
 .loyalty-auth-fields.hidden{display:none}
 .loyalty-email-hint{margin:8px 0 12px;color:#667461;font-size:13px;line-height:1.45}
@@ -722,6 +727,11 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .map-row .btn{height:46px;white-space:nowrap;border-radius:10px}
 .checkout-bar{position:relative;right:auto;bottom:auto;width:100%;padding:14px 28px 18px;background:rgba(255,255,255,.96);border-top:1px solid var(--line);backdrop-filter:blur(12px);z-index:15}
 .checkout-btn{width:100%;min-height:48px;font-size:16px;box-shadow:0 8px 18px rgba(99,189,43,.24)}
+.checkout-btn:disabled,.btn:disabled{cursor:wait;opacity:.72;transform:none}
+.checkout-status{display:none;margin:0 0 12px;padding:12px 14px;border-radius:13px;font-size:14px;font-weight:800;line-height:1.4}
+.checkout-status.show{display:block}.checkout-status.info{background:#eef7ff;color:#244d72}.checkout-status.error{background:#fff1eb;color:#913f25}.checkout-status.success{background:#eef9e9;color:#2e6428}
+.checkout-status.loading::before{content:'';display:inline-block;width:15px;height:15px;margin-right:9px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;vertical-align:-3px;animation:statusSpin .75s linear infinite}
+.checkout-section .field-error{border-color:#c65636!important;box-shadow:0 0 0 4px rgba(198,86,54,.12)!important}
 .mobile-cart-bar{display:none}
 .mobile-filter-toggle{display:none}
 .card-qty{display:grid;grid-template-columns:44px minmax(36px,1fr) 44px;align-items:center;min-height:48px;border:1px solid #cfe4c5;border-radius:13px;background:#f2faee;overflow:hidden}
@@ -734,7 +744,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .plan-actions{position:sticky;bottom:-28px;margin:18px -28px -28px;padding:14px 28px 18px;background:rgba(247,249,245,.96);border-top:1px solid var(--line);backdrop-filter:blur(12px);z-index:12}
 .add-plan-btn{width:100%;min-height:48px;font-size:16px}
 @media(max-width:650px){
- .site-header{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;padding:12px 14px;align-items:center}.header-auth-btn{min-height:38px;margin-left:0;padding:0 12px;border-radius:12px;font-size:12px}.menu-toggle{display:grid}.site-actions{grid-column:1/-1;display:none;width:100%;gap:6px;border-radius:18px}.site-header.menu-open .site-actions{display:flex}.action-btn,.cart-btn{min-height:38px;padding:0 10px;font-size:12px;border-radius:13px}.language-switch{width:30px;height:30px;min-width:30px}.brand-title{font-size:17px}.brand-mark{width:42px;height:42px}.contact-box{padding:20px;border-radius:24px}.contact-head h2{font-size:23px}.quick-view-modal{padding:12px}.quick-view-media{height:260px}.quick-view-body{padding:18px}.quick-view-head h2{font-size:23px}.quick-view-macros{grid-template-columns:repeat(2,minmax(0,1fr))}.quick-view-footer{display:grid}.quick-view-footer .btn{width:100%}
+ .site-header{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding:12px 14px;align-items:center}.header-auth-btn{display:none}.menu-toggle{display:grid}.site-actions{grid-column:1/-1;display:none;width:100%;gap:6px;border-radius:18px}.site-header.menu-open .site-actions{display:flex}.site-actions .action-btn.primary,.site-actions .cart-btn{display:none}.action-btn,.cart-btn{min-height:38px;padding:0 10px;font-size:12px;border-radius:13px}.language-switch{width:30px;height:30px;min-width:30px}.brand-title{font-size:17px}.brand-mark{width:42px;height:42px}.contact-box{padding:20px;border-radius:24px}.contact-head h2{font-size:23px}.quick-view-modal{padding:12px}.quick-view-media{height:260px}.quick-view-body{padding:18px}.quick-view-head h2{font-size:23px}.quick-view-macros{grid-template-columns:repeat(2,minmax(0,1fr))}.quick-view-footer{display:grid}.quick-view-footer .btn{width:100%}
  .kbju-modal{padding:12px}.kbju-modal-head{padding:22px 18px 16px}.kbju-modal-head h2{font-size:24px}.kbju-form{padding:18px}.kbju-grid,.kbju-tips{grid-template-columns:1fr}.kbju-wide,.kbju-two{grid-column:auto}.kbju-actions{display:grid}.kbju-primary,.kbju-secondary{width:100%}
 .hero{min-height:500px;padding:34px 18px 24px;background-position:58% center}.hero h2{font-size:34px;line-height:1.05}.hero p{font-size:15px}.hero-actions{margin-top:18px}.hero-cta{height:48px;border-radius:13px}.hero-points{gap:8px}.hero-point{width:100%;justify-content:flex-start}.kbju-saved-card,.loyalty-card{padding:0 16px}.kbju-saved-inner,.loyalty-inner{display:block}.loyalty-main{margin-bottom:12px}.kbju-saved-stats,.kbju-saved-actions,.loyalty-stats,.loyalty-actions{margin-top:12px}.loyalty-current-perks{grid-template-columns:1fr}.loyalty-benefits{grid-template-columns:1fr}.loyalty-levels{grid-template-columns:repeat(2,minmax(0,1fr))}.loyalty-rewards{grid-template-columns:1fr}.loyalty-profile.show{grid-template-columns:repeat(2,1fr)}.loyalty-order-card{grid-template-columns:1fr}.loyalty-order-side{text-align:left;white-space:normal}.loyalty-order-summary{display:grid}.loyalty-order-details{grid-template-columns:1fr}.loyalty-order-detail.wide{grid-column:auto}
  .loyalty-level-card-tip,.loyalty-level-card:first-child .loyalty-level-card-tip,.loyalty-level-card:last-child .loyalty-level-card-tip{position:static;display:none;width:auto;max-width:none;margin-top:10px;box-shadow:none;transform:none}
@@ -768,6 +778,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
  .hero-actions{display:grid;grid-template-columns:1fr;gap:10px}
  .hero-cta{width:100%;min-width:0}
  .loyalty-card{margin-top:14px}
+ .loyalty-card .loyalty-actions{display:none}
  .loyalty-inner{padding:14px;border-radius:20px}
  .loyalty-main{padding:16px;border-radius:18px}
  .loyalty-title{font-size:22px}
@@ -848,6 +859,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
  .food-grid{grid-template-columns:1fr}
  body{padding-bottom:calc(74px + env(safe-area-inset-bottom))}
  .mobile-cart-bar{position:fixed;left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom));z-index:60;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));min-height:62px;padding:5px;border:1px solid rgba(255,255,255,.18);border-radius:18px;background:rgba(20,43,25,.97);color:#fff;box-shadow:0 16px 38px rgba(10,22,8,.3);backdrop-filter:blur(16px)}
+ .toast{bottom:calc(84px + env(safe-area-inset-bottom));padding:13px 16px;border-radius:14px;font-size:14px}
  .mobile-dock-action{position:relative;display:flex;min-width:0;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:5px 2px;border:0;border-radius:13px;background:transparent;color:#dbe8d7;font:inherit;font-size:10px;font-weight:800;line-height:1.05;cursor:pointer}
  .mobile-dock-action:active,.mobile-dock-action.cart-active{background:#65cf26;color:#10200f}
  .mobile-dock-icon{font-size:20px;line-height:1}
@@ -954,7 +966,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 </div>
 
 <div id="overlay" class="overlay" onclick="closePanels()"></div>
-<div id="toast" class="toast">✓ Блюдо добавлено в корзину</div>
+<div id="toast" class="toast" role="status" aria-live="polite">✓ Блюдо добавлено в корзину</div>
 <nav id="mobileCartBar" class="mobile-cart-bar" aria-label="Мобильная навигация">
 <button class="mobile-dock-action" type="button" onclick="scrollCatalog()"><span class="mobile-dock-icon">☰</span><span id="mobileDockCatalog">Каталог</span></button>
 <button class="mobile-dock-action" type="button" onclick="openPlanner()"><span class="mobile-dock-icon">◎</span><span id="mobileDockPlanner">Рацион</span></button>
@@ -1026,7 +1038,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <button id="loyaltyAuthButton" class="btn" onclick="handleLoyaltyAuth()">Зарегистрироваться</button>
 <div id="loyaltyOtpMeta" class="loyalty-otp-meta"></div>
 <button id="loyaltyResendButton" class="loyalty-auth-secondary" type="button" onclick="resendLoyaltyOtp()"></button>
-<div id="loyaltyResult" class="loyalty-result"></div>
+<div id="loyaltyResult" class="loyalty-result" role="status" aria-live="polite"></div>
 <div class="loyalty-guide">
 <div class="loyalty-progress">
 <div class="loyalty-progress-top">
@@ -1276,8 +1288,11 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 
 <div class="checkout-section">
 <h3>Оформление заказа</h3>
+<label id="nameLabel" class="checkout-label" for="name">Имя</label>
 <input id="name" placeholder="Имя" autocomplete="given-name" enterkeyhint="next" required>
+<label id="surnameLabel" class="checkout-label" for="surname">Фамилия</label>
 <input id="surname" placeholder="Фамилия" autocomplete="family-name" enterkeyhint="next" required>
+<label id="phoneLabel" class="checkout-label" for="phone">Телефон</label>
 <input id="phone" placeholder="Телефон" type="tel" inputmode="tel" autocomplete="tel" enterkeyhint="next" required>
 <label class="checkout-label" for="contactMethod">Удобный способ связи</label>
 <select id="contactMethod" onchange="updateContactPlaceholder()" required>
@@ -1286,6 +1301,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <option value="telegram">Telegram</option>
 </select>
 <input id="contactValue" placeholder="Номер телефона для Zalo" inputmode="tel" autocomplete="tel" enterkeyhint="next" required>
+<label id="addressLabel" class="checkout-label" for="address">Адрес доставки</label>
 <input id="address" placeholder="Адрес доставки" autocomplete="street-address" enterkeyhint="next" required>
 <label class="checkout-label" for="deliveryMap">Точка доставки на карте</label>
 <div class="map-row">
@@ -1297,7 +1313,8 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 </div>
 </div>
 <div class="checkout-bar">
-<button class="checkout-btn" onclick="checkout()">
+<div id="checkoutStatus" class="checkout-status" role="status" aria-live="polite"></div>
+<button id="checkoutButton" class="checkout-btn" onclick="checkout()">
 Оформить заказ
 </button>
 </div>
@@ -1344,7 +1361,7 @@ const I18N={
   agePh:'Например, 28',heightPh:'Например, 175',weightPh:'Например, 70',tipLowTitle:'Низкая',tipLow:'До 5000 шагов в день, сидячая работа, без тренировок.',tipMidTitle:'Средняя',tipMid:'5000–10000 шагов в день, 2–4 тренировки в неделю.',tipHighTitle:'Высокая',tipHigh:'Более 10000 шагов, 5+ тренировок или физическая работа.',calcSave:'Рассчитать и сохранить цель',close:'Закрыть',
   faqTitle:'Частые вопросы',faqSub:'Коротко о доставке, рационе и заказе.',
   plannerTitle:'Подбор рациона',plannerSub:'Соберите день под свои КБЖУ, а потом решите, добавлять ли его в корзину',dayGoal:'Цель на день',dayGoalSub:'Что уже в рационе и сколько осталось до КБЖУ',noGoal:'цель не задана',selectedPlanPrice:'Стоимость подобранного рациона',mealCount:'🍽 Количество приемов пищи',yourPlan:'🍽 Ваш рацион на {count} приемов пищи',meal:'Прием пищи',replace:'Заменить',addPlan:'Добавить рацион в корзину',
-  cartTitle:'Корзина',cartSub:'Блюда, которые вы решили заказать',clear:'Очистить',emptyCart:'Корзина пуста<br>Добавьте блюда из каталога',cartTotal:'Итого в корзине',orderSummaryTitle:'Расчет заказа',orderFoodTotal:'Сумма блюд',orderLevelDiscount:'Скидка уровня',orderBonusSpend:'Списать бонусы',orderFinalTotal:'К оплате без доставки',deliveryNoteTitle:'Доставка',deliveryNoteText:'Стоимость в корзине указана без доставки. Менеджер рассчитает доставку и подтвердит итоговую сумму после оформления заказа.',checkoutStepsTitle:'После оформления',checkoutStep1:'Мы получим заказ и проверим детали.',checkoutStep2:'Менеджер свяжется с вами, подтвердит доставку и оплату.',checkoutStep3:'Бонусы и XP обновятся после статуса «Оплачен».',checkoutTitle:'Оформление заказа',namePh:'Имя',surnamePh:'Фамилия',phonePh:'Телефон',contactMethodLabel:'Удобный способ связи',contactZaloPh:'Номер телефона для Zalo',contactWhatsappPh:'Номер телефона WhatsApp',contactTelegramPh:'Telegram (@username)',addressPh:'Адрес доставки',mapLabel:'Точка доставки на карте',mapPh:'Ссылка на точку в Google Maps',openMap:'Открыть карты',commentPh:'Комментарий',checkout:'Оформить заказ',
+  cartTitle:'Корзина',cartSub:'Блюда, которые вы решили заказать',clear:'Очистить',emptyCart:'Корзина пуста<br>Добавьте блюда из каталога',cartTotal:'Итого в корзине',orderSummaryTitle:'Расчет заказа',orderFoodTotal:'Сумма блюд',orderLevelDiscount:'Скидка уровня',orderBonusSpend:'Списать бонусы',orderFinalTotal:'К оплате без доставки',deliveryNoteTitle:'Доставка',deliveryNoteText:'Стоимость в корзине указана без доставки. Менеджер рассчитает доставку и подтвердит итоговую сумму после оформления заказа.',checkoutStepsTitle:'После оформления',checkoutStep1:'Мы получим заказ и проверим детали.',checkoutStep2:'Менеджер свяжется с вами, подтвердит доставку и оплату.',checkoutStep3:'Бонусы и XP обновятся после статуса «Оплачен».',checkoutTitle:'Оформление заказа',nameLabel:'Имя',surnameLabel:'Фамилия',phoneLabel:'Телефон',addressLabel:'Адрес доставки',namePh:'Введите имя',surnamePh:'Введите фамилию',phonePh:'Например, 0392459260',contactMethodLabel:'Удобный способ связи',contactZaloPh:'Номер телефона для Zalo',contactWhatsappPh:'Номер телефона WhatsApp',contactTelegramPh:'Telegram (@username)',addressPh:'Улица, дом, квартира',mapLabel:'Точка доставки на карте',mapPh:'Ссылка на точку в Google Maps',openMap:'Открыть карты',commentPh:'Комментарий (необязательно)',checkout:'Оформить заказ',orderSending:'Отправляем заказ…',orderSendingNote:'Не закрывайте корзину. Передаём заказ менеджеру EatFit.',orderFixFields:'Проверьте выделенные поля.',orderReady:'Заказ отправлен. Открываем подтверждение…',
   navLoyalty:'Бонусы',loyaltyTitle:'Скидка на первый заказ и бонусы за каждую покупку',loyaltySub:'Зарегистрируйтесь в EatFit Levels, получите 30 000 VND на первый заказ и копите бонусы для следующих покупок.',loyaltyPromo1:'30 000 VND можно списать на первый заказ',loyaltyPromo2:'Бонусы возвращаются с каждой покупки',loyaltyPromo3:'Чем выше уровень, тем больше выгода',loyaltyModalTitle:'EatFit Levels',loyaltyModalSub:'Введите телефон: если вы уже зарегистрированы, мы откроем ваш профиль; если нет — создадим новый EatFit Levels.',loyaltyRegister:'Войти / Зарегистрироваться',loyaltyLogout:'Выйти',loyaltyGreeting:'Рады видеть вас, {name}. Ваш уровень: {level}. Доступно бонусов: {balance}.',loyaltyUpdate:'Открыть профиль',loyaltyLoading:'Проверяем ваш EatFit Levels...',loyaltyManualFallback:'Сервис бонусов сейчас не ответил. Вы можете продолжить оформление заказа: менеджер свяжется с вами и привяжет бонусы вручную.',loyaltyNextStep:'Теперь можно перейти в корзину: имя, фамилия и телефон уже подставлены, а способ связи вы выберете при заказе.',loyaltyWelcome:'Добро пожаловать в EatFit Levels, {name}! Ваш профиль создан, а приветственные {balance} уже доступны для первого заказа.',loyaltyBalance:'бонусы',loyaltyLevel:'уровень',loyaltyXp:'опыт',loyaltyOrders:'заказов',loyaltyOrdersTitle:'История заказов',loyaltyOrdersNote:'Здесь отображаются все заказы по вашему номеру, детали и статусы, которые обновляет менеджер.',loyaltyOrdersEmpty:'После первого заказа здесь появится история и текущий статус.',loyaltyOrderDetails:'Детали',loyaltyRepeatOrder:'Повторить заказ',loyaltyRepeatAdded:'Добавлено в корзину: {count}',loyaltyRepeatUnavailable:'Не удалось повторить заказ: позиции не найдены в текущем каталоге.',loyaltyOrderTotal:'К оплате',loyaltyOrderUpdated:'Обновлено',loyaltyOrderCreated:'Создан',loyaltyOrderItems:'Состав заказа',loyaltyOrderAddress:'Адрес',loyaltyOrderMap:'Точка на карте',loyaltyOrderContact:'Связь',loyaltyOrderPhone:'Телефон',loyaltyOrderComment:'Комментарий',loyaltyOrderOriginalTotal:'Сумма заказа',loyaltyOrderDiscount:'Скидка уровня',loyaltyOrderBonusUsed:'Списано бонусов',loyaltyOrderBonusEarned:'Будет начислено',loyaltyOrderXpEarned:'XP после оплаты',loyaltyRegistered:'Вы вошли в EatFit Levels. Доступно бонусов: {balance}.',loyaltySaved:'Регистрация готова. Начислено {balance} бонусов.',loyaltyLoggedIn:'Профиль найден. Это ваш текущий баланс: {balance}.',loyaltyNeedDetails:'Этот номер еще не зарегистрирован. Заполните имя и фамилию.',loyaltyError:'Не удалось обновить бонусы. Попробуйте позже.',useBonus:'Списать бонусы',bonusNote:'Бонусы будут списаны только после подтверждения оплаты.',bonusApplied:'После оплаты: скидка уровня {discount}, к списанию бонусов {applied}, к начислению {earned}, XP +{xp}. Текущий баланс: {balance}.',
   successTitle:'Спасибо за заказ!',successText:'Ваш заказ принят. Менеджер свяжется с вами для подтверждения деталей и оплаты.',successBonusTitle:'Бонусы после оплаты',successOrderLabel:'Номер заказа',
   left:'{value} {unit} осталось',above:'+{value} {unit} выше цели',from:'из {value} {unit}',dishSelect:'Выберите блюдо',foodSearch:'🔍 Поиск блюда...',selectedNow:'✓ Выбрано сейчас',
@@ -1395,7 +1412,7 @@ const I18N={
   agePh:'For example, 28',heightPh:'For example, 175',weightPh:'For example, 70',tipLowTitle:'Low',tipLow:'Up to 5,000 steps a day, desk work, no training.',tipMidTitle:'Medium',tipMid:'5,000–10,000 steps a day, 2–4 workouts per week.',tipHighTitle:'High',tipHigh:'Over 10,000 steps, 5+ workouts or physical work.',calcSave:'Calculate and save goal',close:'Close',
   faqTitle:'Frequently asked questions',faqSub:'Short answers about delivery, meal plans and orders.',
   plannerTitle:'Meal plan builder',plannerSub:'Build a day around your macros, then decide whether to add it to cart',dayGoal:'Daily goal',dayGoalSub:'What is already in the plan and what remains',noGoal:'goal not set',selectedPlanPrice:'Selected meal plan price',mealCount:'🍽 Number of meals',yourPlan:'🍽 Your plan for {count} meals',meal:'Meal',replace:'Replace',addPlan:'Add plan to cart',
-  cartTitle:'Cart',cartSub:'Dishes you decided to order',clear:'Clear',emptyCart:'Cart is empty<br>Add dishes from the catalog',cartTotal:'Cart total',orderSummaryTitle:'Order total',orderFoodTotal:'Food total',orderLevelDiscount:'Level discount',orderBonusSpend:'Use bonuses',orderFinalTotal:'To pay without delivery',deliveryNoteTitle:'Delivery',deliveryNoteText:'The cart total does not include delivery. A manager will calculate delivery and confirm the final amount after you place the order.',checkoutStepsTitle:'After checkout',checkoutStep1:'We receive your order and check the details.',checkoutStep2:'A manager contacts you to confirm delivery and payment.',checkoutStep3:'Bonuses and XP update after the status becomes “Paid”.',checkoutTitle:'Checkout',namePh:'Name',surnamePh:'Last name',phonePh:'Phone',contactMethodLabel:'Preferred contact method',contactZaloPh:'Phone number for Zalo',contactWhatsappPh:'WhatsApp phone number',contactTelegramPh:'Telegram (@username)',addressPh:'Delivery address',mapLabel:'Delivery point on map',mapPh:'Google Maps point link',openMap:'Open maps',commentPh:'Comment',checkout:'Place order',
+  cartTitle:'Cart',cartSub:'Dishes you decided to order',clear:'Clear',emptyCart:'Cart is empty<br>Add dishes from the catalog',cartTotal:'Cart total',orderSummaryTitle:'Order total',orderFoodTotal:'Food total',orderLevelDiscount:'Level discount',orderBonusSpend:'Use bonuses',orderFinalTotal:'To pay without delivery',deliveryNoteTitle:'Delivery',deliveryNoteText:'The cart total does not include delivery. A manager will calculate delivery and confirm the final amount after you place the order.',checkoutStepsTitle:'After checkout',checkoutStep1:'We receive your order and check the details.',checkoutStep2:'A manager contacts you to confirm delivery and payment.',checkoutStep3:'Bonuses and XP update after the status becomes “Paid”.',checkoutTitle:'Checkout',nameLabel:'First name',surnameLabel:'Last name',phoneLabel:'Phone',addressLabel:'Delivery address',namePh:'Enter your first name',surnamePh:'Enter your last name',phonePh:'For example, 0392459260',contactMethodLabel:'Preferred contact method',contactZaloPh:'Phone number for Zalo',contactWhatsappPh:'WhatsApp phone number',contactTelegramPh:'Telegram (@username)',addressPh:'Street, building and apartment',mapLabel:'Delivery point on map',mapPh:'Google Maps point link',openMap:'Open maps',commentPh:'Comment (optional)',checkout:'Place order',orderSending:'Sending order…',orderSendingNote:'Keep the cart open. We are sending your order to the EatFit manager.',orderFixFields:'Check the highlighted fields.',orderReady:'Order sent. Opening confirmation…',
   navLoyalty:'Bonuses',loyaltyTitle:'First-order discount and bonuses from every purchase',loyaltySub:'Join EatFit Levels, get 30,000 VND for your first order and earn bonuses for future purchases.',loyaltyPromo1:'Use 30,000 VND on your first order',loyaltyPromo2:'Earn bonuses from every purchase',loyaltyPromo3:'Higher levels unlock more value',loyaltyModalTitle:'EatFit Levels',loyaltyModalSub:'Enter your phone: if you are registered, we will open your profile; if not, we will create a new EatFit Levels account.',loyaltyRegister:'Sign in / Register',loyaltyLogout:'Log out',loyaltyGreeting:'Good to see you, {name}. Your level: {level}. Available bonuses: {balance}.',loyaltyUpdate:'Open profile',loyaltyLoading:'Checking your EatFit Levels...',loyaltyManualFallback:'The bonus service did not respond. You can continue checkout: a manager will contact you and attach bonuses manually.',loyaltyNextStep:'You can now continue to the cart: name, surname and phone are filled in, and you will choose contact method at checkout.',loyaltyWelcome:'Welcome to EatFit Levels, {name}! Your profile is ready, and the welcome bonus of {balance} is available for your first order.',loyaltyBalance:'bonuses',loyaltyLevel:'level',loyaltyXp:'XP',loyaltyOrders:'orders',loyaltyOrdersTitle:'Order history',loyaltyOrdersNote:'All orders for your phone number, details and manager-updated statuses appear here.',loyaltyOrdersEmpty:'After your first order, its history and current status will appear here.',loyaltyOrderDetails:'Details',loyaltyRepeatOrder:'Repeat order',loyaltyRepeatAdded:'Added to cart: {count}',loyaltyRepeatUnavailable:'Could not repeat this order: items were not found in the current catalog.',loyaltyOrderTotal:'To pay',loyaltyOrderUpdated:'Updated',loyaltyOrderCreated:'Created',loyaltyOrderItems:'Order items',loyaltyOrderAddress:'Address',loyaltyOrderMap:'Map point',loyaltyOrderContact:'Contact',loyaltyOrderPhone:'Phone',loyaltyOrderComment:'Comment',loyaltyOrderOriginalTotal:'Order total',loyaltyOrderDiscount:'Level discount',loyaltyOrderBonusUsed:'Bonuses used',loyaltyOrderBonusEarned:'Bonuses to earn',loyaltyOrderXpEarned:'XP after payment',loyaltyRegistered:'You are signed in to EatFit Levels. Available bonuses: {balance}.',loyaltySaved:'Registration is ready. {balance} in bonuses added.',loyaltyLoggedIn:'Profile found. Your current balance is {balance}.',loyaltyNeedDetails:'This phone is not registered yet. Fill in your name and surname.',loyaltyError:'Could not update bonuses. Please try again later.',useBonus:'Use bonuses',bonusNote:'Bonuses will be used only after payment is confirmed.',bonusApplied:'After payment: level discount {discount}, bonuses to use {applied}, bonuses to earn {earned}, XP +{xp}. Current balance: {balance}.',
   successTitle:'Thank you for your order!',successText:'Your order has been received. A manager will contact you to confirm the details and payment.',successBonusTitle:'Bonuses after payment',successOrderLabel:'Order number',
   left:'{value} {unit} left',above:'+{value} {unit} over goal',from:'of {value} {unit}',dishSelect:'Choose a dish',foodSearch:'🔍 Search dish...',selectedNow:'✓ Selected now',
@@ -1446,7 +1463,7 @@ const I18N={
   agePh:'Ví dụ: 28',heightPh:'Ví dụ: 175',weightPh:'Ví dụ: 70',tipLowTitle:'Thấp',tipLow:'Dưới 5.000 bước/ngày, làm việc văn phòng, không tập luyện.',tipMidTitle:'Vừa',tipMid:'5.000–10.000 bước/ngày, tập 2–4 buổi/tuần.',tipHighTitle:'Cao',tipHigh:'Trên 10.000 bước/ngày, tập 5+ buổi/tuần hoặc làm việc thể lực.',calcSave:'Tính và lưu mục tiêu',close:'Đóng',
   faqTitle:'Câu hỏi thường gặp',faqSub:'Thông tin ngắn gọn về giao hàng, thực đơn và đặt món.',
   plannerTitle:'Lên thực đơn',plannerSub:'Tạo thực đơn theo macro của bạn, xem trước rồi quyết định có thêm vào giỏ hàng hay không',dayGoal:'Mục tiêu trong ngày',dayGoalSub:'Phần đã chọn trong thực đơn và phần còn thiếu so với mục tiêu',noGoal:'chưa đặt mục tiêu',selectedPlanPrice:'Giá thực đơn đã chọn',mealCount:'🍽 Số bữa',yourPlan:'🍽 Thực đơn {count} bữa của bạn',meal:'Bữa',replace:'Đổi món',addPlan:'Thêm thực đơn vào giỏ',
-  cartTitle:'Giỏ hàng',cartSub:'Các món bạn đã chọn',clear:'Xóa giỏ',emptyCart:'Giỏ hàng đang trống<br>Hãy thêm món từ thực đơn',cartTotal:'Tổng tiền',orderSummaryTitle:'Tính tiền đơn hàng',orderFoodTotal:'Tổng món ăn',orderLevelDiscount:'Giảm theo cấp',orderBonusSpend:'Dùng điểm thưởng',orderFinalTotal:'Cần thanh toán chưa gồm giao hàng',deliveryNoteTitle:'Giao hàng',deliveryNoteText:'Tổng tiền trong giỏ chưa bao gồm phí giao hàng. Nhân viên sẽ tính phí giao hàng và xác nhận tổng cuối cùng sau khi bạn gửi đơn.',checkoutStepsTitle:'Sau khi gửi đơn',checkoutStep1:'EatFit nhận đơn và kiểm tra chi tiết.',checkoutStep2:'Nhân viên liên hệ để xác nhận giao hàng và thanh toán.',checkoutStep3:'Điểm thưởng và XP cập nhật sau trạng thái “Đã thanh toán”.',checkoutTitle:'Thông tin đặt hàng',namePh:'Tên',surnamePh:'Họ',phonePh:'Số điện thoại',contactMethodLabel:'Kênh liên hệ thuận tiện',contactZaloPh:'Số điện thoại dùng Zalo',contactWhatsappPh:'Số điện thoại WhatsApp',contactTelegramPh:'Telegram (@username)',addressPh:'Địa chỉ giao hàng',mapLabel:'Điểm giao hàng trên bản đồ',mapPh:'Link vị trí trên Google Maps',openMap:'Mở bản đồ',commentPh:'Ghi chú',checkout:'Gửi đơn hàng',
+  cartTitle:'Giỏ hàng',cartSub:'Các món bạn đã chọn',clear:'Xóa giỏ',emptyCart:'Giỏ hàng đang trống<br>Hãy thêm món từ thực đơn',cartTotal:'Tổng tiền',orderSummaryTitle:'Tính tiền đơn hàng',orderFoodTotal:'Tổng món ăn',orderLevelDiscount:'Giảm theo cấp',orderBonusSpend:'Dùng điểm thưởng',orderFinalTotal:'Cần thanh toán chưa gồm giao hàng',deliveryNoteTitle:'Giao hàng',deliveryNoteText:'Tổng tiền trong giỏ chưa bao gồm phí giao hàng. Nhân viên sẽ tính phí giao hàng và xác nhận tổng cuối cùng sau khi bạn gửi đơn.',checkoutStepsTitle:'Sau khi gửi đơn',checkoutStep1:'EatFit nhận đơn và kiểm tra chi tiết.',checkoutStep2:'Nhân viên liên hệ để xác nhận giao hàng và thanh toán.',checkoutStep3:'Điểm thưởng và XP cập nhật sau trạng thái “Đã thanh toán”.',checkoutTitle:'Thông tin đặt hàng',nameLabel:'Tên',surnameLabel:'Họ',phoneLabel:'Số điện thoại',addressLabel:'Địa chỉ giao hàng',namePh:'Nhập tên',surnamePh:'Nhập họ',phonePh:'Ví dụ: 0392459260',contactMethodLabel:'Kênh liên hệ thuận tiện',contactZaloPh:'Số điện thoại dùng Zalo',contactWhatsappPh:'Số điện thoại WhatsApp',contactTelegramPh:'Telegram (@username)',addressPh:'Tên đường, số nhà, căn hộ',mapLabel:'Điểm giao hàng trên bản đồ',mapPh:'Link vị trí trên Google Maps',openMap:'Mở bản đồ',commentPh:'Ghi chú (không bắt buộc)',checkout:'Gửi đơn hàng',orderSending:'Đang gửi đơn…',orderSendingNote:'Vui lòng giữ giỏ hàng mở. EatFit đang chuyển đơn đến nhân viên.',orderFixFields:'Vui lòng kiểm tra các ô được đánh dấu.',orderReady:'Đã gửi đơn. Đang mở xác nhận…',
   navLoyalty:'Điểm thưởng',loyaltyTitle:'Ưu đãi đơn đầu tiên và điểm thưởng cho mỗi lần mua',loyaltySub:'Đăng ký EatFit Levels, nhận 30.000 VND cho đơn đầu tiên và tích điểm cho các lần mua tiếp theo.',loyaltyPromo1:'Dùng 30.000 VND cho đơn đầu tiên',loyaltyPromo2:'Tích điểm từ mỗi lần mua',loyaltyPromo3:'Cấp càng cao, quyền lợi càng tốt',loyaltyModalTitle:'EatFit Levels',loyaltyModalSub:'Nhập số điện thoại: nếu bạn đã đăng ký, chúng tôi sẽ mở hồ sơ; nếu chưa, chúng tôi sẽ tạo tài khoản EatFit Levels mới.',loyaltyRegister:'Đăng nhập / Đăng ký',loyaltyLogout:'Đăng xuất',loyaltyGreeting:'Rất vui gặp lại, {name}. Cấp của bạn: {level}. Điểm hiện có: {balance}.',loyaltyUpdate:'Mở hồ sơ',loyaltyLoading:'Đang kiểm tra EatFit Levels...',loyaltyManualFallback:'Dịch vụ điểm thưởng chưa phản hồi. Bạn vẫn có thể tiếp tục đặt hàng: nhân viên sẽ liên hệ và thêm điểm thưởng thủ công.',loyaltyNextStep:'Bạn có thể tiếp tục vào giỏ hàng: tên, họ và số điện thoại đã được điền, kênh liên hệ sẽ chọn khi đặt hàng.',loyaltyWelcome:'Chào mừng bạn đến với EatFit Levels, {name}! Hồ sơ đã được tạo và {balance} điểm chào mừng đã sẵn sàng cho đơn hàng đầu tiên.',loyaltyBalance:'điểm thưởng',loyaltyLevel:'cấp độ',loyaltyXp:'XP',loyaltyOrders:'đơn hàng',loyaltyOrdersTitle:'Lịch sử đơn hàng',loyaltyOrdersNote:'Tất cả đơn hàng theo số điện thoại, chi tiết và trạng thái do nhân viên cập nhật sẽ hiển thị tại đây.',loyaltyOrdersEmpty:'Sau đơn đầu tiên, lịch sử và trạng thái hiện tại sẽ xuất hiện tại đây.',loyaltyOrderDetails:'Chi tiết',loyaltyRepeatOrder:'Đặt lại đơn này',loyaltyRepeatAdded:'Đã thêm vào giỏ: {count}',loyaltyRepeatUnavailable:'Không thể đặt lại đơn này: món không có trong thực đơn hiện tại.',loyaltyOrderTotal:'Cần thanh toán',loyaltyOrderUpdated:'Cập nhật',loyaltyOrderCreated:'Tạo lúc',loyaltyOrderItems:'Món đã đặt',loyaltyOrderAddress:'Địa chỉ',loyaltyOrderMap:'Vị trí bản đồ',loyaltyOrderContact:'Liên hệ',loyaltyOrderPhone:'Số điện thoại',loyaltyOrderComment:'Ghi chú',loyaltyOrderOriginalTotal:'Tổng đơn',loyaltyOrderDiscount:'Giảm theo cấp',loyaltyOrderBonusUsed:'Điểm đã dùng',loyaltyOrderBonusEarned:'Điểm sẽ nhận',loyaltyOrderXpEarned:'XP sau thanh toán',loyaltyRegistered:'Bạn đã đăng nhập EatFit Levels. Điểm thưởng hiện có: {balance}.',loyaltySaved:'Đăng ký thành công. Đã cộng {balance} điểm thưởng.',loyaltyLoggedIn:'Đã tìm thấy hồ sơ. Số dư hiện tại: {balance}.',loyaltyNeedDetails:'Số điện thoại này chưa đăng ký. Vui lòng nhập tên và họ.',loyaltyError:'Không thể cập nhật điểm thưởng. Vui lòng thử lại sau.',useBonus:'Dùng điểm thưởng',bonusNote:'Điểm thưởng chỉ được dùng sau khi xác nhận thanh toán.',bonusApplied:'Sau khi thanh toán: giảm theo cấp {discount}, điểm sẽ dùng {applied}, điểm sẽ cộng {earned}, XP +{xp}. Số dư hiện tại: {balance}.',
   successTitle:'Cảm ơn bạn đã đặt hàng!',successText:'Đơn hàng của bạn đã được ghi nhận. Nhân viên sẽ liên hệ để xác nhận chi tiết và thanh toán.',successBonusTitle:'Điểm thưởng sau thanh toán',successOrderLabel:'Mã đơn hàng',
   left:'còn {value} {unit}',above:'+{value} {unit} vượt mục tiêu',from:'trong tổng {value} {unit}',dishSelect:'Chọn món',foodSearch:'🔍 Tìm món...',selectedNow:'✓ Đang chọn',
@@ -1601,6 +1618,7 @@ const LOYALTY_AUTH_TEXT={
  ru:{
   subtitle:'Войдите по коду из письма, чтобы защитить бонусы и историю заказов.',
   email:'Email',send:'Отправить письмо',
+  sending:'Отправляем код…',verifying:'Проверяем код…',
   emailHint:'Мы отправим на этот адрес одноразовый код. Введите его здесь, чтобы безопасно войти в EatFit Levels.',
   create:'Продолжить',verify:'Войти по коду',sent:'Код отправлен на {email}. Введите код из письма в поле ниже.',
   otp:'Код из письма',invalidOtp:'Введите код из письма полностью.',otpError:'Код неверный или уже истёк. Проверьте письмо либо запросите новый код.',
@@ -1622,6 +1640,7 @@ const LOYALTY_AUTH_TEXT={
  en:{
   subtitle:'Use the email code to protect your bonuses and order history.',
   email:'Email',send:'Send email',
+  sending:'Sending code…',verifying:'Checking code…',
   emailHint:'We will send a one-time code to this address. Enter it here to sign in securely to EatFit Levels.',
   create:'Continue',verify:'Sign in with code',sent:'A code was sent to {email}. Enter the code from the email below.',
   otp:'Email code',invalidOtp:'Enter the complete code from the email.',otpError:'The code is incorrect or has expired. Check the email or request a new code.',
@@ -1643,6 +1662,7 @@ const LOYALTY_AUTH_TEXT={
  vi:{
   subtitle:'Dùng mã trong email để bảo vệ điểm thưởng và lịch sử đơn hàng.',
   email:'Email',send:'Gửi email',
+  sending:'Đang gửi mã…',verifying:'Đang kiểm tra mã…',
   emailHint:'Chúng tôi sẽ gửi mã dùng một lần đến địa chỉ này. Nhập mã tại đây để đăng nhập an toàn vào EatFit Levels.',
   create:'Tiếp tục',verify:'Đăng nhập bằng mã',sent:'Mã đã được gửi đến {email}. Nhập mã trong email vào ô bên dưới.',
   otp:'Mã trong email',invalidOtp:'Nhập đầy đủ mã trong email.',otpError:'Mã không đúng hoặc đã hết hạn. Kiểm tra email hoặc yêu cầu mã mới.',
@@ -2145,7 +2165,7 @@ function openLoyalty(){
  document.getElementById('loyaltyPhone').value=loyaltyUser.phone||'';
  fetchLoyaltyOrders();
  }else if(loyaltySession && loyaltyAuthStage==='signed-in'){
-  setLoyaltyResult('info',authT('profileLoading'));
+  setLoyaltyResult('loading',authT('profileLoading'));
   fetchLoyaltyStatus();
  }
  renderLoyaltyAuthState();
@@ -2275,7 +2295,8 @@ async function sendLoyaltyOtp(){
   return;
  }
  const button=document.getElementById('loyaltyAuthButton');
- if(button){button.disabled=true;button.textContent=t('loyaltyLoading');}
+ if(button){button.disabled=true;button.setAttribute('aria-busy','true');button.textContent=authT('sending');}
+ setLoyaltyResult('loading',authT('sending'));
  try{
   const redirectUrl='https://zotikovmaksim0-cmd.github.io/EatFit/';
   const response=await fetch(`${SUPABASE_URL}/auth/v1/otp?redirect_to=${encodeURIComponent(redirectUrl)}`,{
@@ -2300,8 +2321,9 @@ async function sendLoyaltyOtp(){
   const rateLimited=e.status===429 || e.code==='over_email_send_rate_limit' || /rate limit/i.test(e.message||'');
   setLoyaltyResult('error',authT(rateLimited ? 'rateLimit' : 'authError'));
  }finally{
-  if(button) button.disabled=false;
+  if(button){button.disabled=false;button.removeAttribute('aria-busy');}
   renderLoyaltyAuthState();
+  if(loyaltyAuthStage==='otp') requestAnimationFrame(()=>document.getElementById('loyaltyOtp')?.focus());
  }
 }
 
@@ -2314,7 +2336,8 @@ async function verifyLoyaltyOtp(){
   return;
  }
  const button=document.getElementById('loyaltyAuthButton');
- if(button){button.disabled=true;button.textContent=t('loyaltyLoading');}
+ if(button){button.disabled=true;button.setAttribute('aria-busy','true');button.textContent=authT('verifying');}
+ setLoyaltyResult('loading',authT('verifying'));
  try{
   const response=await fetch(`${SUPABASE_URL}/auth/v1/verify`,{
    method:'POST',
@@ -2344,8 +2367,9 @@ async function verifyLoyaltyOtp(){
  }catch(e){
   setLoyaltyResult('error',authT('otpError'));
  }finally{
-  if(button) button.disabled=false;
+  if(button){button.disabled=false;button.removeAttribute('aria-busy');}
   renderLoyaltyAuthState();
+  if(loyaltyAuthStage==='profile') requestAnimationFrame(()=>document.getElementById('loyaltyName')?.focus());
  }
 }
 
@@ -2402,7 +2426,7 @@ async function registerLoyalty(){
  const controller=new AbortController();
  const timeout=setTimeout(()=>controller.abort(),15000);
  if(button){button.disabled=true;button.textContent=t('loyaltyLoading');}
- setLoyaltyResult('info',t('loyaltyLoading'));
+ setLoyaltyResult('loading',t('loyaltyLoading'));
  try{
   if(!payload.name || !payload.surname){
    clearTimeout(timeout);
@@ -2649,6 +2673,10 @@ function applyLanguage(){
  setText('#checkoutStep2',t('checkoutStep2'));
  setText('#checkoutStep3',t('checkoutStep3'));
  setText('.checkout-section h3',t('checkoutTitle'));
+ setText('#nameLabel',t('nameLabel'));
+ setText('#surnameLabel',t('surnameLabel'));
+ setText('#phoneLabel',t('phoneLabel'));
+ setText('#addressLabel',t('addressLabel'));
  setPlaceholder('name',t('namePh'));
  setPlaceholder('surname',t('surnamePh'));
  setPlaceholder('phone',t('phonePh'));
@@ -2730,13 +2758,18 @@ function closeContacts(event){
  document.getElementById('contactModal')?.classList.remove('show');
 }
 
-function showToast(message,duration=2600){
+let toastTimer=null;
+function showToast(message,duration=2600,type='success'){
  const toast=document.getElementById('toast');
+ if(!toast) return;
+ if(toastTimer) clearTimeout(toastTimer);
  toast.textContent=message;
+ toast.className=`toast ${type}`;
  toast.classList.add('show');
- setTimeout(()=>{
+ if(duration<=0) return;
+ toastTimer=setTimeout(()=>{
    toast.classList.remove('show');
-   toast.textContent=t('toastDish');
+   toastTimer=null;
  },duration);
 }
 
@@ -3035,7 +3068,7 @@ function renderCart(){
 }
 
 function closePanels(){
- closeCart();
+  closeCart();
  closePlanner();
 }
 
@@ -3073,26 +3106,64 @@ function closePlanner(){
  }
 }
 
+function setCheckoutStatus(type,message){
+ const status=document.getElementById('checkoutStatus');
+ if(!status) return;
+ status.className=`checkout-status${message ? ' show' : ''}${type ? ` ${type}` : ''}`;
+ status.textContent=message || '';
+}
+
+function clearCheckoutFieldErrors(){
+ document.querySelectorAll('.checkout-section .field-error').forEach(field=>field.classList.remove('field-error'));
+}
+
+function markCheckoutField(id){
+ const field=document.getElementById(id);
+ if(!field) return;
+ field.classList.add('field-error');
+}
+
+function setCheckoutLoading(loading){
+ const button=document.getElementById('checkoutButton');
+ if(!button) return;
+ button.disabled=loading;
+ button.toggleAttribute('aria-busy',loading);
+ button.textContent=loading ? t('orderSending') : t('checkout');
+}
+
 
 async function checkout(){
- const name=document.getElementById('name').value;
- const surname=document.getElementById('surname').value;
- const phone=document.getElementById('phone').value;
+ const name=document.getElementById('name').value.trim();
+ const surname=document.getElementById('surname').value.trim();
+ const phone=document.getElementById('phone').value.trim();
  const normalizedPhone=normalizeVietnamPhone(phone);
  const contactMethod=document.getElementById('contactMethod').value;
- const contactValue=document.getElementById('contactValue').value;
- const address=document.getElementById('address').value;
- const deliveryMap=document.getElementById('deliveryMap').value;
- const comment=document.getElementById('comment').value;
+ const contactValue=document.getElementById('contactValue').value.trim();
+ const address=document.getElementById('address').value.trim();
+ const deliveryMap=document.getElementById('deliveryMap').value.trim();
+ const comment=document.getElementById('comment').value.trim();
  const useBonus=Boolean(loyaltyUser && document.getElementById('useBonus')?.checked);
 
- if(cart.length===0){ alert(t('alertEmptyCart')); return; }
- if(!name.trim() || !surname.trim() || !phone.trim() || !contactMethod || !contactValue.trim() || !address.trim() || !deliveryMap.trim()){
-   alert(t('alertCheckout'));
+ clearCheckoutFieldErrors();
+ setCheckoutStatus('','');
+ if(cart.length===0){
+   setCheckoutStatus('error',t('alertEmptyCart'));
+   showToast(t('alertEmptyCart'),3200,'error');
+   return;
+ }
+ const requiredFields={name,surname,phone,contactValue,address,deliveryMap};
+ const missingFields=Object.entries(requiredFields).filter(([,value])=>!value).map(([id])=>id);
+ if(!contactMethod) missingFields.push('contactMethod');
+ if(missingFields.length){
+   missingFields.forEach(markCheckoutField);
+   setCheckoutStatus('error',t('orderFixFields'));
+   document.getElementById(missingFields[0])?.focus();
    return;
  }
  if(!normalizedPhone){
-   alert(t('alertPhoneInvalid'));
+   markCheckoutField('phone');
+   setCheckoutStatus('error',t('alertPhoneInvalid'));
+   document.getElementById('phone')?.focus();
    return;
  }
  document.getElementById('phone').value=normalizedPhone;
@@ -3110,6 +3181,8 @@ async function checkout(){
 
  const orderId = generateOrderId();
 
+ setCheckoutLoading(true);
+ setCheckoutStatus('loading',t('orderSendingNote'));
  try{
    const response = await authorizedFetch('https://eatfit-bot.onrender.com/site-order',{
       method:'POST',
@@ -3137,12 +3210,15 @@ async function checkout(){
 
    if(!result.success){
       if(result.error==='invalid_phone' || result.error==='invalid_loyalty_phone'){
-         alert(t('alertPhoneInvalid'));
+         markCheckoutField('phone');
+         setCheckoutStatus('error',t('alertPhoneInvalid'));
          return;
       }
-      alert(t('alertOrderError'));
+      setCheckoutStatus('error',t('alertOrderError'));
       return;
    }
+
+   setCheckoutStatus('success',t('orderReady'));
 
    const successOrderId=document.getElementById('successOrderId');
    successOrderId.dataset.orderId=orderId;
@@ -3189,11 +3265,26 @@ async function checkout(){
    document.getElementById('comment').value='';
 
    closeCart();
+   setCheckoutStatus('','');
+   clearCheckoutFieldErrors();
 
  }catch(e){
-   alert(t('alertServer'));
+   setCheckoutStatus('error',t('alertServer'));
+ }finally{
+   setCheckoutLoading(false);
  }
 }
+
+document.querySelectorAll('.checkout-section input,.checkout-section textarea,.checkout-section select').forEach(field=>{
+ const clearFieldState=()=>{
+  field.classList.remove('field-error');
+  if(document.querySelectorAll('.checkout-section .field-error').length===0 && document.getElementById('checkoutStatus')?.classList.contains('error')){
+   setCheckoutStatus('','');
+  }
+ };
+ field.addEventListener('input',clearFieldState);
+ field.addEventListener('change',clearFieldState);
+});
 
 loyaltySession=loadLoyaltySession();
 if(loyaltySession) loyaltyAuthStage='signed-in';
