@@ -1758,6 +1758,7 @@ const WELCOME_OFFER_TEXT={
  }
 };
 const WELCOME_OFFER_DISMISS_KEY='eatfit_welcome_offer_dismissed_until';
+const WELCOME_OFFER_LANGUAGE_KEY='eatfit_welcome_offer_languages_shown';
 let welcomeOfferTimer=null;
 
 function welcomeT(key){
@@ -1793,6 +1794,30 @@ function hideWelcomeOffer(){
  document.getElementById('welcomeOffer')?.classList.remove('show');
 }
 
+function getWelcomeOfferLanguagesShown(){
+ try{
+  const value=JSON.parse(localStorage.getItem(WELCOME_OFFER_LANGUAGE_KEY) || '[]');
+  return Array.isArray(value) ? value : [];
+ }catch(_error){
+  return [];
+ }
+}
+
+function markWelcomeOfferLanguageShown(lang=currentLang){
+ const shown=new Set(getWelcomeOfferLanguagesShown());
+ shown.add(lang);
+ localStorage.setItem(WELCOME_OFFER_LANGUAGE_KEY,JSON.stringify([...shown]));
+}
+
+function showWelcomeOfferForSelectedLanguage(){
+ if(currentLang==='ru' || hasLoyaltySession() || localStorage.getItem('eatfit_pending_email')) return;
+ if(getWelcomeOfferLanguagesShown().includes(currentLang)) return;
+ clearTimeout(welcomeOfferTimer);
+ applyWelcomeOfferLanguage();
+ document.getElementById('welcomeOffer')?.classList.add('show');
+ markWelcomeOfferLanguageShown();
+}
+
 function scheduleWelcomeOffer(){
  clearTimeout(welcomeOfferTimer);
  if(!shouldShowWelcomeOffer()) return;
@@ -1800,6 +1825,7 @@ function scheduleWelcomeOffer(){
   if(!shouldShowWelcomeOffer()) return;
   applyWelcomeOfferLanguage();
   document.getElementById('welcomeOffer')?.classList.add('show');
+  markWelcomeOfferLanguageShown();
  },1200);
 }
 
@@ -2838,9 +2864,11 @@ function applyLanguage(){
 }
 
 function setLanguage(lang){
+ const previousLang=currentLang;
  currentLang=lang;
  localStorage.setItem('eatfit_lang',lang);
  applyLanguage();
+ if(lang!==previousLang) showWelcomeOfferForSelectedLanguage();
 }
 
 function generateOrderId(){
