@@ -567,6 +567,23 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .loyalty-reward b{display:block;color:#172015;font-size:14px}
 .loyalty-modal{position:fixed;inset:0;z-index:5300;display:none;align-items:center;justify-content:center;padding:22px;background:rgba(8,13,7,.68);backdrop-filter:blur(10px)}
 .loyalty-modal.show{display:flex}
+.welcome-offer{position:fixed;inset:0;z-index:5400;display:none;align-items:center;justify-content:center;padding:22px;background:rgba(8,13,7,.62);backdrop-filter:blur(9px)}
+.welcome-offer.show{display:flex}
+.welcome-offer-box{position:relative;width:min(520px,94vw);padding:28px;background:#fff;border:1px solid rgba(228,235,223,.95);border-radius:24px;box-shadow:0 30px 90px rgba(8,18,6,.32)}
+.welcome-offer-close{position:absolute;top:16px;right:16px;display:grid;place-items:center;width:40px;height:40px;border:1px solid var(--line);border-radius:50%;background:#fff;color:#172015;font-size:21px;font-weight:800;cursor:pointer}
+.welcome-offer-label{display:inline-flex;align-items:center;min-height:28px;padding:0 10px;border-radius:999px;background:#fff3bf;color:#57450e;font-size:12px;font-weight:900;text-transform:uppercase}
+.welcome-offer h2{max-width:420px;margin:16px 44px 8px 0;color:#172015;font-size:30px;line-height:1.08}
+.welcome-offer-lead{margin:0;color:#667461;font-size:16px;line-height:1.45}
+.welcome-offer-benefits{display:grid;gap:0;margin:20px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.welcome-offer-benefit{display:grid;grid-template-columns:32px minmax(0,1fr);gap:11px;align-items:start;padding:13px 0}
+.welcome-offer-benefit+.welcome-offer-benefit{border-top:1px solid var(--line)}
+.welcome-offer-number{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#eaf8e2;color:#347b22;font-size:13px;font-weight:900}
+.welcome-offer-benefit b{display:block;margin-bottom:2px;color:#172015;font-size:15px}
+.welcome-offer-benefit span{display:block;color:#667461;font-size:13px;line-height:1.4}
+.welcome-offer-actions{display:flex;align-items:center;gap:10px}
+.welcome-offer-primary{flex:1;min-height:50px}
+.welcome-offer-secondary{min-height:50px;padding:0 16px;border:0;background:transparent;color:#667461;font:inherit;font-weight:800;cursor:pointer}
+.welcome-offer-note{margin:12px 0 0;color:#82907e;font-size:12px;text-align:center}
 .loyalty-box{width:min(760px,94vw);max-height:92vh;overflow:auto;background:linear-gradient(145deg,#fff,#f7fbf3);border:1px solid rgba(228,235,223,.95);border-radius:30px;padding:26px;box-shadow:0 30px 90px rgba(8,18,6,.32)}
 .loyalty-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:18px}
 .loyalty-head h2{margin:0;font-size:28px;letter-spacing:-.6px;color:#172015}
@@ -744,6 +761,13 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .plan-actions{position:sticky;bottom:-28px;margin:18px -28px -28px;padding:14px 28px 18px;background:rgba(247,249,245,.96);border-top:1px solid var(--line);backdrop-filter:blur(12px);z-index:12}
 .add-plan-btn{width:100%;min-height:48px;font-size:16px}
 @media(max-width:650px){
+ .welcome-offer{align-items:flex-end;padding:0}
+ .welcome-offer-box{width:100%;max-width:none;max-height:92dvh;overflow-y:auto;padding:22px 18px calc(18px + env(safe-area-inset-bottom));border-radius:22px 22px 0 0}
+ .welcome-offer h2{margin-top:14px;font-size:26px}
+ .welcome-offer-benefits{margin:16px 0}
+ .welcome-offer-actions{display:grid;grid-template-columns:1fr}
+ .welcome-offer-primary,.welcome-offer-secondary{width:100%}
+ .welcome-offer-secondary{min-height:42px}
  .site-header{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding:12px 14px;align-items:center}.header-auth-btn{display:none}.menu-toggle{display:grid}.site-actions{grid-column:1/-1;display:none;width:100%;gap:6px;border-radius:18px}.site-header.menu-open .site-actions{display:flex}.site-actions .action-btn.primary,.site-actions .cart-btn{display:none}.action-btn,.cart-btn{min-height:38px;padding:0 10px;font-size:12px;border-radius:13px}.language-switch{width:30px;height:30px;min-width:30px}.brand-title{font-size:17px}.brand-mark{width:42px;height:42px}.contact-box{padding:20px;border-radius:24px}.contact-head h2{font-size:23px}.quick-view-modal{padding:12px}.quick-view-media{height:260px}.quick-view-body{padding:18px}.quick-view-head h2{font-size:23px}.quick-view-macros{grid-template-columns:repeat(2,minmax(0,1fr))}.quick-view-footer{display:grid}.quick-view-footer .btn{width:100%}
  .kbju-modal{padding:12px}.kbju-modal-head{padding:22px 18px 16px}.kbju-modal-head h2{font-size:24px}.kbju-form{padding:18px}.kbju-grid,.kbju-tips{grid-template-columns:1fr}.kbju-wide,.kbju-two{grid-column:auto}.kbju-actions{display:grid}.kbju-primary,.kbju-secondary{width:100%}
 .hero{min-height:500px;padding:34px 18px 24px;background-position:58% center}.hero h2{font-size:34px;line-height:1.05}.hero p{font-size:15px}.hero-actions{margin-top:18px}.hero-cta{height:48px;border-radius:13px}.hero-points{gap:8px}.hero-point{width:100%;justify-content:flex-start}.kbju-saved-card,.loyalty-card{padding:0 16px}.kbju-saved-inner,.loyalty-inner{display:block}.loyalty-main{margin-bottom:12px}.kbju-saved-stats,.kbju-saved-actions,.loyalty-stats,.loyalty-actions{margin-top:12px}.loyalty-current-perks{grid-template-columns:1fr}.loyalty-benefits{grid-template-columns:1fr}.loyalty-levels{grid-template-columns:repeat(2,minmax(0,1fr))}.loyalty-rewards{grid-template-columns:1fr}.loyalty-profile.show{grid-template-columns:repeat(2,1fr)}.loyalty-order-card{grid-template-columns:1fr}.loyalty-order-side{text-align:left;white-space:normal}.loyalty-order-summary{display:grid}.loyalty-order-details{grid-template-columns:1fr}.loyalty-order-detail.wide{grid-column:auto}
@@ -1009,6 +1033,25 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <button id="quickViewAdd" class="btn" onclick="">В корзину</button>
 </div>
 </div>
+</div>
+</div>
+
+<div id="welcomeOffer" class="welcome-offer" onclick="dismissWelcomeOffer(event)" role="dialog" aria-modal="true" aria-labelledby="welcomeOfferTitle">
+<div class="welcome-offer-box" onclick="event.stopPropagation()">
+<button class="welcome-offer-close" type="button" onclick="dismissWelcomeOffer()" aria-label="Закрыть">×</button>
+<span id="welcomeOfferLabel" class="welcome-offer-label">EatFit Levels</span>
+<h2 id="welcomeOfferTitle">Получите выгоду уже с первого заказа</h2>
+<p id="welcomeOfferLead" class="welcome-offer-lead">Быстрая регистрация по email откроет скидку, бонусы и историю заказов.</p>
+<div class="welcome-offer-benefits">
+<div class="welcome-offer-benefit"><span class="welcome-offer-number">1</span><div><b id="welcomeOfferBenefit1Title">30 000 VND на первый заказ</b><span id="welcomeOfferBenefit1Text">Используйте приветственные бонусы в корзине.</span></div></div>
+<div class="welcome-offer-benefit"><span class="welcome-offer-number">2</span><div><b id="welcomeOfferBenefit2Title">Бонусы с каждой покупки</b><span id="welcomeOfferBenefit2Text">Чем выше уровень, тем больше возвращается на баланс.</span></div></div>
+<div class="welcome-offer-benefit"><span class="welcome-offer-number">3</span><div><b id="welcomeOfferBenefit3Title">Все заказы в одном профиле</b><span id="welcomeOfferBenefit3Text">Следите за статусами и повторяйте прошлые заказы.</span></div></div>
+</div>
+<div class="welcome-offer-actions">
+<button id="welcomeOfferPrimary" class="btn welcome-offer-primary" type="button" onclick="acceptWelcomeOffer()">Получить 30 000 VND</button>
+<button id="welcomeOfferSecondary" class="welcome-offer-secondary" type="button" onclick="dismissWelcomeOffer()">Не сейчас</button>
+</div>
+<p id="welcomeOfferNote" class="welcome-offer-note">Регистрация занимает меньше минуты.</p>
 </div>
 </div>
 
@@ -1687,6 +1730,94 @@ function authT(key,params={}){
  const copy=(LOYALTY_AUTH_TEXT[currentLang] || LOYALTY_AUTH_TEXT.ru)[key] || key;
  return Object.entries(params).reduce((value,[name,replacement])=>value.replaceAll(`{${name}}`,replacement),copy);
 }
+
+const WELCOME_OFFER_TEXT={
+ ru:{
+  title:'Получите выгоду уже с первого заказа',
+  lead:'Быстрая регистрация по email откроет скидку, бонусы и историю заказов.',
+  benefit1Title:'30 000 VND на первый заказ',benefit1Text:'Используйте приветственные бонусы прямо в корзине.',
+  benefit2Title:'Бонусы с каждой покупки',benefit2Text:'Чем выше уровень, тем больше возвращается на баланс.',
+  benefit3Title:'Все заказы в одном профиле',benefit3Text:'Следите за статусами и повторяйте прошлые заказы.',
+  primary:'Получить 30 000 VND',secondary:'Не сейчас',note:'Регистрация занимает меньше минуты.'
+ },
+ en:{
+  title:'Save from your very first order',
+  lead:'Quick email sign-in unlocks your welcome discount, rewards and order history.',
+  benefit1Title:'30,000 VND for your first order',benefit1Text:'Use your welcome rewards directly in the cart.',
+  benefit2Title:'Rewards from every purchase',benefit2Text:'Higher levels return more value to your balance.',
+  benefit3Title:'Every order in one profile',benefit3Text:'Track statuses and repeat previous orders.',
+  primary:'Get 30,000 VND',secondary:'Not now',note:'Registration takes less than a minute.'
+ },
+ vi:{
+  title:'Nhận ưu đãi ngay từ đơn đầu tiên',
+  lead:'Đăng nhập nhanh bằng email để mở ưu đãi chào mừng, điểm thưởng và lịch sử đơn hàng.',
+  benefit1Title:'30.000 VND cho đơn đầu tiên',benefit1Text:'Dùng điểm chào mừng trực tiếp trong giỏ hàng.',
+  benefit2Title:'Tích điểm sau mỗi lần mua',benefit2Text:'Cấp càng cao, số điểm hoàn lại càng nhiều.',
+  benefit3Title:'Mọi đơn hàng trong một hồ sơ',benefit3Text:'Theo dõi trạng thái và đặt lại đơn cũ.',
+  primary:'Nhận 30.000 VND',secondary:'Để sau',note:'Đăng ký mất chưa đến một phút.'
+ }
+};
+const WELCOME_OFFER_DISMISS_KEY='eatfit_welcome_offer_dismissed_until';
+let welcomeOfferTimer=null;
+
+function welcomeT(key){
+ return (WELCOME_OFFER_TEXT[currentLang] || WELCOME_OFFER_TEXT.ru)[key] || key;
+}
+
+function applyWelcomeOfferLanguage(){
+ setText('#welcomeOfferTitle',welcomeT('title'));
+ setText('#welcomeOfferLead',welcomeT('lead'));
+ setText('#welcomeOfferBenefit1Title',welcomeT('benefit1Title'));
+ setText('#welcomeOfferBenefit1Text',welcomeT('benefit1Text'));
+ setText('#welcomeOfferBenefit2Title',welcomeT('benefit2Title'));
+ setText('#welcomeOfferBenefit2Text',welcomeT('benefit2Text'));
+ setText('#welcomeOfferBenefit3Title',welcomeT('benefit3Title'));
+ setText('#welcomeOfferBenefit3Text',welcomeT('benefit3Text'));
+ setText('#welcomeOfferPrimary',welcomeT('primary'));
+ setText('#welcomeOfferSecondary',welcomeT('secondary'));
+ setText('#welcomeOfferNote',welcomeT('note'));
+ const closeButton=document.querySelector('.welcome-offer-close');
+ if(closeButton) closeButton.setAttribute('aria-label',t('close'));
+}
+
+function shouldShowWelcomeOffer(){
+ if(hasLoyaltySession() || localStorage.getItem('eatfit_pending_email')) return false;
+ if(Number(localStorage.getItem(WELCOME_OFFER_DISMISS_KEY) || 0)>Date.now()) return false;
+ if(document.getElementById('loyaltyModal')?.classList.contains('show')) return false;
+ const authHash=new URLSearchParams(location.hash.replace(/^#/,''));
+ return !authHash.has('error') && !authHash.has('access_token');
+}
+
+function hideWelcomeOffer(){
+ clearTimeout(welcomeOfferTimer);
+ document.getElementById('welcomeOffer')?.classList.remove('show');
+}
+
+function scheduleWelcomeOffer(){
+ clearTimeout(welcomeOfferTimer);
+ if(!shouldShowWelcomeOffer()) return;
+ welcomeOfferTimer=setTimeout(()=>{
+  if(!shouldShowWelcomeOffer()) return;
+  applyWelcomeOfferLanguage();
+  document.getElementById('welcomeOffer')?.classList.add('show');
+ },1200);
+}
+
+function dismissWelcomeOffer(event){
+ if(event && event.target?.id!=='welcomeOffer') return;
+ hideWelcomeOffer();
+ localStorage.setItem(WELCOME_OFFER_DISMISS_KEY,String(Date.now()+7*24*60*60*1000));
+}
+
+function acceptWelcomeOffer(){
+ hideWelcomeOffer();
+ localStorage.setItem(WELCOME_OFFER_DISMISS_KEY,String(Date.now()+24*60*60*1000));
+ openLoyalty();
+}
+
+document.addEventListener('keydown',event=>{
+ if(event.key==='Escape' && document.getElementById('welcomeOffer')?.classList.contains('show')) dismissWelcomeOffer();
+});
 
 function currentLoyaltyPhone(){
  return loyaltyUser?.phone || '';
@@ -2542,6 +2673,7 @@ function applyLanguage(){
  const mobileCartBar=document.getElementById('mobileCartBar');
  if(mobileCartBar) mobileCartBar.setAttribute('aria-label',t('mobileNavigation'));
  document.querySelectorAll('.quick-view-close,.loyalty-close,.contact-close,.kbju-close,.close-cart').forEach(button=>button.setAttribute('aria-label',t('close')));
+ applyWelcomeOfferLanguage();
  const quickPrev=document.getElementById('quickPrev');
  if(quickPrev) quickPrev.setAttribute('aria-label',t('previousPhoto'));
  const quickNext=document.getElementById('quickNext');
@@ -3289,7 +3421,7 @@ document.querySelectorAll('.checkout-section input,.checkout-section textarea,.c
 loyaltySession=loadLoyaltySession();
 if(loyaltySession) loyaltyAuthStage='signed-in';
 renderLoyaltyAuthState();
-restoreLoyaltyAuth();
+restoreLoyaltyAuth().finally(scheduleWelcomeOffer);
 
 fetch('data/products.json')
 .then(r=>r.json())
