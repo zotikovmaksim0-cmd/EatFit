@@ -1065,16 +1065,16 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <button class="loyalty-close" onclick="closeLoyalty()" aria-label="Закрыть">×</button>
 </div>
 <div id="loyaltyEmailFields" class="loyalty-auth-fields">
+<div id="loyaltyAuthFields" class="loyalty-auth-fields">
+<input id="loyaltyName" autocomplete="given-name" placeholder="Имя">
+<input id="loyaltySurname" autocomplete="family-name" placeholder="Фамилия">
+<input id="loyaltyPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="Телефон">
+</div>
 <input id="loyaltyEmail" type="email" autocomplete="email" placeholder="Email">
 <p id="loyaltyEmailHint" class="loyalty-email-hint"></p>
 </div>
 <div id="loyaltyOtpFields" class="loyalty-auth-fields loyalty-otp-fields">
 <input id="loyaltyOtp" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="10" pattern="[0-9]*" placeholder="000000">
-</div>
-<div id="loyaltyAuthFields" class="loyalty-auth-fields hidden">
-<input id="loyaltyName" placeholder="Имя">
-<input id="loyaltySurname" placeholder="Фамилия">
-<input id="loyaltyPhone" placeholder="Телефон">
 </div>
 <div id="loyaltyGreeting" class="loyalty-greeting"></div>
 <div id="loyaltyProfile" class="loyalty-profile"></div>
@@ -1659,10 +1659,11 @@ function formatOrderDate(value){
 
 const LOYALTY_AUTH_TEXT={
  ru:{
-  subtitle:'Войдите по коду из письма, чтобы защитить бонусы и историю заказов.',
+  subtitle:'Заполните данные и подтвердите email кодом из письма. После этого профиль и приветственные бонусы откроются автоматически.',
   email:'Email',send:'Отправить письмо',
   sending:'Отправляем код…',verifying:'Проверяем код…',
-  emailHint:'Мы отправим на этот адрес одноразовый код. Введите его здесь, чтобы безопасно войти в EatFit Levels.',
+  detailsRequired:'Укажите имя и фамилию.',retryProfile:'Завершить создание профиля',
+  emailHint:'Сначала заполните имя, фамилию, телефон и email. Мы отправим одноразовый код только после проверки этих данных.',
   create:'Продолжить',verify:'Войти по коду',sent:'Код отправлен на {email}. Введите код из письма в поле ниже.',
   otp:'Код из письма',invalidOtp:'Введите код из письма полностью.',otpError:'Код неверный или уже истёк. Проверьте письмо либо запросите новый код.',
   profile:'Email подтверждён. Укажите данные один раз, чтобы безопасно привязать ранее созданный профиль EatFit. Если профиля ещё нет, мы создадим его.',
@@ -1671,9 +1672,9 @@ const LOYALTY_AUTH_TEXT={
   rateLimit:'Слишком много писем было запрошено за короткое время. Отправка временно ограничена почтовым сервисом. Попробуйте снова примерно через час.',
   linkExpired:'Эта ссылка уже использована или срок её действия истёк. Введите email и запросите новое письмо.',
   linkInvalid:'Не удалось подтвердить email по этой ссылке. Введите email и запросите новое письмо.',
-  profileLoading:'Загружаем ваш профиль и бонусы…',
-  otpAccepted:'Код подтверждён. Загружаем ваш профиль и бонусы…',
-  profileLoadError:'Сервер профиля пока не ответил. Закройте и снова откройте окно «Профиль», чтобы повторить загрузку.',
+  profileLoading:'Создаём или открываем ваш профиль EatFit Levels…',
+  otpAccepted:'Код подтверждён. Создаём или открываем ваш профиль…',
+  profileLoadError:'Email подтверждён, но сервис профиля пока запускается. Данные сохранены — нажмите «Завершить создание профиля» через несколько секунд.',
   conflict:'Этот номер уже связан с другим профилем. Напишите менеджеру EatFit.',
   mismatch:'Для переноса старого профиля укажите те же имя и фамилию, что использовали ранее.',
   resend:'Отправить новый код',resendIn:'Новый код можно запросить через {seconds} сек.',
@@ -1681,10 +1682,11 @@ const LOYALTY_AUTH_TEXT={
   idleWarning:'Сессия завершится через минуту из-за бездействия.',idleLogout:'Вы вышли из профиля после 30 минут бездействия.'
  },
  en:{
-  subtitle:'Use the email code to protect your bonuses and order history.',
+  subtitle:'Enter your details and confirm your email with the code. Your profile and welcome bonus will then open automatically.',
   email:'Email',send:'Send email',
   sending:'Sending code…',verifying:'Checking code…',
-  emailHint:'We will send a one-time code to this address. Enter it here to sign in securely to EatFit Levels.',
+  detailsRequired:'Enter your first and last name.',retryProfile:'Finish creating profile',
+  emailHint:'First enter your first name, last name, phone and email. We will send a one-time code after checking these details.',
   create:'Continue',verify:'Sign in with code',sent:'A code was sent to {email}. Enter the code from the email below.',
   otp:'Email code',invalidOtp:'Enter the complete code from the email.',otpError:'The code is incorrect or has expired. Check the email or request a new code.',
   profile:'Email verified. Enter your details once to securely link an existing EatFit profile. If you do not have one, we will create it.',
@@ -1693,9 +1695,9 @@ const LOYALTY_AUTH_TEXT={
   rateLimit:'Too many emails were requested in a short time. Email delivery is temporarily limited. Please try again in about one hour.',
   linkExpired:'This link has already been used or has expired. Enter your email and request a new message.',
   linkInvalid:'We could not confirm your email with this link. Enter your email and request a new message.',
-  profileLoading:'Loading your profile and bonuses…',
-  otpAccepted:'Code confirmed. Loading your profile and bonuses…',
-  profileLoadError:'The profile server did not respond yet. Close and reopen Profile to try again.',
+  profileLoading:'Creating or opening your EatFit Levels profile…',
+  otpAccepted:'Code confirmed. Creating or opening your profile…',
+  profileLoadError:'Your email is confirmed, but the profile service is still starting. Your details are saved — try “Finish creating profile” again in a few seconds.',
   conflict:'This phone is linked to another profile. Contact the EatFit manager.',
   mismatch:'To move your old profile, enter the same first and last name you used before.',
   resend:'Send a new code',resendIn:'You can request a new code in {seconds} sec.',
@@ -1703,10 +1705,11 @@ const LOYALTY_AUTH_TEXT={
   idleWarning:'Your session will end in one minute due to inactivity.',idleLogout:'You were signed out after 30 minutes of inactivity.'
  },
  vi:{
-  subtitle:'Dùng mã trong email để bảo vệ điểm thưởng và lịch sử đơn hàng.',
+  subtitle:'Nhập thông tin và xác nhận email bằng mã. Hồ sơ và điểm chào mừng sẽ tự động mở sau đó.',
   email:'Email',send:'Gửi email',
   sending:'Đang gửi mã…',verifying:'Đang kiểm tra mã…',
-  emailHint:'Chúng tôi sẽ gửi mã dùng một lần đến địa chỉ này. Nhập mã tại đây để đăng nhập an toàn vào EatFit Levels.',
+  detailsRequired:'Vui lòng nhập tên và họ.',retryProfile:'Hoàn tất tạo hồ sơ',
+  emailHint:'Trước tiên hãy nhập tên, họ, số điện thoại và email. Chúng tôi chỉ gửi mã dùng một lần sau khi kiểm tra các thông tin này.',
   create:'Tiếp tục',verify:'Đăng nhập bằng mã',sent:'Mã đã được gửi đến {email}. Nhập mã trong email vào ô bên dưới.',
   otp:'Mã trong email',invalidOtp:'Nhập đầy đủ mã trong email.',otpError:'Mã không đúng hoặc đã hết hạn. Kiểm tra email hoặc yêu cầu mã mới.',
   profile:'Email đã được xác nhận. Nhập thông tin một lần để liên kết an toàn với hồ sơ EatFit hiện có. Nếu chưa có hồ sơ, chúng tôi sẽ tạo mới.',
@@ -1715,9 +1718,9 @@ const LOYALTY_AUTH_TEXT={
   rateLimit:'Đã yêu cầu quá nhiều email trong thời gian ngắn. Dịch vụ email tạm thời giới hạn gửi thư. Vui lòng thử lại sau khoảng một giờ.',
   linkExpired:'Liên kết này đã được sử dụng hoặc đã hết hạn. Nhập email và yêu cầu gửi thư mới.',
   linkInvalid:'Không thể xác nhận email bằng liên kết này. Nhập email và yêu cầu gửi thư mới.',
-  profileLoading:'Đang tải hồ sơ và điểm thưởng của bạn…',
-  otpAccepted:'Mã đã được xác nhận. Đang tải hồ sơ và điểm thưởng của bạn…',
-  profileLoadError:'Máy chủ hồ sơ chưa phản hồi. Hãy đóng và mở lại Hồ sơ để thử lại.',
+  profileLoading:'Đang tạo hoặc mở hồ sơ EatFit Levels của bạn…',
+  otpAccepted:'Mã đã được xác nhận. Đang tạo hoặc mở hồ sơ của bạn…',
+  profileLoadError:'Email đã được xác nhận nhưng dịch vụ hồ sơ vẫn đang khởi động. Thông tin đã được lưu — hãy thử “Hoàn tất tạo hồ sơ” sau vài giây.',
   conflict:'Số điện thoại này đã liên kết với hồ sơ khác. Hãy liên hệ quản lý EatFit.',
   mismatch:'Để chuyển hồ sơ cũ, hãy nhập đúng họ tên đã dùng trước đây.',
   resend:'Gửi mã mới',resendIn:'Có thể yêu cầu mã mới sau {seconds} giây.',
@@ -2090,7 +2093,35 @@ function clearPendingLoyaltyEmail(){
  localStorage.removeItem('eatfit_pending_email_expires_at');
 }
 
+function savePendingLoyaltyProfile(profile){
+ localStorage.setItem('eatfit_pending_loyalty_profile',JSON.stringify(profile));
+}
+
+function restorePendingLoyaltyProfile(){
+ try{
+  const profile=JSON.parse(localStorage.getItem('eatfit_pending_loyalty_profile') || 'null');
+  if(!profile) return false;
+  document.getElementById('loyaltyName').value=profile.name || '';
+  document.getElementById('loyaltySurname').value=profile.surname || '';
+  document.getElementById('loyaltyPhone').value=profile.phone || '';
+  if(profile.email) document.getElementById('loyaltyEmail').value=profile.email;
+  return true;
+ }catch(e){
+  localStorage.removeItem('eatfit_pending_loyalty_profile');
+  return false;
+ }
+}
+
+function clearPendingLoyaltyProfile(){
+ localStorage.removeItem('eatfit_pending_loyalty_profile');
+}
+
+function warmLoyaltyServer(){
+ fetch(`${API_BASE}/`,{method:'GET',mode:'no-cors',cache:'no-store'}).catch(()=>{});
+}
+
 function restorePendingLoyaltyEmail(){
+ restorePendingLoyaltyProfile();
  const email=localStorage.getItem('eatfit_pending_email') || '';
  const expiresAt=Number(localStorage.getItem('eatfit_pending_email_expires_at') || 0);
  if(email && expiresAt>Date.now()){
@@ -2314,6 +2345,7 @@ function renderLoyalty(){
 
 function openLoyalty(){
  document.getElementById('loyaltyModal')?.classList.add('show');
+ warmLoyaltyServer();
  setLoyaltyResult('','');
  if(loyaltySession?.user?.email) document.getElementById('loyaltyEmail').value=loyaltySession.user.email;
  if(loyaltyUser){
@@ -2324,6 +2356,16 @@ function openLoyalty(){
  }else if(loyaltySession && loyaltyAuthStage==='signed-in'){
   setLoyaltyResult('loading',authT('profileLoading'));
   fetchLoyaltyStatus();
+ }else{
+  const restored=restorePendingLoyaltyProfile();
+  if(!restored){
+   const checkoutName=document.getElementById('name')?.value.trim() || '';
+   const checkoutSurname=document.getElementById('surname')?.value.trim() || '';
+   const checkoutPhone=document.getElementById('phone')?.value.trim() || '';
+   if(checkoutName) document.getElementById('loyaltyName').value=checkoutName;
+   if(checkoutSurname) document.getElementById('loyaltySurname').value=checkoutSurname;
+   if(checkoutPhone) document.getElementById('loyaltyPhone').value=checkoutPhone;
+  }
  }
  renderLoyaltyAuthState();
  renderLoyaltyProfile();
@@ -2372,9 +2414,9 @@ function renderLoyaltyAuthState(){
  const profileReady=Boolean(loyaltyUser);
  setText('#headerAuthButton',authenticated ? t('navProfile') : t('navAccount'));
  setText('#mobileDockProfile',authenticated ? t('navProfile') : t('navAccount'));
- if(emailFields) emailFields.classList.toggle('hidden',authenticated || loyaltyAuthStage!=='email');
+ if(emailFields) emailFields.classList.toggle('hidden',profileReady || !['email','profile'].includes(loyaltyAuthStage));
  if(otpFields) otpFields.classList.toggle('show',!authenticated && loyaltyAuthStage==='otp');
- if(fields) fields.classList.toggle('hidden',profileReady || loyaltyAuthStage!=='profile');
+ if(fields) fields.classList.toggle('hidden',profileReady || !['email','profile'].includes(loyaltyAuthStage));
  if(greeting){
   greeting.classList.toggle('show',Boolean(loyaltyUser));
   if(loyaltyUser){
@@ -2386,7 +2428,7 @@ function renderLoyaltyAuthState(){
  }
  if(button){
   button.style.display=profileReady || loyaltyAuthStage==='signed-in' ? 'none' : '';
-  if(loyaltyAuthStage==='profile') button.textContent=authT('create');
+  if(loyaltyAuthStage==='profile') button.textContent=authT('retryProfile');
   else if(loyaltyAuthStage==='otp') button.textContent=authT('verify');
   else button.textContent=authT('send');
  }
@@ -2420,6 +2462,7 @@ async function logoutLoyalty(automatic=false){
  loyaltyOrders=[];
  loyaltyAuthStage='email';
  clearPendingLoyaltyEmail();
+ clearPendingLoyaltyProfile();
  document.getElementById('loyaltyEmail').value='';
  document.getElementById('loyaltyOtp').value='';
  document.getElementById('loyaltyName').value='';
@@ -2447,10 +2490,24 @@ function copyLoyaltyToCheckout(user){
 
 async function sendLoyaltyOtp(){
  const email=document.getElementById('loyaltyEmail').value.trim().toLowerCase();
+ const name=document.getElementById('loyaltyName').value.trim();
+ const surname=document.getElementById('loyaltySurname').value.trim();
+ const phone=normalizeVietnamPhone(document.getElementById('loyaltyPhone').value);
+ if(!name || !surname){
+  setLoyaltyResult('error',authT('detailsRequired'));
+  return;
+ }
+ if(!phone){
+  setLoyaltyResult('error',t('alertPhoneInvalid'));
+  return;
+ }
  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
   setLoyaltyResult('error',authT('invalidEmail'));
   return;
  }
+ document.getElementById('loyaltyPhone').value=phone;
+ savePendingLoyaltyProfile({name,surname,phone,email});
+ warmLoyaltyServer();
  const button=document.getElementById('loyaltyAuthButton');
  if(button){button.disabled=true;button.setAttribute('aria-busy','true');button.textContent=authT('sending');}
  setLoyaltyResult('loading',authT('sending'));
@@ -2517,10 +2574,10 @@ async function verifyLoyaltyOtp(){
   loyaltyAuthStage='signed-in';
   setLoyaltyResult('info',authT('otpAccepted'));
   renderLoyaltyAuthState();
-  await fetchLoyaltyStatus();
-  setLoyaltyResult('info',loyaltyUser
-   ? t('loyaltyLoggedIn',{balance:formatVnd(loyaltyUser.bonus_balance)})
-   : authT('profile'));
+  const profileReady=await registerLoyalty(true);
+  if(!profileReady){
+   loyaltyAuthStage='profile';
+  }
  }catch(e){
   setLoyaltyResult('error',authT('otpError'));
  }finally{
@@ -2566,7 +2623,7 @@ async function resendLoyaltyOtp(){
  await sendLoyaltyOtp();
 }
 
-async function registerLoyalty(){
+async function registerLoyalty(automatic=false){
  const normalizedPhone=normalizeVietnamPhone(document.getElementById('loyaltyPhone').value);
  const payload={
   name:document.getElementById('loyaltyName').value.trim(),
@@ -2575,20 +2632,20 @@ async function registerLoyalty(){
  };
  if(!payload.phone){
   setLoyaltyResult('error',t('alertPhoneInvalid'));
-  return;
+  return false;
  }
  document.getElementById('loyaltyPhone').value=payload.phone;
  const button=document.getElementById('loyaltyAuthButton');
  const buttonText=button ? button.textContent : '';
  const controller=new AbortController();
- const timeout=setTimeout(()=>controller.abort(),15000);
+ const timeout=setTimeout(()=>controller.abort(),12000);
  if(button){button.disabled=true;button.textContent=t('loyaltyLoading');}
  setLoyaltyResult('loading',t('loyaltyLoading'));
  try{
   if(!payload.name || !payload.surname){
    clearTimeout(timeout);
-   setLoyaltyResult('error',t('loyaltyNeedDetails'));
-   return;
+   setLoyaltyResult('error',authT('detailsRequired'));
+   return false;
   }
   const response=await authorizedFetch(`${API_BASE}/loyalty-register`,{
    method:'POST',
@@ -2601,20 +2658,21 @@ async function registerLoyalty(){
   if(!data.success){
    if(data.error==='invalid_phone'){
     setLoyaltyResult('error',t('alertPhoneInvalid'));
-    return;
+    return false;
    }
    if(data.error==='phone_already_registered' || data.error==='account_already_linked'){
     setLoyaltyResult('error',authT('conflict'));
-    return;
+    return false;
    }
    if(data.error==='profile_mismatch'){
     setLoyaltyResult('error',authT('mismatch'));
-    return;
+    return false;
    }
    throw new Error(data.error||'loyalty');
   }
   loyaltyUser=data.user;
   loyaltyAuthStage='signed-in';
+  clearPendingLoyaltyProfile();
   const displayName=[loyaltyUser.name,loyaltyUser.surname].filter(Boolean).join(' ') || loyaltyUser.phone || 'EatFit';
   const message=data.is_new
    ? t('loyaltyWelcome',{name:displayName,balance:formatVnd(loyaltyUser.bonus_balance)})
@@ -2625,6 +2683,7 @@ async function registerLoyalty(){
   renderLoyalty();
   renderLoyaltyProfile();
   fetchLoyaltyOrders();
+  return true;
  }catch(e){
   clearTimeout(timeout);
   const pendingUser={
@@ -2635,7 +2694,9 @@ async function registerLoyalty(){
    orders_count:0
   };
   copyLoyaltyToCheckout(pendingUser);
-  setLoyaltyResult('error',t('loyaltyManualFallback'));
+  loyaltyAuthStage='profile';
+  setLoyaltyResult('error',automatic ? authT('profileLoadError') : t('loyaltyManualFallback'));
+  return false;
  }finally{
   if(button){
    button.disabled=false;
