@@ -427,6 +427,8 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .quick-view-box{width:min(860px,94vw);max-height:92vh;overflow:auto;background:#fff;border:1px solid rgba(228,235,223,.95);border-radius:28px;box-shadow:0 30px 90px rgba(8,18,6,.32)}
 .quick-view-media{height:min(62vh,560px);background:#111411;overflow:hidden}
 .quick-view-media img{width:100%;height:100%;object-fit:contain}
+.product-photo-placeholder{position:absolute;inset:0;z-index:2;display:none;place-items:center;padding:20px;background:linear-gradient(145deg,#162016,#293727);color:#fff;font-weight:900;text-align:center}
+.product-photo-placeholder.show{display:grid}
 .quick-view-body{padding:24px}
 .quick-view-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}
 .quick-view-head h2{margin:0;color:#172015;font-size:28px;line-height:1.12}
@@ -435,6 +437,13 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .quick-view-details{display:grid;gap:8px;margin:0 0 16px}
 .quick-view-detail{padding:10px 12px;border:1px solid #e7efe2;border-radius:14px;background:#f8fbf5;color:#53624e;font-size:13px;line-height:1.42}
 .quick-view-detail b{display:block;margin-bottom:3px;color:#172015;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.product-sizes{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:4px 0}
+.product-size-label{width:100%;color:#667461;font-size:12px;font-weight:900}
+.product-size-btn{min-width:64px;height:40px;padding:0 12px;border:1px solid #dce8d6;border-radius:12px;background:#fff;color:#172015;font-weight:900;cursor:pointer}
+.product-size-btn.active{border-color:var(--green);background:#edf8e8;box-shadow:0 0 0 3px rgba(99,189,43,.12)}
+.product-size-btn:disabled{cursor:not-allowed;opacity:.5;background:#f2f4f1}
+.product-size-btn small{display:block;font-size:9px;font-weight:800}
+.quick-view-sizes{margin:14px 0 4px}
 .quick-view-macros{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:16px 0}
 .quick-view-macro{padding:12px;border-radius:14px;background:#f4f8f1;border:1px solid #e7efe2;text-align:center;color:#667461;font-size:12px;font-weight:800}
 .quick-view-macro b{display:block;margin-bottom:3px;color:#172015;font-size:18px}
@@ -676,7 +685,8 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 .clear-btn{padding:0 13px;font-size:13px}
 .close-cart{width:40px;float:none;font-size:20px}
 .cart-item{display:grid;grid-template-columns:76px minmax(0,1fr) auto;gap:15px;align-items:center;margin:0 0 10px;padding:12px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 5px 18px rgba(31,55,24,.045)}
-.cart-item img{width:76px;height:76px;min-width:0;border-radius:13px}
+.cart-item-thumb{display:grid;place-items:center;width:76px;height:76px;overflow:hidden;border-radius:13px;background:#1b281a;color:#fff;text-align:center;font-size:11px;font-weight:800;line-height:1.25}
+.cart-item img{width:100%;height:100%;min-width:0;border-radius:0}
 .cart-item-info{min-width:0}
 .cart-item-name{display:block;margin-bottom:7px;font-size:16px;line-height:1.25}
 .cart-item-meta{display:flex;flex-wrap:wrap;gap:5px;color:var(--muted);font-size:12px}
@@ -777,8 +787,9 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
  .loyalty-greeting.show{align-items:flex-start;flex-direction:column}.loyalty-inline-logout{width:100%}
  .catalog-shell{margin:16px auto 10px;padding:0 14px}.catalog-tools{grid-template-columns:1fr;border-radius:20px}.filter-tabs,.price-tools{justify-content:flex-start}.filter-chip{height:39px;padding:0 12px;font-size:13px}.price-tools select{width:100%}
  .catalog-heading{padding:0 16px;margin-top:20px}.catalog-heading h2{font-size:26px}.catalog-heading p{font-size:14px}.grid{padding:16px;gap:18px}.card{border-radius:22px}.card img{height:100%}
+ .product-sizes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;gap:7px}.product-size-label{grid-column:1/-1}.product-size-btn{min-width:0;width:100%;padding:0 5px;font-size:13px}.product-size-btn small{font-size:8px}
  .cart-panel{padding:0}.cart-header{margin:0;padding:16px 14px}.cart-scroll{padding:16px 14px 22px}.cart-heading{font-size:21px}.cart-subtitle{display:none}.clear-btn{width:40px;padding:0;font-size:0}.clear-btn::before{content:'🗑';font-size:15px}
- .cart-item{grid-template-columns:64px minmax(0,1fr);gap:11px}.cart-item img{width:64px;height:64px}.cart-item-side{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;text-align:left;padding-top:9px;border-top:1px solid #edf1ea}.qty{margin:0}
+ .cart-item{grid-template-columns:64px minmax(0,1fr);gap:11px}.cart-item-thumb{width:64px;height:64px}.cart-item-side{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;text-align:left;padding-top:9px;border-top:1px solid #edf1ea}.qty{margin:0}
  .day-summary{padding:15px}.day-grid,.planner-stats{gap:5px}.day-grid>div,.planner-stats>div{padding:8px 2px}.day-grid b,.planner-stats b{font-size:16px}.goal-progress-grid{grid-template-columns:1fr}
  .planner-progress{grid-template-columns:1fr}.meal-buttons{grid-template-columns:repeat(2,1fr)}
  .meal-plan-row{grid-template-columns:1fr;gap:13px}.meal-left{align-items:center}.meal-info .meal-choice{grid-template-columns:minmax(0,1fr) 92px;align-items:start}.meal-macros{display:grid;width:100%;min-width:0;grid-template-columns:repeat(4,1fr);gap:4px;text-align:center;line-height:1.35;justify-self:stretch}.meal-macros b{display:block}
@@ -1012,6 +1023,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <div class="quick-view-box" onclick="event.stopPropagation()">
 <div class="quick-view-media">
 <img id="quickViewImage" src="assets/logo.jpg" alt="" decoding="async">
+<span id="quickViewPhotoPlaceholder" class="product-photo-placeholder"></span>
 <button id="quickPrev" class="quick-gallery-btn prev" onclick="event.stopPropagation();changeQuickViewImage(-1)" aria-label="Предыдущее фото">‹</button>
 <button id="quickNext" class="quick-gallery-btn next" onclick="event.stopPropagation();changeQuickViewImage(1)" aria-label="Следующее фото">›</button>
 </div>
@@ -1022,6 +1034,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 </div>
 <p id="quickViewDesc" class="quick-view-desc"></p>
 <div id="quickViewDetails" class="quick-view-details"></div>
+<div id="quickViewSizes"></div>
 <div class="quick-view-macros">
 <div class="quick-view-macro"><b id="quickViewCalories">0</b><span id="quickViewCaloriesLabel">ккал</span></div>
 <div class="quick-view-macro"><b id="quickViewProtein">0</b><span id="quickViewProteinLabel">Б</span></div>
@@ -1158,6 +1171,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 <button class="filter-chip" data-category="protein" onclick="setProductCategory('protein',this)">Белки</button>
 <button class="filter-chip" data-category="carbs" onclick="setProductCategory('carbs',this)">Углеводы</button>
 <button class="filter-chip" data-category="fiber" onclick="setProductCategory('fiber',this)">Овощи</button>
+<button class="filter-chip" data-category="desserts" onclick="setProductCategory('desserts',this)">Десерты</button>
 </div>
 <button id="mobileFilterToggle" class="mobile-filter-toggle" type="button" onclick="toggleMobileFilters()" aria-expanded="false"><span id="mobileFilterLabel">Сортировка и цена</span><b>⌄</b></button>
 <div class="price-tools">
@@ -1373,6 +1387,7 @@ let loyaltyAuthStage='email';
 let loyaltySession=null;
 let loyaltyStatusLoading=false;
 let productImageIndex={};
+let productSizeSelection={};
 let quickViewProductId='';
 let quickViewImageIndex=0;
 const API_BASE='https://eatfit-bot.onrender.com';
@@ -1395,7 +1410,7 @@ const I18N={
   heroPoint1:'Готовые блюда под вашу цель',heroPoint2:'Рацион под ваши КБЖУ',heroPoint3:'Быстрый заказ без регистрации',
   heroBuild:'Что можно собрать',heroBuildText:'Белки, гарниры и овощи для удобного дневного рациона.',categories:'категории',kbjuPick:'подбор',prices:'цены',
   savedTitle:'Ваша цель КБЖУ сохранена',savedSub:'Теперь можно автоматически подобрать рацион под эти значения.',calories:'ккал',protein:'белки',fat:'жиры',carbs:'углеводы',proteinShort:'Б',fatShort:'Ж',carbsShort:'У',
-  recalc:'Пересчитать',searchPlaceholder:'Поиск блюда...',all:'Все',proteins:'Белки',carbsFilter:'Углеводы',fiber:'Овощи',mobileCatalog:'Каталог',mobilePlan:'Рацион',mobileFilters:'Сортировка и цена',menuLabel:'Меню',mobileNavigation:'Мобильная навигация',previousPhoto:'Предыдущее фото',nextPhoto:'Следующее фото',
+  recalc:'Пересчитать',searchPlaceholder:'Поиск блюда...',all:'Все',proteins:'Белки',carbsFilter:'Углеводы',fiber:'Овощи',desserts:'Десерты',cakeSize:'Диаметр торта',sizeComingSoon:'скоро',photoComingSoon:'Фото скоро',sizeLabel:'{size} см',mobileCatalog:'Каталог',mobilePlan:'Рацион',mobileFilters:'Сортировка и цена',menuLabel:'Меню',mobileNavigation:'Мобильная навигация',previousPhoto:'Предыдущее фото',nextPhoto:'Следующее фото',
   priceAny:'Любая цена',priceUnder:'До 50 000 VND',priceMid:'50 000–100 000 VND',priceOver:'От 100 000 VND',sortDefault:'По умолчанию',sortAsc:'Сначала дешевле',sortDesc:'Сначала дороже',
   catalogTitle:'Каталог EatFit',catalogSub:'Фильтруйте продукты по роли в рационе и добавляйте только то, что подходит вам.',
   addToCart:'В корзину',quickView:'Подробнее',emptyProducts:'Ничего не найдено. Попробуйте изменить поиск или выбрать другую категорию.',emptyCartTitle:'Корзина пока пустая',emptyCartText:'Добавьте блюда из каталога или соберите рацион под ваши КБЖУ.',emptyCartMenu:'К меню',balancedComponent:'Сбалансированный компонент для вашего рациона.',
@@ -1436,7 +1451,9 @@ const I18N={
    'carb-008':['Шоколадная овсяная каша','Густая и сытная овсяная каша с мягким шоколадным вкусом.'],
    'fiber-001':['Брокколи на пару','Нежные соцветия брокколи с натуральным вкусом и легкой текстурой.'],
    'fiber-005':['Цветная капуста на пару','Мягкая цветная капуста с нежным натуральным вкусом для сбалансированного рациона.'],
-   'fiber-008':['Овощной микс на пару','Сбалансированное сочетание брокколи, цветной капусты и моркови без добавления масла.']
+   'fiber-008':['Овощной микс на пару','Сбалансированное сочетание брокколи, цветной капусты и моркови без добавления масла.'],
+   'lemon-cheesecake':['Лимонный чизкейк','Легкий лимонный чизкейк с мягкой цитрусовой кислинкой.'],
+   'honey-cake':['Медовик','Нежный медовик с тонкими коржами и легким кремом на основе греческого йогурта.']
   }
  },
  en:{
@@ -1446,7 +1463,7 @@ const I18N={
   heroPoint1:'Ready meals for your goal',heroPoint2:'Meal plan for your macros',heroPoint3:'Fast order without registration',
   heroBuild:'What you can build',heroBuildText:'Proteins, sides and vegetables for a convenient daily plan.',categories:'categories',kbjuPick:'macro-based plan',prices:'prices',
   savedTitle:'Your macro target is saved',savedSub:'Now you can automatically build a plan around these values.',calories:'kcal',protein:'protein',fat:'fats',carbs:'carbs',proteinShort:'P',fatShort:'F',carbsShort:'C',
-  recalc:'Recalculate',searchPlaceholder:'Search dish...',all:'All',proteins:'Protein',carbsFilter:'Carbs',fiber:'Vegetables',mobileCatalog:'Menu',mobilePlan:'Meal plan',mobileFilters:'Sort and price',menuLabel:'Menu',mobileNavigation:'Mobile navigation',previousPhoto:'Previous photo',nextPhoto:'Next photo',
+  recalc:'Recalculate',searchPlaceholder:'Search dish...',all:'All',proteins:'Protein',carbsFilter:'Carbs',fiber:'Vegetables',desserts:'Desserts',cakeSize:'Cake diameter',sizeComingSoon:'coming soon',photoComingSoon:'Photos coming soon',sizeLabel:'{size} cm',mobileCatalog:'Menu',mobilePlan:'Meal plan',mobileFilters:'Sort and price',menuLabel:'Menu',mobileNavigation:'Mobile navigation',previousPhoto:'Previous photo',nextPhoto:'Next photo',
   priceAny:'Any price',priceUnder:'Under 50,000 VND',priceMid:'50,000–100,000 VND',priceOver:'Over 100,000 VND',sortDefault:'Default',sortAsc:'Cheapest first',sortDesc:'Most expensive first',
   catalogTitle:'EatFit Catalog',catalogSub:'Filter products by their role in your plan and add only what works for you.',
   addToCart:'Add to cart',quickView:'Details',emptyProducts:'Nothing found. Try changing the search or category.',emptyCartTitle:'Your cart is empty',emptyCartText:'Add dishes from the catalog or build a meal plan around your macros.',emptyCartMenu:'To menu',balancedComponent:'A balanced component for your meal plan.',
@@ -1487,7 +1504,9 @@ const I18N={
    'carb-008':['Chocolate oatmeal','Thick and filling oatmeal with a soft chocolate taste.'],
    'fiber-001':['Steamed broccoli','Tender broccoli florets with a natural taste and light texture.'],
    'fiber-005':['Steamed cauliflower','Soft cauliflower with a gentle natural taste for a balanced plan.'],
-   'fiber-008':['Steamed vegetable mix','A balanced mix of broccoli, cauliflower and carrot without added oil.']
+   'fiber-008':['Steamed vegetable mix','A balanced mix of broccoli, cauliflower and carrot without added oil.'],
+   'lemon-cheesecake':['Lemon cheesecake','A light lemon cheesecake with a delicate citrus tang.'],
+   'honey-cake':['Honey cake','A tender honey cake with thin layers and a light Greek yogurt cream.']
   }
  },
  vi:{
@@ -1497,7 +1516,7 @@ const I18N={
   heroPoint1:'Bữa ăn sẵn theo mục tiêu',heroPoint2:'Thực đơn theo macro của bạn',heroPoint3:'Đặt nhanh, không cần đăng ký',
   heroBuild:'Có thể chọn gì?',heroBuildText:'Món đạm, tinh bột và rau cho thực đơn hằng ngày tiện lợi.',categories:'nhóm món',kbjuPick:'theo macro',prices:'giá VND',
   savedTitle:'Đã lưu mục tiêu macro',savedSub:'Bạn có thể để EatFit tự động gợi ý thực đơn theo mục tiêu này.',calories:'kcal',protein:'đạm',fat:'chất béo',carbs:'tinh bột',proteinShort:'Đ',fatShort:'B',carbsShort:'T',
-  recalc:'Tính lại',searchPlaceholder:'Tìm món...',all:'Tất cả',proteins:'Món đạm',carbsFilter:'Tinh bột',fiber:'Rau',mobileCatalog:'Thực đơn',mobilePlan:'Khẩu phần',mobileFilters:'Sắp xếp và giá',menuLabel:'Menu',mobileNavigation:'Điều hướng di động',previousPhoto:'Ảnh trước',nextPhoto:'Ảnh tiếp theo',
+  recalc:'Tính lại',searchPlaceholder:'Tìm món...',all:'Tất cả',proteins:'Món đạm',carbsFilter:'Tinh bột',fiber:'Rau',desserts:'Món tráng miệng',cakeSize:'Đường kính bánh',sizeComingSoon:'sắp có',photoComingSoon:'Sắp có ảnh',sizeLabel:'{size} cm',mobileCatalog:'Thực đơn',mobilePlan:'Khẩu phần',mobileFilters:'Sắp xếp và giá',menuLabel:'Menu',mobileNavigation:'Điều hướng di động',previousPhoto:'Ảnh trước',nextPhoto:'Ảnh tiếp theo',
   priceAny:'Tất cả mức giá',priceUnder:'Dưới 50.000 VND',priceMid:'50.000–100.000 VND',priceOver:'Từ 100.000 VND',sortDefault:'Mặc định',sortAsc:'Giá thấp trước',sortDesc:'Giá cao trước',
   catalogTitle:'Thực đơn EatFit',catalogSub:'Lọc món theo vai trò trong bữa ăn và chỉ thêm những món phù hợp với bạn.',
   addToCart:'Thêm vào giỏ',quickView:'Chi tiết',emptyProducts:'Không tìm thấy món phù hợp. Hãy đổi từ khóa hoặc chọn nhóm món khác.',emptyCartTitle:'Giỏ hàng đang trống',emptyCartText:'Thêm món từ thực đơn hoặc để EatFit gợi ý khẩu phần theo macro.',emptyCartMenu:'Đến thực đơn',balancedComponent:'Một phần ăn cân bằng cho thực đơn của bạn.',
@@ -1538,7 +1557,9 @@ const I18N={
    'carb-008':['Yến mạch chocolate','Yến mạch đặc, no lâu với vị chocolate dịu.'],
    'fiber-001':['Bông cải xanh hấp','Bông cải xanh mềm với vị tự nhiên và kết cấu nhẹ.'],
    'fiber-005':['Súp lơ trắng hấp','Súp lơ trắng mềm, vị tự nhiên nhẹ cho thực đơn cân bằng.'],
-   'fiber-008':['Rau củ hấp hỗn hợp','Hỗn hợp bông cải xanh, súp lơ trắng và cà rốt, không thêm dầu.']
+   'fiber-008':['Rau củ hấp hỗn hợp','Hỗn hợp bông cải xanh, súp lơ trắng và cà rốt, không thêm dầu.'],
+   'lemon-cheesecake':['Bánh cheesecake chanh','Cheesecake chanh nhẹ với vị chua thanh dịu.'],
+   'honey-cake':['Bánh mật ong','Bánh mật ong mềm với các lớp bánh mỏng và kem sữa chua Hy Lạp nhẹ.']
   }
  }
 };
@@ -2235,9 +2256,10 @@ function productSearchNames(product){
 function parseOrderItemsForRepeat(itemsText){
  return String(itemsText || '').split('\n').map(line=>{
   const qtyMatch=line.match(/[×x]\s*([\d.,]+)/i);
+  const sizeMatch=line.match(/(18|20|22)\s*(?:см|cm)/i);
   const qty=qtyMatch ? Number(String(qtyMatch[1]).replace(',','.')) : 1;
   const name=normalizeOrderItemName(line);
-  return {name,qty:Number.isFinite(qty) && qty>0 ? qty : 1};
+  return {name,qty:Number.isFinite(qty) && qty>0 ? qty : 1,size:sizeMatch ? Number(sizeMatch[1]) : null};
  }).filter(item=>item.name);
 }
 
@@ -2251,9 +2273,10 @@ function repeatLoyaltyOrder(index){
  items.forEach(item=>{
   const found=productNames.find(entry=>entry.names.some(name=>name===item.name || item.name.includes(name) || name.includes(item.name)));
   if(!found) return;
-  const existing=cart.find(cartItem=>cartItem.id===found.product.id);
+  const size=normalizedCartSize(found.product,item.size);
+  const existing=cart.find(cartItem=>cartItemMatches(cartItem,found.product.id,size));
   if(existing) existing.qty=Math.round((Number(existing.qty||0)+item.qty)*100)/100;
-  else cart.push({id:found.product.id,qty:item.qty});
+  else cart.push(size ? {id:found.product.id,qty:item.qty,size} : {id:found.product.id,qty:item.qty});
   added+=item.qty;
  });
 
@@ -2800,6 +2823,7 @@ function applyLanguage(){
  if(filterChips[1]) filterChips[1].textContent=t('proteins');
  if(filterChips[2]) filterChips[2].textContent=t('carbsFilter');
  if(filterChips[3]) filterChips[3].textContent=t('fiber');
+ if(filterChips[4]) filterChips[4].textContent=t('desserts');
  setOption('priceRange','',t('priceAny'));
  setOption('priceRange','under50000',t('priceUnder'));
  setOption('priceRange','50000-100000',t('priceMid'));
@@ -3025,23 +3049,88 @@ function updateCounter(){
  document.getElementById('mobileDockCart')?.classList.toggle('cart-active',count>0);
 }
 
-function add(id){
- const item=cart.find(x=>x.id===id);
+function productSizes(product){
+ return Array.isArray(product?.sizes) ? product.sizes.filter(size=>Number(size?.diameter)>0) : [];
+}
+
+function selectedProductSize(product){
+ const sizes=productSizes(product);
+ if(!sizes.length) return null;
+ const selected=Number(productSizeSelection[product.id]||0);
+ return sizes.find(size=>Number(size.diameter)===selected && size.isAvailable!==false && Number.isFinite(Number(size.price)))
+  || sizes.find(size=>size.isAvailable!==false && Number.isFinite(Number(size.price)))
+  || sizes[0];
+}
+
+function productVariantForCart(product,size){
+ const sizes=productSizes(product);
+ if(!sizes.length) return null;
+ return sizes.find(item=>Number(item.diameter)===Number(size) && item.isAvailable!==false && Number.isFinite(Number(item.price)))
+  || selectedProductSize(product);
+}
+
+function productUnitPrice(product,size){
+ const variant=productVariantForCart(product,size);
+ return Number(variant?.price ?? product?.price ?? 0);
+}
+
+function productUnitWeight(product,size){
+ const variant=productVariantForCart(product,size);
+ return Number(variant?.weight ?? product?.weight ?? 0);
+}
+
+function normalizedCartSize(product,size){
+ if(!productSizes(product).length) return null;
+ return Number(productVariantForCart(product,size)?.diameter||0)||null;
+}
+
+function cartItemMatches(item,id,size){
+ return item.id===id && Number(item.size||0)===Number(size||0);
+}
+
+function setProductSize(id,size,event){
+ event?.stopPropagation();
+ const product=products.find(item=>item.id===id);
+ const variant=productSizes(product).find(item=>Number(item.diameter)===Number(size));
+ if(!variant || variant.isAvailable===false || !Number.isFinite(Number(variant.price))) return;
+ productSizeSelection[id]=Number(size);
+ if(window.renderProducts) window.renderProducts();
+ if(quickViewProductId===id) updateQuickViewVariant(product);
+}
+
+function productSizeSelectorHtml(product,scope='card'){
+ const sizes=productSizes(product);
+ if(!sizes.length) return '';
+ const selected=selectedProductSize(product);
+ return `<div class="product-sizes ${scope==='quick'?'quick-view-sizes':''}"><span class="product-size-label">${t('cakeSize')}</span>${sizes.map(size=>{
+  const active=Number(selected?.diameter)===Number(size.diameter);
+  const available=size.isAvailable!==false && Number.isFinite(Number(size.price));
+  return `<button class="product-size-btn${active?' active':''}" type="button" ${available?'':'disabled'} onclick="setProductSize('${product.id}',${Number(size.diameter)},event)">${t('sizeLabel',{size:Number(size.diameter)})}${available?'':`<small>${t('sizeComingSoon')}</small>`}</button>`;
+ }).join('')}</div>`;
+}
+
+function add(id,size=null){
+ const product=products.find(item=>item.id===id);
+ if(!product) return;
+ const resolvedSize=normalizedCartSize(product,size);
+ const item=cart.find(x=>cartItemMatches(x,id,resolvedSize));
  if(item)item.qty++;
- else cart.push({id,qty:1});
+ else cart.push(resolvedSize ? {id,qty:1,size:resolvedSize} : {id,qty:1});
  saveCart();
  if(window.renderProducts) window.renderProducts();
 
  showToast(t('toastDish'));
 }
 
-function changeQty(id,delta){
- const item=cart.find(x=>x.id===id);
+function changeQty(id,delta,size=null){
+ const product=products.find(item=>item.id===id);
+ const resolvedSize=normalizedCartSize(product,size);
+ const item=cart.find(x=>cartItemMatches(x,id,resolvedSize));
  if(!item)return;
  item.qty+=delta;
  item.qty=Math.round(item.qty*100)/100;
  if(item.qty<=0){
-   cart=cart.filter(x=>x.id!==id);
+   cart=cart.filter(x=>!cartItemMatches(x,id,resolvedSize));
  }
  saveCart();
  if(window.renderProducts) window.renderProducts();
@@ -3053,14 +3142,18 @@ function clearCart(){
  if(window.renderProducts) window.renderProducts();
 }
 
-function removeItem(id){
- cart=cart.filter(x=>x.id!==id);
+function removeItem(id,size=null){
+ const product=products.find(item=>item.id===id);
+ const resolvedSize=normalizedCartSize(product,size);
+ cart=cart.filter(x=>!cartItemMatches(x,id,resolvedSize));
  saveCart();
  if(window.renderProducts) window.renderProducts();
 }
 
-function cartQuantity(id){
- return Number(cart.find(item=>item.id===id)?.qty||0);
+function cartQuantity(id,size=null){
+ const product=products.find(item=>item.id===id);
+ const resolvedSize=normalizedCartSize(product,size);
+ return Number(cart.find(item=>cartItemMatches(item,id,resolvedSize))?.qty||0);
 }
 
 function markProductImageLoaded(image){
@@ -3070,6 +3163,10 @@ function markProductImageLoaded(image){
 function productImages(product){
  const images=Array.isArray(product?.images) ? product.images.filter(Boolean) : [];
  return images.length ? images : ['logo.jpg'];
+}
+
+function hasProductPhotos(product){
+ return Array.isArray(product?.images) && product.images.filter(Boolean).length>0;
 }
 
 function productImagePath(file){
@@ -3092,21 +3189,40 @@ function useOriginalProductImage(image,file){
 
 function setQuickViewImage(product){
  const images=productImages(product);
+ const hasPhotos=hasProductPhotos(product);
  quickViewImageIndex=((quickViewImageIndex % images.length)+images.length)%images.length;
  const image=document.getElementById('quickViewImage');
+ const placeholder=document.getElementById('quickViewPhotoPlaceholder');
+ if(placeholder){
+  placeholder.textContent=t('photoComingSoon');
+  placeholder.classList.toggle('show',!hasPhotos);
+ }
  if(image){
  const file=images[quickViewImageIndex];
+  image.style.visibility=hasPhotos ? 'visible' : 'hidden';
   image.closest('.quick-view-media')?.classList.add('is-loading');
   image.src=productImagePath(file);
   image.alt=productName(product);
   image.onerror=()=>useOriginalProductImage(image,file);
   image.onload=()=>markProductImageLoaded(image);
  }
- const showControls=images.length>1;
+ const showControls=hasPhotos && images.length>1;
  ['quickPrev','quickNext'].forEach(id=>{
   const element=document.getElementById(id);
   if(element) element.style.display=showControls ? '' : 'none';
  });
+}
+
+function updateQuickViewVariant(product){
+ const sizes=document.getElementById('quickViewSizes');
+ if(sizes) sizes.innerHTML=productSizeSelectorHtml(product,'quick');
+ const size=selectedProductSize(product)?.diameter||null;
+ setText('#quickViewPrice',`${productUnitPrice(product,size).toLocaleString()} VND`);
+ const addBtn=document.getElementById('quickViewAdd');
+ if(addBtn){
+  addBtn.textContent=t('addToCart');
+  addBtn.onclick=()=>{add(product.id,size);closeQuickView();};
+ }
 }
 
 function changeQuickViewImage(direction){
@@ -3141,12 +3257,7 @@ function openQuickView(id){
  setText('#quickViewProtein',formatMacro(product.protein));
  setText('#quickViewFat',formatMacro(product.fat));
  setText('#quickViewCarbs',formatMacro(product.carbs));
- setText('#quickViewPrice',`${product.price.toLocaleString()} VND`);
- const addBtn=document.getElementById('quickViewAdd');
- if(addBtn){
-  addBtn.textContent=t('addToCart');
-  addBtn.onclick=()=>{add(id);closeQuickView();};
- }
+ updateQuickViewVariant(product);
  modal?.classList.add('show');
 }
 
@@ -3244,23 +3355,28 @@ function renderCart(){
    const p=products.find(x=>x.id===c.id);
    if(!p)return;
 
-   totalPrice+=p.price*c.qty;
+   const size=normalizedCartSize(p,c.size);
+   const unitPrice=productUnitPrice(p,size);
+   const unitWeight=productUnitWeight(p,size);
+   const sizeArg=size===null ? 'null' : String(size);
+
+   totalPrice+=unitPrice*c.qty;
    totalQty+=c.qty;
 
    box.innerHTML+=`
    <div class="cart-item">
-      <img src="${productImagePath(productImages(p)[0])}" alt="${productName(p)}" loading="lazy" decoding="async" onerror="useOriginalProductImage(this,'${productImages(p)[0]}')">
+      <div class="cart-item-thumb">${hasProductPhotos(p) ? `<img src="${productImagePath(productImages(p)[0])}" alt="${productName(p)}" loading="lazy" decoding="async" onerror="useOriginalProductImage(this,'${productImages(p)[0]}')">` : escapeHtml(t('photoComingSoon'))}</div>
       <div class="cart-item-info">
       <b class="cart-item-name">${productName(p)}</b>
-      <div class="cart-item-meta"><span>${p.calories} ${t('calories')}</span><span>${t('proteinShort')} ${formatMacro(p.protein)}</span><span>${t('fatShort')} ${formatMacro(p.fat)}</span><span>${t('carbsShort')} ${formatMacro(p.carbs)}</span></div>
+      <div class="cart-item-meta">${size ? `<span>${t('sizeLabel',{size})}</span>` : ''}${unitWeight ? `<span>${unitWeight.toLocaleString()} ${gramUnit()}</span>` : ''}<span>${p.calories} ${t('calories')}</span><span>${t('proteinShort')} ${formatMacro(p.protein)}</span><span>${t('fatShort')} ${formatMacro(p.fat)}</span><span>${t('carbsShort')} ${formatMacro(p.carbs)}</span></div>
       </div>
       <div class="cart-item-side">
-      <div class="cart-item-price">${p.price.toLocaleString()} VND</div>
+      <div class="cart-item-price">${unitPrice.toLocaleString()} VND</div>
       <div class="qty">
-        <button onclick="changeQty('${c.id}',-1)" aria-label="-">−</button>
+        <button onclick="changeQty('${c.id}',-1,${sizeArg})" aria-label="-">−</button>
         <b>${formatQty(c.qty)}</b>
-        <button onclick="changeQty('${c.id}',1)" aria-label="+">+</button>
-        <button class="remove-item" onclick="removeItem('${c.id}')" aria-label="x">×</button>
+        <button onclick="changeQty('${c.id}',1,${sizeArg})" aria-label="+">+</button>
+        <button class="remove-item" onclick="removeItem('${c.id}',${sizeArg})" aria-label="x">×</button>
       </div>
       </div>
    </div>`;
@@ -3395,9 +3511,12 @@ async function checkout(){
  cart.forEach(c=>{
    const p=products.find(x=>x.id===c.id);
    if(!p)return;
-   items += `${productName(p)} × ${formatQty(c.qty)}
+   const size=normalizedCartSize(p,c.size);
+   const unitWeight=productUnitWeight(p,size);
+   const variantInfo=size ? ` · ${t('sizeLabel',{size})}${unitWeight ? ` · ${unitWeight.toLocaleString()} ${gramUnit()}` : ''}` : '';
+   items += `${productName(p)} × ${formatQty(c.qty)}${variantInfo}
 `;
-   totalPrice += p.price*c.qty;
+   totalPrice += productUnitPrice(p,size)*c.qty;
  });
 
  const orderId = generateOrderId();
@@ -3516,8 +3635,16 @@ fetch('data/products.json')
 .then(r=>r.json())
 .then(data=>{
  products=data;
- const availableIds=new Set(products.map(item=>item.id));
- cart=cart.filter(item=>availableIds.has(item.id));
+ products.forEach(product=>{
+  const variant=selectedProductSize(product);
+  if(variant) productSizeSelection[product.id]=Number(variant.diameter);
+ });
+ const availableIds=new Set(products.filter(item=>item.isAvailable!==false).map(item=>item.id));
+ cart=cart.filter(item=>availableIds.has(item.id)).map(item=>{
+  const product=products.find(entry=>entry.id===item.id);
+  const size=normalizedCartSize(product,item.size);
+  return size ? {...item,size} : {id:item.id,qty:item.qty};
+ });
  localStorage.setItem('cart',JSON.stringify(cart));
  let activeProductCategory='';
 
@@ -3525,6 +3652,7 @@ fetch('data/products.json')
    if(p.categories && p.categories.includes('protein')) return {label:t('proteins'),icon:'🥩'};
    if(p.categories && p.categories.includes('carbs')) return {label:t('carbsFilter'),icon:'🍚'};
    if(p.categories && p.categories.includes('fiber')) return {label:t('fiber'),icon:'🥦'};
+   if(p.categories && p.categories.includes('desserts')) return {label:t('desserts'),icon:'🍰'};
    return {label:t('addToCart'),icon:'🥗'};
  }
 
@@ -3544,18 +3672,20 @@ fetch('data/products.json')
  box.innerHTML='';
 
  let visible=products
+ .filter(p=>p.isAvailable!==false)
  .filter(p=>(p.name+' '+productName(p)).toLowerCase().includes(search))
  .filter(p=>!activeProductCategory || (p.categories && p.categories.includes(activeProductCategory)))
  .filter(p=>{
-   const price=Number(p.price||0);
+   const price=productUnitPrice(p,selectedProductSize(p)?.diameter);
    if(priceRange==='under50000') return price<50000;
    if(priceRange==='50000-100000') return price>=50000 && price<=100000;
    if(priceRange==='over100000') return price>100000;
    return true;
- });
+ })
+ .sort((a,b)=>Number(a.sortOrder??999)-Number(b.sortOrder??999));
 
- if(priceSort==='asc') visible.sort((a,b)=>(a.price||0)-(b.price||0));
- if(priceSort==='desc') visible.sort((a,b)=>(b.price||0)-(a.price||0));
+ if(priceSort==='asc') visible.sort((a,b)=>productUnitPrice(a,selectedProductSize(a)?.diameter)-productUnitPrice(b,selectedProductSize(b)?.diameter));
+ if(priceSort==='desc') visible.sort((a,b)=>productUnitPrice(b,selectedProductSize(b)?.diameter)-productUnitPrice(a,selectedProductSize(a)?.diameter));
 
  if(!visible.length){
    box.innerHTML=`<div class="empty-products">${t('emptyProducts')}</div>`;
@@ -3568,12 +3698,16 @@ fetch('data/products.json')
  const galleryControls=images.length>1 ? `
     <button class="card-gallery-btn prev" onclick="event.stopPropagation();changeCardImage('${p.id}',-1)" aria-label="${t('previousPhoto')}">‹</button>
     <button class="card-gallery-btn next" onclick="event.stopPropagation();changeCardImage('${p.id}',1)" aria-label="${t('nextPhoto')}">›</button>` : '';
- const qty=cartQuantity(p.id);
- const cartAction=qty>0 ? `<div class="card-qty" onclick="event.stopPropagation()"><button type="button" onclick="changeQty('${p.id}',-1)" aria-label="−">−</button><b>${formatQty(qty)}</b><button type="button" onclick="changeQty('${p.id}',1)" aria-label="+">+</button></div>` : `<button class="btn" onclick="event.stopPropagation();add('${p.id}')">${t('addToCart')}</button>`;
+ const size=selectedProductSize(p)?.diameter||null;
+ const sizeArg=size===null ? 'null' : String(size);
+ const unitPrice=productUnitPrice(p,size);
+ const qty=cartQuantity(p.id,size);
+ const cartAction=qty>0 ? `<div class="card-qty" onclick="event.stopPropagation()"><button type="button" onclick="changeQty('${p.id}',-1,${sizeArg})" aria-label="−">−</button><b>${formatQty(qty)}</b><button type="button" onclick="changeQty('${p.id}',1,${sizeArg})" aria-label="+">+</button></div>` : `<button class="btn" onclick="event.stopPropagation();add('${p.id}',${sizeArg})">${t('addToCart')}</button>`;
  box.innerHTML+=`
  <div class="card" onclick="openQuickView('${p.id}')">
    <div class="card-media is-loading" data-product-id="${p.id}">
     <img src="${productImagePath(images[imageIndex])}" alt="${productName(p)}" ${visibleIndex<2?'loading="eager" fetchpriority="high"':'loading="lazy"'} decoding="async" onload="markProductImageLoaded(this)" onerror="useOriginalProductImage(this,'${images[imageIndex]}')">
+    ${!hasProductPhotos(p) ? `<span class="product-photo-placeholder show">${t('photoComingSoon')}</span>` : ''}
     ${galleryControls}
    </div>
    <div class="card-body">
@@ -3585,8 +3719,9 @@ fetch('data/products.json')
      <div class="macro-pill"><b>${formatMacro(p.fat)}</b>${t('fatShort')}</div>
      <div class="macro-pill"><b>${formatMacro(p.carbs)}</b>${t('carbsShort')}</div>
     </div>
+    ${productSizeSelectorHtml(p)}
     <div class="card-footer">
-     <div class="price">${p.price.toLocaleString()} VND</div>
+     <div class="price">${unitPrice.toLocaleString()} VND</div>
      <div class="card-actions">
       <button class="details-btn" onclick="event.stopPropagation();openQuickView('${p.id}')">${t('quickView')}</button>
       ${cartAction}

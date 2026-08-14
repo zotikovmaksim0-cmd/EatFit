@@ -268,5 +268,55 @@
       "cooking": "Приготовлено на пару без добавления масла и упаковано в вакуум сразу после приготовления.",
       "storage": "При температуре 0...+4°C не более 4 суток со дня изготовления. После вскрытия упаковки употребить в течение 24 часов."
     }
+  },
+  {
+    "id": "lemon-cheesecake",
+    "name": "Лимонный чизкейк",
+    "description": "Легкий лимонный чизкейк на основе греческого йогурта и сливочного сыра с мягкой цитрусовой кислинкой.",
+    "price": 700000,
+    "weight": 1267,
+    "protein": 5,
+    "fat": 4.8,
+    "carbs": 12.4,
+    "calories": 109,
+    "categories": ["desserts", "cheesecakes", "healthy-desserts"],
+    "ingredientTags": ["цельнозерновая мука", "банан", "молоко", "греческий йогурт", "cream cheese", "яйцо", "яичный белок", "кукурузный крахмал", "лимон", "желатин", "ксантановая камедь", "подсластитель", "ваниль"],
+    "images": [],
+    "isAvailable": true,
+    "sortOrder": 15,
+    "sizes": [
+      {"diameter": 18, "price": 700000, "weight": 1267, "isAvailable": true},
+      {"diameter": 20, "price": null, "weight": null, "isAvailable": false},
+      {"diameter": 22, "price": null, "weight": null, "isAvailable": false}
+    ],
+    "details": {
+      "composition": "цельнозерновая мука, банан, молоко, греческий йогурт, сливочный сыр (cream cheese), яйцо, яичный белок, кукурузный крахмал, лимон, желатин, ксантановая камедь, подсластитель, ваниль.",
+      "weight": "1 267 г для торта диаметром 18 см."
+    }
+  },
+  {
+    "id": "honey-cake",
+    "name": "Медовик",
+    "description": "Нежный медовик с тонкими медовыми коржами и легким кремом на основе греческого йогурта.",
+    "price": 600000,
+    "weight": 1220,
+    "protein": 7,
+    "fat": 2.1,
+    "carbs": 22.6,
+    "calories": 131,
+    "categories": ["desserts", "cakes", "healthy-desserts"],
+    "ingredientTags": ["пшеничная мука", "яйца", "яичный белок", "мед", "греческий йогурт", "молоко", "эритритол", "ксантановая камедь", "ваниль"],
+    "images": [],
+    "isAvailable": true,
+    "sortOrder": 16,
+    "sizes": [
+      {"diameter": 18, "price": 600000, "weight": 1220, "isAvailable": true},
+      {"diameter": 20, "price": null, "weight": null, "isAvailable": false},
+      {"diameter": 22, "price": null, "weight": null, "isAvailable": false}
+    ],
+    "details": {
+      "composition": "пшеничная мука, яйца, яичный белок, мед, греческий йогурт, молоко, эритритол, ксантановая камедь, ваниль.",
+      "weight": "1 220 г для торта диаметром 18 см."
+    }
   }
 ]
