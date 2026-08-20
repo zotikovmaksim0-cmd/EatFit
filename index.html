@@ -1377,6 +1377,7 @@ body{font-family:Inter,Arial,sans-serif;background:#f7f5ee;color:#172015}
 </div>
 </div>
 
+<script src="data/products.js"></script>
 <script>
 let cart=JSON.parse(localStorage.getItem('cart')||'[]');
 let products=[];
@@ -3631,10 +3632,18 @@ if(loyaltySession) loyaltyAuthStage='signed-in';
 renderLoyaltyAuthState();
 restoreLoyaltyAuth().finally(scheduleWelcomeOffer);
 
-fetch('data/products.json')
-.then(r=>r.json())
+const productDataRequest=location.protocol==='file:'
+ ? Promise.resolve(window.EATFIT_PRODUCTS||[])
+ : fetch('data/products.json',{cache:'no-store'})
+   .then(r=>{
+    if(!r.ok) throw new Error(`Product catalog request failed: ${r.status}`);
+    return r.json();
+   })
+   .catch(()=>window.EATFIT_PRODUCTS||[]);
+
+productDataRequest
 .then(data=>{
- products=data;
+ products=Array.isArray(data)?data:[];
  products.forEach(product=>{
   const variant=selectedProductSize(product);
   if(variant) productSizeSelection[product.id]=Number(variant.diameter);
